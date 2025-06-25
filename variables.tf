@@ -1,0 +1,39 @@
+variable "aws_region" {
+  description = "AWS region"
+  default     = "us-east-1"
+}
+
+variable "instance_type" {
+  description = "EC2 instance type"
+  default     = "t2.micro"
+}
+
+variable "key_name" {
+  description = "SSH key pair name"
+  default     = "MIIEpQIBAAKCAQEAnfKjDNKWrIwo8/CtXYt4mVtgm0D3+fDkCbaIYh6gkDcbQ//i
+AmSNPsGU+mH6sUvOH0LwdEMerDZdon2eri41mx94MemrBapaz3VgBR5Ygcrf4oL2
+d1T4YmpFQBYgN/YP8xFfkrWg1pY4MjtOZt+lF7W+E91PagjLmyOPMhUkaAhPtcLN
+cms/OQagWWIri3Sl93KAkoSIy0gfhlvkeue6wWGE6F6iwVSkdJEUktjZI9o537y8
+L2kUM4iwiYgk2+JIpM6e6VR9/uc9tXt2r/vwMtSdiV/NvWGwMt6WU3oxqsp5EMYT
+Z54QHijo2U9GUYwz/akqSZCp0Ua+kWX5U2zFFQIDAQABAoIBAC/OTMOIycoX8h1D
+b3WszSe9nJPhKi0gWCUIdmccVgTQaRQ/0qxeutGPzgOqvDIFe7HClPzbg+Ej41tX
+IjweCGOXNs4Ep5rjYPEB2boy4R8HxJPOh8K+mR9Qgv1OtRm7BEDRtVe2WaQZe5DY
+mnZQoqt2er2QcoTpfJbMQH8sHwTNZXLc8GX1lL+XTisU7fPcvFdXX2fn2WYWakY5
+fEf5GbJaRqkogVyM8NqPOumemefCADSh5pauLcEAK9VnQqLStaDlTOsY6S4XuLgM
+edf+1IPsb7Pe66LUez0rrk91Ur1RKuU4S+ROwIJE5wa7nt/hoGN3M4gpm7hHaqNF
+lcs1a9ECgYEAzS4k8kRbvHRUp6pMcjn+RY3IX4OOQkysemJ26sIf6iLKl+prOvgm
+YxTgBoL+Jcaetzk6sbPs2jC2zYnHaoe3gNMUUU5sdLyXWghaMkcTtiGI+aWHsgSV
+lFFzuGRhfvNvEafiGhUXPgq7SdjLNyG6l8ORl5uKLy7CCUBPY2H8sKMCgYEAxRGg
+ZS7pos+wtbKbXQFpXWroP4aH/bt5agX0vWgtv9lWVPf5J5q92nGAJg5JO3bj9Ssn
+FznPfUlqbD6+tsqgEBjTravDe7iEj3tMS/DSlw6mgIYqZvdPxfVBNq+AVFCThAek
+g7d3vG67TCa8DMRVJJoDc+umGY8EE7N6uJ+tNucCgYEAokuQv+1gXtXprGHhbC0B
+OwUmbJ7D5R9/AqNmCtWYpvv0Imwze4aT3qXBeoUdAMZ1/toO2kdG32PPBQ+ppFNL
+zGOqW5Hb6g7O7VFT/xcHuXYXQdk0V5SWuKYhEcac8+0ceuu/xf/Oza1xbb1FKQvN
+64OvYyuOBzpGE0lCQotcdF8CgYEAmMp9zXV995mHrJh6FLYPdzp4LyijL3q3PBi6
+FFA9iE19vgs0xhwXrtHpRZg190DKpT9742oTEVRmit5rB1Y6m8Bj/nb57Wa2gHhc
+Q1TIMg5N0cA0B/kfhKAOm9Oeb8C5Xth+GRGaaCKCXRx7GHrweJxgqPO/qHlV8+Bn
++dTze2kCgYEAkL621+l0Ci8zKk3mKrwIhY5rPJ9KHDEK1Ccwul7hfEza3ZXyrRFe
+Mvl6lG1k1qhz87q9fAErVCJFlLaniocZJPvAf8fZmrVWbXMb8B+orjTeQr4klRYX
+KM+N5OXZDwHVAKuhJ5+X9welKguAuO/Jsjl73dp7JkWp07zx4VEkXnU=
+"
+}
