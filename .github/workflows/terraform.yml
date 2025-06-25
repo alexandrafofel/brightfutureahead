@@ -10,8 +10,9 @@ jobs:
     name: Terraform Init and Plan
     runs-on: ubuntu-latest
     env:
-      AWS_ACCESS_KEY_ID: ${{ AKIATOE2Y5EWVYNS47PD }}
-      AWS_SECRET_ACCESS_KEY: ${{ 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 }}    
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
