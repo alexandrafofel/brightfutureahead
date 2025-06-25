@@ -1,5 +1,5 @@
 resource "aws_instance" "web" {
-  ami           = "ami-0c02fb55956c7d316" # Amazon Linux 2 pentru N. Virginia
+  ami           = "ami-0faab6bdbac9486fb" # Amazon Linux 2 pentru N. Virginia
   instance_type = "t2.micro"
 
   subnet_id              = "subnet-0ea88fd8b99d74e57"
