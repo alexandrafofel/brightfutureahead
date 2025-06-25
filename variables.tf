@@ -1,1 +1,4 @@
-variable key_name = "brightfuture-key"
+variable "key_name" {
+  type    = string
+  default = "brightfuture-key"
+}
