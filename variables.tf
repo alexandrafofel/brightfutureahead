@@ -1,16 +1,8 @@
-variable "aws_region" {
-  description = "AWS region"
-  default     = "us-east-1"
-}
-
-variable "instance_type" {
-  description = "EC2 instance type"
-  default     = "t2.micro"
-}
-
 variable "key_name" {
-  description = "SSH key pair name"
-  default     = "MIIEpQIBAAKCAQEAnfKjDNKWrIwo8/CtXYt4mVtgm0D3+fDkCbaIYh6gkDcbQ//i
+  type        = string
+  description = "Continutul cheii private EC2"
+  default     = <<EOF
+MIIEpQIBAAKCAQEAnfKjDNKWrIwo8/CtXYt4mVtgm0D3+fDkCbaIYh6gkDcbQ//i
 AmSNPsGU+mH6sUvOH0LwdEMerDZdon2eri41mx94MemrBapaz3VgBR5Ygcrf4oL2
 d1T4YmpFQBYgN/YP8xFfkrWg1pY4MjtOZt+lF7W+E91PagjLmyOPMhUkaAhPtcLN
 cms/OQagWWIri3Sl93KAkoSIy0gfhlvkeue6wWGE6F6iwVSkdJEUktjZI9o537y8
@@ -35,5 +27,5 @@ Q1TIMg5N0cA0B/kfhKAOm9Oeb8C5Xth+GRGaaCKCXRx7GHrweJxgqPO/qHlV8+Bn
 +dTze2kCgYEAkL621+l0Ci8zKk3mKrwIhY5rPJ9KHDEK1Ccwul7hfEza3ZXyrRFe
 Mvl6lG1k1qhz87q9fAErVCJFlLaniocZJPvAf8fZmrVWbXMb8B+orjTeQr4klRYX
 KM+N5OXZDwHVAKuhJ5+X9welKguAuO/Jsjl73dp7JkWp07zx4VEkXnU=
-"
+EOF
 }
