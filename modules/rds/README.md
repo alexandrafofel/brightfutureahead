@@ -1,16 +1,18 @@
-## 📦 Modul: ecs
+### 📦 Modul: rds
 
 ### 🔍 Scop
 
-Acest modul este pregătit pentru a crea un cluster ECS (Elastic Container Service) în AWS. ECS permite rularea de aplicații containerizate la scară mare, folosind EC2 sau Fargate.
+Modulul `rds` este pregătit pentru a configura o bază de date Amazon RDS (Relational Database Service), susținând motoare ca PostgreSQL, MySQL etc.
 
 ---
 
 ### 📥 Inputs
 
-| Nume         | Tip     | Descriere                                  | Implicit        |
-|--------------|---------|---------------------------------------------|-----------------|
-| `name`       | string  | Numele clusterului ECS                      | `"ecs-cluster"` |
+| Nume            | Tip     | Descriere                                    | Implicit           |
+|-----------------|---------|-----------------------------------------------|--------------------|
+| `engine`        | string  | Tipul motorului de baze de date (`postgres`, `mysql`, etc.) | `"postgres"`       |
+| `instance_class`| string  | Tipul instanței RDS                          | `"db.t3.micro"`    |
+| `name`          | string  | Numele bazei de date                        | `"app_db"`         |
 
 ---
 
@@ -23,8 +25,10 @@ _Niciun output definit momentan._
 ### 🧪 Exemplu de utilizare
 
 ```hcl
-module "ecs" {
-  source = "../../modules/ecs"
+module "rds" {
+  source         = "../../modules/rds"
 
-  name   = "brightfuture-ecs"
+  engine         = "postgres"
+  instance_class = "db.t3.micro"
+  name           = "brightfuture-db"
 }
