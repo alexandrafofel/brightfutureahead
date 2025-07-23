@@ -1,10 +1,11 @@
-🔹 Creează ECS (Elastic Container Service) = o platformă AWS pentru a rula Docker containers
-🔹 Definește:
+Creează ECS (Elastic Container Service) = o platformă AWS pentru a rula Docker containers
 
-cluster (grup de mașini/container hosts)
+Definește:
 
-task definition (cum arată aplicația ta Docker)
+🔹 cluster (grup de mașini/container hosts)
 
-service (cum se menține aplicația mereu online)
+🔹 task definition (cum arată aplicația ta Docker)
+
+🔹 service (cum se menține aplicația mereu online)
 
 ✅ Gândește-l ca un “server pentru containere”.
