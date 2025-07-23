@@ -1,5 +1,7 @@
 Creează RDS (Relational Database Service)
+
 Definește:
+
 🔹 tipul de DB (ex: PostgreSQL)
 🔹 versiunea, mărimea, autentificarea
 🔹 rețeaua în care se află DB-ul
