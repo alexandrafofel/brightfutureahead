@@ -1,12 +1,13 @@
 This folder will contain the ECS module definition.
 
-🔹 Creează VPC-ul (Virtual Private Cloud) = un fel de “cartier virtual” izolat din AWS
-🔹 Definește:
+Creează VPC-ul (Virtual Private Cloud) = un fel de “cartier virtual” izolat din AWS
 
-subnets (zone din cartier)
+Definește:
 
-route tables (reguli de circulație)
+🔹 subnets (zone din cartier)
 
-internet gateway (ieșirea la internet)
+🔹 route tables (reguli de circulație)
+
+🔹 internet gateway (ieșirea la internet)
 
 ✅ Fără VPC, nu ai unde să pui serverele tale – e prima piesă.
