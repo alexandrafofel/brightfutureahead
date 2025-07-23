@@ -1,11 +1,30 @@
-Creează ECS (Elastic Container Service) = o platformă AWS pentru a rula Docker containers
+## 📦 Modul: ecs
 
-Definește:
+### 🔍 Scop
 
-🔹 cluster (grup de mașini/container hosts)
+Acest modul este pregătit pentru a crea un cluster ECS (Elastic Container Service) în AWS. ECS permite rularea de aplicații containerizate la scară mare, folosind EC2 sau Fargate.
 
-🔹 task definition (cum arată aplicația ta Docker)
+---
 
-🔹 service (cum se menține aplicația mereu online)
+### 📥 Inputs
 
-✅ Gândește-l ca un “server pentru containere”.
+| Nume         | Tip     | Descriere                                  | Implicit        |
+|--------------|---------|---------------------------------------------|-----------------|
+| `name`       | string  | Numele clusterului ECS                      | `"ecs-cluster"` |
+
+---
+
+### 📤 Outputs
+
+_Niciun output definit momentan._
+
+---
+
+### 🧪 Exemplu de utilizare
+
+```hcl
+module "ecs" {
+  source = "../../modules/ecs"
+
+  name   = "brightfuture-ecs"
+}
