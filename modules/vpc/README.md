@@ -1,12 +1,32 @@
-Creează RDS (Relational Database Service)
+## 📦 Modul: vpc
 
-Definește:
+### 🔍 Scop
 
-🔹 tipul de DB (ex: PostgreSQL)
+Acest modul creează un Virtual Private Cloud (VPC) în AWS, cu opțiuni configurabile pentru CIDR block, DNS și tagging. Este baza pentru orice infrastructură AWS izolată și securizată.
 
-🔹 versiunea, mărimea, autentificarea
+---
 
-🔹 rețeaua în care se află DB-ul
+### 📥 Inputs
 
+| Nume         | Tip     | Descriere                                 | Implicit          |
+|--------------|---------|--------------------------------------------|-------------------|
+| `cidr_block` | string  | CIDR block-ul principal pentru VPC         | `"10.0.0.0/16"`   |
+| `name`       | string  | Numele tag-ului AWS pentru resursa VPC     | `"default-vpc"`   |
 
-✅ Baza de date stă într-un subnet privat și comunică cu aplicația din ECS.
+---
+
+### 📤 Outputs
+
+_Niciun output definit momentan._
+
+---
+
+### 🧪 Exemplu de utilizare
+
+```hcl
+module "vpc" {
+  source     = "../../modules/vpc"
+
+  cidr_block = "10.0.0.0/16"
+  name       = "brightfuture-vpc"
+}
