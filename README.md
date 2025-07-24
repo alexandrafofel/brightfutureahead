@@ -25,10 +25,14 @@ Acest proiect oferă o implementare modulară, scalabilă și ușor de întreți
 │   │   ├── versions.tf
 │   │   └──remote_backend_resources.tf
 │   └── prod/
-│       ├── README.md
-│       ├── backend.tf
-│       └── main.tf
-│
+│   │   ├── README.md
+│   │   ├── backend.tf
+│   │   ├──  main.tf
+│   │   └──remote_backend_resources.tf
+│   ├── dev-us/
+│   │   └──remote_backend_resources.tf
+│   └── prod-us/
+│   │   └──remote_backend_resources.tf
 ├── modules/
 │   ├── backend/
 │   │   ├── README.md
