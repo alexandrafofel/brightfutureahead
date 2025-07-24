@@ -48,8 +48,9 @@ Acest proiect oferă o implementare modulară, scalabilă și ușor de întreți
 │       ├── main.tf
 │       └── variables.tf
 │
-├── docs/
-│   └── AIT-220.md   # Documentație pentru organizare
+├── docs/                    # Documentație pentru organizare
+│   └── AIT-220.md
+│   └── AIT-221.md   
 │
 ├── README.md                     # Acest fișier
 ├── buildspec.yml                 # Config pentru AWS CodeBuild (opțional)
