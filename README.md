@@ -22,7 +22,8 @@ Acest proiect oferă o implementare modulară, scalabilă și ușor de întreți
 │   │   ├── ec2.tf
 │   │   ├── main.tf
 │   │   ├── variables.tf
-│   │   └── versions.tf
+│   │   ├── versions.tf
+│   │   └──remote_backend_resources.tf
 │   └── prod/
 │       ├── README.md
 │       ├── backend.tf
