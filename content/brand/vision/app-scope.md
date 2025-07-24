@@ -30,8 +30,8 @@
 | Plan | What the user gets | Price* |
 |------|--------------------|--------|
 | **Freemium** | 1 module + 20 chat tokens / month | €0 |
-| **B2C Subscription** | All modules + full report + unlimited chatbot | €9 / month |
-| **B2B White-label** | Custom branding + analytics dashboard | from €499 / month |
+| **B2C Subscription** | All modules + full report + unlimited chatbot | €to-be-decided / month |
+| **B2B White-label** | Custom branding + analytics dashboard | from €to-be-decided / month |
 \*Indicative – validate with market research.
 ---
 ## :world_map: MVP (3 months)
@@ -40,6 +40,6 @@
 - Auto-personalised newsletter
 ---
 ## :sparkles: Example micro-copy (Soothing-Empathetic-Trustworthy tone)
-> “You’re safe here. Let’s turn crises into connection.” :contentReference[oaicite:2]{index=2}
+> “You’re safe here. Let’s turn crises into connection.”
 >
 > “Need more calm? Start a 2-minute quiz.”
