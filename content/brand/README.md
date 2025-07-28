@@ -25,6 +25,10 @@ brightfutureahead / brand branch
 │   │   │   ├── parental-consent-RO-EN.md
 │   │   │   ├── parental-consent_draft.md
 │   │   │   ├── qa-checklist-consent.md
+├── docs/
+│   ├──lessons-learnt/
+│   │   ├── brand/
+│   │   │   ├── company-name-finding.md
 ├── envs/
 │   │   ├── dev/
 │   │   │   ├── README.md
