@@ -1,57 +1,76 @@
-# 🚀 AWS Pipeline MVP – Terraform Project
-
-Acest proiect oferă o implementare modulară, scalabilă și ușor de întreținut pentru infrastructură AWS, folosind **Terraform** și **CI/CD GitHub Actions**. Este optimizat pentru medii `dev` și `prod` și include module reutilizabile pentru VPC, ECS, RDS etc.
-
----
-
-## 📁 Structura Folderelor
-
-```plaintext
-.
-├── .github/
-│   └── workflows/
-│       └── terraform.yml         # CI/CD pipeline for Terraform
-│
+brightfutureahead / main branch
+├── .github
+│   ├── workflows/
+│   │   │   ├── terraform.yml
 ├── backends/
-│   └── backend.tf                # Backend config for Terraform state
-│
+│   │   ├── backend.tf
+├── content/
+│   │   ├── brand/
+│   │   │   ├── README.md         
+│   │   │   ├── company-name/
+│   │   │   │   ├── README.md
+│   │   │   │   ├── criteria-matrix-and-weights-v1.md
+│   │   │   │   ├── long-list-names-v1.md
+│   │   │   │   ├── root-words-v1.md
+│   │   │   │   ├── shortlist-name.md
+│   │   │   ├── vision
+│   │   │   │   ├── app-scope.md
+│   │   │   │   ├── north-star-brand-brief-v1.md
+│   │   │   │   ├── tone-of-voice-v1.md
+│   │   ├── legal/
+│   │   │   ├── GDPR-COPPA-parental-consent.md
+│   │   │   ├── legal-compliance-checklist–parental-consent.md
+│   │   │   ├── parental-consent-legal.md
+│   │   │   ├── legal-checklist-parental-consent.md
+│   │   │   ├── parental-consent-RO-EN.md
+│   │   │   ├── parental-consent_draft.md
+│   │   │   ├── qa-checklist-consent.md
+├── docs/
+│   │   ├── lessons-learnt/
+│   │   │   ├── brand/
+│   │   │   │   ├── company-name-finding.md
+│   │   ├── ticket-documentation/
+│   │   │   ├── aws/      
+│   │   │   │   ├── AIT-220.md
+│   │   │   │   ├── AIT-221.md   
+
 ├── envs/
-│   ├── dev/
-│   │   ├── README.md
-│   │   ├── backend.tf
-│   │   ├── ec2.tf
-│   │   ├── main.tf
-│   │   ├── variables.tf
-│   │   ├── versions.tf
-│   │   └──remote_backend_resources.tf
-│   └── prod/
-│   │   ├── README.md
-│   │   ├── backend.tf
-│   │   ├──  main.tf
-│   │   └──remote_backend_resources.tf
-│   ├── dev-us/
-│   │   └──remote_backend_resources.tf
-│   └── prod-us/
-│   │   └──remote_backend_resources.tf
-├── modules/
-│   ├── backend/
-│   │   ├── README.md
-│   │   ├── main.tf
-│   │   ├── outputs.tf
-│   │   └── variables.tf
-│   ├── ecs/
-│   │   └── README.md
-│   ├── rds/
-│   │   └── README.md
-│   └── vpc/
-│       ├── README.md
-│       ├── main.tf
-│       └── variables.tf
-│
-├── docs/                    # Documentație pentru organizare
-│   └── AIT-220.md
-│   └── AIT-221.md   
-│
-├── README.md                     # Acest fișier
-├── buildspec.yml                 # Config pentru AWS CodeBuild (opțional)
-└── setup.tf                      # Setup general
+│   │   ├── dev-us/
+│   │   │   ├── remote_backend_resources.tf
+│   │   ├── dev/
+│   │   │   ├── README.md
+│   │   │   ├── backend.tf
+│   │   │   ├── ec2.tf
+│   │   │   ├── main.tf
+│   │   │   ├── remote_backend_resources.tf
+│   │   │   ├── variables.tf
+│   │   │   ├── versions.tf
+│   │   ├── prod-us/
+│   │   │   ├── remote_backend_resources.tf
+│   │   ├── prod/
+│   │   │   ├── README.md
+│   │   │   ├── backend.tf
+│   │   │   ├── main.tf
+│   │   │   ├── remote_backend_resources.tf
+├── market-research/
+│   ├── market-signals-growth-equation-inputs.md           
+│   └── README.md                       
+├── modules/   
+│   │   ├── backend/
+│   │   │   ├── README.md
+│   │   │   ├── main.tf
+│   │   │   ├── outputs.tf
+│   │   │   ├── variables.tf
+│   │   ├── ecs/
+│   │   │   ├── README.md
+│   │   ├── rds/
+│   │   │   ├── README.md
+│   │   ├── vpc/  
+│   │   │   ├── README.md
+│   │   │   ├── main.tf   
+│   │   │   ├── variables.tf  
+├── docs/   
+│   │   ├── aws-folder-structure.md                    
+└── README.md           <-- this file
+└── buildspec.yml
+└── setup.tf
