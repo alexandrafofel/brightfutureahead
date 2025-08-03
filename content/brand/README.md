@@ -13,6 +13,8 @@ brightfutureahead / brand branch
 │   │   │   │   ├── long-list-names-v1.md
 │   │   │   │   ├── root-words-v1.md
 │   │   │   │   ├── shortlist-name.md
+│   │   │   │   ├── root-zones-naming.md
+│   │   │   │   ├── guide-root-zones-naming.md
 │   │   │   ├── vision
 │   │   │   │   ├── app-scope.md
 │   │   │   │   ├── north-star-brand-brief-v1.md
