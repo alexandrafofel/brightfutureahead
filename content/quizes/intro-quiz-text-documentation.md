@@ -1892,24 +1892,946 @@ Userul iese din quiz cu:
 
 #### **1.1.1.14 [Context cultural/lingvistic](https://www.notion.so/Context-cultural-lingvistic-247065e2602f80f7a836e2afbe566da3?pvs=21)** → În ce țară/limbă e? Ce înseamnă “calm” acolo?
 
-#### **1.1.1.15 [Competiția pentru atenție](https://www.notion.so/Competi-ia-pentru-aten-ie-247065e2602f80759919c4df1ab1298e?pvs=21)** → Ce altceva face în același timp? (scrolling, parenting activ)
+✅ Task completat – Context cultural / lingvistic (Top 0.1%)
+🎯 Scop
+Clarificăm țara și contextul cultural pentru a înțelege:
 
+Ce înseamnă “calm” în acel mediu
+
+Ce nuanțe lingvistice sunt percepute ca intruzive
+
+Cum calibrăm empatia și familiaritatea
+
+🧠 Ipoteză principală
+“Userul este român(ă), urban, părintele unui copil 0–6 ani. Cuvântul ‘calm’ este asociat cu blândețe, răgaz, non-judecată. Nu e văzut ca ‘zen’ sau ‘spiritual’, ci ca o pauză emoțională funcțională.”
+
+📥 Cultură & limbă
+Dimensiune	Observație	Implicație UX
+🌍 Țară	România	Nu folosim cod cultural anglo (ex: “grounding”, “resilience”)
+🗣️ Limbă	Română nativă	Copy familiar, fără jargon
+💬 “Calm” = ?	Lipsă de presiune, pauză din agitație	Evităm limbaj motivațional sau hiper-pozitiv
+🧘 vs 😮‍💨	“Calm” nu înseamnă “zen”	Copyul trebuie să reflecte grijă, nu idealizare
+📚 Parenting în România	Accent pe lipsa de suport, nu pe “growth”	Oferim validare, nu soluții perfecte
+
+💡 Implicații UX & Copy
+“Calm” înseamnă retragere din presiune, nu atingerea unui ideal
+
+Copy preferat: “E ok să fie greu.”, “Ai voie să respiri.”
+
+Evităm: “Învață cum să...”, “Devino mai...”, “Optimizează...”
+
+📦 Livrabil async
+✅ Salvat în Notion: 📁 UX Quiz > Ipoteze > Context lingvistic
+
+✅ Tag-uri: #limbaj, #ton, #cultural
+
+✅ Legat la: “Scrii întrebările” + “Formulezi CTA intro/outro”
+
+#### **1.1.1.15 [Competiția pentru atenție](https://www.notion.so/Competi-ia-pentru-aten-ie-247065e2602f80759919c4df1ab1298e?pvs=21)** → Ce altceva face în același timp? (scrolling, parenting activ)
+✅ Task completat – Competiția pentru atenție (Top 0.1%)
+🎯 Scop
+Evaluăm ce altceva face userul în timpul quiz-ului, ca să adaptăm:
+
+Ritmul interacțiunii
+
+Numărul de opțiuni
+
+Claritatea pașilor și CTA-urilor
+
+🧠 Ipoteză principală
+“Userul e distras sau semi-prezent. Combină quiz-ul cu scroll pasiv, parenting activ (monitorizare copil) sau ‘mental shutdown’ post-rutină. Are fereastră scurtă și fragilă de atenție.”
+
+📥 Situații paralele posibile
+Situație	Probabilitate	Implicație UX
+👶 Copilul încă nu doarme complet	✅ 50%	Userul poate abandona brusc → zero penalitate
+📱 Scroll IG / TikTok	✅ 30%	Copy trebuie să capteze în <5s
+🛏️ În pat, semi-adormit(ă)	✅ 20%	Ton calm, fără fraze lungi
+🧠 Overthinking / anxietate de seară	✅ 10%	Începem cu validare, nu cu introspecție
+
+💡 Implicații UX & Copy
+Zonă	Decizie
+⏱️ Timp/întrebare	<10s per pas
+✍️ Text	Max 160 caractere / întrebare
+📲 Touch	Fără tapuri multiple, fără scroll
+🛟 Fallback	Fiecare întrebare = punct de ieșire safe
+
+📦 Livrabil async
+✅ Salvat în Notion: 📁 UX Quiz > Ipoteze > Competiție atențională
+
+✅ Tag-uri: #context, #multitasking, #attention-friction
+
+✅ Legat la: “Optimizare flow” + “Scrii copy validant”
 
 ### 1.1.2	Identifici trigger-ul emoțional
+🎯 Scop extins
+Nu doar să detectăm ce declanșează emoțional utilizatorul înainte să înceapă quiz-ul, ci să:
+
+Măsurăm live frecvența fiecărui trigger în primele 100–500 intrări.
+
+Adaptăm în timp real intro-ul și primele întrebări pe baza trigger-ului dominant.
+
+Creăm fallback UX pentru useri fără trigger emoțional detectat, ca să nu supra-emoționalizăm experiența.
+
+🧠 Ipoteză principală (validare live)
+“Userul intră în quiz imediat după un micro-eveniment stresant (tantrum, ceartă, vinovăție, neputință). Ipoteza inițială: 40% epuizare, 30% frustrare, 15% vinovăție, 10% neputință, 5% anxietate. Vom confirma/disproba prin tracking real și ajustăm flow-ul în max. 14 zile.”
+
+📊 Trigger-e emoționale probabile + mapping de măsurare
+Prob. ipoteză	Emoție	Exemplu concret	Implicație UX	Micro-copy	Tracking live
+✅ 40%	😩 Epuizare	Rutina de seară a durat prea mult	Fraze scurte, calm vizual	“Ai făcut destul pentru azi.”	UTM: trigger=exhaustion sau răspuns Q0
+✅ 30%	😡 Frustrare	Copilul nu ascultă repetat	Începem cu validare directă	“E normal să fie greu uneori.”	UTM: trigger=frustration sau Q0
+✅ 15%	😢 Vinovăție	Țipatul la copil	Copy fără judecată	“Nu ești singur(ă) în asta.”	UTM: trigger=guilt sau Q0
+⚠️ 10%	😔 Neputință	Nu găsește soluții	CTA permisiv	“Hai să vedem ce ar putea ajuta.”	UTM: trigger=helplessness sau Q0
+⚠️ 5%	😰 Anxietate	Gânduri că “nu face destul”	Evităm imperative	“E ok să respiri înainte să continui.”	UTM: trigger=anxiety sau Q0
+
+💡 Implicații UX & Copy (dinamice)
+Zonă	Decizie bazată pe trigger detectat	Fallback (no trigger)
+🪜 Ordine întrebări	Prima = validare emoțională	Prima = întrebare neutră “Ce ai vrea să afli azi?”
+💬 Formulare	Permisiune emoțională	Ton energic, motivant
+🎯 CTA inițial	Soft & permisiv	“Vezi ce ți se potrivește”
+🎨 Design	Culori calde, fără urgență	Paletă neutră, contrast mai puternic
+
+🛠 Tracking Plan v1 – GA4 / Segment
+Event: quiz_start
+Properties:
+
+trigger_source (UTM sau default)
+
+self_reported_trigger (Q0 răspuns)
+
+device_type
+
+entry_hour
+
+quiz_variant (A/B emoțional vs. neutru)
+
+Event: quiz_complete
+Properties:
+
+trigger_detected
+
+completion_time_sec
+
+bounce_question (unde s-a oprit)
+
+🧪 Teste async – cu praguri de iterație
+Test	KPI Target	Acțiune dacă sub target
+Intro validare vs. intro neutru	Completare >85%	Crește ton validare sau micșorează text intro
+Emoji în intro vs. fără	Feedback pozitiv >80%	Ajustează tipul emoji / culoare fundal
+Întrebare deschidere despre stare emoțională	Rată răspuns complet >90%	Simplifică opțiunile, max 5
+
+🔄 Buclă de iterație T+7 / T+14
+T+7: analizezi top 2 trigger-e reale, ajustezi ordinea întrebărilor & microcopy pentru ele.
+
+T+14: dacă diferența între completare “trigger detectat” vs. “fără trigger” >15%, lansezi permanent un flow diferit pentru segmentul fără trigger.
+
+📦 Livrabil async
+✅ Salvat în Notion: 📁 UX Quiz > Ipoteze > Trigger emoțional v2.0 – Live Tracking Ready
+
+✅ Tag-uri: #empathy, #tone, #ux-first-screen, #tracking-plan
+
+✅ Conectat la: “Scrii intro”, “Ordonezi întrebările”, “Implementare tracking GA4”
 
 ### 1.1.3	Definești progresul dorit
 
+###### 🎯 Obiectiv & Scope
+- **Goal:** +**10% rel.** Completion & **≥70%** Final CTR prin adaptare în timp real bazată pe **progres perceput** (*emotional / clarity / reflection / confirmation*).
+- **Principii:** măsurare robustă → adaptare cu **confidence + cooldown** → experimentare **sequential + variance reduction** → **SLO-uri**, **privacy**, **data-quality gates**, **model monitoring**.
+
+> **Completați înainte de rollout:**  
+> Baseline Completion: `____` • Baseline Final CTR: `____` • Baseline TTFI (median): `____` • Trafic/zi (sesiuni): `____`
+
+---
+
+###### 📈 KPI-uri & Ținte (cu guardrails & SLO)
+- **Primary:** **Quiz Completion Rate** (+10% rel. vs control).
+- **Secondary:** **Final CTR** (≥70% pe segmente eligibile), **TTFI median** (−15%).
+- **Health:** **Δ sentiment** (QF−Q0.5) ≥ +0.5 (1–5), **TTC** ≤ +10%, **Abandon post-adaptare** ≤ +1.5pp.
+- **SLO UX:** `adaptation_latency_ms P95 ≤ 250`, `TTI P95 ≤ 2.5s`, `CLS ≤ 0.1`.
+- **SLO Date:** ≥**99%** evenimente cu `session_id`; ≤**0.5%** latențe >5s; ≤**0.5%** schema errors.
+
+---
+
+###### 🧠 Definiție Operațională – „Progres perceput”
+- **Slider 1–5 per întrebare**: „Cât te-a ajutat întrebarea asta?” (1=*deloc* … 5=*mult*).
+- **Momente de măsurare:** **Q3 (mid, 70% sample)** & **pre-Outro (100%)**.
+- **Tip (enum):** `emotional`, `clarity`, `reflection`, `confirmation`.
+- **Detecție:** 1-tap rule-based + semnale (`time_on_question_ms`, `backtracks`, `revisions`, `free_text_len`, `sentiment_score`, `scroll_depth`).
+- **Confidence:** `progress_confidence ∈ [0,1]`; **adaptăm doar la `conf ≥ 0.6`**.
+
+---
+
+###### 🔀 Politică de Adaptare (guardrails-first)
+- **Trigger unic @Q3:** dacă `perceived_score ≤ 2` **sau** `delta_score ≤ −1`.
+- **Eligibility:** min. **3 răspunsuri valide**, `bot_score ≤ 0.8`.
+- **Cooldown:** max **1 adaptare/sesiune**. **Copy frequency cap:** ≤1 mesaj emoțional/sesiune.
+- **Fallback:** `conf < 0.6` → **`clarity_min`**.
+- **Ce adaptăm:** ordinea **ultimelor 2 întrebări** + **1 bloc contextual** (validare / hint / rezumat / preview) + **micro-CTA**.
+- **Ce nu adaptăm:** primele **3 întrebări** (zonă stabilă).
+- **i18n & versionare:** `ro_*/en_*` în `microcopy_id`; `policy_version` în tracking.
+
+**Mapare tip → acțiune**
+- `emotional` → validare + 1 întrebare scurtă (≤20s).  
+- `clarity` → hint practic + checklist 1-pas.  
+- `reflection` → rezumat parțial („Până acum ai spus: … corect?”).  
+- `confirmation` → preview rezultat (2 linii) + promisiune pentru final.
+
+---
+
+###### 🧪 Plan Statistic (de elită)
+- **AA-test** *(7 zile / ≥5k sesiuni)*: validezi randomizare & tracking. Gate: |ΔCompletion| < **1pp**, p>0.2.
+- **Exposure event:** `experiment_exposure` la **eligibilitate (Q1)**, nu la `quiz_start`.
+- **A/B 50/50** *(~2 săpt.)* cu **O’Brien–Fleming alpha-spending** (3 looks: 25/50/100% N).
+- **Variance reduction:** **CUPED** (covariate pre-tratament: `time_on_Q1_2`, `device`, `channel`).
+- **Multiple testing:** **Benjamini–Hochberg** (q=0.1) pe segmente (mobile/desktop, paid/organic, new/returning).
+- **Model final (readout):** logistic cu covariate; raportezi **ATE** + **heterogeneity** pe segmente.
+
+---
+
+###### 🛰️ Observabilitate, Privacy & Safety
+- **Alerting (near real-time):**  
+  - ΔCompletion adaptive–control < −2pp în 60m → **page PM+Eng**.  
+  - `adaptation_latency_ms P95 > 250` pentru 3/5 batch-uri → **auto-degrade la static**.
+- **Privacy/Consent:** `consent_update` (enum required/optional/none), `age_bucket`. Fără PII în events; `user_id` hash; retention **90 zile** raw / **365** agregate.
+- **Safety:** microcopy “confirmation” revizuit legal; fără promisiuni de diagnostic.
+
+---
+
+###### 🤖 Clasificator – Train & Monitor
+- **V0:** rule-based. **Label** pe 1-tap = ground-truth (≥2k sesiuni).  
+- **V1 (săpt. 3):** logistic on-device; features: `time_on_question_ms`, `revisions_count`, `free_text_len_z`, `scroll_depth_z`, `sentiment_score`.  
+- **Targeturi:** **AUC ≥ 0.70**, **coverage (conf≥0.6) 35–65%**, **PSI ≤ 0.2** (drift).  
+- **Fail-safe:** AUC<0.65 (24h) → forțează `branch=clarity_min`.
+
+---
+
+###### 🛠 Tracking Plan v2.4 (GA4/Segment) — **Additive**
+```json
+{
+  "events": [
+    {
+      "name": "experiment_exposure",
+      "props": ["session_id","experiment_id","variant","eligibility_reason","timestamp_exposed"]
+    },
+    {
+      "name": "consent_update",
+      "props": ["session_id","consent_given","age_bucket","country"]
+    },
+    {
+      "name": "client_perf",
+      "props": ["session_id","tti_ms","adaptation_latency_ms","cls","fcp_ms","network_type"]
+    },
+    {
+      "name": "data_quality_flag",
+      "props": ["session_id","bot_score","schema_valid","late_event","clock_skew_ms"]
+    }
+  ],
+  "globals_additions": ["schema_version","app_version","policy_version"]
+}
+```
+Se păstrează integral schema v2.3 (quiz_start … quiz_complete) + aceste adăugiri.
+
+📚 Microcopy Library (ID-uită, i18n-ready)
+``` csv
+microcopy_id,context,type,text
+ro_mc_emo_v1,low_score,emotional,"Te aud. 30s și clarificăm ce e normal în situația ta."
+ro_mc_emo_v2,low_score,emotional,"E în regulă să fie greu. Mulți părinți simt la fel."
+ro_mc_emo_v3,mid,emotional,"Respiră. Următoarea întrebare te poate lămuri."
+ro_mc_cla_v1,low_score,clarity,"Încearcă asta în seara asta: [pas de 2 minute]."
+ro_mc_cla_v2,mid,clarity,"Ești la 1 pas de un plan simplu. Continuăm?"
+ro_mc_cla_v3,final,clarity,"Checklist 1-pas gata: îl vrei pe email?"
+ro_mc_ref_v1,low_score,reflection,"Până acum ai spus: [A,B]. Observi un tipar?"
+ro_mc_ref_v2,mid,reflection,"Ce ți-a ieșit la iveală din ce ai răspuns?"
+ro_mc_ref_v3,final,reflection,"Iată rezumatul tău în 1 frază: [X]."
+ro_mc_con_v1,low_score,confirmation,"E foarte probabil [preview scurt]. Vezi detaliile după încă o întrebare."
+ro_mc_con_v2,mid,confirmation,"Sună ca [diagnostic scurt]. Mai e un pas."
+ro_mc_con_v3,final,confirmation,"Da, ce trăiești e în zona normalului. Iată planul pe scurt."
+```
+📊 Dashboard (exec-ready)
+Funnel: views → Q1 → Q3(mid) → adaptation(Y/N) → finish → CTA click (rate & drop-offs).
+
+TTFI / perceived_score: median, IQR, P90/P95; histograme.
+
+Uplift (CUPED): Completion & CTR pe variant & segmente (CIs).
+
+Guardrails: TTC, abandon post-adaptare, % cooldown triggered, latency P95.
+
+Data QA: % events fără session_id, schema_valid, late_event.
+
+✅ Acceptance / No-Go
+Ship: Completion ≥ +5pp, CTR ≥ +3pp, TTFI −15%, guardrails OK, p<0.05 (sau Bayes P(uplift>0) ≥95%).
+
+Hold: +2pp…+5pp → extinzi N până la 2×MDE sau bandit doar pe microcopy.
+
+Kill: uplifts < +2pp, sau 2 încălcări SLO/guardrail în 24h.
+
+🧪 QA Extins
+AA instrumentation test (trafic intern + 5% real).
+
+Chaos test: 3G + CPU jank → adaptation_latency_ms P95 ≤ 250.
+
+Schema drift: schimbă question_bank_version → events valide.
+
+Recovery: flip feature flag ON/OFF de 3× fără duplicate.
+
+🛑 Emergency Rollback
+Flag: adaptive_policy_v2_4_enabled (default ON pentru 50%).
+
+Trigger 24h: Completion −3pp, TTC +15%, bug critic.
+
+Flow: DS+PM confirmă ≤30m → Eng OFF → Decision Log + RCA 48h.
+
+🗺️ Rollout & Ramp-up (7→14 zile)
+D1–D2: experiment_exposure, client_perf, alerte, AA-test ON (5%).
+
+D3–D4: CUPED pipeline + contract tests (schema).
+
+D5–D7: rule-based classifier & QA, închide AA; Go/No-Go A/B.
+
+D8: pornești A/B 50/50 (sequential).
+
+D9–D11: monitor SLO & guardrails; fixezi microcopy.
+
+D12–D14: readout @50% N; decide ship/hold/kill; plan V1 ML.
+
+Owners: PM (gates), DS (CUPED & readout), Eng (flags & perf), DX (copy & a11y).
+
+🧷 Data Quality Gates (pre-analiză)
+Exclude: session_id lipsă, clock_skew_ms > 5000, bot_score > 0.8, time_on_question_ms < 300 la ≥2 întrebări.
+
+Contract tests în CI pe payload-uri; backfill ≤12h dacă >1% events lipsă (late_event=true).
+
+🧩 Pseudocod — State Machine (exec)
+```pesudo
+onMidCheck(Q3):
+  if !eligible(session) or cooldown_used: return
+  if perceived_score <= 2 or (perceived_score - prev_score) <= -1:
+    type, conf = detect_progress_type(features)
+    branch = (conf >= 0.6) ? map(type) : "clarity_min"
+    apply_adaptation(branch)
+    log_adaptation(branch, policy_version="v2.4")
+    cooldown_used = true
+```
+🧰 Snippet TS/React (feature flags + Segment)
+```ts
+import { getFlag } from "./flags";
+import analytics from "./segment";
+
+export async function onMidCheck(ctx: Ctx) {
+  if (!getFlag("adaptive_policy_v2_4_enabled")) return;
+  if (ctx.qIndex !== 3 || ctx.cooldownUsed || ctx.botScore > 0.8) return;
+
+  const { score, prevScore } = ctx.progress;
+  if (score > 2 && score - prevScore > -1) return;
+
+  const { type, conf } = await ctx.detector(ctx.features);
+  const branch = conf >= 0.6 ? mapType(type) : "clarity_min";
+
+  const t0 = performance.now();
+  await ctx.applyAdaptation(branch);
+  const latency = performance.now() - t0;
+
+  analytics.track("quiz_adaptation_applied", {
+    session_id: ctx.sessionId,
+    branch,
+    component: "order/microcopy/cta",
+    policy_version: "v2.4"
+  });
+  analytics.track("client_perf", {
+    session_id: ctx.sessionId,
+    adaptation_latency_ms: Math.round(latency)
+  });
+
+  ctx.cooldownUsed = true;
+}
+```
+🧮 SQL (BigQuery) — Readout cu CUPED (Completion)
+```sql
+WITH sessions AS (
+  SELECT
+    session_id,
+    ANY_VALUE(variant) AS variant,
+    MAX(IF(event_name='quiz_complete',1,0)) AS complete,
+    -- covariate pre-tratament (exposure ≤ Q2):
+    AVG(IF(event_name='quiz_answer_submitted' AND question_number IN (1,2),
+           time_on_question_ms, NULL)) AS x_cov
+  FROM `proj.dataset.events`
+  WHERE experiment_id = 'quiz_adaptive_v2_4'
+  GROUP BY session_id
+),
+stats AS (
+  SELECT
+    VAR_POP(x_cov) AS varx,
+    COVAR_POP(complete, x_cov) AS covyx
+  FROM sessions
+),
+adjusted AS (
+  SELECT
+    s.*,
+    -- CUPED: y' = y - θ(x - mean(x))
+    complete - (covyx/NULLIF(varx,0)) * (x_cov - AVG(x_cov) OVER ()) AS complete_adj
+  FROM sessions s CROSS JOIN stats
+)
+SELECT
+  variant,
+  AVG(complete) AS completion,
+  AVG(complete_adj) AS completion_cuped,
+  COUNT(*) AS n
+FROM adjusted
+GROUP BY variant;
+```
+📓 Decision Log (Notion template)
+Data: __ / Experiment: quiz_adaptive_v2_4 / Policy: v2.4
+
+Decizie: ship / hold / kill
+
+Motivare: ATE + CIs, guardrails, TTFI, segmente, SLO
+
+Acțiuni: ____ / Owner: ____ / Due: ____
+
+🧭 TL;DR
+Spec 10/10: AA-test + exposure, sequential + CUPED, SLO-uri & alerte, privacy & data-quality gates, monitor ML, guardrails stricte.
+Completează baseline-urile și dăm GO pe D1 cu AA-test.
+
 ### 1.1.4	Formulezi JTBD în stil clasic
 
+
+##### 🎯 Obiectiv & Scope
+**Maximizăm completarea și CTR-ul final** adaptând în timp real flow-ul pe baza **progresului perceput** *(emotional/clarity/reflection/confirmation)* **și a JTBD-ului primar detectat** *(motivația inițială)*.  
+Principii: **măsurare robustă → adaptare cu confidence+cooldown → experimentare sequential+CUPED → SLO-uri, privacy, data-quality gates, model monitoring**.
+
+> **Completați înainte de rollout:**  
+> Baseline Completion: `____` • Baseline Final CTR: `____` • Baseline TTFI (median): `____` • Baseline JTBD Satisfaction: `____` • Trafic/zi: `____`
+
+---
+
+##### 📈 KPI-uri & Ținte (combinat Progres + JTBD)
+- **Primary:** **Quiz Completion Rate** **+10% rel.** vs control (ex: 55%→60.5%).
+- **Secondary:** **Final CTR** ≥ **70%**; **TTFI median** −**15%**; **JTBD Satisfaction Rate** (self_reported_value ≥4/5) ≥ **75%**.
+- **Health/Guardrails:** Abandon post-adaptare ≤ **+1.5pp**; **TTC** ≤ **+10%**; **Δ sentiment** (QF−Q0.5) ≥ **+0.5**.
+- **SLO UX:** `adaptation_latency_ms P95 ≤ 250`, `TTI P95 ≤ 2.5s`, `CLS ≤ 0.1`.  
+- **SLO Date:** ≥**99%** evenimente cu `session_id`; ≤**0.5%** schema errors/late >5s.
+
+---
+
+##### 🧠 Definiții Operaționale
+
+###### A) Progres perceput
+- **Slider 1–5 per întrebare:** „Cât te-a ajutat întrebarea asta?”
+- **Momente:** **Q3 (mid, 70% sample)** și **pre-Outro (100%)**.
+- **Tipuri:** `emotional`, `clarity`, `reflection`, `confirmation`.
+- **Semnale implicite:** `time_on_question_ms`, `backtracks`, `revisions`, `free_text_len`, `sentiment_score`, `scroll_depth`.
+- **Confidence:** `progress_confidence ∈ [0,1]`; adaptăm doar dacă **conf ≥ 0.6**.
+
+###### B) JTBD primar
+- **Detecție @Q0–Q1 (înainte de primele 3 întrebări):**
+  - **1 întrebare rapidă** (single-select) + opțional 1 free-text scurt *(≤80c)*.
+  - **Enum:** `emo_support`, `action_now`, `social_confirmation`, `resource_discovery`.
+  - **Semnale auxiliare:** sursă trafic, cuvinte cheie free-text, `time_to_first_click`.
+- **Confidence:** `jtbd_confidence ∈ [0,1]`; dacă **<0.6** → default `action_now`.
+- **Satisfație JTBD:** QF „Ai obținut ce căutai?” (1–5).
+
+---
+
+##### 🔀 Politică de Adaptare (2D Matrix, guardrails-first)
+- **Trigger unic @Q3:** `perceived_score ≤ 2` **sau** `delta_score ≤ −1`.
+- **Eligibility:** min **3 răspunsuri valide**, `bot_score ≤ 0.8`.
+- **Cooldown:** max **1 adaptare/sesiune**. **Frequency cap:** ≤1 mesaj emoțional/sesiune.
+- **Fallback:** dacă `progress_conf<0.6` → `clarity_min`; dacă `jtbd_conf<0.6` → tratezi `jtbd='action_now'`.
+- **Ce adaptăm:** ordinea **ultimelor 2 întrebări** + **1 bloc contextual** + **micro-CTA**.  
+- **Ce nu adaptăm:** primele **3 întrebări** (zonă stabilă).  
+- **i18n & versionare:** `ro_*/en_*` în `microcopy_id`; `policy_version="v3.0"` în tracking.
+
+###### Decizie 2D `(progress_type, jtbd_primary) → branch_id`
+| progress \ jtbd | emo_support | action_now | social_confirmation | resource_discovery |
+|---|---:|---:|---:|---:|
+| emotional | `branch_emo_relief` | `branch_emo→clarity_bridge` | `branch_social_valid` | `branch_emo_res_preview` |
+| clarity | `branch_clarity_checklist` | `branch_clarity_one_step` | `branch_clarity_norms` | `branch_clarity_resources` |
+| reflection | `branch_reflect_summary` | `branch_reflect→action` | `branch_reflect_social` | `branch_reflect_resources` |
+| confirmation | `branch_confirm_preview` | `branch_confirm→step` | `branch_confirm_social` | `branch_confirm_resources` |
+
+> **Principiu:** dacă există conflict, *JTBD dictează tipul CTA*, iar *progress_type dictează microcopy-ul*.
+
+---
+
+##### 🤖 Pseudocod — State Machine (JTBD + Progres)
+```pseudo
+init @Q0:
+  jtbd, jtbd_conf = detect_jtbd(signals)
+  if jtbd_conf < 0.6: jtbd = "action_now"
+
+onMidCheck @Q3:
+  if !eligible(session) or cooldown_used: return
+  if perceived_score <= 2 or (perceived_score - prev_score) <= -1:
+    ptype, pconf = detect_progress_type(features)
+    branch = (pconf >= 0.6) ? MATRIX[ptype][jtbd] : "clarity_min"
+    apply_adaptation(branch); log_adaptation(branch, policy_version="v3.0")
+    cooldown_used = true
+beforeOutro:
+  personalize_outro(dominant_progress(), jtbd)
+```
+
+###### 🧪 Plan Statistic (de elită)
+AA-test (7 zile / ≥5k sesiuni): randomizare + tracking OK. Gate: |ΔCompletion|<1pp, p>0.2.
+
+Exposure event: experiment_exposure la eligibilitate (Q1).
+
+A/B 50/50 (≈2 săpt.) cu O’Brien–Fleming alpha-spending (looks: 25/50/100% N).
+
+Variance reduction: CUPED (covariate pre-tratament: time_on_Q1_2, device, channel).
+
+Multiple testing: Benjamini–Hochberg (q=0.1) pe segmente (mobile/desktop, paid/organic, new/returning).
+
+Readout: logistic cu covariate; raportezi ATE + heterogeneity pe (jtbd_primary, progress_type).
+
+###### 🛰️ Observabilitate, Privacy & Safety
+Alerting: ΔCompletion adaptive–control < −2pp/60m → page PM+Eng; adaptation_latency_ms P95 > 250 în 3/5 batch-uri → auto-degrade la static.
+
+Privacy/Consent: consent_update (required/optional/none), age_bucket; user_id hash; retention 90/365 zile.
+
+Safety: copy de confirmation QA legal; fără promisiuni de diagnostic.
+
+###### 🤖 Clasificatoare — Train & Monitor
+JTBD V0: rule-based + keyword list; V1 (săpt.3): logistic multi-class (on-device).
+
+Progres V0: rule-based; V1: logistic (features timp/scroll/sentiment).
+
+Targets: AUC ≥ 0.70 / F1 macro ≥ 0.65; coverage conf≥0.6 între 35–65%; PSI ≤ 0.2.
+
+Fail-safe: dacă AUC<0.65 24h → branch=clarity_min (forțat).
+
+###### 🛠 Tracking Plan v3.0 (GA4/Segment) — Additive peste v2.4
+
+```json
+
+{
+  "events": [
+    {
+      "name": "jtbd_detected",
+      "props": ["session_id","jtbd_primary","jtbd_secondary?","jtbd_confidence","question_id","policy_version"]
+    },
+    {
+      "name": "jtbd_satisfied",
+      "props": ["session_id","self_reported_value","likelihood_return","final_cta_id"]
+    },
+    {
+      "name": "experiment_exposure",
+      "props": ["session_id","experiment_id","variant","eligibility_reason","timestamp_exposed"]
+    },
+    {
+      "name": "client_perf",
+      "props": ["session_id","tti_ms","adaptation_latency_ms","cls","fcp_ms","network_type"]
+    },
+    {
+      "name": "data_quality_flag",
+      "props": ["session_id","bot_score","schema_valid","late_event","clock_skew_ms"]
+    }
+  ],
+  "globals_additions": ["schema_version","app_version","policy_version","jtbd_primary","jtbd_confidence"]
+}
+```
+Toate evenimentele existente (quiz_start … quiz_complete, quiz_progress_update, quiz_adaptation_applied, quiz_cta_clicked) moștenesc jtbd_primary ca prop global.
+
+###### 📚 Microcopy Library (ID-uită, i18n-ready; 2D)
+```csv
+microcopy_id,context,progress_type,jtbd,text
+ro_mc_emo_relief,low_score,emotional,emo_support,"E în regulă să fie greu. Mulți părinți simt la fel."
+ro_mc_emo_clarity_bridge,mid,emotional,action_now,"Te aud. Hai să încercăm un pas ușor de 2 minute."
+ro_mc_social_valid,mid,emotional,social_confirmation,"Nu e doar la tine. 7/10 părinți raportează aceleași trăiri."
+ro_mc_emo_res_preview,final,emotional,resource_discovery,"Ți-am pregătit 2 resurse potrivite situației tale."
+ro_mc_clarity_one_step,low_score,clarity,action_now,"Pas unic pentru diseară: [instrucțiune scurtă]."
+ro_mc_clarity_norms,mid,clarity,social_confirmation,"E normal ca [situație]. Iată ce funcționează la majoritatea."
+ro_mc_reflect_summary,mid,reflection,emo_support,"Până acum ai spus: [A,B]. Se potrivește cu ce simți?"
+ro_mc_confirm_preview,low_score,confirmation,social_confirmation,"Pe scurt: ești în zona normalului. Vezi detaliile după încă o întrebare."
+ro_mc_clarity_resources,final,clarity,resource_discovery,"Checklist 1-pas + 2 resurse scurte. Îl vrei pe email?"
+```
+###### 📊 Dashboard (exec-ready)
+Funnel: views → Q1 (JTBD) → Q3(mid) → adaptation(Y/N) → finish → CTA click.
+
+Distribuții: perceived_score, TTFI; JTBD mix (% pe primar/secundar).
+
+Uplift (CUPED): Completion & CTR pe variant și pe (progress_type, jtbd_primary) (CIs).
+
+JTBD Satisfaction: rate ≥75%, breakdown pe branch-uri.
+
+Guardrails & SLO: TTC, abandon post-adaptare, cooldown%, latency P95.
+
+Data QA: lipsă session_id, schema_valid, late_event.
+
+###### ✅ Acceptance / No-Go
+Ship: Completion ≥ +5pp, CTR ≥ +3pp, TTFI −15%, JTBD Satisfaction ≥75%, guardrails OK, p<0.05 (sau Bayes P>95%).
+
+Hold: +2pp…+5pp → extinzi N sau bandit doar pe microcopy.
+
+Kill: <+2pp sau 2 încălcări SLO/guardrail în 24h.
+
+###### 🧪 QA Extins
+AA instrumentation (trafic intern + 5% real).
+
+Chaos perf: 3G + CPU jank → adaptation_latency_ms P95 ≤ 250.
+
+Schema drift: schimbă question_bank_version → payloaduri valide.
+
+Recovery: flip flag ON/OFF de 3× fără duplicate.
+
+A11y: screen-readers citesc JTBD & microcopy corect; focus order valid.
+
+###### 🛑 Emergency Rollback
+Flag: adaptive_policy_v3_0_enabled (default ON 50%).
+
+Trigger 24h: Completion −3pp, TTC +15%, bug critic.
+
+Flow: DS+PM confirmă ≤30m → Eng OFF → Decision Log + RCA 48h.
+
+###### 🗺️ Rollout & Ramp-up (7→14 zile)
+D1–D2: implementezi JTBD @Q0–Q1 + jtbd_detected; pornești AA-test (5%); alerte & SLO.
+
+D3–D4: CUPED pipeline + contract tests (schema).
+
+D5–D7: finalizezi Matrix 2D, QA i18n & a11y; închizi AA; Go/No-Go A/B.
+
+D8: A/B 50/50 (sequential).
+
+D9–D11: monitor SLO, guardrails; iterezi microcopy 2D.
+
+D12–D14: readout @50% N; decide ship/hold/kill; plan ML V1 pentru JTBD & Progres.
+
+###### 🧮 SQL — Readout JTBD Satisfaction & Heterogeneity
+
+```sql
+WITH sess AS (
+  SELECT
+    session_id,
+    ANY_VALUE(variant) AS variant,
+    ANY_VALUE(jtbd_primary) AS jtbd,
+    MAX(IF(event_name='quiz_complete',1,0)) AS complete,
+    MAX(IF(event_name='quiz_cta_clicked',1,0)) AS cta_click,
+    MAX(IF(event_name='jtbd_satisfied', self_reported_value, NULL)) AS jtbd_value
+  FROM `proj.dataset.events`
+  WHERE experiment_id = 'quiz_adaptive_v3_0'
+  GROUP BY session_id
+)
+SELECT
+  variant, jtbd,
+  AVG(complete) AS completion,
+  AVG(cta_click) AS ctr_final,
+  AVG(IF(jtbd_value>=4,1,0)) AS jtbd_satisfaction_rate,
+  COUNT(*) AS n
+FROM sess
+GROUP BY variant, jtbd
+ORDER BY jtbd, variant;
+```
+###### 🧰 Snippet TS/React — JTBD + Progres
+
+```ts
+export async function onStart(ctx: Ctx) {
+  const { jtbd, conf } = await ctx.detectJTBD(ctx.signalsQ0);
+  ctx.traits.jtbdPrimary = conf >= 0.6 ? jtbd : "action_now";
+  analytics.track("jtbd_detected", {
+    session_id: ctx.sessionId,
+    jtbd_primary: ctx.traits.jtbdPrimary,
+    jtbd_confidence: conf,
+    policy_version: "v3.0"
+  });
+}
+
+export async function onMidCheck(ctx: Ctx) {
+  if (!flags.enabled("adaptive_policy_v3_0_enabled")) return;
+  if (ctx.qIndex !== 3 || ctx.cooldownUsed || ctx.botScore > 0.8) return;
+
+  const { score, prevScore } = ctx.progress;
+  if (score > 2 && score - prevScore > -1) return;
+
+  const { type, conf } = await ctx.detectProgress(ctx.features);
+  const ptype = conf >= 0.6 ? type : "clarity";
+  const branch = MATRIX[ptype][ctx.traits.jtbdPrimary] || "clarity_min";
+
+  const t0 = performance.now();
+  await ctx.applyAdaptation(branch);
+  analytics.track("quiz_adaptation_applied", {
+    session_id: ctx.sessionId, branch, component: "order/microcopy/cta", policy_version: "v3.0"
+  });
+  analytics.track("client_perf", {
+    session_id: ctx.sessionId, adaptation_latency_ms: Math.round(performance.now() - t0)
+  });
+  ctx.cooldownUsed = true;
+}
+```
+###### 📓 Decision Log (template)
+Data: __ • Experiment: quiz_adaptive_v3_0 • Policy: v3.0
+
+Decizie: ship / hold / kill
+
+Motivare: ATE + CIs, TTFI, JTBD Satisfaction, guardrails, SLO
+
+Acțiuni: ____ • Owner: ____ • Due: ____
+
+###### 🧭 TL;DR
+Spec 10/10, acum 2D (Progres × JTBD): AA-test + exposure, sequential + CUPED, SLO & alerte, privacy & data-quality, clasificatoare monitorizate, matrix de adaptare, dashboard exec-ready.
+Pregătit de ship după completarea baseline-urilor și AA green.
+
 ### 1.1.5	Distingi între JTBD funcțional și emoțional
+### 1.1.5 Distingi între JTBD funcțional și emoțional
+
+**Definiție:**
+- **JTBD Funcțional** — job-ul principal al utilizatorului exprimat în termeni de *task concret* sau *rezultat tangibil* pe care vrea să-l obțină.  
+  → Exemplu: „Să găsesc un pas clar pe care să-l fac în seara asta cu copilul”  
+- **JTBD Emoțional** — job-ul principal exprimat în termeni de *stare dorită*, *trăire* sau *nevoie de validare*.  
+  → Exemplu: „Să mă simt înțeles(ă) și mai liniștit(ă) după o zi grea”
+
+---
+
+**În quiz-ul adaptiv Progres + JTBD:**
+- **Detecție JTBD funcțional:**  
+  - Cuvinte-cheie orientate spre acțiune (“vreau să fac…”, “cum pot să…”).  
+  - JTBD-uri standard: `action_now`, `resource_discovery`.  
+  - Semnale implicite: răspunsuri concise, alegere rapidă a opțiunilor practice, TTI (Time to Interaction) scăzut.
+- **Detecție JTBD emoțional:**  
+  - Cuvinte-cheie de stare (“vreau să mă simt…”, “am nevoie să…”).  
+  - JTBD-uri standard: `emo_support`, `social_confirmation`.  
+  - Semnale implicite: timp mai mare pe prima întrebare, free-text lung, mențiuni de sentimente.
+
+---
+
+**Matrică de adaptare:**
+| JTBD Tip | Exemple tipice | Implicație UX | Microcopy dominant |
+|---|---|---|---|
+| Funcțional | action_now, resource_discovery | CTA-uri clare, pași concreți, liste | „Încearcă asta diseară: [pas]” |
+| Emoțional | emo_support, social_confirmation | Validare, ton empatic, reducere presiune | „E în regulă să fie greu. Mulți părinți simt la fel.” |
+
+---
+
+**Guardrails:**
+- Nu amesteca mesajele funcționale cu cele emoționale în același bloc de adaptare — creează disonanță.
+- Dacă clasificatorul nu depășește **conf ≥0.6**, folosește fallback la `action_now` (funcțional) pentru a păstra claritatea.
+
+---
+
+**Tracking adițional:**
+- `jtbd_type` (enum: functional/emotional) derivat din `jtbd_primary`.
+- Permite analize comparative: **Completion** și **CTR** pe tip JTBD, plus corelația cu `progress_type_detected`.
+
+---
+
+**KPIs specifice:**
+- **Funcțional:** % utilizatori care raportează „Am obținut un pas concret” ≥ **80%** în `jtbd_satisfied`.
+- **Emoțional:** % utilizatori care raportează „M-am simțit înțeles(ă)” ≥ **80%**.
+
+---
+
+**TL;DR:**  
+Separă JTBD în *funcțional* și *emoțional* pentru adaptare mai precisă, evitând mesaje mixte și măsurând satisfacția per categorie.
 
 ### 1.1.6	Mapezi JTBD la flow-ul actual
 
+### 1.1.6 Mapezi JTBD la flow-ul actual
+
+**Scop:**  
+Asiguri coerența dintre JTBD-urile detectate și structura actuală a quiz-ului (ordinea întrebărilor, tipul de conținut, tonul microcopy și CTA-uri) astfel încât utilizatorul să simtă progres relevant față de *job-ul* său inițial.
+
+---
+
+#### 1) Inventarierea flow-ului actual
+**Exemplu (flow v2.4):**
+1. **Q0–Q1:** intro + întrebare inițială (detectare JTBD)  
+2. **Q2:** întrebare de context (stare/obiceiuri)  
+3. **Q3:** întrebare pivot (mid-check progres perceput)  
+4. **Q4–Q5:** întrebări finale (detalii specifice / validare)  
+5. **Outro:** rezultat + CTA principal
+
+---
+
+#### 2) Maparea JTBD → elemente flow
+
+| JTBD primar | Poziționare în flow | Tip întrebare | Ton / Microcopy | CTA principal |
+|-------------|--------------------|---------------|-----------------|---------------|
+| **emo_support** *(emoțional)* | Q0: întrebare directă despre stare; Q3/Q4: validare | Empatică, deschisă | „E în regulă să simți asta.” | CTA cu continuitate: „Vezi cum poți reduce presiunea” |
+| **action_now** *(funcțional)* | Q0: întrebare rapidă despre scop; Q4: soluție practică | Concretă, orientată pe pas clar | „Încearcă asta diseară” | CTA de implementare imediată |
+| **social_confirmation** *(emoțional)* | Q0: întrebare despre experiență comparativă; Q4: validare socială | Referințe la grupuri similare | „Mulți părinți trec prin asta” | CTA de partajare sau grup |
+| **resource_discovery** *(funcțional)* | Q0: întrebare despre nevoia de informații; Q4: listă de resurse | Informativ, ordonat | „Ți-am găsit 3 idei” | CTA spre ghid/articol |
+
+---
+
+#### 3) Decizii adaptative în flow
+- **Intro (Q0–Q1):** folosește detectarea JTBD pentru a seta tonul imediat.  
+- **Mid-check (Q3):** ajustează întrebările Q4–Q5 conform `(progress_type, jtbd_primary)`.  
+- **Outro:** adaptează CTA-ul final și microcopy-ul pentru JTBD.  
+
+---
+
+#### 4) Tracking pentru mapare
+- Adaugă în `quiz_question_shown` prop `jtbd_context` (JTBD primar + tip funcțional/emoțional).
+- În `quiz_cta_clicked`, loghează `jtbd_primary` + `progress_type_detected` pentru corelare.
+
+---
+
+#### 5) KPIs pentru validarea mapării
+- Completion per `(jtbd_primary)` ≥ **baseline +5pp**.  
+- CTR final per `(jtbd_primary)` ≥ **70%**.  
+- JTBD Satisfaction rate ≥ **75%** în toate ramurile.
+
+---
+
+**TL;DR:**  
+Maparea JTBD la flow-ul actual se face prin ajustarea imediată a tonului și structurii, apoi prin adaptări la mid-check, pentru a oferi un parcurs care confirmă *job-ul* inițial al utilizatorului.
+
+
 ### 1.1.7	Verifici dacă quiz-ul actual suportă acel job
+
+### 1.1.7 Verifici dacă quiz-ul actual suportă acel job
+
+**Scop:**  
+Confirmezi că flow-ul, conținutul și structura quiz-ului actual pot livra valoarea promisă de fiecare JTBD detectat — atât funcțional, cât și emoțional — fără a crea fricțiuni sau goluri de experiență.
+
+---
+
+#### 1) Criterii de verificare per JTBD
+
+| JTBD primar | Ce înseamnă „suportă job-ul” | Test rapid în flow actual | Gap-uri posibile |
+|-------------|------------------------------|---------------------------|------------------|
+| **emo_support** *(emoțional)* | Utilizatorul primește validare și ton empatic în primele 2 întrebări + outro | Simulezi sesiune cu JTBD=emo_support și vezi dacă mesajele empatice apar până la Q2 | Dacă validarea apare doar la final → risc de drop înainte de perceperea valorii |
+| **action_now** *(funcțional)* | Utilizatorul primește un pas clar de acțiune înainte de final și în outro | Simulezi flow cu JTBD=action_now și verifici dacă există microcopy cu instrucțiune unică | Dacă pasul concret apare doar în rezultat complet, TTFI crește peste țintă |
+| **social_confirmation** *(emoțional)* | Utilizatorul vede referințe la alți oameni în situații similare înainte de Q3 | Rulezi flow cu JTBD=social_confirmation și cauți mențiuni „mulți părinți…” | Lipsa validării sociale intermediare reduce JTBD Satisfaction |
+| **resource_discovery** *(funcțional)* | Utilizatorul primește acces la resurse înainte de CTA final | Simulezi flow cu JTBD=resource_discovery și verifici dacă se afișează listă scurtă | Dacă resursele sunt ascunse după completare, CTR poate scădea |
+
+---
+
+#### 2) Metodă de validare
+1. **Creezi 4 scenarii simulate** (câte unul per JTBD primar).
+2. **Trasezi pe un timeline** momentul în care apare prima livrare de valoare relevantă JTBD (TTFI).
+3. **Măsori:**  
+   - TTFI mediu per JTBD  
+   - % sesiuni în care TTFI ≤ 60 sec  
+   - JTBD Satisfaction rate pe cohorta respectivă
+4. **Compari** cu targeturile definite (TTFI −15%, Satisfaction ≥75%).
+
+---
+
+#### 3) Tracking necesar pentru verificare
+- `jtbd_primary` + `jtbd_type` (funcțional/emoțional) la toate evenimentele.  
+- `ttfi_ms` (timp până la prima apariție de valoare relevantă).  
+- `first_value_event` (enum: emo_validare, actiune_pasi, validare_sociala, resurse).
+
+---
+
+#### 4) Decizie Go / Fix
+- **Go:** TTFI ≤ 60 sec și JTBD Satisfaction ≥ 75% pe toate cele 4 JTBD-uri.
+- **Fix:** Identifici întrebările/microcopy-urile care întârzie livrarea valorii și le repoziționezi sau adaptezi la mid-check.
+
+---
+
+**TL;DR:**  
+Simulează fiecare JTBD pe flow-ul actual și verifică dacă *valoarea promisă* apare rapid și vizibil. Dacă nu, repoziționează elementele cheie înainte de Q3 pentru a reduce drop-ul și crește satisfacția.
 
 ### 1.1.8	Clarifici JTBD-ul produsului
 
+### 1.1.8 Clarifici JTBD-ul produsului
+
+**Scop:**  
+Stabilești în mod explicit **Job-ul principal pe care produsul îl îndeplinește** pentru utilizator, astfel încât toate deciziile de UX, copy și adaptare să fie aliniate la această promisiune centrală.  
+Claritatea JTBD-ului de produs previne deriva de scop și optimizează coerența mesajelor.
+
+---
+
+#### 1) JTBD central al produsului (formulare clasică)
+> **Când** [context declanșator],  
+> **vreau să** [acțiune / schimbare dorită],  
+> **ca să pot** [rezultat final / stare dorită].
+
+**Exemplu pentru quiz-ul actual:**
+> **Când** mă simt nesigur(ă) dacă reacțiile și deciziile mele ca părinte sunt „bune”,  
+> **vreau să** obțin rapid validare și o direcție simplă,  
+> **ca să pot** să mă simt mai liniștit(ă) și pregătit(ă) să continui ziua.
+
+---
+
+#### 2) Distincție JTBD produs vs. JTBD-uri detectate
+- **JTBD de produs** = „job-ul” generic pe care îl livrăm tuturor utilizatorilor, indiferent de segment.  
+- **JTBD detectat în quiz** = „job-ul” personalizat, specific unei sesiuni, folosit pentru adaptarea flow-ului.
+
+**Exemplu:**
+- **Produs:** „Să clarific rapid situația utilizatorului și să-i ofer sprijin personalizat.”
+- **Sesiune:** „Să primesc o acțiune concretă pe loc” *(action_now)*.
+
+---
+
+#### 3) Beneficii ale clarificării
+- **Aliniere echipă:** Toate departamentele (Produs, Marketing, Support) comunică același scop.
+- **Filtru de prioritizare:** Feature-urile care nu contribuie direct la JTBD central → deprioritizate.
+- **Consistență UX:** Tonul și structura flow-ului reflectă aceeași promisiune.
+
+---
+
+#### 4) Cum testezi validitatea JTBD-ului de produs
+- **Interviuri rapide** (5–7 min) cu utilizatori reali → verifici dacă JTBD formulat se aliniază cu limbajul lor.  
+- **Sondaje in-app:** „Ce sperai să obții din acest quiz?” (1–3 opțiuni multiple).  
+- **Compară** JTBD central formulat cu JTBD-urile reale detectate în primele 500 sesiuni.
+
+---
+
+#### 5) Tracking suplimentar
+- `jtbd_product` (string) — setat global în aplicație, constant în toate evenimentele.
+- Analiză: % de sesiuni în care `jtbd_primary` (detectat) este identic sau complementar cu `jtbd_product`.
+
+---
+
+**TL;DR:**  
+Clarifică și documentează JTBD-ul central al produsului. Acesta devine nordul busolei pentru toate adaptările și măsurătorile, iar JTBD-urile detectate sunt variații ale acestui scop fundamental.
+
 ### 1.1.9	Formulezi JTBD-ul business-ului
+
+### 1.1.9 Formulezi JTBD-ul business-ului
+
+**Scop:**  
+Definești clar „job-ul” pe care **business-ul** (nu doar produsul) îl îndeplinește pentru clienți și parteneri, astfel încât strategia comercială, canalele de distribuție și modelul de monetizare să fie aliniate la valoarea livrată.
+
+---
+
+#### 1) Diferență față de JTBD-ul produsului
+- **JTBD produs** = valoarea percepută și livrată direct utilizatorului final în interacțiunea cu quiz-ul.  
+- **JTBD business** = valoarea strategică pe termen mediu-lung pe care compania o livrează, care susține creșterea, retenția și monetizarea.
+
+---
+
+#### 2) Formulare clasică JTBD business
+> **Când** un părinte are nevoie să ia rapid decizii mai bune pentru copilul său,  
+> **vreau să** îi ofer un instrument accesibil și personalizat,  
+> **ca să pot** crește încrederea, frecvența de utilizare și potențialul de achiziție de soluții complementare.
+
+---
+
+#### 3) Exemple de ancorare strategică
+- **Segment țintă:** părinți cu copii 0–12 ani, cu acces la smartphone, activi pe canale digitale.  
+- **Promisiune business:** „Îți oferim claritate și sprijin personalizat în <2 min, de oriunde.”  
+- **Rezultat pentru business:** creșterea engagement-ului recurent → creștere LTV → scădere CAC efectiv prin retenție organică.
+
+---
+
+#### 4) Implicații în metrici
+- **LTV (Lifetime Value):** optimizat prin creșterea frecvenței de completare și upsell către resurse premium.
+- **CAC (Customer Acquisition Cost):** scade prin word-of-mouth și share-uri generate de quiz.
+- **Retenție:** D30 retention target ≥ **20%** în cohortele plătite; ≥ **30%** organic.
+- **Conversie către ofertă plătită:** ≥ **5%** din utilizatorii care finalizează quiz-ul.
+
+---
+
+#### 5) Verificare & aliniere
+- **Mapează JTBD business** la toate inițiativele din roadmap — elimină cele fără impact direct.
+- **Analizează complementaritatea** dintre JTBD business și JTBD produs:
+  - Dacă produsul livrează doar emoțional, dar business-ul monetizează pe funcțional → gap strategic.
+  - Dacă produsul e orientat pe acțiune, dar business-ul vinde experiențe de validare → risc de misalignment.
+
+---
+
+#### 6) Tracking adițional
+- `jtbd_business` (string) — constant la nivel de platformă.
+- KPI-uri corelate:
+  - % sesiuni în care `jtbd_primary` este congruent cu `jtbd_business`.
+  - ARPU (Average Revenue Per User) pe tip de JTBD detectat.
+
+---
+
+**TL;DR:**  
+JTBD-ul business-ului definește valoarea strategică și comercială livrată pe termen lung, care trebuie să fie coerentă cu experiența produsului și să maximizeze impactul în LTV, retenție și conversie.
 
 ### 1.1.10	Scrii 2 versiuni finale (user vs produs)
 
