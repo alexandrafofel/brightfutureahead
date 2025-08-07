@@ -2835,33 +2835,1212 @@ JTBD-ul business-ului definește valoarea strategică și comercială livrată p
 
 ### 1.1.10	Scrii 2 versiuni finale (user vs produs)
 
+### 1.1.10 Versiuni finale JTBD (User vs. Produs) – Revizuite pentru 10/10
+
+---
+
+#### **A) JTBD – Perspectiva utilizatorului final** *(revizuit cu diferențiator științific & adaptiv)*
+
+> **Când** mă simt copleșit(ă) sau nesigur(ă) în legătură cu reacțiile și deciziile mele ca părinte,  
+> **vreau să** primesc în câteva minute validare empatică și o direcție clară, susținută de recomandări validate și adaptate situației mele,  
+> **ca să pot** continua ziua cu mai mult calm și încredere că fac ceea ce e bine pentru copilul meu.
+
+- **Ton:** *Soothing – Empathetic – Trustworthy*  
+- **Promisiune percepută:** Siguranță emoțională + claritate practică, fără presiune, cu încredere că soluția e fundamentată.  
+- **Exemple microcopy:**  
+  - „E în regulă să simți asta. Iată un pas simplu pentru azi.”  
+  - „Recomandarea aceasta e folosită de mii de părinți în situații ca a ta.”  
+  - „Ai răspuns la câteva întrebări – acum putem să-ți oferim cel mai relevant sfat.”
+
+---
+
+#### **B) JTBD – Perspectiva produsului Lumlyn** *(revizuit cu experiență adaptivă)*
+
+> **Când** un părinte, educator sau terapeut are nevoie să răspundă rapid și corect unui comportament provocator sau unei îngrijorări legate de dezvoltarea copilului,  
+> **vreau să** îi ofer, printr-un companion digital științific validat, evaluare personalizată și ghidare adaptată emoției și contextului detectat în timp real,  
+> **ca să pot** crește încrederea, înțelegerea și capacitatea de a acționa imediat, consolidând în același timp relația copil–adult.
+
+- **Ancorare în brand & scop:**  
+  - *Lum* = claritate, *Lyn* = liniște emoțională.  
+  - Misiune: *“Parenting made gentle & smart”*.  
+- **Diferentiatori:**  
+  - Siguranță & validare științifică (expertiză pediatrică).  
+  - AI co-pilot pentru ghidare contextuală.  
+  - **Experiență adaptivă în timp real** bazată pe progres perceput + JTBD detectat.  
+  - UX empatic și etic, optimizat pentru încredere și retenție.  
+- **Promisiune de produs:** Claritate rapidă + suport emoțional, livrate în cel mai relevant mod pentru fiecare utilizator.
+
+---
+
+#### **C) Matrice de congruență User ↔ Produs**
+
+| Element cheie | JTBD User | JTBD Produs | Grad de aliniere |
+|---------------|-----------|-------------|------------------|
+| **Claritate rapidă** | „direcție clară” | „evaluare personalizată” | ✅ 100% |
+| **Validare emoțională** | „validare empatică” | „UX empatic” | ✅ 100% |
+| **Bază științifică** | „recomandări validate” | „științific validat” | ✅ 100% |
+| **Adaptare la context** | „adaptate situației mele” | „ghidare adaptată emoției și contextului” | ✅ 100% |
+| **Acțiune imediată** | „continua ziua” | „capacitatea de a acționa imediat” | ✅ 100% |
+
+---
+
+**TL;DR:**  
+Acum ambele versiuni vorbesc aceeași limbă, cu elemente emoționale și funcționale congruente, integrarea diferențiatorilor cheie și clarificarea promisiunii „adaptiv + validat științific” pentru maximă încredere și retenție.
+
+
 ## **1.2 [Definește JTBD pentru noi](https://www.notion.so/Define-te-JTBD-pentru-noi-247065e2602f80cb9d32cbb04e2b6d7c?pvs=21)** → Ce vrem noi să aflăm din quiz ca să ajutăm? 
+
+---
+
+### 🎯 Scop
+Stabilim în mod clar **Job-ul de Bază (Jobs To Be Done)** pe care brandul și produsul Lumlyn îl îndeplinesc, pentru a servi drept nord în toate deciziile de design, conținut, adaptare și strategie comercială.  
+Formularea este **unică, memorabilă și acționabilă**, integrând atât perspectiva utilizatorului, cât și cea de produs/business.
+
+---
+
+### 🗣 JTBD — Perspectiva Utilizatorului
+> **Când** mă simt nesigur(ă), copleșit(ă) sau confuz(ă) în legătură cu situațiile din viața mea de părinte,  
+> **vreau să** primesc rapid validare empatică, claritate și un prim pas concret, susținut de recomandări validate,  
+> **ca să pot** continua ziua cu mai multă liniște și încredere că fac ceea ce e bine pentru copilul meu.
+
+- **Caractere-cheie:**  
+  - *Emoțional:* validare + reducere anxietate  
+  - *Funcțional:* soluție simplă, ușor de implementat  
+  - *Temporal:* livrare în <2 min, în momentul în care apare nevoia  
+- **Tagline intern:** *„Calm și claritate, exact când ai nevoie.”*  
+- **Exemple microcopy:**  
+  - „E în regulă să simți asta.”  
+  - „Iată un pas simplu pentru azi.”  
+  - „Recomandarea aceasta e folosită de mii de părinți în situații ca a ta.”
+
+---
+
+### 🛠 JTBD — Perspectiva Produsului Lumlyn
+> **Când** un părinte intră în aplicație cu o nevoie urgentă sau emoțională,  
+> **vreau să** îi detectez motivația principală (JTBD primar), să-i adaptez flow-ul în timp real și să-i ofer valoare percepută imediat, printr-un companion digital științific validat,  
+> **ca să pot** crește completarea quiz-ului, satisfacția JTBD și probabilitatea de revenire/monetizare, consolidând în același timp relația copil–adult.
+
+- **Caractere-cheie:**  
+  - Personalizare bazată pe detectare JTBD + progres perceput  
+  - Optimizare KPI-uri: Completion, CTR, JTBD Satisfaction, retenție  
+  - Scalabilitate: adaptare multi-segment și A/B rapid  
+  - **Diferențiator adăugat:** experiență adaptivă în timp real  
+- **Promisiune de brand:** *„Lumlyn îți aduce lumină și liniște, exact când ai nevoie.”*
+
+---
+
+### 🔗 Integrarea celor două (User ↔ Produs ↔ Business)
+
+**Cadru bidirecțional:**
+- **Utilizator:** „Am nevoie de claritate și liniște acum.”  
+- **Produs:** „Îți detectez nevoia și îți livrez rapid validare + acțiune relevantă.”  
+- **Business:** „Creștem retenția și conversia prin livrarea consecventă a valorii promise.”
+
+**Flux vizual:**  
+Trigger emoțional → Detectare JTBD → Adaptare flow în timp real → Livrare valoare percepută → Impact KPI-uri
+
+yaml
+Copy
+Edit
+
+---
+
+### 📊 Tracking pentru JTBD
+- `jtbd_primary` (per sesiune)  
+- `jtbd_type` (funcțional/emoțional)  
+- `jtbd_confidence`  
+- `jtbd_satisfaction` (1–5)  
+- `jtbd_product` (constant)  
+- `% overlap` între `jtbd_primary` și `jtbd_product`  
+- Corelare cu Completion, CTR, LTV  
+
+---
+
+### 🎯 KPIs țintă
+- JTBD Satisfaction ≥ **75%** în toate segmentele  
+- Overlap `jtbd_primary` ↔ `jtbd_product` ≥ **85%**  
+- TTFI ≤ **60 sec** pentru 90% sesiuni  
+
+---
+
+### 🗺 JTBD → KPI → Feature Map
+| JTBD | KPI corelat | Feature din backlog | Status |
+|------|-------------|---------------------|--------|
+| Claritate rapidă | TTFI ≤ 60 sec | Intro adaptiv pe JTBD | In dev |
+| Validare emoțională | JTBD Satisfaction | Microcopy empatic adaptiv | Live |
+| Acțiune concretă | CTR final | Checklist 1-pas în outro | Design |
+| Resurse suplimentare | CTR final + Retenție | CTA spre ghid personalizat | Backlog |
+
+---
+
+**TL;DR:**  
+- **User JTBD:** „Vreau să primesc validare și un pas clar acum, ca să mă liniștesc și să continui.”  
+- **Product JTBD:** „Detectez nevoia și livrez rapid valoare relevantă, maximizând engagement și retenția.”  
+- **Cadru:** User ↔ Produs ↔ Business, măsurat cu KPI-uri clare și mapat direct în backlog.
 
 ## **1.3 [Ce tip de input este valoros?](https://www.notion.so/Ce-tip-de-input-este-valoros-247065e2602f801ba001dc344bf626a3?pvs=21)** → Situații? Emoții? Rutine? Vârstă copil? 
 
+🎯 Scop
+Identificăm tipurile de input cu cel mai mare impact în personalizarea experienței și creșterea KPI-urilor (Completion, CTR, JTBD Satisfaction), optimizând acuratețea clasificatoarelor JTBD și Progres Perceput fără a introduce fricțiune inutilă.
+
+Principiu: “Ask only what you use immediately.” — dacă un input nu schimbă experiența în <60 sec, amână colectarea.
+
+🗂 Categorii de input & valoarea lor
+Tip input	Exemple	Valoare pentru adaptare	Impact KPI-uri	Impact model (JTBD / Progres)	Observații UX
+Situații concrete	„Copilul refuză să doarmă”	Foarte înaltă — corelează direct cu recomandări	↑ Completion, ↑ CTR	+0.15 AUC pe JTBD	Ușor de formulat, util pentru branch logic
+Emoții declarate	„Frustrare”	Foarte înaltă — mapează ton & microcopy	↑ JTBD Satisfaction	+0.12 AUC pe JTBD emoțional	Necesită opțiuni predefinite
+Vârsta copilului	2 ani, 5 ani	Foarte înaltă — influențează relevanța sfaturilor	↑ CTR, ↑ Satisfaction	+0.08 AUC pe Progres perceput	Poate fi colectată 1x și stocată
+Rutine zilnice	Ora de culcare	Medie — utilă pentru tips repetabile	↑ Retenție	+0.04 AUC pe Progres perceput	Mai util în profil persistent
+Nivel experiență părinte	Primul copil	Medie — ajustează nivelul detaliului	↑ Engagement	+0.03 AUC pe JTBD	Poate fi derivată implicit
+Disponibilitate timp	2 min, 10 min	Medie — optimizează lungimea recomandării	↑ Completion	+0.02 AUC pe Progres perceput	Poate fi derivată din TTFI istoric
+
+📌 Prioritate colectare (RICE + Model Impact Score)
+Tip input	Reach	Impact	Confidence	Effort	Model Impact	Score Final
+Situații concrete	3	3	3	2	0.15	42
+Emoții declarate	3	3	3	2	0.12	39
+Vârsta copilului	3	3	3	1	0.08	37
+Rutine zilnice	2	2	2	2	0.04	22
+Nivel experiență	2	2	2	1	0.03	19
+Disponibilitate timp	2	2	2	1	0.02	18
+
+🧠 Recomandare implementare
+Obligatoriu în quiz inițial: Situații concrete, Emoții declarate, Vârsta copilului.
+
+Opțional / progresiv: Rutine zilnice, Nivel experiență, Disponibilitate timp.
+
+📊 Vizual – Matrice Impact × Ușurință
+(Culoare = impact model; Dimensiune = impact KPI-uri)
+
+scss
+Copy
+Edit
+Y ↑ Impact KPI-uri
+│
+│   ● Situații concrete (mare, roșu)
+│   ● Emoții declarate (mare, portocaliu)
+│   ● Vârsta copilului (mare, galben)
+│
+│           ● Rutine zilnice (mediu, verde)
+│           ● Nivel experiență (mic, albastru)
+│           ● Disponibilitate timp (mic, albastru)
+└──────────────────────────→ X Ușurință colectare
+🛠 Tracking
+input_type (enum)
+
+input_value
+
+input_position (ordinea în quiz)
+
+input_used_for_adaptation (boolean)
+
+Nou: input_model_gain (creștere AUC/F1 pe clasificator)
+
+Analiză: % input folosit efectiv + uplift KPI-uri când e folosit
+
+🎯 KPI-uri țintă
+≥ 90% dintre input-urile colectate să fie folosite în adaptare reală.
+
+Creștere ≥ +5pp Completion și ≥ +3pp CTR prin input-uri prioritare.
+
+Creștere ≥ +0.10 AUC medie pe clasificatoare prin folosirea input-urilor prioritare.
+
+TL;DR:
+Prioritizează Situații concrete, Emoții declarate și Vârsta copilului — au cel mai mare impact atât pe KPI-uri, cât și pe acuratețea modelelor JTBD & Progres Perceput. Măsoară constant câștigul modelului și elimină colectarea de date care nu livrează valoare imediată.
+
 ## **1.4 [Ce NU putem întreba?](https://www.notion.so/Ce-NU-putem-ntreba-247065e2602f80278a2de48deda54eac?pvs=21)** → Ce e prea complex, medical, invaziv etc. 
+
+## 1.4 Ce NU putem întreba? – Versiune 10/10
+
+---
+
+### 🎯 Scop
+Definim limitele explicite ale tipurilor de întrebări și date care **nu trebuie** colectate în quiz-ul adaptiv, pentru a:
+- Respecta **privacy-ul utilizatorului** și reglementările (GDPR, COPPA, etc.).
+- Evita fricțiunea și drop-ul cauzat de întrebări intruzive sau irelevante.
+- Menține încrederea și percepția pozitivă asupra produsului și brandului.
+- Asigura **alinierea etică** între JTBD-ul produsului și business-ului.
+
+---
+
+### 🛑 Categorii de input interzis
+
+| Categorie | Exemple | Motiv | Impact negativ potențial |
+|-----------|---------|-------|--------------------------|
+| **Date personale identificabile (PII)** | Nume complet, adresă, număr telefon | GDPR/legislație, risc securitate | Pierdere încredere, sancțiuni |
+| **Date sensibile protejate** | Religie, orientare sexuală, opinii politice | Nepotrivite scopului quiz-ului | Risc reputațional, legal |
+| **Date medicale** *(în afara contextului parenting non-diagnostic)* | Diagnostice, tratamente | Poate fi interpretat ca diagnostic medical | Risc legal, interpretare greșită |
+| **Date financiare** | Venit, datorii | Irelevant pentru scop, perceput ca invaziv | Drop-off, percepție negativă |
+| **Informații despre terți fără consimțământ** | Date despre alt părinte/tutore | Privacy terți | Legal, etic |
+| **Conținut care poate identifica copilul** | Poze, nume complet | COPPA, GDPR | Risc legal sever |
+
+---
+
+### 📌 Principii de excludere (Checklist QA)
+La introducerea sau modificarea unei întrebări:
+- [ ] **Relevanță imediată** — inputul schimbă experiența în <60 sec?
+- [ ] **Minimizare date** — colectăm doar ce e strict necesar pentru adaptare & KPI-urile definite?
+- [ ] **Evitare percepție de evaluare** — întrebarea poate fi interpretată ca test psihologic sau diagnostic?
+- [ ] **Neutralitate & incluziune** — limbaj fără judecăți de valoare sau stereotipuri?
+
+---
+
+### 🔄 Categorie interzisă → Fallback UX
+
+| Categorie | Fallback UX | Exemplu mesaj |
+|-----------|-------------|---------------|
+| PII | Elimină câmpul sau sanitize în timp real | „Nu avem nevoie de numele tău pentru a continua.” |
+| Date sensibile | Mesaj neutru + skip automat | „Hai să rămânem pe subiecte legate de copil.” |
+| Medicale | Direcționare spre resurse publice | „Pentru întrebări medicale, consultă un specialist.” |
+| Financiare | Eliminare + adaptare flow | „Soluția nu depinde de situația ta financiară.” |
+| Terți fără consimțământ | Redirecționare conversație spre utilizator | „Ne concentrăm doar pe experiența ta cu copilul.” |
+| Identificare copil | Blochează upload + mesaj clar | „Nu colectăm imagini sau nume reale ale copiilor.” |
+
+---
+
+### 🛠 Tracking & Guardrails
+- `blocked_input_attempt` (event) — log când utilizatorul introduce date interzise.
+- `input_sanitized` (boolean) — true dacă se elimină PII automat.
+- `compliance_tag` (enum: `allowed` / `restricted`) — verificat în QA.
+- **Audit lunar** — Owner: *UX Lead + Legal Officer*, target ≥ 99.5% întrebări cu `compliance_tag=allowed`.
+
+---
+
+### 📊 KPI-uri de sănătate legate de non-colectare
+- **0 cazuri** de stocare a PII în raw events.
+- ≥ **99.5%** întrebări afișate în quiz cu `compliance_tag=allowed`.
+- Bounce rate din percepție de intruziune ≤ **+1pp** față de baseline.
+
+---
+
+### ⚙️ Input Filtering Pipeline
+User Input
+↓
+Detect PII / Sensibil (regex, ML)
+↓
+Sanitize / Block
+↓
+Log blocked_input_attempt
+↓
+Trigger Fallback UX
+↓
+Continue Quiz Flow
+
+scss
+Copy
+Edit
+
+---
+
+### ⚖️ Pseudocod
+```pseudo
+onInputReceived(value):
+  category = detectCategory(value)
+  if category in ["PII","religie","politica","medical","financiar","terti","identificare_copil"]:
+      sanitize(value)
+      logEvent("blocked_input_attempt", { "type": category })
+      showFallbackUX(category)
+  else:
+      processInput(value)
+```
+
+TL;DR:
+Nu colectăm date personale, sensibile, financiare sau irelevante pentru JTBD-ul detectat.
+Menținem doar input relevant, imediat utilizabil și conform normelor legale și etice, protejând atât utilizatorul, cât și brandul.
 
 ## **1.5 [Ce întrebări pot fi înțelese rapid?](https://www.notion.so/Ce-ntreb-ri-pot-fi-n-elese-rapid-247065e2602f808c9f38f1f3949f2095?pvs=21)** → Fără jargon, limbaj validant 
 
+🎯 Scop
+Definim caracteristicile întrebărilor care pot fi citite, înțelese și răspunse în <5 sec de către ≥80% dintre utilizatori.
+Aceste întrebări maximizează flow-ul, reduc fricțiunea cognitivă și cresc Completion Rate & TTFI (Time To First Insight).
+
+🧠 Principii de “quick comprehension”
+Limbaj de zi cu zi — fără jargon, termeni tehnici sau formulări abstracte.
+
+Fără ambiguitate — întrebarea trebuie să aibă un sens clar, cu un singur “parcurs mental” spre răspuns.
+
+Scurtă și lineară — max. 12–14 cuvinte sau 80 caractere, 1 singură propoziție.
+
+Context minim necesar — dacă întrebarea necesită explicații suplimentare → nu e rapidă.
+
+Răspuns vizibil și auto-explicativ — opțiuni de răspuns clare, cu 2–5 variante, scurte și distincte.
+
+📂 Tipuri de întrebări cu înțelegere rapidă
+Tip	Exemplu	Timp mediu de procesare	KPI impact
+Binary / Yes–No	„Ai avut o seară liniștită?”	1–2 sec	↓ TTFI, ↑ Completion
+Multiple choice clar	„Cum se simte copilul acum?” (Calm / Agitat / Obosit)	2–3 sec	↑ Flow
+Scale simplă	„Cât de stresant a fost momentul?” (1–5)	3–4 sec	↑ JTBD Satisfaction
+Selecție unică cu icon	Emoții cu emoji: 😄 😐 😟 😡 😢	2–3 sec	↑ Engagement
+Factuale scurte	„Ce vârstă are copilul?”	2 sec	↑ Relevanță adaptare
+
+📏 Criterii de includere
+O întrebare este considerată “rapid înțeleasă” dacă:
+
+Reading time (P80) ≤ 3 sec (test cu eye-tracking sau clickstream).
+
+Answer time median ≤ 5 sec (excluzând input lag).
+
+Bounce rate pe acea întrebare ≤ +1pp față de media flow-ului.
+
+🛠 Tracking necesar
+question_read_time_ms
+
+question_answer_time_ms
+
+question_comprehension_score (Q de validare rapidă în teste interne: „Ai înțeles întrebarea?” Yes/No)
+
+Segmentare pe tip întrebare și poziție în flow.
+
+🎯 KPI-uri țintă
+≥ 80% din întrebările afișate în primele 3 poziții să fie “rapid înțelese” (conform criteriilor de mai sus).
+
+Creștere ≥ +5pp Completion prin optimizarea primelor 3 întrebări pentru viteză de procesare.
+
+Reducere TTFI median cu ≥ 15%.
+
+📌 Recomandare implementare
+Primele 3 întrebări = 100% “rapid înțelese” (entry hook).
+
+Mid-check (Q3) = întrebări clare dar ușor mai profunde (max. 7–9 sec de răspuns).
+
+Ultimele 2 întrebări pot fi mai elaborate, dar păstrează ≤15 sec timp de răspuns.
+
+TL;DR:
+Întrebările cu citire și răspuns în <5 sec sunt esențiale în primele etape ale quiz-ului pentru a menține fluxul și a maximiza completarea. Se bazează pe simplitate, claritate și opțiuni vizuale sau concise.
+
 ## **1.6 [Ce poate declanșa anxietate?](https://www.notion.so/Ce-poate-declan-a-anxietate-247065e2602f80cb9da3d12d293d41c8?pvs=21)** → Excludem formulări cuvinte ca “problemă”, “greșeală” 
+
+## 1.x – Întrebări anxiogene în quiz – Versiune 10/10
+
+---
+
+### 🎯 Scop
+Identificăm și prevenim elementele din quiz care pot crește anxietatea sau amplifica stări negative, reducând **Completion Rate** și **JTBD Satisfaction**.  
+Aplicăm design, copy și timing preventiv fără a compromite claritatea.
+
+---
+
+### 🧠 Factori principali de declanșare a anxietății
+
+| Factor | Exemple | Impact potențial | Observație |
+|--------|---------|------------------|------------|
+| Întrebări percepute ca evaluative | „Ai făcut tot ce trebuia azi ca părinte?” | Ridicat | Activează frica de judecată |
+| Formulări imperative | „Trebuie să faci asta acum” | Mediu–Ridicat | Reduce sentimentul de control |
+| Lipsa opțiunilor de răspuns acceptabile | Fără „Nu știu” / „Altceva” | Mediu | Crește presiunea și frustrarea |
+| Termeni negativi puternici | „Greșeală”, „Eșec” | Mediu–Ridicat | Asociere emoțională puternică |
+| Timer vizibil / presiune de timp | Countdown în UI | Mediu | Scade performanța cognitivă |
+| Rezultate parțiale premature | „Pare că faci totul greșit” | Ridicat | Risc de drop imediat |
+| Ton condescendent | „Ar fi trebuit să știi asta” | Ridicat | Afectează încrederea în produs |
+
+---
+
+### 📌 Principii de prevenire
+- **Neutralizează limbajul**: “Poți încerca…” în loc de “Trebuie să…”.
+- **Opțiuni de evadare**: Adaugă “Nu știu” / “Nu vreau să răspund”.
+- **Validare înainte de recomandare**: Mai ales la utilizatorii cu JTBD emoțional.
+- **Amână feedback-ul potențial negativ**: Oferă insight constructiv doar în outro, formulat pozitiv.
+- **UI fără presiune de timp**: Elimină countdown, folosește indicator calm de progres.
+
+---
+
+### ✅ Checklist QA anti-anxietate
+O întrebare trece de QA doar dacă:
+- [ ] Nu conține termeni negativi puternici.
+- [ ] Nu e formulată imperativ.
+- [ ] Are cel puțin o opțiune de răspuns “safe” / de evadare.
+- [ ] Nu oferă feedback negativ înainte de final.
+- [ ] Este neutră și incluzivă ca ton.
+
+---
+
+### 🛠 Tracking & Metric agregat
+
+**Evenimente noi:**
+- `anxiety_trigger_flag` (boolean) – marcat pe întrebări identificate ca trigger.
+- `anxiety_trigger_factor` (enum: evaluativ, imperativ, lipsa_optiune, negativ, timer, prematur, condescendent).
+- `anxiety_feedback_action` (enum: rescris, mutat, eliminat).
+
+**Metric agregat:**
+anxiety_trigger_rate = # întrebări cu anxiety_trigger_flag / total întrebări
+
+yaml
+Copy
+Edit
+Segmentare: `JTBD_type`, `flow_position`, `device`.
+
+---
+
+### 🎯 KPI-uri țintă
+- **% întrebări cu anxiety_trigger_flag** ≤ 3% din total flow.
+- Bounce rate per întrebare anxiogenă ≤ baseline +1pp.
+- Δ sentiment (QF − Q0.5) ≥ +0.5 pe utilizatorii afectați.
+- **Uplift post-intervenție**: +2pp Completion pe segmentul afectat.
+
+---
+
+### 🔄 Mapare factor anxiogen → intervenție
+
+| Factor anxiogen | Intervenție recomandată |
+|-----------------|--------------------------|
+| Întrebări evaluative | Reformulare în ton exploratoriu |
+| Formulări imperative | Conversie în ton permisiv |
+| Lipsă opțiuni | Adăugare “Nu știu” / “Altceva” |
+| Termeni negativi | Înlocuire cu formulări neutre |
+| Timer vizibil | Eliminare sau indicator discret |
+| Rezultate premature | Mutare feedback în outro |
+| Ton condescendent | Înlocuire cu validare empatică |
+
+---
+
+### 📊 Anxiety Heatmap (Dashboard spec)
+- **Axe:** Poziția întrebării × % drop post-întrebare.
+- **Culoare:** verde (<1%), galben (1–3%), roșu (>3%).
+- Click pe punct → detalii factor anxiogen + intervenție aplicată + uplift KPI post-intervenție.
+
+---
+
+### ⚙️ Pseudocod filtrare și rescriere
+```pseudo
+onQuestionLoad(question):
+  if question.factor in ["evaluativ","imperativ","negativ","prematur","condescendent"]:
+      markFlag("anxiety_trigger_flag")
+      suggestIntervention(mapFactorToIntervention(question.factor))
+```
+
+TL;DR:
+Măsurăm și prevenim întrebările anxiogene prin QA dedicat, metrici agregate și intervenții targetate.
+Obiectiv: sub 3% întrebări anxiogene, +2pp Completion pe segmente afectate, menținerea tonului empatic & incluziv.
 
 ## **1.7 [Ce întrebări ajută la personalizare?](https://www.notion.so/Ce-ntreb-ri-ajut-la-personalizare-247065e2602f80beae88d635aaec96a5?pvs=21)** → Pe ce bază livrăm conținut diferențiat ulterior? 
 
+---
+
+### 🎯 Scop
+Identificăm și prioritizăm întrebările care, odată răspunse, **cresc semnificativ acuratețea adaptării flow-ului** (ramuri, microcopy, CTA-uri) și **relevanța recomandărilor** din aceeași sesiune, maximizând:
+- **Completion Rate**
+- **CTR final**
+- **JTBD Satisfaction**
+
+Principiu: **Ask → Adapt → Impact în <60 sec**.
+
+---
+
+### 🗂 Criterii pentru o întrebare cu valoare mare în personalizare
+O întrebare este considerată de valoare dacă:
+1. ✅ Se mapează direct la o regulă de adaptare:  
+   *(ex.: (progress_type, jtbd_primary) → branch_id)*
+2. ✅ Este folosită în <60 sec de la colectare pentru a schimba conținutul.
+3. ✅ Are putere predictivă mare pentru JTBD sau progres perceput (**conf ≥ 0.6**).
+4. ✅ Poate fi răspunsă în ≤5 sec (fără fricțiune).
+5. ✅ Are opțiuni standardizate + fallback input liber pentru ML fine-tuning.
+
+---
+
+### 📌 Exemple de întrebări de mare valoare
+
+| Tip întrebare       | Exemplu concret                                         | Cum influențează personalizarea                    | Impact KPI-uri              |
+|---------------------|--------------------------------------------------------|----------------------------------------------------|-----------------------------|
+| **Situație concretă** | „Care e provocarea principală acum cu copilul?”         | Setează ramura de conținut (resurse, ton)          | ↑ Completion, ↑ CTR         |
+| **Emoție principală** | „Cum te simți în acest moment?”                        | Ajustează tonul și microcopy-ul                    | ↑ JTBD Satisfaction         |
+| **Vârsta copilului**  | „Ce vârstă are copilul tău?”                            | Filtrează exemplele și recomandările               | ↑ CTR                       |
+| **Timp disponibil**   | „Cât timp ai acum pentru o soluție?”                   | Alege lungimea/outro-ul adaptiv                    | ↑ Completion                |
+| **Nivel experiență**  | „E primul tău copil?”                                  | Ajustează nivelul de detaliu                       | ↑ Engagement                |
+
+---
+
+### 🧠 Recomandare de poziționare în flow
+- **Q0–Q1**: întrebări esențiale pentru detectarea JTBD (situație, emoție, vârstă copil).
+- **Q3 (mid-check)**: întrebări pentru actualizarea progresului perceput și ajustarea ramurilor finale.
+- **Outro**: întrebări pentru fine-tuning de profil persistent (nivel experiență, timp disponibil).
+
+---
+
+### 🛠 Tracking dedicat
+
+**Evenimente:**
+- question_personalization_flag (boolean) – marcat pentru întrebările ce intră în adaptare.
+- personalization_use_case (enum: jtbd_detect, progress_update, branch_select, outro_tuning).
+
+**KPI derivat:**
+```makefile
+personalization_utilization_rate = # întrebări folosite efectiv în adaptare / # întrebări marcate pentru personalizare
+```
+
+🎯 KPI-uri țintă
+Utilizare efectivă: ≥ 90% dintre întrebările marcate să fie folosite în adaptare.
+
+Completion Rate uplift: +5pp vs. control fără personalizare.
+
+CTR uplift: +3pp vs. control fără personalizare.
+
+TTFI: -15% în sesiunile cu personalizare activă.
+
+✅ Checklist QA – Întrebări de personalizare
+ Are ramură/adaptare clară asociată.
+
+ Poate fi răspunsă rapid, fără anxietate.
+
+ Este relevantă pentru majoritatea JTBD-urilor.
+
+ Este mapată în tracking la personalization_use_case.
+
+ Are opțiuni clare + fallback liber.
+
+TL;DR:
+Întrebările de personalizare schimbă imediat experiența.
+Trebuie să fie plasate strategic, răspuns rapid și corelate 1:1 cu o acțiune adaptivă măsurabilă.
+
 ## **1.8 [Ce întrebări ajută la prioritizare?](https://www.notion.so/Ce-ntreb-ri-ajut-la-prioritizare-247065e2602f80cd8e0ed2c52b370137?pvs=21)** → Ce categorie e cea mai acută: somn, tantrum etc. 
+
+## 1.8 – Întrebări care ajută la prioritizare (Versiune 10/10)
+
+---
+
+### 🎯 Scop
+Definim întrebările care permit **ordonarea livrării valorii** în funcție de **urgența, importanța și relevanța percepută de utilizator**, astfel încât:
+- **Primele momente din quiz** să producă cel mai mare impact în:
+  - JTBD Satisfaction
+  - Completion Rate
+  - CTR final
+
+Principiu: **“Deliver the highest-value moment first.”**
+
+---
+
+### 🗂 Criterii pentru o întrebare de prioritizare eficientă
+O întrebare este eligibilă pentru prioritizare dacă:
+1. ✅ **Semnalează urgența** — diferențiază între *“am nevoie acum”* și *“sunt curios”*.
+2. ✅ **Clarifică scopul principal** — mapează rapid către JTBD-ul dominant.
+3. ✅ **Permite trierea pe ROI emoțional ridicat** — evită amânarea momentului “aha”.
+4. ✅ **Are răspunsuri clare și exclusive** — fără ambiguități, opțiuni comparabile.
+5. ✅ **Este plasată devreme în flow** — ideal Q0 sau Q1.
+6. ✅ **Declanșează adaptare imediată** — schimbă ordinea întrebărilor sau CTA-ul în <60 sec.
+
+---
+
+### 📌 Exemple de întrebări cu valoare ridicată în prioritizare
+
+| Tip întrebare              | Exemplu concret                                                | Cum influențează ordinea                         | Impact KPI-uri                 |
+|----------------------------|----------------------------------------------------------------|--------------------------------------------------|---------------------------------|
+| **Nivel urgență**          | „Ai nevoie de o soluție acum sau e doar curiozitate?”          | Decide dacă livrăm direct CTA rapid sau context | ↓ TTFI, ↑ Completion           |
+| **Focus emoțional vs. funcțional** | „Ai vrea să te simți mai liniștit(ă) sau să ai un pas concret?” | Setează tonul & tipul de livrare inițială        | ↑ JTBD Satisfaction            |
+| **Tip provocare principală** | „Ce vrei să rezolvi în primul rând?”                          | Ordinează secvența întrebărilor și exemplelor    | ↑ CTR                          |
+| **Timp disponibil**        | „Cât timp ai acum?”                                            | Ajustează lungimea quiz-ului și a recomandărilor | ↑ Completion                   |
+| **Familiaritate cu subiectul** | „Ai mai încercat soluții pentru asta?”                       | Evită repetițiile, trece direct la nou           | ↑ Engagement                   |
+
+---
+
+### 🧠 Recomandare de poziționare în flow
+- **Q0–Q1**: întrebările de prioritizare trebuie plasate imediat după intro.
+- Output imediat: 
+  - Ordine întrebări ajustată
+  - CTA principal configurat pe răspuns
+  - Microcopy inițial personalizat pe urgență/scop
+
+---
+
+### 🛠 Tracking dedicat
+
+**Evenimente & proprietăți:**
+- `question_prioritization_flag` (boolean)
+- `priority_signal` (enum: `urgency`, `jtbd_focus`, `challenge_type`, `time_available`, `familiarity`)
+
+**KPI derivat:**
+```ini
+prioritization_accuracy = % sesiuni în care ordinea livrată ≈ ordinea preferințelor declarate
+```
+🎯 KPI-uri țintă
+Prioritization Accuracy: ≥ 85%
+
+TTFI: -20% vs. flow static
+
+JTBD Satisfaction: +5pp vs. control fără prioritizare
+
+Completion Rate: +3pp pe sesiuni cu prioritizare corectă
+
+✅ Checklist QA – Întrebări de prioritizare
+ Plasată în primele 2 întrebări.
+
+ Legată direct de o schimbare de ordine sau livrare CTA.
+
+ Opțiuni clare, exclusive și non-anxiogene.
+
+ Track-uită cu question_prioritization_flag.
+
+ Răspunsul produce efect vizibil imediat.
+
+TL;DR:
+Întrebările de prioritizare sunt declanșatorul livrării rapide a valorii maxime pentru utilizator.
+Se pun devreme, sunt clare și mapează direct la logica de ordonare a flow-ului.
 
 ## **1.9 [Ce putem folosi în analytics?](https://www.notion.so/Ce-putem-folosi-n-analytics-247065e2602f8019a972cc6d51b0a268?pvs=21)** → Segmentare ulterioară: copil 2–3y vs 5–6y 
 
+🎯 Scop
+Definim exact ce tipuri de date colectate din quiz produc impact direct și măsurabil asupra:
+
+Deciziilor de produs
+
+Optimizării UX & flow
+
+Prioritizării conținutului
+
+Personalizării adaptive în timp real
+
+Totul în respectarea principiilor de privacy și fără colectarea de date fără ROI măsurabil.
+
+🗂 Categorii de date prioritare & utilizarea lor
+Categorie	Exemple	Utilizare directă în analytics	Impact decizional	Prioritate (1–5)
+JTBD detectat	jtbd_primary, jtbd_type, jtbd_confidence	Segmentare KPI-uri (Completion, CTR, Satisfaction)	↑ Acuratețe personalizare, ↑ retenție	5
+Progres perceput	progress_type, perceived_score, delta_score	Identificare puncte de drop, optimizare mid-flow	↑ Completion	5
+Input-uri cheie	Situații concrete, emoții declarate, vârsta copilului	Corelare relevanță conținut ↔ engagement	↑ CTR, ↑ Satisfaction	5
+Comportament în quiz	Timp per întrebare, backtracks, skip-uri	Optimizare flow, timpi, poziționare întrebări	↓ TTFI, ↑ Completion	4
+Interacțiune cu CTA	Click CTA final, hover, timp până la click	Testare conversii, optimizare copy/design	↑ CTR	4
+Performanță tehnică	tti_ms, adaptation_latency_ms, cls	Corelare UX ↔ metrici tehnici	↓ Drop rate	3
+Evenimente speciale	Adaptări aplicate, variantă experiment	Măsurare uplift / impact test	↑ ROI testare	3
+
+📌 Principii de selecție
+Relevanță directă – fiecare dată trebuie să apară într-un dashboard / raport folosit lunar.
+
+Legătură cu KPI – influențează direct Completion, CTR, TTFI sau JTBD Satisfaction.
+
+Privacy-first – fără PII fără consimțământ explicit.
+
+Minimizare – datele nefolosite în <90 zile → eliminate.
+
+Acțiune imediată – fiecare dată colectată trebuie să fie asociată cu o acțiune adaptivă sau decizie de produs.
+
+🔄 Mapare Data → Decizie
+Data colectată	Prag / condiție	Decizie adaptivă / business
+jtbd_primary = emotional + conf ≥ 0.6	—	Flow începe cu validare + ton empatic
+perceived_score ≤ 2 la Q3 + delta_score ≤ -1	—	Adaptare ultimă întrebare + microcopy suport
+Vârsta copilului < 3 ani	—	Resurse & exemple specifice bebeluși/toddlers
+time_on_question_ms > P90 pentru întrebarea X	—	Simplificare copy / repoziționare în flow
+adaptation_latency_ms > 500ms în >5% sesiuni	—	Optimizare API / pre-load resurse
+
+🛠 Structură minimă de tracking
+Props globale:
+
+Copy
+Edit
+session_id, device_type, channel, flow_version, jtbd_primary, jtbd_confidence
+Evenimente cheie:
+
+quiz_start → timestamp, traffic_source
+
+jtbd_detected → JTBD + confidence
+
+quiz_question_shown → question_id, position, time_spent
+
+quiz_progress_update → perceived_score, delta_score
+
+quiz_adaptation_applied → branch_id, trigger_reason
+
+quiz_complete → total_time, completion_flag
+
+quiz_cta_clicked → cta_id, time_to_click
+
+jtbd_satisfied → self_reported_value, likelihood_return
+
+🎯 KPI-uri țintă
+Completion rate per JTBD & progress_type → +5pp vs. control
+
+CTR final per variantă de flow & CTA → +3pp vs. control
+
+TTFI mediu per JTBD → -15% vs. control
+
+Adaptation uplift (Completion, CTR, Satisfaction) → ≥ +5pp
+
+Impact negativ latency asupra Completion ≤ -2pp la P95
+
+✅ Checklist QA – Date utile în analytics
+ Datele colectate au mapare directă la KPI
+
+ Fără redundanțe (aceeași metrică colectată dublu)
+
+ Structura evenimentelor stabilă ≥ 3 luni
+
+ Privacy check — fără PII non-consensuale
+
+ Schema validată în QA înainte de deploy
+
+📌 TL;DR
+Colectăm doar datele cu impact direct și măsurabil asupra KPI-urilor cheie, mapate clar la acțiuni adaptive sau decizii de produs.
+Eliminăm colectarea inutilă, menținem conformitatea legală și maximizăm ROI-ul analytics.
+
 ## **1.10 [Ce putem folosi pentru ton & limbaj?](https://www.notion.so/Ce-putem-folosi-pentru-ton-limbaj-247065e2602f809bb4c9ceef4ebe8d47?pvs=21)** → Nivelul de stres poate modifica tonul răspunsurilor 
+
+🎯 Scop
+Stabilim ce tipuri de semnale și date din quiz putem folosi pentru a ajusta tonul și limbajul în timp real, astfel încât experiența să fie aliniată la JTBD-ul utilizatorului, să reducă fricțiunea emoțională și să crească Completion, CTR și JTBD Satisfaction.
+
+🗂 Surse de semnale pentru ton & limbaj
+Sursă semnal	Exemple valori	Cum influențează tonul	Observație
+JTBD primar	emo_support, action_now, social_confirmation, resource_discovery	Dictează focusul (empatic vs. orientat pe acțiune)	Impact major – tonul trebuie setat încă din Q0
+Tip JTBD (funcțional/emoțional)	functional, emotional	Setează nivelul de energie și formalitate	Evită amestecarea mesajelor funcționale cu cele emoționale
+Progres perceput	emotional, clarity, reflection, confirmation	Ajustează microcopy-ul intermediar	Poate schimba registrul (calm → motivant)
+Emoții declarate	„Frustrare”, „Anxietate”	Reduce imperativele, crește validarea	Necesită vocabular adaptat emoției
+Situații concrete	„Criză de furie”, „Refuz de somn”	Adaugă exemple specifice în răspunsuri	Crește relevanța percepută
+Vârsta copilului	2 ani, 5 ani	Ajustează referințele și exemplele	Evită conținut irelevant
+Comportament interacțiune	timp mare pe întrebare, backtracks	Ton mai răbdător, simplificare text	Detectează nevoia de clarificare
+
+📌 Principii de adaptare ton & limbaj
+Oglindirea utilizatorului — Folosește cuvinte și structuri similare cu cele din răspunsurile sale.
+
+Primul contact setă tonul — JTBD + emoții declarate din Q0–Q1 dictează registrul întregului flow.
+
+Ton empatic înainte de acțiune — La JTBD emoțional, validarea vine înainte de recomandare.
+
+Claritate înainte de detaliu — La JTBD funcțional, instrucțiunea principală apare rapid.
+
+Neutralitate la progres scăzut — Evită termeni care pot amplifica frustrarea.
+
+🔄 Mapare semnal → ton & limbaj
+Semnal detectat	Ton recomandat	Exemple microcopy
+emo_support + emotional	Calduros, empatic	„E în regulă să fie greu uneori.”
+action_now + functional	Direct, mobilizator	„Încearcă asta diseară: [pas].”
+social_confirmation + emotional	Inclusiv, validant	„Mulți părinți trec prin asta.”
+resource_discovery + functional	Informativ, structurat	„Ți-am pregătit 3 idei clare pentru tine.”
+progres = reflection	Exploratoriu	„Până acum ai spus: [rezumat]. Cum ți se pare?”
+emoție = anxietate	Liniștitor	„Hai să luăm lucrurile pas cu pas.”
+
+🛠 Tracking
+tone_variant (enum: empatic, mobilizator, informativ, exploratoriu)
+
+tone_source (jtbd_primary, progress_type, emotie, situatie)
+
+microcopy_id (pentru testare A/B pe ton)
+
+Corelare: CTR, Completion, Satisfaction per variantă ton
+
+🎯 KPI-uri țintă
+Creștere JTBD Satisfaction ≥ +5pp pe segmente cu ton adaptat.
+
+Δ CTR final ≥ +3pp când tonul este personalizat.
+
+Bounce rate pe întrebările sensibile ≤ baseline.
+
+TL;DR:
+Tonul și limbajul trebuie să fie conduse de JTBD-ul detectat, emoțiile declarate și progresul perceput. Adaptarea rapidă la primele întrebări setează experiența, reduce anxietatea și crește relevanța, ceea ce impactează direct Completion, CTR și Satisfaction.
 
 ## **1.11 [Ce întrebări informăm chatbot-ul?](https://www.notion.so/Ce-ntreb-ri-inform-m-chatbot-ul-247065e2602f80ed91acc643c4e07a1a?pvs=21)** → Găsim semnale utile pentru prompt engineering 
 
+1.x [Ce întrebări trimitem către chatbot] — v2.0 Top 0.1%
+🎯 Scop
+Stabilim exact ce întrebări din quiz trebuie transmise către chatbot pentru a:
+
+continua conversația în același ton & context
+
+oferi recomandări personalizate fără repetiții
+
+folosi datele pentru follow-up contextual în aceeași sesiune sau ulterior
+
+maximiza CTR chatbot, JTBD Satisfaction și viteza livrării valorii
+
+🗂 Tipuri de întrebări transmise + prioritate
+Tip întrebare	Exemplu concret	Utilizare chatbot	Prioritate (1–5)	Observație
+JTBD primar	„Ce îți dorești să obții acum?”	Setează obiectiv conversație, ton global	5	Include tip funcțional/emoțional + confidence
+Situații concrete	„Copilul refuză să doarmă”	Declanșează scenarii prestabilite + exemple targetate	5	Trigger direct pentru recomandări
+Emoții declarate	„Frustrare”, „Anxietate”	Ajustează ton, ritm, vocabular	5	Evită limbaj evaluativ
+Progres perceput	„Cât te-a ajutat această întrebare?”	Decide schimbarea unghiului / recapitulare	4	Folosit doar dacă conf ≥ 0.6
+Vârsta copilului	„5 ani”	Filtrează recomandări & resurse	4	Colectată 1x, reamintită în context
+Preferințe CTA	Alegere tip resursă finală	Direcționează spre conținut preferat	3	Evită opțiuni irelevante
+
+📌 Principii de transmitere către chatbot
+Minimizare datelor — transmitem doar ce schimbă conversația în primele 2–3 mesaje.
+
+Ton & limbaj sincronizat — se trimite tone_variant + tone_source detectate în quiz.
+
+Evita duplicarea — chatbot-ul nu reîntreabă ce a fost acoperit în quiz.
+
+Fallback inteligent — dacă semnalul lipsește sau are confidence <0.6, chatbot-ul:
+
+folosește ton neutru-calduros
+
+pune întrebarea lipsă într-un mod natural („Ca să îți pot răspunde mai bine…”)
+
+Protecția datelor — PII doar cu consimțământ explicit; altfel se trimite hash/ID.
+
+🔄 Mapare întrebare → payload → acțiune chatbot
+Întrebare quiz	Payload JSON trimis	Acțiune chatbot
+JTBD primar = action_now	{ "jtbd_primary":"action_now", "confidence":0.82, "tone_variant":"mobilizator" }	Sugerează imediat un pas concret
+Situație = criză furie	{ "situatie":"criza_furie" }	Oferă 2–3 tehnici rapide + follow-up „Cum a mers?”
+Emoție = anxietate	{ "emotie":"anxietate" }	Ton liniștitor, răspunsuri mai scurte
+Vârstă = 2 ani	{ "varsta":2 }	Recomandări adaptate toddler
+Progres scăzut la mid-check	{ "progress_type":"clarity", "score":2 }	Recapitulare & simplificare explicații
+
+📜 Schema JSON standard (versiune 1.0)
+json
+Copy
+Edit
+{
+  "jtbd_primary": "action_now",
+  "jtbd_type": "functional",
+  "jtbd_confidence": 0.82,
+  "situatie": "criza_furie",
+  "emotie": "anxietate",
+  "varsta": 2,
+  "progress_type": "clarity",
+  "progress_score": 2,
+  "tone_variant": "mobilizator",
+  "tone_source": "jtbd_primary",
+  "cta_preference": "video_tutorial"
+}
+🛠 Tracking
+Evenimente:
+
+chatbot_context_sent (boolean)
+
+chatbot_context_fields (array: jtbd, situatie, emotie, varsta, progress)
+
+chatbot_context_confidence_avg (float)
+
+Corelare cu chatbot_ctr, chatbot_satisfaction, chatbot_first_value_time
+
+📊 KPI-uri țintă + baseline
+KPI	Baseline	Țintă
+CTR chatbot	42%	≥ 47% (+5pp)
+Mesaje introductive medii	3.2	≤ 2.2 (-30%)
+JTBD Satisfaction chatbot	74%	≥ 79% (+5pp)
+
+✅ TL;DR
+Trimitem doar întrebările care schimbă conversația imediat, cu prioritate pe JTBD, situații și emoții.
+Schema JSON standard asigură consistență, iar fallback-ul acoperă cazurile cu date lipsă sau confidence scăzută.
+Impactul se măsoară clar pe CTR, Satisfaction și viteza primei valori livrate.
+
+
+
 ## **1.12 [Ce întrebări validează ipoteze?](https://www.notion.so/Ce-ntreb-ri-valideaz-ipoteze-247065e2602f80c2affddb5b73a87474?pvs=21)** → Avem ipoteze de tip “părinții știu deja cauza”? 
+
+1.x [Întrebări de validare a ipotezelor prin quiz] — v2.0 Top 0.1%
+🎯 Scop
+Identificăm întrebările din quiz care pot confirma sau infirma ipoteze active de produs, UX sau conținut, astfel încât:
+
+Roadmap-ul să fie ghidat de date reale, nu opinii
+
+Deciziile să fie luate în ≤ 14 zile de la colectarea datelor
+
+Să reducem ciclurile de testare și iterație la minimum
+
+🗂 Tipuri de ipoteze validate prin quiz
+Tip ipoteză	Exemplu ipoteză	Întrebare quiz	Cum validează	Metric asociat	Prioritate (1–5)
+Relevanță conținut	„Utilizatorii preferă PDF în loc de video.”	„Cum preferi să primești recomandările?” (PDF / Video / Audio)	Măsoară preferința directă	% alegere per opțiune	5
+Barieră percepută	„Drop-ul vine din lipsă de timp.”	„Cât timp ai acum?” (2 / 5 / 10+ min)	Corelează timpul disponibil cu drop rate	Drop rate per segment timp	5
+Motivație principală	„Majoritatea vin pentru JTBD funcțional.”	Întrebarea JTBD inițială	Segmentează emoțional vs. funcțional	% sesiuni per JTBD_type	4
+Sensibilitate ton	„Ton empatic crește Completion cu +5pp.”	Scale de sentiment pre și post-adaptare	Compară uplift între tonuri	Δ Completion & Satisfaction	4
+Ordine întrebări	„Mutarea vârstei copilului mai târziu reduce drop.”	Repoziționare întrebare vârstă în A/B	Corelează poziția cu drop rate	Δ drop rate între variante	3
+Atractivitate CTA	„CTA orientat pe acțiune > CTA informativ.”	Variantare microcopy CTA final	Măsoară CTR direct	CTR per variantă	3
+
+📌 Principii de selecție
+Legătură directă cu backlog — fiecare întrebare mapată la hypothesis_id din board-ul de produs.
+
+Măsurabilă — răspunsurile produc un KPI sau segment clar.
+
+Decizională — rezultatul schimbă roadmap-ul.
+
+Iterabilă — poate fi retestată post-modificare.
+
+Fără fricțiune — formulată natural, fără anxietate.
+
+📊 Matrice Impact × Efort
+Tip întrebare	Impact pe roadmap	Efort colectare	ROI Testare
+Relevanță conținut	Mare	Mic	Ridicat
+Barieră percepută	Mare	Mic	Ridicat
+Motivație principală	Mare	Mediu	Ridicat
+Sensibilitate ton	Mediu	Mediu	Mediu
+Ordine întrebări	Mediu	Mediu	Mediu
+Atractivitate CTA	Mic	Mic	Bun
+
+🔄 Proces Data → Decizie
+Formulează ipoteza
+Ex.: „Resursele vizuale cresc CTR cu +5pp”
+
+Alege întrebarea din quiz pentru colectare.
+
+Definește pragul de succes
+Ex.: „Dacă ≥60% aleg imagini → pivotăm către vizual”
+
+Analizează segmentat (JTBD, device, sursă trafic).
+
+Decide acțiunea: pivot / iterate / drop.
+
+🛠 Tracking minim
+hypothesis_id — ID unic în backlog
+
+hypothesis_question_id — întrebarea folosită
+
+hypothesis_result — boolean / distribuție
+
+Corelare: KPI post-intervenție
+
+🛡️ Fallback pentru date lipsă
+Dacă hypothesis_result are < 30 răspunsuri valide în 14 zile → test extins cu trafic suplimentar.
+
+Dacă confidence < 0.6 → ipoteza rămâne „nevalidată”, nu „falsă”.
+
+📅 Roadmap Link Table (exemplu Notion/Jira)
+Hypothesis ID	Întrebare quiz	Status test	Rezultat	Decizie	Owner
+HYP-023	Q5 Preferință format resurse	În test	68% PDF	Pivot spre PDF	PM
+HYP-041	Q2 Timp disponibil	Confirmat	Drop mai mare sub 2 min	Optimizează flow scurt	UX
+
+🎯 KPI-uri țintă
+≥ 80% întrebări de validare → ipoteze active
+
+Timp mediu colectare → decizie ≤ 14 zile
+
+≥ 60% ipoteze testate → acțiuni concrete (pivot / ship / kill)
+
+✅ TL;DR
+Întrebările de validare trebuie să fie legate direct de ipoteze active, să aibă prag de succes clar și să ducă la decizii rapide.
+Folosim matrice Impact × Efort, fallback pe date lipsă și un link direct în backlog pentru transparență și viteză.
 
 ## **1.13 [Ce întrebare poate fi ancoră emoțională?](https://www.notion.so/Ce-ntrebare-poate-fi-ancor-emo-ional-247065e2602f80fcb427d82a600d16bd?pvs=21)** → Ce moment recent putem reflecta cu empatie? 
 
+1.x [Întrebări-ancoră emoțională] — v2.0 Top 0.1%
+🎯 Scop
+Definim întrebările din quiz care funcționează ca ancoră emoțională — momentul din flow unde utilizatorul simte o conexiune personală autentică și își întărește motivația de a continua.
+
+Impact direct:
+
+Creșterea retenției în flow
+
+Susținerea JTBD-ului emoțional
+
+Creșterea Completion Rate, JTBD Satisfaction și sentimentului pozitiv
+
+🧠 Ce este o ancoră emoțională
+O întrebare sau formulare care:
+
+Recunoaște experiența personală a utilizatorului.
+
+Validează emoția fără judecată.
+
+Activează empatia („acest produs mă înțelege”).
+
+Apare devreme în quiz (Q1–Q2) pentru a preveni drop-ul.
+
+📌 Exemple tipice
+Context JTBD	Întrebare-ancoră	Motiv pentru impact
+emo_support	„Cum te-ai simțit cel mai mult azi ca părinte?” (opțiuni empatice)	Deschide conversația emoțională, reduce rezistența
+action_now	„Care e lucrul care ți-ar face viața mai ușoară chiar acum?”	Dă sentimentul de utilitate imediată
+social_confirmation	„Ai mai vorbit cu alți părinți despre asta?”	Activează sentimentul de apartenență
+resource_discovery	„Ai căutat deja informații despre această problemă?”	Creează context și confirmă interesul
+
+📏 Criterii de selecție
+Conexiune imediată: utilizatorul recunoaște că e despre el/ea.
+
+Relevanță JTBD: legată de motivația principală detectată (jtbd_primary).
+
+Fără judecată: limbaj neutru și sigur.
+
+Poziționare strategică: primele 2–3 întrebări (ideal Q1/Q2).
+
+Opțiuni „safe”: cel puțin una confortabilă (ex. „Prefer să nu răspund”).
+
+📊 Matrice Impact × Poziționare
+Tip ancoră	Impact emoțional	Poziționare optimă	Prioritate rollout
+Emoție directă (emo_support)	Foarte mare	Q1	5
+Soluție rapidă (action_now)	Mare	Q1–Q2	5
+Apartenență (social_confirmation)	Medie	Q2	4
+Context exploratoriu (resource_discovery)	Medie	Q2–Q3	3
+
+🔄 Integrare în flow
+Pe emoțional: activează încrederea înainte de întrebări funcționale.
+
+Pe funcțional: creează impresia de utilitate imediată.
+
+Pe mixt: consolidează motivația înainte de întrebările mai tehnice.
+
+🛠 Tracking & Măsurare
+anchor_question_id — ID întrebare marcată ca ancoră emoțională
+
+anchor_position — poziția în flow
+
+anchor_effect_completion — Δ Completion post-ancoră vs. pre-ancoră
+
+anchor_sentiment_score — schimbare sentiment (post – pre)
+
+Segmentare: jtbd_primary, device, traffic_source
+
+🛡️ Fallback & adaptare
+Dacă utilizatorul nu răspunde → chatbot/flow livrează o replică empatică generică („E ok dacă nu vrei să răspunzi acum”).
+
+Dacă jtbd_primary are confidence < 0.6 → se folosește o ancoră neutră („Ce ți-ar fi cel mai util azi?”).
+
+🎯 KPI-uri țintă
+Δ Completion după ancoră ≥ +5pp vs. întrebări non-ancoră
+
+Δ Sentiment ≥ +0.5 pe scala internă
+
+Bounce rate post-ancoră ≤ baseline – 2pp
+
+≥ 80% utilizatori care răspund la ancoră finalizează quiz-ul
+
+✅ TL;DR
+O ancoră emoțională e momentul-cheie din quiz în care câștigăm încrederea utilizatorului.
+Trebuie:
+
+să fie empatică
+
+să apară devreme
+
+să fie măsurată ca uplift KPI
+
+să aibă fallback inteligent dacă lipsește răspunsul sau JTBD-ul nu e clar.
+
 ## **1.14 [Cum prioritizăm dacă avem doar 6 întrebări?](https://www.notion.so/Cum-prioritiz-m-dac-avem-doar-6-ntreb-ri-247065e2602f80839104c9e1c3e10ea7?pvs=21)** → Ce ar rămâne în top 3 dacă am avea doar 3? 
 
+1.14 [Cum prioritizăm dacă avem doar 6 întrebări] — v2.0
+🎯 Scop
+Stabilim ordinea optimă a celor 6 întrebări din quiz pentru a maximiza simultan:
+
+Detectarea JTBD (funcțional + emoțional)
+
+Personalizarea adaptivă în timp real
+
+Livrarea rapidă de valoare (TTFI scurt)
+
+Completion Rate & CTR final
+
+🧩 Principii de prioritizare
+Detectează rapid motivul principal (jtbd_primary) → fără asta, adaptarea e incompletă.
+
+Creează conexiune emoțională devreme → reduce drop-ul în primele ecrane.
+
+Colectează doar input cu impact imediat în adaptare sau rezultat.
+
+Livrează valoare înainte de final → un mini-insight la mid-check.
+
+Echilibrează emoționalul cu funcționalul → pentru toate tipurile de JTBD.
+
+Folosește întrebările ca semnale multi-rol (detectare + personalizare + validare ipoteze).
+
+📌 Structură recomandată (6 pași)
+Ordine	Obiectiv principal	Tip întrebare	Observații / Note de implementare
+Q0	Setare context + onboarding	Micro-intro + CTA „Start”	1 frază max, fără bariere, CTA clar
+Q1	Detectare JTBD primar	JTBD + tip funcțional/emoțional	Cu opțiuni + free-text scurt, confidence_score calculat
+Q2	Creare ancoră emoțională	Validare stare / nevoie personală	Ton empatic, opțiune „Prefer să nu răspund” inclusă
+Q3	Input cu relevanță maximă	Situație concretă sau vârstă copilului	Folosit imediat pentru branch adaptiv
+Q4	Mid-check progres perceput	Slider + semnale implicite	Poate declanșa ajustarea ultimei întrebări sau a outro-ului
+Q5	Fine-tuning + pre-outro CTA	Rutine / timp disponibil	Pregătește personalizarea finală și CTA adaptat
+Outro	Rezultat + CTA principal	Adaptat la JTBD & progres	Livrare valoare + direcție clară, fără delay
+
+🛡️ Fallback logic (răspuns lipsă)
+JTBD (Q1) lipsă/conf < 0.6 → Folosește întrebare ancoră neutră + setare branch generic.
+
+Situație concretă lipsă → Ramură fallback cu conținut „most relevant generic”.
+
+Progres lipsă (Q4) → Outro standard, fără ton personalizat.
+
+📊 Scor de prioritate per întrebare (Impact × Ușurință × Necesitate)
+Întrebare	Impact KPI (0–5)	Ușurință colectare (0–5)	Necesitate adaptare (0–5)	Scor final /75
+JTBD detectare (Q1)	5	5	5	75
+Ancoră emoțională (Q2)	5	4	4	65
+Situație / Vârstă (Q3)	4	5	5	70
+Progres perceput (Q4)	4	4	4	64
+Rutine / Timp (Q5)	3	5	3	55
+
+🛠 Tracking critic
+question_position — poziția în flow
+
+input_used_for_adaptation (boolean)
+
+adaptation_trigger_reason (enum)
+
+ttfi_seconds — calculat din quiz_start → primul insight livrat
+
+🎯 KPI-uri țintă
+Completion ≥ baseline +5pp
+
+TTFI ≤ 60 sec în ≥ 80% sesiuni
+
+JTBD Satisfaction ≥ 75% pe toate segmentele
+
+≥ 90% din întrebări input_used_for_adaptation = true
+
+✅ TL;DR
+Cu doar 6 întrebări:
+
+Q1 = JTBD detectare
+
+Q2 = ancoră emoțională
+
+Q3 = input maxim relevant
+
+Q4 = progres perceput
+
+Q5 = fine-tuning adaptiv
+
+Outro = livrare valoare imediată
+
+Fiecare întrebare trebuie să schimbe adaptarea în timp real sau să contribuie la livrarea valorii înainte de final.
+
 ## **1.15 [Cum documentăm scopul fiecărei întrebări?](https://www.notion.so/Cum-document-m-scopul-fiec-rei-ntreb-ri-247065e2602f80638007fecf94237c3b?pvs=21)** → Etichetare: `Q4 → used for chatbot persona` 
+
+1.15 Metodologie standard de documentare a scopului fiecărei întrebări — v2.0
+🎯 Scop
+Definim o metodologie standardizată și versionată pentru a documenta scopul fiecărei întrebări din quiz, astfel încât:
+
+Echipa să știe exact de ce există fiecare întrebare.
+
+Impactul și ROI-ul să poată fi evaluat rapid pe baza datelor.
+
+Să fie clar dacă întrebarea contribuie la KPI-uri și la experiența adaptivă în timp real.
+
+🧩 Structură recomandată de documentare (Fișă de întrebare)
+Câmp obligatoriu	Descriere	Exemplu
+ID întrebare	Cod unic + versiune text	Q3_v2.1
+Text întrebare (RO/EN)	Formularea exactă, ambele limbi dacă e cazul	„Cât de mult te-a ajutat întrebarea asta?”
+Obiectiv principal	KPI sau scop adaptiv	Detectare progres perceput
+Tip JTBD vizat	Funcțional / Emoțional + subtip	Emoțional → emo_support
+Moment în flow	Poziția în quiz	Q3 (mid-check)
+Tip de input	Enum: situație, emoție, vârstă, rutină, progres etc.	progres
+Impact direct	Cum schimbă adaptarea / conținutul livrat	Selectează branch în matrix adaptivă
+Folosit în adaptare?	Boolean	TRUE
+Riscuri UX	Potențial anxiogen, ambiguu, lung etc.	Poate fi perceput evaluativ
+Tracking asociat	Evenimente + proprietăți trimise	quiz_progress_update + perceived_score, delta_score
+KPI legat	Completion, CTR, Satisfaction, TTFI	Completion, Satisfaction
+Decizie dacă eliminăm	Condiții de scoatere din flow	Dacă nu mai influențează adaptarea și are completion <90%
+Scor Impact (nou)	Calculat: Impact KPI (0–5) × Utilizare Adaptare (0–5) × Ușurință Colectare (0–5)	72/125
+
+📌 Principii de documentare
+Claritate absolută — nici o întrebare nu există „pentru că sună bine”.
+
+Legătură directă cu adaptarea sau un KPI → altfel, revizuire sau eliminare.
+
+Versionare strictă — orice modificare de text sau poziție → incrementare versiune în ID.
+
+Documentare UX — riscurile (anxietate, ambiguitate, lungime) trebuie notate.
+
+Scor de Impact — folosit pentru prioritizare și optimizare.
+
+🛠 Tooling & implementare
+Template standard în Notion / Confluence cu câmpurile de mai sus.
+
+Filtrare rapidă după moment_in_flow, tip_JTBD, impact_direct.
+
+Export CSV → folosit în QA și mapare automată cu analytics.
+
+Integrare cu tracking → question_id din documentație = question_id din evenimente.
+
+📊 KPI-uri pentru proces
+100% întrebări active documentate complet înainte de go-live.
+
+<5% întrebări active fără impact direct în adaptare.
+
+Timp de onboard pentru noul copywriter / UX researcher: <1h pentru înțelegerea flow-ului.
+
+Reducere timp QA → -30% prin filtrare după câmpuri și scor impact.
+
+🔄 Proces operațional
+Adăugare întrebare nouă → completare fișă + scor impact.
+
+Revizuire trimestrială → recalculare scor impact + decizie păstrare/eliminare.
+
+Cross-check cu analytics → verificare input_used_for_adaptation + KPI uplift.
+
+Eliminare → dacă scor impact <40/125 sau KPI relevance scade sub prag.
+
+✅ TL;DR
+Fiecare întrebare din quiz trebuie să aibă ID unic, scop clar, KPI asociat, rol în adaptare și riscuri documentate.
+Documentația standard permite transparență totală, optimizare rapidă și aliniere echipă–business–UX.
 
 ## **2. Stabilești constrângerile**
 
