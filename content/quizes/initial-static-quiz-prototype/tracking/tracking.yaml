@@ -1,0 +1,225 @@
+# /tracking/tracking.yaml
+# Quiz Intro – Tracking Spec (PostHog-ready, GA4-compatible)
+version: 1.0
+timezone: Europe/Bucharest
+pii_policy: "no_pii"              # nu trimitem nume/email/telefon
+id_strategy:
+  session_id: "client_generated_uuid_v4"
+  user_id: "optional_hash"        # dacă există login; altfel omit
+transport:
+  primary: posthog
+  future_dual_write: ga4_measurement_api
+  batch_max_ms: 1000
+
+enums:
+  device: [mobile, desktop]
+  net_type: [3G, 4G, 5G, WiFi, Unknown]
+  variant: [control, adaptive]
+  intent_profile: [Norman, Torres, Neutral]
+  progress_type: [emotional, clarity, reflection, confirmation, unknown]
+  branch: [Norman, Torres, Neutral, Clarity_min]
+  cta_position: [outro]
+  option_tag: [emo_validare, clarificare, actiune_pas, profil, profil_safe, confirmare]
+
+defaults:
+  required_common_props: [session_id, variant, device, net_type]
+  numeric_bounds:
+    time_on_question_ms: {min: 0, max: 30000}
+    feedback_latency_ms: {min: 0, max: 5000}
+    lcp_ms: {min: 0, max: 5000}
+    ttfb_ms: {min: 0, max: 3000}
+    cls_score: {min: 0.0, max: 1.0}
+
+events:
+  - name: quiz_intro_shown
+    desc: "Intro vizibil pe ecran"
+    required: [session_id, variant, device, net_type]
+    props:
+      copy_id: {type: string}     # ex: intro_B
+      lcp_ms: {type: number}
+      ttfb_ms: {type: number}
+      cls_score: {type: number}
+    constraints:
+      emit_once_per_session: true
+
+  - name: quiz_start_clicked
+    desc: "Click pe CTA din intro (start quiz)"
+    required: [session_id]
+    props:
+      copy_id: {type: string}
+      ttfi_ms: {type: integer}    # time-to-first-interaction (client calc)
+    constraints:
+      order_after: quiz_intro_shown
+
+  - name: quiz_question_shown
+    desc: "Afișat un ecran de întrebare"
+    required: [session_id, variant, device, net_type, question_id, order]
+    props:
+      question_id: {type: string, pattern: "^Q[1-6]$"}
+      order: {type: integer, enum: [1,2,3,4,5,6]}
+      microcopy_id: {type: string, nullable: true}
+      question_text_len: {type: integer}
+      options_count: {type: integer}
+    constraints:
+      one_per_question: true
+
+  - name: quiz_answer_submitted
+    desc: "Răspuns selectat pentru întrebare"
+    required: [session_id, question_id, time_on_question_ms, chosen_option_id]
+    props:
+      question_id: {type: string, pattern: "^Q[1-6]$"}
+      time_on_question_ms: {type: integer}
+      backtracked: {type: boolean}
+      tap_errors: {type: integer, min: 0, max: 5}
+      chosen_option_id: {type: string, pattern: "^O[1-4]$"}
+      chosen_option_tags: {type: array, items: {type: string, enum: *option_tag}}
+    constraints:
+      numeric_bounds: *numeric_bounds
+
+  - name: quiz_intent_inferred
+    desc: "Intent profil inferat după Q2"
+    required: [session_id, intent_profile, intent_confidence]
+    props:
+      intent_profile: {type: string, enum: *intent_profile}
+      intent_confidence: {type: number, min: 0, max: 1}
+      features_used: {type: array, items: {type: string}}
+
+  - name: quiz_progress_update
+    desc: "Măsurare progres perceput (Q0.5)"
+    required: [session_id, question_number, perceived_progress_score]
+    props:
+      question_number: {type: integer, enum: [2]}  # plasat după Q2
+      perceived_progress_score: {type: integer, min: 1, max: 5}
+      progress_type_detected: {type: string, enum: *progress_type, nullable: true}
+      branch_used: {type: string, enum: *branch, nullable: true}
+    sampling:
+      rate: 0.7
+
+  - name: quiz_adaptation_triggered
+    desc: "A fost aplicată o adaptare (max 1/quiz)"
+    required: [session_id, branch_applied, cooldown_active]
+    props:
+      reason: {type: string}       # ex: low_progress
+      branch_applied: {type: string, enum: *branch}
+      cooldown_active: {type: boolean}
+
+  - name: quiz_layout_fallback
+    desc: "Fallback UI layout (small device, wrap etc.)"
+    required: [session_id, reason]
+    props:
+      reason: {type: string, enum: [text_wrap, small_device, font_scale, contrast]}
+      font_scale: {type: number, nullable: true}
+      button_height_px: {type: integer, nullable: true}
+
+  - name: quiz_none_of_these_selected
+    desc: "User alege 'Niciuna dintre acestea'"
+    required: [session_id, question_id]
+    props:
+      followup_shown: {type: boolean}
+      drop_after: {type: boolean}
+
+  - name: quiz_complete
+    desc: "Quiz finalizat și outro afișat"
+    required: [session_id, completion_time_sec]
+    props:
+      completion_time_sec: {type: integer}
+      final_progress_type: {type: string, enum: *progress_type, nullable: true}
+      user_sentiment_post_quiz: {type: integer, min: 1, max: 5, nullable: true}
+      progress_delta: {type: integer, nullable: true}
+      intent_profile: {type: string, enum: *intent_profile, nullable: true}
+      copy_id: {type: string, nullable: true}
+
+  - name: quiz_cta_clicked
+    desc: "Click pe CTA din outro"
+    required: [session_id, cta_id, cta_position, copy_id]
+    props:
+      cta_id: {type: string}
+      cta_label: {type: string}
+      cta_position: {type: string, enum: *cta_position}
+      copy_id: {type: string}      # ex: out_torres_v1
+      ts: {type: integer, nullable: true}  # optional client timestamp (ms)
+
+  - name: calm_tip_open
+    desc: "Deschiderea tip-ului recomandat"
+    required: [session_id, tip_id]
+    props:
+      tip_id: {type: string}
+      ts: {type: integer, nullable: true}
+
+derived_metrics:
+  completion_rate:
+    formula: "count(quiz_complete) / count(quiz_intro_shown)"
+    window: "rolling_7d"
+  final_ctr_outro:
+    formula: "count(quiz_cta_clicked where cta_position='outro') / count(quiz_complete)"
+    window: "rolling_7d"
+  activation_rate:
+    formula: "count(calm_tip_open within 120s of quiz_cta_clicked(outro)) / count(quiz_complete)"
+    window: "rolling_7d"
+  ttv_tip_median_sec:
+    formula: "median(calm_tip_open.ts - quiz_cta_clicked.ts)"
+    window: "rolling_7d"
+  answer_time_median_ms:
+    formula: "median(quiz_answer_submitted.time_on_question_ms) by question_id"
+    window: "rolling_7d"
+
+guardrails:
+  thresholds:
+    lcp_p75_ms: 2500
+    feedback_p95_ms: 1500
+    tap_error_rate: 0.01
+    total_quiz_p95_sec: 80
+    per_question_p95_ms: 15000
+  checks:
+    - name: uniqueness
+      rule: "quiz_intro_shown emit_once_per_session == true"
+    - name: ordering
+      rule: "quiz_start_clicked after quiz_intro_shown"
+    - name: adaptation_cap
+      rule: "max(count(quiz_adaptation_triggered) per session) == 1"
+    - name: coverage
+      rule: "count(quiz_answer_submitted) >= 6 per completed session"
+
+dashboards:
+  funnel:
+    steps: [quiz_intro_shown, quiz_start_clicked, quiz_question_shown:Q6, quiz_complete, quiz_cta_clicked, calm_tip_open]
+  performance:
+    charts:
+      - "median & p95 time_on_question_ms by question_id"
+      - "lcp_ms p75, feedback_latency_ms p95"
+  adaptation:
+    charts:
+      - "final_ctr_outro by intent_profile"
+      - "activation_rate by branch_applied"
+      - "progress_delta by branch_applied"
+
+alerts:
+  - name: completion_drop
+    condition: "completion_rate falls_by > 0.05 over 1h"
+    channel: "slack:#quiz-alerts"
+  - name: feedback_latency_spike
+    condition: "feedback_p95_ms > 1500 for 30m"
+    channel: "slack:#quiz-alerts"
+  - name: tap_errors_high
+    condition: "tap_error_rate > 0.015 for 30m"
+    channel: "slack:#quiz-alerts"
+
+privacy:
+  ip_collection: false
+  user_agent: true
+  geo: country_only
+  data_retention_days: 395
+  drop_params: [email, phone, name]
+
+validation_rules:   # rulate în CI sau pre-deploy
+  - assert: "all(question_id matches ^Q[1-6]$)"
+  - assert: "all(chosen_option_id matches ^O[1-4]$)"
+  - assert: "len(chosen_option_tags) in [1,2] && chosen_option_tags ⊆ enums.option_tag"
+  - assert: "time_on_question_ms between 0..30000"
+  - assert: "progress_mid_score between 1..5 if present"
+  - assert: "one quiz_intro_shown per session"
+
+notes:
+  - "Menține aceleași nume de evenimente pentru migrarea GA4/BQ."
+  - "Nu loga PII; folosește doar session_id și opțional user_id hash."
+  - "Setează sampling Q0.5 (quiz_progress_update) la 70%."
