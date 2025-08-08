@@ -4414,12 +4414,657 @@ Livrabil: acest copy bank + reguli de servire + tracking sunt “plug-and-play�
 
 ## **5. Scrii întrebările + opțiunile**
 
+Cadru: max 6 întrebări, 3–4 opțiuni/întrebare, ≤160 caractere/întrebare, 1 întrebare/ecran, fără input liber.
+
+5.1 🔢 Set întrebări (RO) — cu tags pt. routing
+Q1. Cum te simți după ziua de azi?
+
+Copleșit(ă) 😮‍💨 (emo_validare)
+
+Îngrijorat(ă) 😟 (clarificare)
+
+Frustrat(ă) 😠 (emo_validare)
+
+Sunt ok / nu știu 🤷 (confirmare)
+
+Q2. Câți ani are copilul? (micro-branch doar la <2y → outro copy adaptat)
+
+< 2 ani (profil)
+
+2–3 ani (profil)
+
+4–6 ani (profil)
+
+Prefer să nu spun (profil_safe)
+
+Q3. Ce ți s-a părut cel mai greu în ultima vreme?
+
+Adormitul / rutina de seară 🌙 (clarificare)
+
+Limite & tantrumuri 😣 (clarificare)
+
+Cooperarea / atenția 🧩 (clarificare)
+
+Mese / ritualuri 🍽️ (clarificare)
+
+Q4. Ce ți-ar prinde bine în seara asta?
+
+Un pas simplu de încercat (actiune_pas)
+
+O explicație pe scurt (clarificare)
+
+Un pic de validare (emo_validare)
+
+Un plan scurt pentru mâine (actiune_pas)
+
+Q5. Cât de des apar momentele grele?
+
+Rar (clarificare)
+
+Uneori (clarificare)
+
+Des (clarificare)
+
+Aproape zilnic (clarificare)
+
+Q6. Vrei sfaturi doar pentru copil sau și pentru tine?
+
+Doar pentru copil (clarificare)
+
+Și pentru mine (actiune_pas)
+
+Pentru amândoi (actiune_pas)
+
+Nu sunt sigur(ă) (emo_validare)
+
+5.2 🎨 Figma — fonturi & text styles
+Font: Inter (fallback: system-UI / SF Pro Text / Roboto)
+
+Text styles:
+
+Question / 18 / Semibold → font-size: 18px, line-height: 24px, letter-spacing: 0
+
+Option / 16 / Regular → 16px, line-height: 22px
+
+Helper / 14 / Regular (ex: “Nu există răspuns greșit.”) → 14px, line-height: 20px
+
+CTA / 18 / Medium → 18px, line-height: 24px
+
+5.3 📐 Layout mobil (frame 360×780; min 320px)
+Margin orizontal: 16px
+
+Spațiere verticală: întrebare→opțiuni 12px; între opțiuni 16px
+
+Buton opțiune: full-width, min-height 56px, padding intern 12px 16px, corner radius 12
+
+Tap target: ≥48px (butonul asigură 56px)
+
+CTA “Mai departe”: sticky bottom, full-width, height 56px, padding 16px, margin bottom sigur 12px (respect safe-area)
+
+Progress: micro-text “Qx/6” sus-dreapta (14px) vizibil doar dacă intent=claritate/confirmare; ascuns pe emoțional
+
+Fără scroll pe ecranul de întrebare (test pe 320×640); dacă o opțiune trece de 40 caractere, wrap pe 2 linii, păstrezi height 56–64px
+
+5.4 🧱 Auto-Layout & componente (Figma)
+Frame “QuestionScreen”: Vertical, gap: 12, padding: 16, align: top
+
+Stack ordine: Header (progress) → QuestionText → HelperText (opțional) → OptionsStack → CTA
+
+Componentă “OptionButton”: states default / pressed / selected
+
+selected: border 2px, icon ✓ la dreapta (16px), focus-ring vizibil
+
+Tokens (8pt grid): Spacing 8/12/16/24, Radius 8/12, Border 1/2
+
+5.5 🔀 Logică minimă (MVP, 1 micro-branch)
+Branch unic: dacă Q2 = <2 ani, păstrezi flow identic, outro folosește wording “ritual blând pentru vârste mici”.
+
+Adaptive hint (non-branch): dacă Q4=“validare” și perceived_progress_score ≤2 → inseră 1 mesaj de validare înainte de Q5 (nu schimbă ordinea).
+
+5.6 📤 Handoff rapid (CSV Notion-ready)
+csv
+Copy
+Edit
+qid,question,oid,option,tags
+Q1,Cum te simți după ziua de azi?,O1,Copleșit(ă),emo_validare
+Q1,Cum te simți după ziua de azi?,O2,Îngrijorat(ă),clarificare
+Q1,Cum te simți după ziua de azi?,O3,Frustrat(ă),emo_validare
+Q1,Cum te simți după ziua de azi?,O4,Sunt ok / nu știu,confirmare
+Q2,Câți ani are copilul?,O1,< 2 ani,profil
+Q2,Câți ani are copilul?,O2,2–3 ani,profil
+Q2,Câți ani are copilul?,O3,4–6 ani,profil
+Q2,Câți ani are copilul?,O4,Prefer să nu spun,profil_safe
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O1,Adormitul / rutina de seară,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O2,Limite & tantrumuri,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O3,Cooperarea / atenția,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O4,Mese / ritualuri,clarificare
+Q4,Ce ți-ar prinde bine în seara asta?,O1,Un pas simplu de încercat,actiune_pas
+Q4,Ce ți-ar prinde bine în seara asta?,O2,O explicație pe scurt,clarificare
+Q4,Ce ți-ar prinde bine în seara asta?,O3,Un pic de validare,emo_validare
+Q4,Ce ți-ar prinde bine în seara asta?,O4,Un plan scurt pentru mâine,actiune_pas
+Q5,Cât de des apar momentele grele?,O1,Rar,clarificare
+Q5,Cât de des apar momentele grele?,O2,Uneori,clarificare
+Q5,Cât de des apar momentele grele?,O3,Des,clarificare
+Q5,Cât de des apar momentele grele?,O4,Aproape zilnic,clarificare
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O1,Doar pentru copil,clarificare
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O2,Și pentru mine,actiune_pas
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O3,Pentru amândoi,actiune_pas
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O4,Nu sunt sigur(ă),emo_validare
+5.7 ✅ QA rapid (pre-launch)
+Întrebări ≤160 caractere; opțiuni ≤40; încape pe 320px fără scroll
+
+Tap-error rate ≤1%, contrast AA dark/light, focus-ring vizibil
+
+Median per întrebare ≤8.5s; P95 ≤15s; TTFI ≤4s
+
+Dacă vrei, îți fac acum un Figma starter cu componente (OptionButton, CTA, QuestionScreen) + styles predefinite, ca să fie copy-paste în file-ul tău.
+
 ## **6. Etichetezi fiecare întrebare**
+
+## 6. Etichetezi fiecare întrebare — v1.0 Top 0.1%
+
+### 6.1 🎯 Obiectiv
+Asigurăm că fiecare întrebare are un set de etichete consistente și acționabile care:
+- Alimentează direct engine-ul adaptiv (Norman/Torres)
+- Permit analiză KPI granulară pe tip de conținut
+- Suportă personalizare, micro-branching și raportare
+
+---
+
+### 6.2 📋 Reguli de etichetare
+- **Unicitate semantică**: fiecare tag reflectă intenția principală, nu doar cuvânt-cheie
+- **Set limitat controlat**: `{emo_validare, clarificare, actiune_pas, profil, profil_safe}`
+- **Consistență cross-language**: traducerile păstrează tag-ul original
+- **Compatibilitate engine**: toate tag-urile mapate în classifier config
+
+---
+
+### 6.3 🧩 Tabel întrebări → tag-uri (RO)
+| QID | Întrebare | OID | Opțiune | Tag principal |
+| --- | --- | --- | --- | --- |
+| Q1 | Cum te simți după ziua de azi? | O1 | Copleșit(ă) 😮‍💨 | emo_validare |
+| Q1 |  | O2 | Îngrijorat(ă) 😟 | clarificare |
+| Q1 |  | O3 | Frustrat(ă) 😠 | emo_validare |
+| Q1 |  | O4 | Sunt ok / nu știu 🤷 | confirmare |
+| Q2 | Câți ani are copilul? | O1 | < 2 ani | profil |
+| Q2 |  | O2 | 2–3 ani | profil |
+| Q2 |  | O3 | 4–6 ani | profil |
+| Q2 |  | O4 | Prefer să nu spun | profil_safe |
+| Q3 | Ce ți s-a părut cel mai greu în ultima vreme? | O1 | Adormitul / rutina de seară 🌙 | clarificare |
+| Q3 |  | O2 | Limite & tantrumuri 😣 | clarificare |
+| Q3 |  | O3 | Cooperarea / atenția 🧩 | clarificare |
+| Q3 |  | O4 | Mese / ritualuri 🍽️ | clarificare |
+| Q4 | Ce ți-ar prinde bine în seara asta? | O1 | Un pas simplu de încercat | actiune_pas |
+| Q4 |  | O2 | O explicație pe scurt | clarificare |
+| Q4 |  | O3 | Un pic de validare | emo_validare |
+| Q4 |  | O4 | Un plan scurt pentru mâine | actiune_pas |
+| Q5 | Cât de des apar momentele grele? | O1 | Rar | clarificare |
+| Q5 |  | O2 | Uneori | clarificare |
+| Q5 |  | O3 | Des | clarificare |
+| Q5 |  | O4 | Aproape zilnic | clarificare |
+| Q6 | Vrei sfaturi doar pentru copil sau și pentru tine? | O1 | Doar pentru copil | clarificare |
+| Q6 |  | O2 | Și pentru mine | actiune_pas |
+| Q6 |  | O3 | Pentru amândoi | actiune_pas |
+| Q6 |  | O4 | Nu sunt sigur(ă) | emo_validare |
+
+---
+
+### 6.4 📊 KPI mapping per tag
+| Tag | KPI corelat | Impact așteptat |
+| --- | --- | --- |
+| emo_validare | Completion ↑, Satisfaction ↑ | Crește retenția Norman-like users |
+| clarificare | CTR outro ↑, TTV ↓ | Ajută la conversia Torres & neutri |
+| actiune_pas | Activation ↑, D7 ↑ | Crește acțiunile post-quiz |
+| profil | Relevanță output ↑ | Asigură personalizare imediată |
+| profil_safe | Completion stabil | Evită drop din anxietate PII |
+
+---
+
+### 6.5 ✅ Definition of Done
+- 100% dintre opțiuni au tag unic și valid
+- Distribuția tag-urilor validată (nu >50% același tag în primele 3 Q)
+- Tag-urile există în classifier config și au mapping în engine
+- Test automat: CSV validat de script lint-tag
+
+**Rezultat așteptat:**
+Întrebările și opțiunile sunt complet etichetate, coerente semantic, pregătite pentru personalizare adaptivă și analiză KPI granulară.
 
 ## **7. Scrii outro copy + CTA**
 
-**8. Verifici flow logic & UX**
+7.1 🎯 Obiectiv & KPI
+Scop: închide experiența cu calm + claritate + acțiune în <10s.
 
-**9. Testezi cu 1–2 persoane**
+Ținte: Final CTR ≥70%, Activation ≥65%, TTV tip median ≤30s.
 
-**10. Livrabil final în format async**
+7.2 🧩 Copy bank (RO) — ≤140 caractere, ID-uit pentru A/B
+NORMAN (calming-first)
+
+oc_norman_v1: „E în regulă. Ai făcut un pas important. În <1 min îți arătăm un gest mic care ușurează seara.”
+CTA: „Vreau pasul blând”
+
+oc_norman_v2: „Mulți părinți simt la fel. Iată un tip simplu, potrivit ție, de încercat diseară.”
+CTA: „Arată-mi tipul”
+
+TORRES (action-first)
+
+oc_torres_v1: „Gata cu incertitudinea. Primești acum pașii clari — durează sub 1 minut.”
+CTA: „Deschide pașii”
+
+oc_torres_v2: „6 răspunsuri → un plan scurt pentru tine. Începe cu pasul 1 în seara asta.”
+CTA: „Încep cu pasul 1”
+
+NEUTRAL / CONFIRMATION (preview)
+
+oc_neutral_v1: „Ești la un pas. Rezultatul tău: un tip personalizat pentru seara asta.”
+CTA: „Vezi recomandarea”
+
+oc_confirm_v1 (dacă a cerut validare): „Da, ce trăiești e normal. Uite soluția scurtă care te ajută acum.”
+CTA: „Vreau soluția”
+
+MICRO-BRANCH <2y (doar wording)
+
+oc_baby_v1: „Pentru vârste mici: un ritual blând de 2 minute, gata de încercat diseară.”
+CTA: „Vezi ritualul”
+
+Safety line (8–10 cuv., opțional, 12px): „Nu înlocuiește un consult medical.”
+
+7.3 🔀 Reguli de servire (determinist, low-risk)
+Intent-based:
+
+intent_profile=Norman → oc_norman_v1 (fallback v2).
+
+Torres → oc_torres_v1 (fallback v2).
+
+Neutral → oc_neutral_v1; dacă progress_type=confirmare → oc_confirm_v1.
+
+Micro-branch: dacă Q2 <2 ani, înlocuiești fraza finală cu oc_baby_v1 (doar text).
+
+Guardrails: 1 singur CTA primar; secundar doar ca link text „Vreau altă abordare” (max 10% trafic, pentru exploratori).
+
+7.4 🎨 Figma spec (mobil 360×780; min 320px)
+Font: Inter.
+
+Outro text: 18px / 24px / Semibold, max 2 fraze, max 3 rânduri la 320px.
+
+CTA primar (button): height 56px, full-width, padding 16px, radius 12, focus-ring vizibil; label 18px / Medium.
+
+CTA secundar (link): 14px, sub buton (8px gap), opacitate 80%.
+
+Spacing: 16px margini, 12px text→CTA, 8px CTA→link.
+
+Contrast: AA în dark/light; icon mic 16px opțional (săgeată →).
+
+Above the fold: întregul bloc vizibil fără scroll (test 320×640).
+
+7.5 ⚡ Performanță & TTFI/TTV
+Prefetch „Calm Tip” pe ultima întrebare (hint-cache).
+
+Click CTA → feedback ≤1500ms P95: skeleton + „Se încarcă recomandarea…”.
+
+Dacă latency >2s → afișează progres bar 1s + menții controlul (nu reflow).
+
+7.6 🧪 A/B mic (7 zile)
+Brațe: oc_norman_v1 vs v2; oc_torres_v1 vs v2; neutral_v1 vs confirm_v1 (pe segmentele lor).
+
+Criteriu câștig: +≥5pp CTR pe segment și fără scădere Activation.
+
+N_min: 500–1k sesiuni/variantă (scalăm dacă dif <3pp).
+
+7.7 🛠 Tracking (compat. cu PostHog→GA4)
+quiz_complete {final_progress_type, intent_profile, variant_id}
+
+quiz_cta_clicked {cta_id, cta_label, cta_position:'outro', copy_id}
+
+calm_tip_open {tip_id} → derive Activation & TTV
+
+Derivate: Final CTR = cta_clicked/quiz_complete; Activation = tip_open ≤120s / quiz_complete.
+
+7.8 ✅ DoD (acceptance)
+Copy ≤140 caractere, încape pe 320px; 1 CTA primar.
+
+Final CTR (pilot intern) ≥70%, Activation (pilot) ≥65%, TTV median ≤30s.
+
+Contrast AA, focus-visible, tap target 56px; safety line prezentă în contexte sensibile.
+
+7.9 📦 Handoff (CSV Notion-ready)
+```csv
+copy_id,persona,text,cta_label,notes
+oc_norman_v1,Norman,"E în regulă. Ai făcut un pas important. În <1 min îți arătăm un gest mic care ușurează seara.","Vreau pasul blând","safety_line optional"
+oc_norman_v2,Norman,"Mulți părinți simt la fel. Iată un tip simplu, potrivit ție, de încercat diseară.","Arată-mi tipul",""
+oc_torres_v1,Torres,"Gata cu incertitudinea. Primești acum pașii clari — durează sub 1 minut.","Deschide pașii",""
+oc_torres_v2,Torres,"6 răspunsuri → un plan scurt pentru tine. Începe cu pasul 1 în seara asta.","Încep cu pasul 1",""
+oc_neutral_v1,Neutral,"Ești la un pas. Rezultatul tău: un tip personalizat pentru seara asta.","Vezi recomandarea",""
+oc_confirm_v1,Confirm,"Da, ce trăiești e normal. Uite soluția scurtă care te ajută acum.","Vreau soluția",""
+oc_baby_v1,Baby,"Pentru vârste mici: un ritual blând de 2 minute, gata de încercat diseară.","Vezi ritualul","micro-branch Q2<2y (replace tail)"
+```
+
+## **8. Verifici flow logic & UX**
+
+8.1 🗺️ Harta de flow (state machine, MVP)
+States: Intro → Q1 → Q2 → (Intent) → Q0.5 → (Adaptare?) → Q3 → Q4 → Q5 → Q6 → Outro → CTA → Tip Open → End
+Tranziții cheie:
+
+Intent inferat până la Q2 (intent_profile, intent_confidence).
+
+Q0.5 (70% sampled) după Q2. Dacă score≤2 ∧ conf≥0.6 ∧ !cooldown: inserezi 1 micro-bloc (≤7s) imediat după Q0.5:
+
+Norman → mesaj validare scurt + 1 micro-întrebare de relief
+
+Torres → hint practic + checklist 1 pas
+
+Neutral/low conf → Clarity_min (fallback determinist)
+
+Micro-branch unic: dacă Q2 <2y, doar wording schimbat în Outro.
+
+Cooldown: adaptation_count ≤1/quiz (hard).
+
+8.2 ✅ Acceptance (logic & UX) — checklist scurt
+Flow: fără dead-ends; Back revine la ecranul anterior fără a pierde selecția.
+
+Ordine: exact 6 întrebări; niciun ecran cu scroll pe 320×640.
+
+Adaptare: se întâmplă o singură dată; dacă conf<0.6 → Clarity_min.
+
+Outro: personalizează după intent_profile (+ <2y wording).
+
+CTA primar unic, secundar opțional text-link (max 10% trafic).
+
+Timp: median per întrebare ≤8.5s; P95 ≤15s. Total P95 ≤80s.
+
+Perf: LCP ≤2.5s (p75), feedback P95 ≤1500ms.
+
+Accesibilitate: contrast AA dark/light, focus-ring vizibil, aria-labels corecte, tap ≥48px.
+
+Analytics: toate evenimentele cheie emise o singură dată/stare, cu session_id.
+
+8.3 🧪 Teste E2E (Playwright) — scenarii obligatorii
+Happy path – Norman
+
+Q1 emo, Q2 4–6y, Q0.5=2 → adaptare Norman → Q3–Q6 → oc_norman_v1 → CTA → Tip.
+
+Așteptat: quiz_adaptation_triggered 1×, branch_applied='Norman', Final CTR contat.
+
+Happy path – Torres
+
+Q1 neutru, Q2 2–3y, Q0.5=2 → adaptare Torres → Outro Torres → CTA → Tip.
+
+Low confidence fallback
+
+Q0.5=2, conf=0.4 → fără adaptare; apare Clarity_min; Outro Neutral.
+
+Baby wording
+
+Q2 <2y → Outro include oc_baby_v1.
+
+No adapt + high progress
+
+Q0.5≥3 → flow default; nicio adaptare; Outro pe intent.
+
+Back/forward & resume
+
+Navighezi Back la Q2, schimbi răspunsul, revii; selecțiile persistă; nicio dublare de evenimente.
+
+“Niciuna dintre acestea” (unde apare)
+
+Arată quick-pivot (≤5s) sau Skip; nu rupe flow-ul.
+
+Latency tail
+
+Simulează net_type=3G, RTT 800–1000ms → skeleton + loader ≤1s; feedback P95 ≤1500ms.
+
+Small device
+
+320×640, font-scale 1.2 → niciun overflow, fără scroll, CTA above the fold.
+
+Accessibility
+
+Keyboard/ TalkBack/ VoiceOver: citire corectă (role=button/heading), focus order logic, aria-live pentru adaptare.
+
+Selectori recomandati: data-ids: data-qid="Q1", data-oid="O2", data-copy="oc_norman_v1", data-branch="Torres".
+
+8.4 📈 Verificări analytics (sanity, fără SQL greu)
+Unicitate: quiz_render 1×/session, quiz_complete ≤1×.
+
+Acoperire: quiz_answer_submitted pentru 6 întrebări (sau 6+micro-bloc).
+
+Adaptare: dacă apare quiz_adaptation_triggered → există branch_applied și cooldown_active=true.
+
+Mapping: quiz_cta_clicked(cta_position='outro') urmat de calm_tip_open ≤120s pe ≥65% (Activation).
+
+Drift: distribuția perceived_progress_score stabilă ±20%/săpt.
+
+8.5 🧵 QA UI — măsurători concrete
+Typo/overflow: niciun text peste 3 rânduri la 320px; opțiuni ≤40 chars (wrap 2 linii, height 56–64px).
+
+Spacing: întrebare→opțiuni 12px; între opțiuni 16px; margini 16px; CTA height 56px.
+
+Icons: ≤16px, fără animații blocking; imagini lazy, ≤12KB.
+
+Focus: vizibil pe butoane/CTA, Order: Header→Q→Options→CTA.
+
+8.6 🛡️ Edge cases & reziliență
+Double tap pe CTA: debounce 500ms; 1 singur quiz_cta_clicked.
+
+Offline la CTA: toast “Conexiune slabă, reîncercăm…” + retry 1×; log feedback_timeout_count.
+
+Reset session: session_id nou la refresh hard; nu duplici completări.
+
+Kill-switch: remote_config.quiz_adaptive_enabled=false → forțezi Clarity_min.
+
+8.7 ⚙️ Lint & guards (build-time)
+Text length: question ≤90, option ≤40, outro ≤140.
+
+Counts: question_count==6, branch_count≤1.
+
+Design tokens: tap ≥48px, spacing ≥16px, contrast AA dark/light.
+
+Perf gates: LCP_p75≤2500ms, TTFB_p95≤800ms, feedback_p95≤1500ms.
+
+8.8 🧪 Pilot UX (moderare lejeră, 30–40 min)
+N=5 utilizatori (seara 20:30–22:30).
+
+Task: parcurge quiz-ul o dată, apoi explică în 1 min “ce urmează să facă diseară”.
+
+Criterii trecere: 5/5 înțeleg pasul final; 0 blocaje; Completion 100%, median total ≤60s.
+
+8.9 🚦 Go/No-Go (24–48h după soft-launch, ≥300 sesiuni)
+Go: Completion +≥8% rel., Final CTR ≥70%, Activation ≥65%, TTV median ≤30s; guardrails ok.
+
+No-Go: oricare 2 guardrails încălcate 2h consecutiv (auto fallback Clarity_min, adaptive off), incident review.
+
+8.10 📋 Handoff rapid (ce rulezi azi)
+Rulezi suite E2E (10 scenarii), lint text/contrast, perf pe 3G/4G.
+
+Verifici analytics coverage (unicitate + ordine evenimente).
+
+Bifezi checklist-ul de mai sus în Notion.
+
+Soft-launch 10% trafic + alerte (Completion drop >5pp, feedback_p95 >1500ms).
+
+## **9. Testezi cu 1–2 persoane**
+
+9) Testezi cu 1–2 persoane — Plan de testare (pre-lansare, v2 top 1%)
+9.1 🎯 Obiectiv
+Validăm înainte de soft-launch că fluxul este:
+
+Ușor de parcurs (fără blocaje/confuzii)
+
+Potrivit intenției (Norman/Torres) cu adaptare naturală
+
+Performant în constrângeri (TTFI, total, feedback)
+
+Robust la întreruperi & diferențe de mediu
+
+Nu facem statistică; e un smoke test cu acoperire deterministă a tuturor ramurilor critice.
+
+9.2 🧩 Setup & participanți
+#Participanți: 2 (A: Norman-leaning, B: Torres-leaning/neutral)
+
+Context: seara 20:30–22:30, device propriu mobil
+
+Rețea: fiecare testează pe Wi-Fi și 4G (două treceri scurte)
+
+Build: staging cu feature flags = producție
+
+Paritate & versiuni în fișa testului: build_hash, feature_flags, device/OS, rețea, ora
+
+9.3 🧰 Control test (flags obligatorii)
+force_intent = Norman | Torres | Neutral
+
+force_low_conf = true|false (simulează conf=0.4 la Q0.5)
+
+force_baby_wording = true|false (simulează Q2 <2y)
+
+adaptation_cooldown = 1 (hard)
+
+Contra-balansare ordine (evită efectul de învățare):
+Participant A: S1 → S3 → S4 → S2
+Participant B: S2 → S3 → S4 → S1
+
+9.4 📜 Scenarii obligatorii (E2E)
+S1 — Happy path Norman
+
+force_intent=Norman, force_low_conf=false
+
+Alege opțiuni emo_validare; la Q0.5: score ≤2 → adaptare Norman
+
+Așteptat: micro-bloc ≤7s + oc_norman_v1
+
+S2 — Happy path Torres
+
+force_intent=Torres, force_low_conf=false
+
+Alege opțiuni actiune_pas; Q0.5: score ≤2 → adaptare Torres
+
+Așteptat: hint practic + checklist, oc_torres_v1
+
+S3 — Low confidence fallback
+
+force_intent=Neutral, force_low_conf=true
+
+Q0.5: score ≤2, conf=0.4 → Clarity_min (fără adaptare), oc_neutral_v1
+
+S4 — Micro-branch <2y
+
+force_baby_wording=true → Outro include oc_baby_v1 (doar wording)
+
+Regulă: 1 singură adaptare/quiz; Back păstrează selecțiile; niciun scroll la 320×640.
+
+9.5 ⚡ Telemetrie & artefacte (obligatoriu)
+Screen recording (iOS/Android) pentru fiecare scenariu
+
+Console & Network HAR (Chrome DevTools/Proxy) pentru sesiunea S2 (Torres)
+
+Loguri minime (staging): ttfi_ms, time_on_question_ms, feedback_latency_ms, lcp_ms, copy_id, branch_applied
+
+Selectori data-id în UI: data-qid="Q3", data-oid="O2", data-branch="Torres", data-copy="oc_torres_v1"
+
+Snippet telemetrie minimă (staging):
+
+html
+Copy
+Edit
+<script>
+const t0 = performance.now();
+document.addEventListener('DOMContentLoaded', () => {
+  const introShown = performance.now();
+  window.__log?.('quiz_intro_shown', {ts: Math.round(introShown)});
+});
+window.addEventListener('click', e => {
+  if (e.target?.dataset?.role === 'start_quiz') {
+    const ttfi = performance.now() - t0;
+    window.__log?.('ttfi_ms', Math.round(ttfi));
+  }
+});
+window.addEventListener('quiz:answer', e => {
+  window.__log?.('time_on_question_ms', Math.round(e.detail?.ms||0));
+});
+window.addEventListener('quiz:feedback', e => {
+  window.__log?.('feedback_latency_ms', Math.round(e.detail?.ms||0));
+});
+</script>
+Înlocuiește __log cu PostHog/Plausible/custom. Păstrează numele de evenimente compatibile cu viitorul GA4/BQ.
+
+9.6 ♿ Accesibilitate & întreruperi (smoke)
+VoiceOver/TalkBack ON pe 1 scenariu:
+
+Focus order logic, roluri corecte (button/heading), aria-live anunță adaptarea
+
+Întreruperi reale: apel 10s, lock/unlock, app-switch 30s
+
+Așteptat: revii în același pas, răspunsurile persistă, fără duplicare evenimente
+
+9.7 📊 Măsurători live (ținte)
+TTFI: ≤4s
+
+Median timp/întrebare: ≤8.5s; P95 ≤15s
+
+Timp total: P95 ≤80s
+
+Feedback latency P95: ≤1500ms
+
+Tap-uri eronate: ≤1 / participant
+
+Abandon înainte de Outro: 0
+
+Claritate pas final: participantul explică în ≤30s ce face diseară
+
+9.8 📝 Rubrică scor (0/1/2) — obligatorie
+Claritate pas final (0=neclar, 1=înțelege cu ajutor, 2=explică din prima)
+
+Naturalete adaptare (0=intruzivă, 1=observabilă, 2=fluidă)
+
+Vizibilitate CTA (0=sub fold, 1=vizibil cu efort, 2=imediat vizibil)
+
+Fricțiune interacțiune (0=>2 taps eronate, 1=1 tap, 2=0 taps)
+
+Încredere/safety (0=neliniște, 1=neutru, 2=linistit+încredere)
+
+Trecere rubrică: ≥8/10 per participant.
+
+9.9 🧯 Triage & severități
+P0: blocaj/eroare tehnică → No-Go instant, fix înainte de orice lansare
+
+P1: confuzie majoră / CTA neclar → fix înainte de soft-launch
+
+P2: polish (copy/spacing) → backlog pentru post-soft-launch
+
+9.10 🚦 Go/No-Go (micro, pre soft-launch)
+Go: rubrică ≥8/10 și 0×P0 / 0×P1, ținte perf atinse
+
+No-Go: 1×P0 sau ≥2×P1 sau depășiri perf (TTFI>4s, P95 total>80s)
+
+9.11 📦 Output documentat (Notion-ready)
+Fișă sesiune (per participant):
+
+Metadate: build_hash, flags, device/OS, rețea, oră
+
+Scor rubrică (0/1/2 × 5 criterii) + total
+
+KPI live: TTFI, total sec, taps eronate, time per Q (median), feedback P95
+
+Severități (P0/P1/P2) + link recording + HAR + capturi
+
+3 recomandări punctuale înainte de soft-launch
+
+9.12 ⏱️ Timeline & exec
+30–40 min total / participant (inclusiv setare recording & rețea)
+
+Post-sesiune (30 min): triage + decizie Go/No-Go + task-uri clare (owner + ETA)
+
+Soft-launch: după remedierea P0/P1, rerulezi S3 (fallback) ca smoke final
+
+9.13 ✅ Checklist final (tickable)
+ Flags set corect (intent/low-conf/baby)
+
+ Scenarii S1–S4 parcurse (contra-balansate)
+
+ Recording + HAR salvate (link în Notion)
+
+ Rubrică completată (≥8/10 fiecare)
+
+ KPI live OK (TTFI, total, feedback)
+
+ Zero P0 / Zero P1 → Go confirmat
+
+## **10. Livrabil final în format async**
