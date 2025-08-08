@@ -191,3 +191,132 @@ Ce am făcut: <toggling/patch/rollback>
 Ce urmează: <pas următor + ETA>
 Blockers/Riscuri: <dacă există>
 ```
+## 7) Închidere incident & RCA (≤48h)
+
+### 7.1 Criterii de închidere
+- KPI-urile revin **în bandă** timp de **≥2h consecutiv** (Completion, Final CTR, Activation, TTV).
+- **Guardrails verzi:** LCP p75 ≤2.5s • Feedback P95 ≤1500ms • P95 total ≤80s • Tap-error ≤1%.
+- Toate **toggles/kill-switch** sunt **revertite gradual** (25% → 50% → 100%) fără regresii.
+- War-room închis, stakeholders informați (PM, Eng, Data, Design, Comms).
+
+---
+
+### 7.2 RCA – șablon (Notion/GitHub)
+**Titlu:** `[RCA] <scurt> — Data (EET)`  
+**Owner:** <nume> • **Scribe:** <nume> • **Sev:** P0/P1 • **Interval afectat:** <start–stop>
+
+#### 1) Rezumat executiv (≤5 rânduri)
+- Ce s-a întâmplat, cine a fost afectat, impact pe KPI, status curent.
+
+#### 2) Timeline (UTC+2)
+- T0 alertă → T+X investigație → T+Y mitigare → T+Z confirmare stabilitate.
+
+#### 3) Impact (metrice & durată)
+- Completion: Δpp  
+- Final CTR: Δpp  
+- Activation: Δpp  
+- TTV median: +/− sec  
+- Afectare utilizatori: <# sesiuni / % trafic>
+
+#### 4) Cauza rădăcină (5 Whys)
+- Why #1: …  
+- Why #2: …  
+- Why #3: …  
+- Why #4: …  
+- Why #5: …  
+**Factorii contributivi:** (ex. config, cache, code path, terți)
+
+#### 5) Răspuns operațional – ce a mers / ce NU
+- Detectare, comunicare, mitigare, rollback/patch.
+
+#### 6) Fix permanent & prevenție
+- **Short-term (≤72h):** patch-uri, toggles, reguli.  
+- **Long-term (≤30 zile):** teste E2E, lint/CI, alerte, hardening perf/a11y/tracking.
+
+#### 7) Plan de acțiuni
+| Task | Tip | Owner | ETA | Status |
+|---|---|---|---|---|
+| Adaugă test E2E pentru regresie | Test | @eng | YYYY-MM-DD | Todo |
+| Crește `intent_conf_threshold` la 0.75 | Config | @pm/@eng | YYYY-MM-DD | In progress |
+| Optimizează payload tip (gzip) | Perf | @eng | YYYY-MM-DD | Todo |
+| Alertă nouă pe `events_gap` | Data | @data | YYYY-MM-DD | Todo |
+| Documentează guideline microcopy | Design | @design | YYYY-MM-DD | Todo |
+
+#### 8) Anexe & dovezi
+- Grafice (screenshots), HAR/console, commit-uri, link war-room Slack, dashboard runbook.
+
+---
+
+### 7.3 Comms de închidere (template)
+```pgsql
+[RESOLVED] <titlu scurt> — <HH:MM EET>
+Status: stabil de 2h; KPI în bandă; guardrails verzi.
+Cauza: <rezumat 1 frază>.
+Acțiuni: <top 2–3> (patch/rollback/flag).
+```
+## 8) Post-incident acțiuni standard
+
+- **Teste & prevenție**
+  - [ ] Adaugă **test E2E** pentru regresia detectată (în `/tests/e2e-specs.md`).
+  - [ ] Extinde **lint/CI** cu regula care a lipsit (ex: emit-once, text length, perf gate).
+  - [ ] Creează **alertă nouă** dacă semnalul nu era monitorizat (ex: `events_gap`, `cta_debounce`).
+
+- **Tracking & date**
+  - [ ] Actualizează **`/tracking/tracking.yaml`** (evenimente/props noi, thresholds).
+  - [ ] Rulează **backfill** dacă au lipsit evenimente în intervalul incidentului.
+  - [ ] Adnotează dashboard-urile cu **intervalul afectat** (Data Quality note).
+
+- **Produs & conținut**
+  - [ ] Revizuiește **microcopy/logic** dacă incidentul a fost cauzat de conținut/adaptare.
+  - [ ] Verifică **fallback-urile** (Clarity_min, baby wording) pe 10 sesiuni reale.
+
+- **Proces & ownership**
+  - [ ] Creează **tickets** pentru fixurile rămase (P1/P2) cu owner și ETA.
+  - [ ] Planifică **retro scurt (15 min)** în echipă (ce a mers/nu).
+  - [ ] Postează **knowledge share** în `#product-tech` (10 min recap + link RCA).
+
+- **Observabilitate post-fix (watch)**
+  - [ ] Monitorizează 7 zile: Completion, Final CTR, Activation, TTV, guardrails perf.
+  - [ ] Setează **reminder** la T+7d pentru verificare trend & închiderea formală a task-urilor.
+
+- **Documentare**
+  - [ ] Actualizează **runbook-ul** cu ce ai învățat (secțiunea relevantă).
+  - [ ] Atașează arhiva: grafice, HAR, logs, commit-uri, link war-room, link RCA.
+## 9) Checklists rapide
+
+### 9.1 P0 (CTR/Activation/PII)
+- [ ] Ack ≤10m • War-room ON
+- [ ] Mitigare live (kill/fallback) aplicată
+- [ ] Confirmare efect (≥10 sesiuni interne + grafice live)
+- [ ] RCA inițiat, owner asignat, ETA setat
+- [ ] Comms interne trimise (#announcements-internal)
+
+### 9.2 P1 (Perf/Tracking/UX)
+- [ ] Identificat vector (perf / tracking / logic / conținut)
+- [ ] Toggle perf/tracking guards efectuate
+- [ ] Fix în ziua curentă (patch sau config)
+- [ ] Ticket P2 pentru polish creat (owner + ETA)
+
+### 9.3 Artefacte obligatorii (la închidere)
+- [ ] Screen recording + HAR atașate la incident
+- [ ] Link dashboard + snapshot query/metrici
+- [ ] Link commit/flag change și interval afectat notat
+## 10) Anexe utile
+
+**Ordinea corectă a evenimentelor:**  
+`intro_shown → start_clicked → (Qx_shown+answer)×6 → quiz_complete → cta_clicked(outro) → calm_tip_open`
+
+**Semnale perf (RUM):**
+- `lcp_ms`
+- `ttfb_ms`
+- `feedback_latency_ms`
+- `ttfi_ms`
+
+**Flags frecvente:**
+- `quiz_adaptive_enabled`
+- `intent_conf_threshold`
+- `midcheck_sample_rate`
+- `prefetch_enabled`
+- `intro_images_enabled`
+- `cta_debounce_ms`
+- `force_outro_copy`
