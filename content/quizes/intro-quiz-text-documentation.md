@@ -5268,6 +5268,7 @@ Data: <nume> — dashboard + analize T+24h/T+72h.
 /quiz/
   /copy/copy.csv
   /content/questions.csv
+  /content/intro-quiz-text-documentation.md
   /logic/state_machine.md
   /tracking/tracking.yaml
   /tests/e2e-specs.md
