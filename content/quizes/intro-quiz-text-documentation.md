@@ -21,13 +21,23 @@
 
 👤 **User JTBD:**
 
-“When I feel overwhelmed by my child’s behavior, I want to answer a few questions to make sense of it, so I can feel calmer and more confident.”
+"Când mă simt copleșit(ă) de comportamentul copilului, vreau să răspund la câteva întrebări simple și empatice pentru a primi un tip personalizat din biblioteca Calm Tips, astfel încât să mă simt mai calm(ă) și mai în control în mai puțin de un minut."
 
 🏗️ **Product JTBD:**
 
-“When a user completes the quiz, we want to segment their main challenge and emotional state so we can match them with relevant Calm Tips and chatbot flow.”
+“Segmentează rapid utilizatorii pe baza provocării principale, contextului emoțional și profilului, pentru a crește Activation, Retention și relevanța conținutului.”
 
 ### 1.1.1	Clarifici contextul de utilizare
+
+Moment: seara (20:30–22:30) – energie mentală scăzută, atenție fragmentată.
+
+Device: ≥95% mobil; optimizat pentru 320–428px, testat pe iPhone mini și Android entry-level.
+
+Loc fizic: canapea, pat, un braț liber; lumină scăzută.
+
+Nivel zgomot: fundal TV, white noise, plâns ocazional.
+
+Trigger: link primit de la prieten(ă) sau văzut în social, imediat după un moment greu cu copilul.
 
 🧠 **Exemplu de context sintetizat**
 
@@ -4043,10 +4053,364 @@ Fiecare întrebare din quiz trebuie să aibă ID unic, scop clar, KPI asociat, r
 Documentația standard permite transparență totală, optimizare rapidă și aliniere echipă–business–UX.
 
 ## **2. Stabilești constrângerile**
+2. Stabilești constrângerile (Norman 60% / Torres 40%) — v3.0 Top 0.1%
+
+2.1 Scop
+
+Definim limitele clare, măsurabile și testabile ale quiz-ului pentru a maximiza:
+
+Completion Rate
+
+Relevanța personalizării
+
+Satisfacția emoțională (JTBD Satisfaction)
+
+Activation (≥65% deschid ≥1 Calm Tip în ≤2 min)
+
+TTV Calm Tip (mediană ≤30s)
+
+Retention D7 (≥20%)
+
+Model de referință:
+
+60% Norman: low-cognitive load, calming, context-driven
+
+40% Torres: intenție latentă, progres clar, livrare rapidă de valoare
+
+2.2 Constrângeri de timp
+
+Nivel
+
+Prag
+
+KPI corelat
+
+Impact pe KPI North Star
+
+Justificare
+
+Total quiz
+
+≤ 60 sec
+
+Completion
+
+Crește completarea cu +12% și reduce drop
+
+Norman: previne oboseala mentală; Torres: progres rapid
+
+Per întrebare
+
+≤ 10 sec (P80)
+
+TTFI
+
+Asigură TTV ≤30s → +8% Activation
+
+Norman: ușor de procesat; Torres: ritm constant
+
+Feedback intermediar
+
+≤ 2 sec latență
+
+Satisfaction
+
+Reduce frustrarea → +5% CTR outro
+
+Menține fluxul fără întreruperi
+
+QA metric: question_answer_time_ms (median) ≤ 8.5s
+
+Fallback UX: dacă latența >2s → loader animat ≤1s + micro-copy calmant („Un moment, pregătim răspunsul tău”).
+
+2.3 Constrângeri de conținut
+
+Max. întrebări: 6 (1 per ecran, fără scroll)
+
+Opțiuni: 3–4 + „Niciuna dintre acestea” (fără text liber în quiz inițial)
+
+Copy întrebare: ≤ 70–90 caractere (incluzând spații)
+
+Copy opțiuni: ≤ 40 caractere
+
+Ton: Soothing – Empathetic – Trustworthy
+
+📌 Norman: limbaj simplu, validant, fără jargon.
+📌 Torres: claritate, orientare spre rezultat.
+
+QA metric: question_text_length ≤ 90 & option_text_length ≤ 40
+
+Fallback UX: dacă opțiunea depășește 40 caractere → wrap text + creștere tap target la 56px.
+
+2.4 Constrângeri de interacțiune
+
+Input principal: tap-first (fără hover, slider, drag)
+
+Tap target: ≥ 48px
+
+Spacing: ≥ 16px între opțiuni
+
+Accesibilitate: contrast AA în dark/light mode, aria-labels, suport 320px, focus-ring vizibil, compatibil back-button Android
+
+📌 Norman: reduce efortul fizic & cognitiv.
+📌 Torres: evită erori, permite răspuns rapid.
+
+QA metric: tap_error_rate ≤ 1%
+
+Fallback UX: pentru device <320px → font -1px, butoane full-width, max 3 opțiuni/ecran.
+
+2.5 Constrângeri de logică
+
+Branching: max. 1 micro-branch (ex.: vârsta < 2y → outro copy diferit)
+
+Ordine: secvență liniară, dar cu posibilitate de rearanjare asincronă în funcție de prioritizare
+
+📌 Norman: previzibilitate, calm.
+📌 Torres: micro-personalizare pentru relevanță.
+
+QA metric: branch_count ≤ 1 în quiz inițial
+
+2.6 Constrângeri de siguranță & conformitate
+
+Disclaimer: micro-text „Nu este diagnostic medical”
+
+Privacy: fără PII, GDPR-compliant
+
+Minimizare date: colectăm doar input folosit imediat în adaptare
+
+📌 Norman: reduce anxietatea și sentimentul de evaluare.
+📌 Torres: întărește încrederea → crește disponibilitatea de a finaliza.
+
+QA metric: PII_collected_count = 0
+
+2.7 Definition of Done (DoD)
+
+O întrebare respectă DoD dacă:
+
+Încape pe ecran fără scroll (iPhone mini & Android entry-level)
+
+Opțiuni vizibile integral
+
+Contrast AA verificat în dark/light mode
+
+Test UX rapid cu N=3 utilizatori reali (context: seara 20:30–22:30)
+
+Median answer time ≤ 8.5s
+
+input_used_for_adaptation = TRUE
+
+2.8 Plan de retestare post-lansare
+
+Săptămânal primele 4 săptămâni: verificare KPI + QA metrics.
+
+Lunar după luna 1: validare metrici + ajustări micro-copy.
+
+Trigger retest: orice deviere >10% de la target KPI timp de 2 săptămâni consecutive.
+
+Rezultat așteptat:
+Quiz calm, rapid și relevant, cu flow previzibil și micro-personalizare, optimizat pentru context emoțional + cognitiv mixt, conform raportului Norman (60%) / Torres (40%), cu impact direct măsurabil pe Activation, TTV și Retention.
 
 ## **3. Identifici variabilele utile**
 
+3.1 🎯 Obiectiv
+Selectăm variabile minime, măsurabile, fără PII care:
+
+prezic Completion, Final CTR, Activation, TTV, D7
+
+detectează progress_type și intent_profile (Norman/Torres)
+
+alimentează engine-ul adaptiv (cu confidence & cooldown)
+
+3.2 🧩 Variabile MVP (must-have) — 18 semnale
+Variabilă	Tip	Unde apare	De ce contează
+session_id	string	toate	coeziune sesiune, fără PII
+variant (control/adaptive)	cat	render	A/B & guardrails
+device_class (mobile/desktop)	cat	render	stratificare & UI
+net_type (3G/4G/Wi-Fi)	cat	render	tail latency
+question_id, order	cat,int	question_shown	time-per-Q, drop spots
+question_text_len	int	question_shown	effort cognitiv
+options_count	int	question_shown	timp & erori tap
+time_on_question_ms	int	answer_submitted	dwell, ritm
+backtracked	bool	answer_submitted	indecizie (Norman)
+tap_errors	int	answer_submitted	calitatea interacțiunii
+chosen_option_id	cat	answer_submitted	mapare la intenție
+chosen_option_tags	cat[]	answer_submitted	emoție/ acțiune (Norman/Torres)
+perceived_progress_score (1–5)	int	progress_update	trigger adaptare
+progress_type_detected	cat	progress_update	routing adaptiv
+intent_profile, intent_confidence	cat,float	intent_inferred	personalizare sigură
+branch_applied	cat	adaptation_triggered	audit & efect
+completion_time_sec	int	quiz_complete	Completion & buget timp
+cta_position, cta_id	cat	quiz_cta_clicked	CTR & Activation
+
+Tagging opțiuni (critică): fiecare opțiune primește tags din {emo_validare, actiune_pas, clarificare, confirmare} — alimentează direct classifierul.
+
+3.3 🔬 Variabile derivate (computed, low-cost)
+Dwell slope per primele 3 întrebări = trend( time_on_question_ms ) → Torres = negativ, Norman = plat/pozitiv
+
+Answer changes count (via backtracked) → indecizie (Norman)
+
+Action Orientation Index (AOI) = % răspunsuri cu actiune_pas în Q1–Q2
+
+Emotion Keyword Score (EKS) = #tag-uri emo_validare alese în Q1–Q2
+
+Reading load = question_text_len / time_on_question_ms
+
+Latency P95 = pct95 feedback_latency_ms → guardrail
+
+Progress delta = final − mid → eficiența adaptării
+
+Early abandon marker = părăsește înainte de Q3
+
+3.4 🧠 Mapare variabile → Norman/Torres (heuristic MVP)
+Norman ↑: EKS mare, dwell >7s, backtracked=0, ore seara, chosen_option_tags include emo_validare/clarificare
+
+Torres ↑: AOI mare, dwell <6s, clicked_preview_result (dacă există), chosen_option_tags include actiune_pas
+
+Neutral: diferență mică între scoruri → fallback Clarity_min
+
+3.5 🧵 Variabile pentru engine-ul adaptiv (decizie + guardrails)
+Trigger: perceived_progress_score ≤2 și intent_confidence ≥0.6 și cooldown_used=false
+
+Routing: intent_profile → branch_applied (Norman→validare, Torres→hint practic, Neutral→preview)
+
+Guardrails: cooldown_used (bool), adaptation_count ≤1, feedback_latency_ms P95 ≤1500
+
+3.6 📈 Variabile pentru KPI-uri
+Completion: quiz_complete / quiz_render
+
+Final CTR: quiz_cta_clicked(cta_position='outro') / quiz_complete
+
+Activation: calm_tip_open within 120s of quiz_cta_clicked(outro) / quiz_complete
+
+TTV (median): calm_tip_open.ts − quiz_cta_clicked.ts
+
+D7 Retention: return_within_7d după quiz_complete
+
+3.7 🔒 Calitate & guvernanță (anti-zgomot)
+Cardinalitate controlată: bindează time_on_question_ms la [0,30000]; bucketize în {0–5s, 5–10s, 10–15s, >15s} pentru rapoarte rapide
+
+Null policy: <3% null pe variabilele MVP (altfel alertă)
+
+Sampling Q0.5: arată perceived_progress_score la 70% sesiuni pentru fricțiune minimă
+
+PII: zero; doar session_id + device/net_type + taguri anonime
+
+3.8 🛠️ Instrumentare (nume exacte de props)
+quiz_question_shown: question_id, order, microcopy_id, question_text_len, options_count, option_tags[]
+
+quiz_answer_submitted: question_id, time_on_question_ms, backtracked, tap_errors, chosen_option_id, chosen_option_tags[]
+
+quiz_intent_inferred: intent_profile, intent_confidence, features_used
+
+quiz_progress_update: question_number, perceived_progress_score, progress_type_detected
+
+quiz_adaptation_triggered: reason, branch_applied, cooldown_active
+
+quiz_cta_clicked: cta_id, cta_position='outro'
+
+calm_tip_open: tip_id
+
+3.9 ✅ Criterii de “gata” pentru variabile
+Coverage ≥97% pe variabilele MVP (ultimele 24h)
+
+option_tags mapate la 100% dintre opțiuni din question bank
+
+Drift check zilnic: distribuții time_on_question_ms & perceived_progress_score neschimbate >20% fără motiv → investighezi
+
 ## **4. Scrii intro micro-copy**
+
+4.1 🎯 Obiectiv & KPI
+Reduce anxietatea (Norman 60%) + clarifică valoarea & timpul (Torres 40%).
+
+KPI țintă: CTR start_quiz > 80%, Completion > 85%, TTFI ≤ 4s.
+
+4.2 🧩 Copy bank (A/B/C + 2 backup) – ≤140 caractere (contate)
+A – Calming-first (Norman):
+„Știm că e greu uneori. În mai puțin de 1 minut îți arătăm un pas simplu, potrivit ție.” — 86
+
+B – Balanced (claritate + viteză):
+„Răspunde la câteva întrebări scurte și primești imediat un tip personalizat. <1 minut.” — 86
+
+C – Action-first (Torres):
+„Hai să găsim acum soluția care ți se potrivește. 6 întrebări. <1 minut. Rezultatul e al tău.” — 92
+
+D – Micro-anx relief (fallback scurt):
+„Respiră. În <1 minut primești un pas ușor, adaptat situației tale.” — 66
+
+E – Valoare diseară (context bedtime):
+„3 pași scurți, un rezultat clar. <1 minut și ai un tip pe care îl poți testa diseară.” — 85
+
+CTA blând: „Începem” / „Hai să vedem” / „Vreau pasul meu”.
+Loader >1s (micro-copy): „Un moment — pregătim recomandarea ta.”
+
+4.3 ⚙️ Reguli de servire (pre-intent, fără PII)
+Default trafic nou: B (Balanced).
+
+Noapte (20:30–22:30) sau surse anx/parenting: A.
+
+Campanii „rezolvare acum” / returning users: C.
+
+Latentă rețea >800ms sau device mic: D (mai scurt, TTFI sigur).
+
+Dacă avem semnale timpurii (Q1):
+
+AOI↑ ⇒ comută C pe out-of-fold banner, menții introul servit.
+
+4.4 🎨 Layout & ton (enforce)
+Structură: validare emoțională → promisiune valoare → timp scurt.
+
+Vizual: fundal neutru + lumină caldă; icon mic „sprijin”; AA dark/light.
+
+UI: text 16–18px, max 2 fraze, CTA above the fold, tap target ≥48px.
+
+Evită: jargon/imperative tari/tehnicisme.
+
+4.5 ⚡ TTFI ≤4s — tactici
+SSR + critical CSS inline, defer JS non-esențial.
+
+Fără webfont blocking la intro (system font stack).
+
+Imagine icon ≤12KB, loading=lazy.
+
+Prefetch ecran Q1 & pre-rezultat.
+
+Hard cap: dacă LCP > 2.5s, ascunde imaginea intro.
+
+4.6 🧪 A/B plan (cu powering pragmatic)
+Brațe: A vs B vs C (start 34/33/33).
+
+N_min: ≥500 sesiuni/variantă (scalăm la 1k dacă diferența <3pp).
+
+Metrici: primar CTR start_quiz; secundare Completion, TTFI.
+
+Criteriu câștig: +≥5pp CTR vs. baseline și fără scădere de Completion.
+
+Guardrail: dacă TTFI med >4s sau abandon intro >15%, forțezi D.
+
+4.7 📊 Tracking minim (compatibil cu viitorul GA4/BQ)
+quiz_intro_shown {variant_id, theme, device, net_type}
+
+quiz_start_clicked {variant_id}
+
+quiz_render, quiz_complete, quiz_cta_clicked(outro), calm_tip_open
+
+Derivate: CTR start = start_clicked / intro_shown, TTFI = start_clicked.ts − intro_shown.ts.
+
+4.8 ✅ DoD (acceptance)
+Copy ≤140 caractere (verificat), AA dark/light, CTA above the fold.
+
+TTFI med ≤4s pe 75% sesiuni; LCP ≤2.5s (p75).
+
+Test rapid cu N=5 utilizatori seara (20:30–22:30) → 0 blocaje copy/CTA.
+
+Evenimentele se văd în tool (staging + prod).
+
+4.9 🚀 Rollout & Owner loop
+Rollout: 10% → 50% → 100% în 3 zile cu guardrails on.
+
+Owner check 24h/48h: dacă CTR start <80% sau TTFI >4s, comuți la D temporar și corectezi perf.
+
+Livrabil: acest copy bank + reguli de servire + tracking sunt “plug-and-play”. Dacă vrei, îți dau și un lint mic care blochează texte >140 caractere și verifică spațierea CTA.
 
 ## **5. Scrii întrebările + opțiunile**
 
