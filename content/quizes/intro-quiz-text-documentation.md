@@ -5068,3 +5068,208 @@ Soft-launch: după remedierea P0/P1, rerulezi S3 (fallback) ca smoke final
  Zero P0 / Zero P1 → Go confirmat
 
 ## **10. Livrabil final în format async**
+
+10) Livrabil final în format async — pachet “ready-to-ship” (Notion/Figma/Dev)
+10.1 📦 Ce predăm (overview)
+🎯 KPI-uri & guardrails (1 pagină)
+
+🧱 Constrângeri & SLO-uri (timp, conținut, interacțiune, perf)
+
+💬 Copy bank (intro + outro) ID-uit, ≤140c
+
+❓ Set întrebări (6) + opțiuni (3–4) + tags (CSV)
+
+🎨 Figma spec (fonturi, dimensiuni, layout px, componente)
+
+🤖 Logică adaptivă (statemachine + cooldown + mapping)
+
+🧪 Teste (E2E + pilot 1–2 useri) + checklist UX
+
+📈 Tracking (YAML compatibil PostHog→GA4) + alerte
+
+🚦 Rollout & Go/No-Go (5%→25%→50%→100%)
+
+🧯 Runbook (kill-switch, fallback)
+
+Format: Notion-first (secțiuni), + 3 fișiere atașate: questions.csv, copy.csv, tracking.yaml.
+
+10.2 🎯 KPI-uri & guardrails (rezumat)
+Primary: Completion +12% rel., Final CTR (outro) ≥70%
+
+Mechanistic: Activation ≥65%, TTV tip median ≤30s
+
+Guardrails: TTC P95 ≤80s, answer P95 ≤15s, tap-error ≤1%, feedback P95 ≤1500ms
+
+10.3 🧱 Constrângeri & SLO-uri (exec)
+Total quiz: median ≤50s, P95 ≤80s, hard cap 90s
+
+Per întrebare: median ≤8.5s, P80 ≤10s, P95 ≤15s
+
+Conținut: ≤90c întrebare; ≤40c opțiune; 3–4 opțiuni/ecran
+
+Interacțiune: 1 întrebare/ecran, tap target ≥48px, spacing ≥16px
+
+Perf: LCP p75 ≤2.5s, TTFB p95 ≤800ms, feedback p95 ≤1500ms
+
+Logică: max 1 micro-branch (<2y → wording outro); cooldown=1
+
+10.4 💬 Copy bank (intro + outro) — copy.csv
+csv
+Copy
+Edit
+copy_id,placement,persona,text,cta_label,notes
+intro_A,Intro,Norman,"Știm că e greu uneori. În <1 minut îți arătăm un pas simplu, potrivit ție.","Începem","calming-first"
+intro_B,Intro,Balanced,"Câteva întrebări scurte și primești imediat un tip personalizat. <1 minut.","Hai să vedem","default"
+intro_C,Intro,Torres,"Găsim acum soluția care ți se potrivește. 6 întrebări. <1 minut.","Vreau soluția","action-first"
+out_norman_v1,Outro,Norman,"E în regulă. Ai făcut un pas important. În <1 min îți arătăm un gest mic pentru seara asta.","Vreau pasul blând",""
+out_torres_v1,Outro,Torres,"Gata cu incertitudinea. Primești acum pașii clari — sub 1 minut.","Deschide pașii",""
+out_neutral_v1,Outro,Neutral,"Ești la un pas. Rezultatul tău: un tip personalizat pentru seara asta.","Vezi recomandarea",""
+out_confirm_v1,Outro,Confirm,"Da, ce trăiești e normal. Uite soluția scurtă care te ajută acum.","Vreau soluția",""
+out_baby_v1,Outro,Baby,"Pentru vârste mici: un ritual blând de 2 minute, gata de încercat diseară.","Vezi ritualul","branch Q2<2y"
+10.5 ❓ Întrebări + opțiuni + tag-uri — questions.csv
+csv
+Copy
+Edit
+qid,question,oid,option,tags
+Q1,Cum te simți după ziua de azi?,O1,Copleșit(ă),emo_validare
+Q1,Cum te simți după ziua de azi?,O2,Îngrijorat(ă),clarificare
+Q1,Cum te simți după ziua de azi?,O3,Frustrat(ă),emo_validare
+Q1,Cum te simți după ziua de azi?,O4,Sunt ok / nu știu,confirmare
+Q2,Câți ani are copilul?,O1,< 2 ani,profil
+Q2,Câți ani are copilul?,O2,2–3 ani,profil
+Q2,Câți ani are copilul?,O3,4–6 ani,profil
+Q2,Câți ani are copilul?,O4,Prefer să nu spun,profil_safe
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O1,Adormitul / rutina de seară,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O2,Limite & tantrumuri,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O3,Cooperarea / atenția,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O4,Mese / ritualuri,clarificare
+Q4,Ce ți-ar prinde bine în seara asta?,O1,Un pas simplu de încercat,actiune_pas
+Q4,Ce ți-ar prinde bine în seara asta?,O2,O explicație pe scurt,clarificare
+Q4,Ce ți-ar prinde bine în seara asta?,O3,Un pic de validare,emo_validare
+Q4,Ce ți-ar prinde bine în seara asta?,O4,Un plan scurt pentru mâine,actiune_pas
+Q5,Cât de des apar momentele grele?,O1,Rar,clarificare
+Q5,Cât de des apar momentele grele?,O2,Uneori,clarificare
+Q5,Cât de des apar momentele grele?,O3,Des,clarificare
+Q5,Cât de des apar momentele grele?,O4,Aproape zilnic,clarificare
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O1,Doar pentru copil,clarificare
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O2,Și pentru mine,actiune_pas
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O3,Pentru amândoi,actiune_pas
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O4,Nu sunt sigur(ă),emo_validare
+10.6 🎨 Figma — styles & layout (mobil 360×780; min 320px)
+Font: Inter (fallback: system-ui / SF Pro / Roboto)
+
+Text styles:
+
+Question 18/Semibold (18/24)
+
+Option 16/Regular (16/22)
+
+Helper 14/Regular (14/20)
+
+CTA 18/Medium (18/24)
+
+Layout: margin 16px; gap Q→opțiuni 12px; gap între opțiuni 16px; OptionButton full-width, min-height 56px, r=12; CTA sticky bottom 56px; progress 14px sus-dreapta (vizibil doar claritate/confirmare).
+
+AA contrast dark/light; focus-ring vizibil; no scroll pe întrebare (test 320×640).
+
+10.7 🤖 Logică adaptivă — state machine (MVP)
+pseudo
+Copy
+Edit
+on Q0.5 (70% sample):
+  if perceived_progress_score <= 2:
+     intent_profile, intent_confidence = infer_intent(Q1..Q2 features)
+     if intent_confidence >= 0.6 and !cooldown_used:
+        apply(branch_for[intent_profile])   # Norman / Torres / Neutral
+        cooldown_used = true                # max 1 adaptare
+     else:
+        apply("Clarity_min")                # fallback determinist
+before Outro:
+  personalize outro by (intent_profile ± baby_wording if Q2<2y)
+10.8 🧪 Testare — E2E + pilot 1–2 persoane
+E2E (Playwright): 10 scenarii (Norman/Torres/low-conf/baby, back/forward, latency 3G, small device, a11y, offline retry).
+
+Pilot 1–2 useri (seara, mobil): rubrică 0/1/2 (claritate finală, naturalețe adaptare, vizibilitate CTA, fricțiune, încredere). Trecere: ≥8/10 & 0×P0/0×P1.
+
+10.9 📈 Tracking — tracking.yaml (MVP PostHog→GA4)
+yaml
+Copy
+Edit
+events:
+  - name: quiz_intro_shown
+    props: [session_id, variant, device, net_type, ts]
+  - name: quiz_start_clicked
+    props: [session_id, copy_id, ts]
+  - name: quiz_question_shown
+    props: [session_id, question_id, order, microcopy_id, question_text_len, options_count]
+  - name: quiz_answer_submitted
+    props: [session_id, question_id, time_on_question_ms, backtracked, tap_errors, chosen_option_id, chosen_option_tags]
+  - name: quiz_intent_inferred
+    props: [session_id, intent_profile, intent_confidence, features_used]
+  - name: quiz_progress_update
+    props: [session_id, question_number, perceived_progress_score, progress_type_detected, branch_used]
+  - name: quiz_adaptation_triggered
+    props: [session_id, reason, branch_applied, cooldown_active]
+  - name: quiz_complete
+    props: [session_id, final_progress_type, completion_time_sec, user_sentiment_post_quiz, progress_delta]
+  - name: quiz_cta_clicked
+    props: [session_id, cta_id, cta_label, cta_position, copy_id, ts]
+  - name: calm_tip_open
+    props: [session_id, tip_id, ts]
+metrics:
+  completion_rate: "count(quiz_complete) / count(quiz_intro_shown)"
+  final_ctr_outro: "count(quiz_cta_clicked where cta_position='outro') / count(quiz_complete)"
+  activation_rate: "count(calm_tip_open within 120s of quiz_cta_clicked) / count(quiz_complete)"
+  ttv_tip_median_sec: "median(calm_tip_open.ts - quiz_cta_clicked.ts)"
+guardrails:
+  lcp_p75_ms: "<=2500"
+  feedback_p95_ms: "<=1500"
+  tap_error_rate: "<=0.01"
+10.10 🚦 Rollout & Go/No-Go
+Rollout: 5% (24h) → 25% → 50% → 100% (Europe/Bucharest).
+
+Go: Completion +≥8% rel., Final CTR ≥70%, Activation ≥65%, TTV median ≤30s, guardrails OK.
+
+No-Go: orice 2 guardrails încălcate 2h consecutiv → kill-switch (quiz_adaptive_enabled=false, branch Clarity_min).
+
+10.11 🧯 Runbook (incidente & fallback)
+Alerte Slack: completion_drop >5pp (1h), feedback_p95 >1500ms (30m), tap_error_rate >1.5% (30m).
+
+TTA/TTR: ack ≤10m, fix ≤60m.
+
+Degradare grațioasă: ascunzi imagini intro, păstrezi system font; prefetch off; unică adaptare → off.
+
+10.12 👥 Ownership (async)
+PM/Owner: <nume> — decizie Go/No-Go, A/B, roadmap.
+
+Design: <nume> — Figma tokens & QA accesibilitate.
+
+Eng: <nume> — flags, tracking, rollout, alerts.
+
+Data: <nume> — dashboard + analize T+24h/T+72h.
+
+10.13 ✅ Checklist livrare (Notion tickable)
+ Copy bank introdus (intro/outro)
+
+ questions.csv + tags importat
+
+ Figma styles & componente aplicate
+
+ State machine + cooldown implementate
+
+ Tracking.yaml conectat (staging & prod)
+
+ E2E suite verde (10/10) + pilot 1–2 useri ≥8/10
+
+ Rollout 5% cu alerte active
+
+10.14 🗂️ Structură fișiere (repo / Notion)
+```swift
+/quiz/
+  /copy/copy.csv
+  /content/questions.csv
+  /logic/state_machine.md
+  /tracking/tracking.yaml
+  /tests/e2e-specs.md
+  /runbook/incident.md
+```
