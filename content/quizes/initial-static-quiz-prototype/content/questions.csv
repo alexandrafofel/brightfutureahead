@@ -1,0 +1,25 @@
+qid,question,oid,option,tags
+Q1,Cum te simți după ziua de azi?,O1,Copleșit(ă),emo_validare
+Q1,Cum te simți după ziua de azi?,O2,Îngrijorat(ă),clarificare
+Q1,Cum te simți după ziua de azi?,O3,Frustrat(ă),emo_validare
+Q1,Cum te simți după ziua de azi?,O4,Sunt ok / nu știu,confirmare
+Q2,Câți ani are copilul?,O1,< 2 ani,profil
+Q2,Câți ani are copilul?,O2,2–3 ani,profil
+Q2,Câți ani are copilul?,O3,4–6 ani,profil
+Q2,Câți ani are copilul?,O4,Prefer să nu spun,profil_safe
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O1,Adormitul / rutina de seară,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O2,Limite & tantrumuri,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O3,Cooperarea / atenția,clarificare
+Q3,Ce ți s-a părut cel mai greu în ultima vreme?,O4,Mese / ritualuri,clarificare
+Q4,Ce ți-ar prinde bine în seara asta?,O1,Un pas simplu de încercat,actiune_pas
+Q4,Ce ți-ar prinde bine în seara asta?,O2,O explicație pe scurt,clarificare
+Q4,Ce ți-ar prinde bine în seara asta?,O3,Un pic de validare,emo_validare
+Q4,Ce ți-ar prinde bine în seara asta?,O4,Un plan scurt pentru mâine,actiune_pas
+Q5,Cât de des apar momentele grele?,O1,Rar,clarificare
+Q5,Cât de des apar momentele grele?,O2,Uneori,clarificare
+Q5,Cât de des apar momentele grele?,O3,Des,clarificare
+Q5,Cât de des apar momentele grele?,O4,Aproape zilnic,clarificare
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O1,Doar pentru copil,clarificare
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O2,Și pentru mine,actiune_pas
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O3,Pentru amândoi,actiune_pas
+Q6,Vrei sfaturi doar pentru copil sau și pentru tine?,O4,Nu sunt sigur(ă),emo_validare
