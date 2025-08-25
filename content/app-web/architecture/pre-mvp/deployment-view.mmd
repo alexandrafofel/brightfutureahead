@@ -1,0 +1,105 @@
+flowchart LR
+  %% ===== CLIENT / EDGE =====
+  subgraph client["User Device"]
+    ua["Mobile Browser"]
+  end
+
+  subgraph dns["Public DNS"]
+    dnsrec["A/AAAA + CNAME\n(app.lumlyn.com)"]
+  end
+
+  subgraph cdn["Edge / CDN"]
+    vercelcdn["Vercel Edge Network\nStatic assets + ISR"]
+  end
+
+  subgraph webapp["Frontend Hosting"]
+    nextstatic["Next.js static build\n/ index.html / assets"]
+  end
+
+  %% ===== BACKEND REGION =====
+  subgraph supa["Supabase Project (region)"]
+    subgraph edge["Supabase Edge Functions"]
+      fn_quiz["GET /quiz"]
+      fn_answers["POST /quiz"]
+      fn_lead["POST /lead"]
+      fn_health["/health"]
+      cron_export["Scheduled Job\nnightly export"]
+    end
+
+    subgraph pg["Postgres"]
+      tbl_users["USERS"]
+      tbl_sessions["QUIZ_SESSIONS"]
+      tbl_answers["QUIZ_ANSWERS"]
+      tbl_leads["LEADS"]
+      tbl_questions["QUESTIONS"]
+      tbl_copy["COPY_TEXT"]
+      tbl_config["REMOTE_CONFIG"]
+    end
+
+    subgraph storage["Supabase Storage"]
+      bucket_export["exports/\nJSON CSV"]
+    end
+
+    auth["Supabase Auth\nJWT anon role\nRLS enabled"]
+  end
+
+  %% ===== THIRD PARTIES =====
+  subgraph posthog["PostHog Cloud"]
+    ph_api["/capture endpoint"]
+    ph_dash["Dashboards Funnel"]
+  end
+
+  subgraph email["Email Provider"]
+    mail_api["Brevo or Mailchimp API"]
+    mail_list["Audience List"]
+  end
+
+  subgraph alerts["Ops / Alerts"]
+    slack_hook["Slack Incoming Webhook\n#quiz-alerts"]
+    uptime["Uptime probe\n/health monitor"]
+  end
+
+  %% ===== CONFIG / BUILD =====
+  subgraph config["Build and Secrets"]
+    env_fe["FE env\nNEXT_PUBLIC_SUPABASE_URL\nNEXT_PUBLIC_SUPABASE_ANON_KEY\nNEXT_PUBLIC_POSTHOG_KEY"]
+    env_be["Edge env\nSUPABASE_SERVICE_KEY\nMAIL_API_KEY\nSLACK_WEBHOOK_URL"]
+  end
+
+  %% ===== FLOWS =====
+  ua -->|"HTTPS GET app"| dnsrec
+  dnsrec --> vercelcdn
+  vercelcdn --> nextstatic
+  nextstatic -->|"XHR GET /quiz"| fn_quiz
+  nextstatic -->|"XHR POST /quiz"| fn_answers
+  nextstatic -->|"XHR POST /lead"| fn_lead
+  nextstatic -.->|"capture minimal events"| ph_api
+
+  %% Edge functions to DB
+  fn_quiz --> tbl_questions
+  fn_quiz --> tbl_copy
+  fn_quiz --> tbl_config
+  fn_answers --> tbl_sessions
+  fn_answers --> tbl_answers
+  fn_lead --> tbl_leads
+
+  %% Auth and RLS
+  nextstatic -.->|"JWT anon"| auth
+  fn_answers -.->|"service role key"| auth
+
+  %% Jobs and storage
+  cron_export --> bucket_export
+
+  %% Email provider
+  fn_lead -->|"add contact"| mail_api
+  mail_api --> mail_list
+
+  %% PostHog dashboards and alerts
+  ph_api --> ph_dash
+  ph_dash -->|"completion drop or latency high"| slack_hook
+
+  %% Uptime monitoring
+  uptime --> fn_health
+
+  %% Env wiring
+  env_fe -.-> nextstatic
+  env_be -.-> edge
