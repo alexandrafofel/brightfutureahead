@@ -1,0 +1,33 @@
+erDiagram
+  USERS {
+    uuid id PK
+    string email
+    datetime created_at
+  }
+
+  QUIZ_SESSIONS {
+    uuid id PK
+    uuid user_id FK
+    datetime started_at
+    datetime completed_at
+    string variant
+  }
+
+  QUIZ_ANSWERS {
+    uuid id PK
+    uuid session_id FK
+    string question_id
+    string answer_id
+    datetime created_at
+  }
+
+  LEADS {
+    uuid id PK
+    uuid user_id FK
+    string source
+    datetime created_at
+  }
+
+  USERS ||--o{ QUIZ_SESSIONS : "has"
+  QUIZ_SESSIONS ||--o{ QUIZ_ANSWERS : "contains"
+  USERS ||--o{ LEADS : "may register"
