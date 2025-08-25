@@ -1,0 +1,6 @@
+flowchart TD
+  user["User (Parent)"] --> fe["Frontend Quiz\n(Next.js)"]
+  fe --> api["Supabase API"]
+  api --> db["Supabase DB"]
+  api --> ph["Analytics - PostHog"]
+  api --> email["Email Service\n(Brevo/Mailchimp)"]
