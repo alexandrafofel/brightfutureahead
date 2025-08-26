@@ -1,9 +1,16 @@
 flowchart TD
-  A["captureEvent(name, props)"] --> B{"PII present ?"}
-  B -- yes --> C["strip PII\n(email, phone, name)"]
-  B -- no --> D
-  C --> D{"name in {quiz_intro_shown, quiz_start_clicked, quiz_complete, quiz_cta_clicked} ?"}
-  D -- yes --> E["enqueue to /capture endpoint"]
-  D -- no --> F["ignore (pre-MVP subset only)"]
-  E --> G["batch flush <= 1000ms"]
-  F --> G
+  A["captureEvent(name, props)"] --> B{"name in whitelist ?"}
+  B -- no --> X["return"]
+  B -- yes --> C{"contains PII ?"}
+  C -- yes --> D["strip PII"]
+  C -- no --> E["noop"]
+  D --> F["enqueue to /capture"]
+  E --> F["enqueue to /capture"]
+  F --> G["flush <= 1000ms"]
+  
+  subgraph whitelist
+    W1["quiz_intro_shown"]
+    W2["quiz_start_clicked"]
+    W3["quiz_complete"]
+    W4["quiz_cta_clicked"]
+  end
