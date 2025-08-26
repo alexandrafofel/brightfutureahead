@@ -1,33 +1,70 @@
 erDiagram
-  USERS {
-    uuid id PK
-    string email
-    datetime created_at
-  }
-
   QUIZ_SESSIONS {
     uuid id PK
-    uuid user_id FK
-    datetime started_at
-    datetime completed_at
-    string variant
+    text variant
+    timestamp started_at
+    timestamp completed_at
+    text source
   }
 
   QUIZ_ANSWERS {
     uuid id PK
     uuid session_id FK
-    string question_id
-    string answer_id
-    datetime created_at
+    int question_id
+    text answer_id
   }
 
   LEADS {
     uuid id PK
-    uuid user_id FK
-    string source
-    datetime created_at
+    uuid session_id FK
+    text email
+    boolean consent
+    boolean synced
+    timestamp created_at
   }
 
-  USERS ||--o{ QUIZ_SESSIONS : "has"
-  QUIZ_SESSIONS ||--o{ QUIZ_ANSWERS : "contains"
-  USERS ||--o{ LEADS : "may register"
+  QUESTIONS {
+    int id PK
+    text text
+    text type
+    int version
+    timestamp created_at
+  }
+
+  COPY_TEXT {
+    int id PK
+    text key
+    text text
+    int version
+    timestamp created_at
+  }
+
+  REMOTE_CONFIG {
+    text flag PK
+    text value
+    timestamp updated_at
+  }
+
+  FEEDBACK {
+    uuid id PK
+    uuid session_id FK
+    text label_type
+    text label_value
+    text note
+    timestamp created_at
+  }
+
+  INFER_LOGS {
+    uuid id PK
+    uuid session_id FK
+    json request_json
+    json response_json
+    int latency_ms
+    timestamp created_at
+  }
+
+  %% Relationships
+  QUIZ_SESSIONS ||--o{ QUIZ_ANSWERS : has
+  QUIZ_SESSIONS ||--o| LEADS : may_have
+  QUIZ_SESSIONS ||--o{ FEEDBACK : may_have
+  QUIZ_SESSIONS ||--o{ INFER_LOGS : generates
