@@ -1,0 +1,6 @@
+flowchart TD
+  A["csvLoader()"] --> B["read questions.csv"]
+  B --> C["truncate or upsert QUESTIONS"]
+  C --> D["read copy.csv"]
+  D --> E["upsert COPY_TEXT"]
+  E --> F["return counts"]
