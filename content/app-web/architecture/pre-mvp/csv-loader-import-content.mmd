@@ -1,6 +1,57 @@
 flowchart TD
-  A["csvLoader()"] --> B["read questions.csv"]
-  B --> C["truncate or upsert QUESTIONS"]
-  C --> D["read copy.csv"]
-  D --> E["upsert COPY_TEXT"]
-  E --> F["return counts"]
+  %% CSV Loader with versioning, dry-run, validation, upsert, rollback
+
+  subgraph CFG["Loader Config (env/args)"]
+    srcQ["questions.csv"]
+    srcC["copy.csv"]
+    ver["target_version (int)"]
+    mode["mode: dry-run | apply | rollback"]
+  end
+
+  subgraph OPS["Run"]
+    start["startLoader()"]
+    readQ["readCSV(questions.csv)"]
+    readC["readCSV(copy.csv)"]
+    valQ["validateQuestions()\n(id unique, text non-empty, type in {single,multi})"]
+    valC["validateCopy()\n(key unique, text non-empty)"]
+    plan["computePlan()\nupserts, inserts, conflicts"]
+    dry["if mode == dry-run\n→ print plan & exit 0"]
+    upsertQ["UPSERT QUESTIONS\n(id, text, type, version=target_version)"]
+    upsertC["UPSERT COPY_TEXT\n(id, key, text, version=target_version)"]
+    markLatest["set REMOTE_CONFIG\nquiz_copy_variant/version pointers (optional)"]
+    report["printReport()\ninserted, updated, skipped, errors"]
+  end
+
+  subgraph DB["Postgres (Supabase)"]
+    tblQ["QUESTIONS\nid, text, type, version, created_at"]
+    tblC["COPY_TEXT\nid, key, text, version, created_at"]
+    tblRC["REMOTE_CONFIG\nflag, value, updated_at"]
+    audit["AUDIT_LOG\nid, op, table, row_id, version, ts"]
+  end
+
+  subgraph RB["Rollback Path"]
+    rbCheck["validateRollback()\nversion exists?"]
+    rbPlan["planRollback()\nselect rows where version==X"]
+    rbApply["applyRollback()\nset active version to previous\n(or delete version==X if safe)"]
+  end
+
+  %% Flow
+  start --> ver
+  start --> mode
+  start --> readQ --> valQ
+  start --> readC --> valC
+  valQ --> plan
+  valC --> plan
+  plan --> dry
+  dry --> report
+
+  plan -->|mode==apply| upsertQ --> audit
+  upsertQ --> tblQ
+  plan -->|mode==apply| upsertC --> audit
+  upsertC --> tblC
+  upsertC --> markLatest --> tblRC
+  upsertQ --> report
+  upsertC --> report
+  markLatest --> report
+
+  plan -->|mode==rollback| rbCheck --> rbPlan --> rbApply --> audit --> report
