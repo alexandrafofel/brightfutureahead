@@ -1,0 +1,8 @@
+flowchart TD
+  A["GET /quiz"] --> B["read flags from REMOTE_CONFIG"]
+  B --> C["select questions from QUESTIONS"]
+  C --> D["select copy from COPY_TEXT where placement in {intro, outro} and persona default"]
+  D --> E["variant = read quiz_copy_variant flag or default"]
+  E --> F["payload = {questions, copy[variant], flags_subset}"]
+  F --> G["return 200 JSON(payload)"]
+  G --> H["log perf and errors"]
