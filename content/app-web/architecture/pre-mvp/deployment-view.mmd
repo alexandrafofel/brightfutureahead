@@ -2,21 +2,31 @@ flowchart LR
   subgraph client["User Device"]
     ua["Mobile Browser"]
   end
-  subgraph cdn["Edge/CDN"]
-    vercel["Vercel Edge (static/ISR)"]
+
+  subgraph cdn["Vercel Edge / CDN"]
+    vercel["Next.js static/ISR"]
   end
+
   subgraph supa["Supabase Project"]
-    edge["Edge Functions\nGET /quiz, POST /quiz, POST /lead"]
-    pg["Postgres"]
+    edge["Edge Functions\n/quiz, /lead, /infer, /feedback"]
+    pg["Postgres DB"]
     store["Storage exports/"]
     auth["Auth (anon vs service role)"]
-    cron["Nightly Export (ops-only)"]
+    cron["Nightly Export Job"]
   end
+
   subgraph posthog["PostHog Cloud"]
     cap["/capture"]
   end
+
   subgraph email["Email Provider"]
-    ml["addContact API"]
+    mail["addContact API"]
+  end
+
+  subgraph ops["Ops & Fallbacks"]
+    q_ph["queue local events\nif PH fails"]
+    q_mail["mark synced=false\nretry later"]
+    q_exp["log + retry export\nif Storage fails"]
   end
 
   ua --> vercel
@@ -24,7 +34,16 @@ flowchart LR
   edge --> pg
   edge -. service role .- auth
   vercel -. anon jwt .- auth
+
+  %% Analytics
+  vercel -. whitelist events .-> cap
+  cap -->|5xx| q_ph
+
+  %% Leads
+  edge --> mail
+  mail -->|fail| q_mail
+
+  %% Exports
   edge --> store
   cron --> store
-  vercel -. capture whitelist .-> cap
-  edge --> ml
+  store -->|fail| q_exp
