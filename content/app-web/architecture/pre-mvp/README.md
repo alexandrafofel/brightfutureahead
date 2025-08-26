@@ -16,7 +16,7 @@ Sunt menținute în trei formate:
 
 ## 1) C4 Context
 
-![C4 Context](./c4-context.png)
+![C4 Context](./c4–context.png)
 
 - **Fișiere:** [`c4-context.mmd`](./c4-context.mmd) • [`c4-context.drawio`](./c4-context.drawio)
 - **Folosire (tickets):** AIT-507 (Pre-MVP Architecture), AIT-470 (FE prototype), AIT-524/AIT-510 (BE integration), AIT-511 (Analytics)
