@@ -1,0 +1,10 @@
+flowchart LR
+  user["Parent"] --> web["Lumlyn Web App"]
+  web --> posthog["PostHog (Analytics)"]
+  web --> email["Email Provider (Brevo/Mailchimp)"]
+  web --> cdn["CDN/Edge (Vercel)"]
+  web --> api["Supabase Edge Functions"]
+  api --> db["Supabase Postgres"]
+
+  classDef boundary stroke-dasharray: 5 5;
+  class web,api,db,cdn boundary;
