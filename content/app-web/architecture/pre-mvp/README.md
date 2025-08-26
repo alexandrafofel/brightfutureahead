@@ -100,7 +100,11 @@ feature-flags-map.mmd / .drawio / .png
 
 ---
 
+
+---
+
 ## 🔮 Next Steps
-- Adăugare **Feature Flags Map**  
+- Documentare **valori implicite + fallback-uri** pentru fiecare feature flag  
 - Integrare testare automată (Playwright)  
 - Extindere schema pentru MVP (tracking detaliat, profil utilizator, segmente)  
+
