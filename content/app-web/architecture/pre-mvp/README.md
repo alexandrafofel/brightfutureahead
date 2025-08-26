@@ -491,6 +491,36 @@ Detaliază logica internă a `runQuizLoop()`:
 
 ---
 
+---
+
+## 📊 Traceability Matrix
+
+Tabelul de mai jos arată acoperirea fiecărui ticket Jira (FE, BE, OPS, Analytics) prin diagramele din acest folder.
+
+| Ticket ID | Categoria     | Descriere scurtă                     | Diagrame asociate |
+|-----------|---------------|--------------------------------------|-------------------|
+| [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470) | [FE] | Static quiz prototype | C4 Context, Component, Component Detailed, State Machine, Control Flow, Functions Overview, Sequence, Feature Flags Map |
+| [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469) | [FE] | UI/UX quiz flow | State Machine, Control Flow, Component Detailed |
+| [AIT-505](https://alexandrafofel.atlassian.net/browse/AIT-505) | [FE] | UTM tagging | Functions Overview (parseUTM), Component Detailed |
+| [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509) | [BE] | Schema DB | ERD, RLS & Access Control, Data Flow, Component Detailed |
+| [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524) | [BE] | API integration | Component, Component Detailed, Deployment View, Sequence, GET /quiz, POST /quiz, POST /lead |
+| [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510) | [BE] | Save answers/email | Deployment View, Sequence, POST /quiz, POST /lead |
+| [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511) | [Analytics] | Event tracking | C4 Context, Component, Sequence, captureEvent, Data Flow, Incident Flow, Feature Flags Map |
+| [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506) | [Analytics] | Funnel dashboards | Incident Flow, Data Flow, Component Detailed |
+| [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507) | [OPS] | Arhitectură pre-MVP | C4 Context, Deployment View, Component, Incident Flow, Feature Flags Map, RLS |
+| CSV Import (Ops) | [OPS] | Import content | CSV Loader, Component Detailed |
+| Ops Export (nightly) | [OPS] | Export answers/leads | Data Flow, Deployment View |
+| Incident Runbook (Ops) | [OPS] | Incident handling | Incident Flow, Feature Flags Map |
+| [AIT-504](https://alexandrafofel.atlassian.net/browse/AIT-504) | [FE] | Pre-MVP pilot | State Machine, Control Flow |
+
+---
+
+✅ **Rezumat:**  
+- Toate ticket-ele [FE], [BE], [OPS], [Analytics] au acoperire vizuală în diagrame.  
+- Diagramele low-level (`GET /quiz`, `POST /quiz`, `POST /lead`, `CSV loader`, `captureEvent`, `inferIntent`, `pickOutro`, `Control Flow`) sunt direct mapate pe implementarea codului.  
+- Diagramele high-level (`C4 Context`, `Component`, `Deployment`, `Data Flow`, `Incident Flow`, `Feature Flags Map`) oferă viziune transversală și suport pentru review / onboarding.  
+
+---
 
 
 
