@@ -4,24 +4,29 @@ sequenceDiagram
   participant API as Supabase API
   participant DB as Supabase DB
   participant PH as PostHog
-  participant Email as Email Service
+  participant EMAIL as Email Provider
 
-  User->>FE: start quiz
-  FE->>API: GET /quiz (questions)
-  API->>DB: fetch quiz structure
-  DB-->>API: quiz JSON
-  API-->>FE: return quiz JSON
+  User->>FE: open quiz
+  FE->>PH: capture "quiz_intro_shown"
+  User->>FE: press start
+  FE->>PH: capture "quiz_start_clicked"
 
-  User->>FE: submits answers
+  FE->>API: GET /quiz
+  API->>DB: read questions, copy, flags
+  DB-->>API: data
+  API-->>FE: payload
+
+  User->>FE: answer Q1..Q6 (local state)
   FE->>API: POST /quiz (answers)
-  API->>DB: insert QuizResponses
-  API->>PH: track event "quiz_completed"
+  API->>DB: insert session + answers
+  DB-->>API: ok
 
   alt user leaves email
     FE->>API: POST /lead (email)
-    API->>DB: insert Leads
-    API->>Email: add to mailing list
+    API->>DB: insert lead
+    API->>EMAIL: add contact
   end
 
-  API-->>FE: confirmation + outro
-  FE-->>User: show outro + CTA
+  FE->>PH: capture "quiz_complete"
+  User->>FE: click CTA
+  FE->>PH: capture "quiz_cta_clicked"
