@@ -48,6 +48,9 @@ Toate diagramele sunt disponibile în 3 formate:
 ### 10. Incident / Observability Flow
 ![Incident Flow](./incident-flow.png)
 
+### 11. Feature Flags Map
+![Feature Flags Map](./feature-flags-map.png)
+
 ---
 
 ## 🛠️ Cum editezi diagramele
