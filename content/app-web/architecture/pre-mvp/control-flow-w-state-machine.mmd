@@ -1,0 +1,32 @@
+flowchart TD
+  A["runQuizLoop(ctx)"] --> B["emit quiz_intro_shown"]
+  B --> C["wait start click"]
+  C --> D["emit quiz_start_clicked"]
+  D --> E["for q in 1..6"]
+  E --> F{"render question q"}
+  F --> G["wait answer\nstore q, oid, tags"]
+  G --> H["emit quiz_answer_submitted(time_on_question_ms, tags)"]
+  H --> I{"q == 1 ?"}
+  I -- yes --> J["cache early features"]
+  I -- no --> K{"q == 2 ?"}
+  J --> K
+  K -- yes --> L["features = collectEarlyFeatures()\n{dwell, backtracks, ...}"]
+  L --> M["{profile, conf} = inferIntent(features)"]
+  M --> N["ctx.intent_profile = profile\nctx.intent_confidence = conf\nemit quiz_intent_inferred"]
+  N --> O{"sample MidCheck (rate from flag) ?"}
+  O -- no --> P["continue"]
+  O -- yes --> Q["score = askMidProgress()"]
+  Q --> R["emit quiz_progress_update(score)"]
+  R --> S{"score <= 2 and conf >= threshold and cooldown == false ?"}
+  S -- yes --> T["branch = mapBranch(intent)\napplyAdaptation(branch)\ncooldown = true\nemit quiz_adaptation_triggered"]
+  S -- no --> U["optional clarity_min if score <= 2 and cooldown==false"]
+  U --> V["continue"]
+  T --> V
+  K -- no --> V
+  V --> W{"q < 6 ?"}
+  W -- yes --> E
+  W -- no --> X["outId = pickOutro(intent, baby_wording)"]
+  X --> Y["show Outro(outId)\nemit quiz_complete"]
+  Y --> Z["onCTAClick -> emit quiz_cta_clicked\nshow tip skeleton"]
+  Z --> AA["open tip (retry once on offline)\nthen emit calm_tip_open"]
+  AA --> AB["return"]
