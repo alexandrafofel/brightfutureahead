@@ -1,0 +1,58 @@
+flowchart TD
+  %% CORS + Rate Limits middleware in front of Edge Functions
+
+  subgraph cfg["Config"]
+    origins["ALLOW_ORIGINS:\nhttps://app.lumlyn.com\nhttps://lumlyn.com\nhttp://localhost:3000"]
+    methods["ALLOW_METHODS: GET, POST, OPTIONS"]
+    headers["ALLOW_HEADERS: content-type, authorization, x-request-id"]
+    expose["EXPOSE_HEADERS: x-request-id"]
+    maxage["ACCESS-CONTROL-MAX-AGE: 600"]
+    creds["CREDENTIALS: false"]
+  end
+
+  subgraph edge["Supabase Edge Middleware"]
+    req["Incoming request"]
+    isPre["OPTIONS preflight?"]
+    preOK["204 preflight OK\nwith CORS headers"]
+    checkOrigin{"Origin in ALLOW_ORIGINS?"}
+    cors403["403 CORS blocked"]
+    checkMethod{"Method allowed?"}
+    m405["405 method not allowed"]
+
+    decidePath{"Path"}
+    getQuiz["/quiz GET\nrate: 60 req/min per IP"]
+    postQuiz["/quiz POST\nrate: 30 req/min per IP\n+ 10 req/min per session_id"]
+    postLead["/lead POST\nrate: 10 req/min per IP\n+ 3 req/min per email_hash"]
+    defRate["default\nrate: 20 req/min per IP"]
+
+    over429["429 too many requests"]
+    callHandler["Call Edge Function\n(GET /quiz | POST /quiz | POST /lead)"]
+    addCors["Add CORS headers on response"]
+    resp200["Return response"]
+  end
+
+  %% Flow
+  req --> isPre
+  isPre -- yes --> preOK --> resp200
+  isPre -- no --> checkOrigin
+  checkOrigin -- no --> cors403
+  checkOrigin -- yes --> checkMethod
+  checkMethod -- no --> m405
+  checkMethod -- yes --> decidePath
+
+  decidePath -- "/quiz GET" --> getQuiz
+  decidePath -- "/quiz POST" --> postQuiz
+  decidePath -- "/lead POST" --> postLead
+  decidePath -- other --> defRate
+
+  getQuiz -->|over limit| over429
+  postQuiz -->|over limit| over429
+  postLead -->|over limit| over429
+  defRate -->|over limit| over429
+
+  getQuiz -->|ok| callHandler
+  postQuiz -->|ok| callHandler
+  postLead -->|ok| callHandler
+  defRate -->|ok| callHandler
+
+  callHandler --> addCors --> resp200
