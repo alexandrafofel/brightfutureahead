@@ -1,0 +1,11 @@
+flowchart LR
+  FE["Frontend\nAnon JWT"] -- read --> Q["GET /quiz"]
+  FE -- write --> X["POST /quiz (answers)"]
+  FE -- write --> L["POST /lead (email)"]
+
+  SR["Edge Function\nService Role"] -- insert --> DB1["QUIZ_* tables"]
+  SR -- insert --> DB2["LEADS"]
+  FE -. restricted .- DB?["Direct DB access: NO (RLS ON)"]
+
+  classDef danger fill:#ffe5e5,stroke:#ff6b6b,color:#333;
+  class DB? danger

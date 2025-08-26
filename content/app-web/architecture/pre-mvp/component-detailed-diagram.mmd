@@ -1,0 +1,96 @@
+flowchart TD
+  %% ===== CLIENT / FRONTEND =====
+  subgraph client["Client Device\nMobile-first"]
+    user["User (Parent)"]
+    browser["Mobile Browser"]
+  end
+
+  subgraph fe["Frontend App\nNext.js + Tailwind\nTracking minimal / A11y / Perf"]
+    fe_intro["UI Intro\n(copy implicit)"]
+    fe_questions["UI Questions Q1-Q6\n<=160 chars, 1/ecran"]
+    fe_outro["UI Outro\n(copy implicit)"]
+    fe_email["Email Capture\nGDPR checkbox + input"]
+    fe_state["State Engine client\nconform state_machine.md"]
+    fe_flags["Remote Config Client\nflags: adaptive_enabled, thresholds"]
+    fe_tracking["Tracking Client (PostHog)\nquiz_started, quiz_completed"]
+    fe_utm["UTM Parser\nutm_source, utm_medium, utm_campaign"]
+    fe_error["Error/Latency UI\nloader, debounce 500ms"]
+  end
+
+  %% ===== BACKEND / SUPABASE =====
+  subgraph be["Backend / Supabase"]
+    api_quiz["GET /quiz"]
+    api_answers["POST /quiz"]
+    api_lead["POST /lead"]
+    api_health["/health"]
+
+    subgraph db["Postgres (Supabase)"]
+      db_users["USERS"]
+      db_sessions["QUIZ_SESSIONS"]
+      db_answers["QUIZ_ANSWERS"]
+      db_leads["LEADS"]
+      db_copy["COPY_TEXT"]
+      db_questions["QUESTIONS"]
+      db_config["REMOTE_CONFIG"]
+    end
+
+    jobs["Nightly Export ETL\nCSV/JSON"]
+  end
+
+  %% ===== ANALYTICS =====
+  subgraph analytics["Analytics PostHog"]
+    ph_capture["Capture API"]
+    ph_dash["Dashboard Funnel"]
+    ph_alerts["Alerts Slack webhook"]
+  end
+
+  %% ===== EMAIL =====
+  subgraph email["Email Service (Brevo/Mailchimp)"]
+    email_list["Audience List"]
+    email_double["Double Opt-in"]
+  end
+
+  %% ===== CONTENT / OPS =====
+  subgraph content["Content / Ops"]
+    csv_loader["CSV Loader\n(questions.csv, copy.csv)"]
+    runbook["Runbook Incident"]
+    e2e_manual["Manual E2E Tests"]
+  end
+
+  %% ===== FLOWS =====
+  user --> browser
+  browser --> fe_intro
+  fe_intro --> fe_state
+  fe_intro --> fe_tracking
+  fe_intro --> fe_utm
+
+  fe_state --> fe_questions
+  fe_questions --> fe_outro
+  fe_outro --> fe_email
+
+  fe_questions --> api_answers
+  fe_email --> api_lead
+  fe_intro --> api_quiz
+
+  api_quiz --> db_questions
+  api_quiz --> db_copy
+  api_answers --> db_sessions
+  api_answers --> db_answers
+  api_lead --> db_leads
+  api_quiz --> db_config
+  jobs --> db
+
+  fe_tracking --> ph_capture
+  ph_capture --> ph_dash
+  ph_dash --> ph_alerts
+
+  api_lead --> email_list
+  email_list --> email_double
+
+  csv_loader --> db_questions
+  csv_loader --> db_copy
+  runbook --> db_config
+  e2e_manual --> fe_state
+
+  fe_flags --> db_config
+  fe_outro --> fe_tracking

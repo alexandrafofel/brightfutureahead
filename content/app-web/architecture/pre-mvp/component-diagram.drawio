@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0" version="28.1.1">
+  <diagram name="Page-1" id="QTNCsyN5MA1Wwjjut4p1">
+    <mxGraphModel dx="1034" dy="666" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-28" value="User (Parent)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="348" y="20" width="155" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-41" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="7ok1-89w9cV1tyNuRXl5-29" target="7ok1-89w9cV1tyNuRXl5-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-44" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="7ok1-89w9cV1tyNuRXl5-29" target="7ok1-89w9cV1tyNuRXl5-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-29" value="Frontend Quiz&#xa;(Next.js, Mobile Responsive)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="295.5" y="124" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-30" value="Supabase API&#xa;(Node/Express)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="295" y="260" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-31" value="Supabase DB&#xa;(Postgres)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="10" y="408" width="235" height="72" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-32" value="Analytics - PostHog&#xa;(minimal events)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="295" y="410" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-33" value="Email Service&#xa;(Brevo/Mailchimp)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="615" y="408" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-34" value="Headless CMS&#xa;(Contentful/Sanity)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="640" y="124" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-35" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="7ok1-89w9cV1tyNuRXl5-28" target="7ok1-89w9cV1tyNuRXl5-29">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-37" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.86;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="7ok1-89w9cV1tyNuRXl5-30" target="7ok1-89w9cV1tyNuRXl5-31">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="138" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-38" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="7ok1-89w9cV1tyNuRXl5-30" target="7ok1-89w9cV1tyNuRXl5-32">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7ok1-89w9cV1tyNuRXl5-39" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.84;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="7ok1-89w9cV1tyNuRXl5-30" target="7ok1-89w9cV1tyNuRXl5-33">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="745" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

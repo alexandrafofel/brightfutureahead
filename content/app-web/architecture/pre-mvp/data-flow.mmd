@@ -1,0 +1,9 @@
+flowchart TD
+  A["Answers on device"] --> B["POST /quiz"]
+  B --> C["DB: QUIZ_SESSIONS, QUIZ_ANSWERS"]
+  A -. "email (optional)" .-> D["POST /lead"]
+  D --> E["DB: LEADS (consent)"]
+  C --> F["Nightly Export\n(JSON/CSV)"]
+  F --> G["ML Staging (bucket)"]
+  E -. "Delete request" .-> H["GDPR Delete\n(purge LEADS & joins)"]
+  A -. "Minimal analytics" .-> I["PostHog events (no PII)"]
