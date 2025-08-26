@@ -14,6 +14,31 @@ Scopul pre-MVP: quiz adaptiv mobil-first, colectare răspunsuri + email, trackin
 
 ---
 
+## 📑 Table of Contents
+
+1. [C4 Context](#1-c4-context)  
+2. [Component Diagram (High-Level)](#2-component-diagram-high-level)  
+3. [Component Diagram — Detailed](#3-component-diagram--detailed)  
+4. [Deployment View](#4-deployment-view)  
+5. [State Machine (Quiz Flow)](#5-state-machine-quiz-flow)  
+6. [Sequence Diagram (E2E Flow)](#6-sequence-diagram-e2e-flow)  
+7. [ERD (Database Schema)](#7-erd-database-schema)  
+8. [Data Flow](#8-data-flow)  
+9. [RLS & Access Control](#9-rls--access-control)  
+10. [Incident / Observability Flow](#10-incident--observability-flow)  
+11. [Feature Flags Map](#11-feature-flags-map)  
+12. [Functions Overview (FE)](#12-functions-overview-fe)  
+13. [GET /quiz — Build Payload](#13-get-quiz--build-payload)  
+14. [POST /quiz — Validate & Save](#14-post-quiz--validate--save)  
+15. [POST /lead — Save & Sync](#15-post-lead--save--sync)  
+16. [CSV Loader — Import Content](#16-csv-loader--import-content)  
+17. [captureEvent() — Minimal Tracking](#17-captureevent--minimal-tracking)  
+18. [inferIntent — Decision Logic](#18-inferintent--decision-logic)  
+19. [pickOutro() — Mapping](#19-pickoutro--mapping)  
+20. [Control Flow — Quiz Loop](#20-control-flow--quiz-loop)  
+
+---
+
 ## 1) C4 Context
 
 ![C4 Context](./c4–context.png)  
@@ -326,5 +351,146 @@ Diagrama listează funcțiile cheie din Frontend și relațiile lor:
 - [OPS] AIT-507 (arhitectura documentată)  
 
 ---
+
+## 13) GET /quiz — Build Payload
+
+**Fișiere:** [`get-quiz-build-payload-from-DB-and-flags.mmd`](./get-quiz-build-payload-from-DB-and-flags.mmd) • [`get-quiz-build-payload-from-DB-and-flags.drawio`](./get-quiz-build-payload-from-DB-and-flags.drawio)
+
+**Descriere:**  
+Explică endpoint-ul **GET /quiz**:  
+- Citește flagurile din `REMOTE_CONFIG`.  
+- Selectează întrebările din `QUESTIONS`.  
+- Selectează textele din `COPY_TEXT` (în funcție de `quiz_copy_variant`).  
+- Compilează `flags_subset` și le returnează împreună cu întrebările și copy.  
+
+**Tickete impactate:**  
+- [BE] AIT-524, AIT-510 (integrare API cu FE), AIT-509 (REMOTE_CONFIG)  
+- [FE] AIT-470 (FE consumă payload pentru UI)  
+- [OPS] AIT-507 (arhitectura documentată)  
+
+---
+
+## 14) POST /quiz — Validate & Save
+
+**Fișiere:** [`post-quiz-validate-save.mmd`](./post-quiz-validate-save.mmd) • [`post-quiz-validate-save.drawio`](./post-quiz-validate-save.drawio)
+
+**Descriere:**  
+Explică endpoint-ul **POST /quiz**:  
+- Validează `session_id` și lungimea array-ului de răspunsuri.  
+- Inserează o sesiune în `QUIZ_SESSIONS` dacă e prima dată.  
+- Iterează prin răspunsuri → validează întrebări/alegeri → inserează în `QUIZ_ANSWERS`.  
+- Marchează `completed_at`.  
+
+**Tickete impactate:**  
+- [BE] AIT-524, AIT-510 (validare & inserții)  
+- [FE] AIT-470 (trimite răspunsuri)  
+- [OPS] AIT-507 (arhitectura)  
+
+---
+
+## 15) POST /lead — Save & Sync
+
+**Fișiere:** [`post-lead-save-sync.mmd`](./post-lead-save-sync.mmd) • [`post-lead-save-sync.drawio`](./post-lead-save-sync.drawio)
+
+**Descriere:**  
+Explică endpoint-ul **POST /lead**:  
+- Validează consimțământul și adresa de email.  
+- Inserează în `LEADS` (session_id, email, source).  
+- Dacă există cheie configurată → apelează API-ul providerului de email.  
+- Returnează status de `saved` și `synced`.  
+
+**Tickete impactate:**  
+- [BE] AIT-524, AIT-510 (lead capture flow), AIT-505 (campanii/UTM)  
+- [FE] AIT-470 (trimite email la finalul quiz-ului)  
+- [OPS] AIT-507 (arhitectura)  
+
+---
+
+## 16) CSV Loader — Import Content
+
+**Fișiere:** [`csv-loader-import-content.mmd`](./csv-loader-import-content.mmd) • [`csv-loader-import-content.drawio`](./csv-loader-import-content.drawio)
+
+**Descriere:**  
+Explică jobul de import content:  
+- Citește `questions.csv` și inserează/upsert în `QUESTIONS`.  
+- Citește `copy.csv` și inserează/upsert în `COPY_TEXT`.  
+- Returnează un raport cu numărul de înregistrări.  
+
+**Tickete impactate:**  
+- [OPS] Ops ticket (import inițial conținut quiz + copy)  
+- [BE] AIT-509 (schema tabelelor)  
+
+---
+
+## 17) captureEvent() — Minimal Tracking
+
+**Fișiere:** [`captureEvent–min-tracking-PostHog.mmd`](./captureEvent–min-tracking-PostHog.mmd) • [`captureEvent–min-tracking-PostHog.drawio`](./captureEvent–min-tracking-PostHog.drawio)
+
+**Descriere:**  
+Definește funcția client-side care trimite evenimente la PostHog:  
+- Acceptă doar eventurile whitelisted: `quiz_intro_shown`, `quiz_start_clicked`, `quiz_complete`, `quiz_cta_clicked`.  
+- Filtrează/șterge orice PII din props.  
+- Trimite batch către PostHog.  
+
+**Tickete impactate:**  
+- [FE] AIT-470 (apelarea funcției în flow)  
+- [Analytics] AIT-511 (tracking minim), AIT-506 (funnel dashboards)  
+- [OPS] AIT-507 (design incident handling)  
+
+---
+
+## 18) inferIntent — Decision Logic
+
+**Fișiere:** [`inferIntent-features-decision.mmd`](./inferIntent-features-decision.mmd) • [`inferIntent-features-decision.drawio`](./inferIntent-features-decision.drawio)
+
+**Descriere:**  
+Funcția care deduce profilul utilizatorului (Norman, Torres, Neutral):  
+- Colectează feature-uri din primele răspunsuri (emoții, dwell time, backtracks, etc.).  
+- Calculează scoruri pentru Norman vs Torres.  
+- Returnează profil + confidence (0–1).  
+
+**Tickete impactate:**  
+- [FE] AIT-470 (aplică intent inference în runQuizLoop)  
+- [Analytics] AIT-511 (profilul poate fi corelat cu funnel)  
+
+---
+
+## 19) pickOutro() — Mapping
+
+**Fișiere:** [`pick-outro-mapping.mmd`](./pick-outro-mapping.mmd) • [`pick-outro-mapping.drawio`](./pick-outro-mapping.drawio)
+
+**Descriere:**  
+Funcția care selectează varianta de outro:  
+- Dacă profil = Norman → `out_norman_v1`.  
+- Dacă profil = Torres → `out_torres_v1`.  
+- Dacă profil = Neutral → `out_neutral_v1`.  
+- Dacă flag `baby_wording_enabled` = true → aplică copy child-friendly.  
+
+**Tickete impactate:**  
+- [FE] AIT-470 (outro logică)  
+- [BE] AIT-524 (payload conține flagul)  
+
+---
+
+## 20) Control Flow — Quiz Loop
+
+**Fișiere:** [`control-flow-w-state-machine.mmd`](./control-flow-w-state-machine.mmd) • [`control-flow-w-state-machine.drawio`](./control-flow-w-state-machine.drawio)
+
+**Descriere:**  
+Detaliază logica internă a `runQuizLoop()`:  
+- Emitere event intro/start.  
+- Loop prin întrebări Q1–Q6.  
+- La Q2 → infer intent + opțional MidCheck.  
+- Dacă condiții → aplică Adaptation Block (max 1, cooldown activat).  
+- La final → Outro + CTA → emitere event complet/cta.  
+
+**Tickete impactate:**  
+- [FE] AIT-470 (implementarea flow-ului)  
+- [Analytics] AIT-511 (evenimente whitelisted)  
+- [OPS] AIT-507 (logică documentată pentru validare)  
+
+---
+
+
 
 
