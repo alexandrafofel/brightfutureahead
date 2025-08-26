@@ -1,0 +1,17 @@
+sequenceDiagram
+  participant User
+  participant FE as Frontend (Next.js)
+  participant EDGE as Edge Fn /feedback
+  participant CFG as REMOTE_CONFIG
+  participant DB as FEEDBACK
+  participant EXP as Storage exports
+
+  User->>FE: submit feedback (label, note)
+  FE->>EDGE: POST /feedback (session_id, label, note)
+  EDGE->>CFG: read flags (for validation rules)
+  EDGE->>EDGE: validate and strip PII
+  EDGE->>DB: insert FEEDBACK (label_type, label_value, note)
+  EDGE-->>FE: 202 {accepted:true}
+
+  Note over EDGE,DB: Nightly job
+  DB->>EXP: export CSV/JSON (ops-only)
