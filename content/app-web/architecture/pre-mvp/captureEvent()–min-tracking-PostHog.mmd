@@ -1,0 +1,9 @@
+flowchart TD
+  A["captureEvent(name, props)"] --> B{"PII present ?"}
+  B -- yes --> C["strip PII\n(email, phone, name)"]
+  B -- no --> D
+  C --> D{"name in {quiz_intro_shown, quiz_start_clicked, quiz_complete, quiz_cta_clicked} ?"}
+  D -- yes --> E["enqueue to /capture endpoint"]
+  D -- no --> F["ignore (pre-MVP subset only)"]
+  E --> G["batch flush <= 1000ms"]
+  F --> G
