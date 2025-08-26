@@ -3,25 +3,27 @@ flowchart TD
     init["initApp()"]
     loadQ["loadQuiz()"]
     start["onStartClick()"]
-    run["runQuizLoop()"]
+    loop["runQuizLoop()"]
     infer["inferIntent(features)"]
     mid["askMidProgress()"]
     adapt["applyAdaptation(branch)"]
-    outro["pickOutro(intent,baby)"]
+    outro["pickOutro(profile,baby)"]
     cta["onCTAClick()"]
-    cap["captureEvent(name, props)"]
+    cap["captureEvent(name,props)"]
     utm["parseUTM()"]
   end
 
   init --> utm
   init --> loadQ
   loadQ --> start
-  start --> run
-  run --> infer
-  run --> mid
-  run --> adapt
-  run --> outro
+  start --> loop
+  loop --> infer
+  loop --> mid
+  loop --> adapt
+  loop --> outro
   outro --> cta
-  cap -. called by many .- init
-  cap -. called by many .- run
-  cap -. called by many .- cta
+
+  cap -. called at .- init
+  cap -. called at .- start
+  cap -. called at .- loop
+  cap -. called at .- cta
