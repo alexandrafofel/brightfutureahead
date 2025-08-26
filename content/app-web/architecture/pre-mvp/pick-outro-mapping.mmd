@@ -1,13 +1,13 @@
 flowchart TD
-  A["pickOutro(intent, baby_wording)"] --> B{"intent == Norman ?"}
+  A["pickOutro(profile, baby_wording)"] --> B{"profile == Norman ?"}
   B -- yes --> C["out_norman_v1"]
-  B -- no --> D{"intent == Torres ?"}
+  B -- no --> D{"profile == Torres ?"}
   D -- yes --> E["out_torres_v1"]
   D -- no --> F["out_neutral_v1"]
-  C --> G{"baby_wording ?"} 
+  C --> G{"baby_wording ?"}
   E --> G
   F --> G
-  G -- yes --> H["append out_baby_v1 wording"]
+  G -- yes --> H["apply baby wording"]
   G -- no --> I["no change"]
   H --> J["return copy_id"]
   I --> J
