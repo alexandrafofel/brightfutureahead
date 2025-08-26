@@ -1,0 +1,19 @@
+flowchart TD
+  subgraph FF["Feature Flags (REMOTE_CONFIG)"]
+    F1["quiz_adaptive_enabled\n(bool)"]
+    F2["intent_conf_threshold\n(float, default 0.6)"]
+    F3["midcheck_sample_rate\n(float 0–1)"]
+    F4["baby_wording_enabled\n(bool)"]
+    F5["quiz_copy_variant\n(string)"]
+  end
+
+  F1 --> State["State Machine Flow"]
+  F2 --> Intent["Intent Inference (Q1–Q2)"]
+  F3 --> MidCheck["MidCheck Trigger"]
+  F4 --> Copy["Outro Copy (CTA wording)"]
+  F5 --> Copy
+
+  State --> UI["Frontend Quiz UI"]
+  Intent --> UI
+  MidCheck --> UI
+  Copy --> UI
