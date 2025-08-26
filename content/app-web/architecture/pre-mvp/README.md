@@ -19,7 +19,7 @@ Toate diagramele sunt disponibile în 3 formate:
 ---
 
 ### 1. Context (C4)
-![Context](./c4-context.png)
+![Context](./c4–context.png)
 
 ### 2. Component Diagram
 ![Component](./component-diagram.png)
