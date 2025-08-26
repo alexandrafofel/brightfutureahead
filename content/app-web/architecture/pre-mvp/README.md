@@ -244,3 +244,87 @@ Definește regulile de acces la baza de date în Supabase:
 
 ---
 
+## 10) Incident / Observability Flow
+
+![Incident Flow](./incident-flow.png)  
+**Fișiere:** [`incident-flow.mmd`](./incident-flow.mmd) • [`incident-flow.drawio`](./incident-flow.drawio)
+
+**Descriere:**  
+Prezintă modul în care sistemul gestionează colectarea de evenimente și incidente operaționale:  
+- **Frontend** → trimite evenimente whitelisted către PostHog.  
+- **PostHog Dashboard** → monitorizează funnel-ul quiz-ului (Intro → Start → Complete → CTA).  
+- **Alerts** → trimise în Slack atunci când funnel rate scade sub praguri definite.  
+- **Runbook** → echipa poate aplica rapid măsuri: activare/dezactivare feature flags, ajustare rate-limits sau kill-switch.  
+
+**Procese reprezentate:**  
+- Monitoring constant prin PostHog.  
+- Notificări automate în Slack pentru anomalii.  
+- Măsuri corective prin feature flags, fără redeploy.  
+
+**Tickete impactate:**  
+- [FE] AIT-470 (emite evenimente)  
+- [BE] AIT-524, AIT-510 (expun endpointuri monitorizate)  
+- [Analytics] AIT-511 (definire funnel), AIT-506 (dashboard + alerts)  
+- [OPS] AIT-507 (runbook incident), incident ops ticket  
+
+---
+
+## 11) Feature Flags Map
+
+![Feature Flags Map](./feature-flags-map.png)  
+**Fișiere:** [`feature-flags-map.mmd`](./feature-flags-map.mmd) • [`feature-flags-map.drawio`](./feature-flags-map.drawio)
+
+**Descriere:**  
+Prezintă lista de flag-uri runtime controlate din `REMOTE_CONFIG`:  
+- **quiz_adaptive_enabled** — activează/dezactivează logica adaptivă.  
+- **intent_conf_threshold** — prag de încredere pentru inferența de intent.  
+- **midcheck_sample_rate** — procent de utilizatori care primesc MidCheck.  
+- **baby_wording_enabled** — activează copy child-friendly la outro.  
+- **quiz_copy_variant** — selectează varianta implicită de copy pentru intro/outro.  
+
+**Procese reprezentate:**  
+- FE citește payload-ul GET /quiz și aplică flagurile la runtime.  
+- BE servește flagurile din DB la request.  
+- Analytics corelează rezultatele în PostHog cu starea flagurilor.  
+
+**Tickete impactate:**  
+- [FE] AIT-470 (flow adaptiv controlat prin flaguri), AIT-469 (variante UI/UX)  
+- [BE] AIT-524, AIT-510 (includ flaguri în payload GET /quiz), AIT-509 (REMOTE_CONFIG table)  
+- [Analytics] AIT-511 (analize funnel pe baza variantelor de flaguri)  
+- [OPS] AIT-507 (runbook: modificare flaguri), incident ops ticket  
+
+---
+
+## 12) Functions Overview (FE)
+
+![Functions Overview](./functions-overview.png)  
+**Fișiere:** [`functions-overview.mmd`](./functions-overview.mmd) • [`functions-overview.drawio`](./functions-overview.drawio)
+
+**Descriere:**  
+Diagrama listează funcțiile cheie din Frontend și relațiile lor:  
+- **initApp()** — parsează UTM, pregătește context.  
+- **loadQuiz()** — cere conținut de la API.  
+- **onStartClick()** — marchează începutul quiz-ului.  
+- **runQuizLoop()** — logica principală pentru întrebări, adaptare și outro.  
+- **inferIntent()** — calculează profilul (Norman, Torres, Neutral) pe baza răspunsurilor timpurii.  
+- **askMidProgress()** — opțional, verifică progresul la jumătate.  
+- **applyAdaptation()** — injectează un bloc de adaptare dacă sunt îndeplinite condițiile.  
+- **pickOutro()** — selectează varianta de outro pe baza profilului + flag `baby_wording_enabled`.  
+- **onCTAClick()** — marchează finalul și deschide tip-ul.  
+- **captureEvent()** — trimite evenimente whitelisted către PostHog.  
+- **parseUTM()** — parsează parametrii din URL pentru sursă campanie.  
+
+**Procese reprezentate:**  
+- Ordinea și dependențele dintre funcțiile FE.  
+- Punctele unde se emite tracking.  
+- Punctele unde se aplică flagurile runtime.  
+
+**Tickete impactate:**  
+- [FE] AIT-470 (implementarea funcțiilor), AIT-469 (flow UI/UX), AIT-505 (UTM tagging)  
+- [BE] AIT-524, AIT-510 (payload integrat cu FE funcții)  
+- [Analytics] AIT-511 (puncte de emitere eventuri)  
+- [OPS] AIT-507 (arhitectura documentată)  
+
+---
+
+
