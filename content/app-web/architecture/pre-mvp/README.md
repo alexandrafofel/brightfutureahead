@@ -16,509 +16,714 @@ Scopul pre-MVP: quiz adaptiv mobil-first, colectare răspunsuri + email, trackin
 
 ## 📑 Table of Contents
 
-1. [C4 Context](#1-c4-context)  
-2. [Component Diagram (High-Level)](#2-component-diagram-high-level)  
-3. [Component Diagram — Detailed](#3-component-diagram--detailed)  
-4. [Deployment View](#4-deployment-view)  
-5. [State Machine (Quiz Flow)](#5-state-machine-quiz-flow)  
-6. [Sequence Diagram (E2E Flow)](#6-sequence-diagram-e2e-flow)  
-7. [ERD (Database Schema)](#7-erd-database-schema)  
-8. [Data Flow](#8-data-flow)  
-9. [RLS & Access Control](#9-rls--access-control)  
-10. [Incident / Observability Flow](#10-incident--observability-flow)  
-11. [Feature Flags Map](#11-feature-flags-map)  
-12. [Functions Overview (FE)](#12-functions-overview-fe)  
-13. [GET /quiz — Build Payload](#13-get-quiz--build-payload)  
-14. [POST /quiz — Validate & Save](#14-post-quiz--validate--save)  
-15. [POST /lead — Save & Sync](#15-post-lead--save--sync)  
-16. [CSV Loader — Import Content](#16-csv-loader--import-content)  
-17. [captureEvent() — Minimal Tracking](#17-captureevent--minimal-tracking)  
-18. [inferIntent — Decision Logic](#18-inferintent--decision-logic)  
-19. [pickOutro() — Mapping](#19-pickoutro--mapping)  
-20. [Control Flow — Quiz Loop](#20-control-flow--quiz-loop)  
+1. [Context](#1-context)  
+   - [1.1 C4 Context](#11-c4-context)  
+   - [1.2 Component Diagram](#12-component-diagram-high-level)  
+   - [1.3 Component Detailed](#13-component-detailed)  
 
+2. [Runtime Flow](#2-runtime-flow)  
+   - [2.1 State Machine](#21-state-machine-quiz-flow)  
+   - [2.2 Control Flow](#22-control-flow--quiz-loop)  
+   - [2.3 Sequence Diagram](#23-sequence-diagram-e2e-flow)  
+   - [2.4 Functions Overview](#24-functions-overview-fe)  
+   - [2.5 Feature Flags Map](#25-feature-flags-map)  
+
+3. [Backend API](#3-backend-api)  
+   - [3.1 GET /quiz](#31-get-quiz--build-payload)  
+   - [3.2 POST /quiz](#32-post-quiz--validate--save)  
+   - [3.3 POST /lead](#33-post-lead--save--sync)  
+   - [3.4 CSV Loader](#34-csv-loader--import-content-versioned)  
+   - [3.5 captureEvent](#35-captureevent--minimal-tracking)  
+   - [3.6 inferIntent](#36-inferintent--decision-logic)  
+   - [3.7 pickOutro](#37-pickoutro--mapping)  
+
+4. [Data & Security](#4-data--security)  
+   - [4.1 ERD](#41-erd--database-schema-versioned--ml-ready)  
+   - [4.2 RLS](#42-rls--row-level-security--roles)  
+   - [4.3 Data Flow](#43-data-flow--collection--storageexport--analytics-no-pii)  
+   - [4.4 CORS & Rate Limits](#44-cors--rate-limits--middleware)  
+
+5. [Ops & Observability](#5-ops--observability)  
+   - [5.1 Incident Flow](#51-incident-flow--funnel-metrics--fallbacks)  
+   - [5.2 Deployment View](#52-deployment-view--with-queues--retries)  
+   - [5.3 Runbooks](#53-runbooks-async)  
+
+6. [ML-Ready API](#6-ml-ready-api)  
+   - [6.1 ML-Ready API Overview](#61-ml-ready-api-overview)  
+   - [6.2 Sequence — /infer](#62-sequence--infer)  
+   - [6.3 Sequence — /feedback](#63-sequence--feedback)  
+
+7. [Traceability Matrix](#7-traceability-matrix)
+   
 ---
 
-## 1) C4 Context
+## 1. Context
 
-![C4 Context](./c4–context.png)  
-**Fișiere:** [`c4-context.mmd`](./c4-context.mmd) • [`c4-context.drawio`](./c4-context.drawio)
+### 1.1 C4 Context
 
-**Descriere:**  
-Arată actorii principali și limitele de încredere: utilizator → aplicația web (Next.js) → CDN (Vercel Edge) → Supabase (Edge Functions + DB). Integrarea cu servicii externe: PostHog pentru analytics, provider de email pentru colectare lead-uri.  
+<img src="01-context/c4-context.png" alt="C4 Context" width="700"/>
 
-**Procese reprezentate:**  
-- User → Browser → CDN → FE App  
-- FE App → Supabase Edge API → Postgres DB  
-- Tracking minim → PostHog  
-- Lead sync → Email provider  
+**Fișiere:**  
+- [c4-context.mmd](01-context/c4-context.mmd)  
+- [c4-context.drawio](01-context/c4-context.drawio)  
+
+**Descriere detaliată:**  
+Diagrama C4 arată actorii principali și limitele de încredere:  
+- Utilizator → Browser → aplicația web (Next.js, servită din Vercel Edge).  
+- API Calls → Supabase Edge Functions (GET/POST quiz, POST lead).  
+- DB → Postgres (quiz_sessions, answers, leads, config).  
+- Integrare → PostHog (analytics) și Email Provider (lead sync).  
+
+**Procese modelate:**  
+- User → FE → API → DB (insert răspunsuri / leads).  
+- Tracking minimal → PostHog.  
+- Email leads → provider extern.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (FE prototype), AIT-469 (UI/UX flow)  
-- [BE] AIT-524, AIT-510 (API endpoints), AIT-509 (DB setup)  
-- [Analytics] AIT-511 (integrare evenimente minime), AIT-506 (dashboard funnel)  
-- [OPS] AIT-507 (arhitectura pre-MVP)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470), [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469)  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510), [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511), [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
 
 ---
 
-## 2) Component Diagram (High-Level)
+### 1.2 Component Diagram (High-Level)
 
-![Component](./component-diagram.png)  
-**Fișiere:** [`component-diagram.mmd`](./component-diagram.mmd) • [`component-diagram.drawio`](./component-diagram.drawio)
+<img src="01-context/component-diagram.png" alt="Component Diagram" width="700"/>
 
-**Descriere:**  
-Prezintă componentele majore și interacțiunile dintre ele. Frontend-ul Next.js servește quiz-ul, trimite răspunsurile către Edge Functions. Baza de date Supabase stochează sesiunile, răspunsurile și email-urile. Tracking-ul minim merge spre PostHog, iar email-urile se sincronizează cu providerul extern.  
+**Fișiere:**  
+- [component-diagram.mmd](01-context/component-diagram.mmd)  
+- [component-diagram.drawio](01-context/component-diagram.drawio)  
 
-**Procese reprezentate:**  
-- FE UI (Intro, Questions, Outro, Email Capture)  
-- BE API (GET /quiz, POST /quiz, POST /lead)  
-- DB (Users, Sessions, Answers, Leads)  
-- Analytics (PostHog minimal events)  
-- Email sync  
+**Descriere detaliată:**  
+Arată principalele componente și interacțiunile lor:  
+- FE UI (Intro, Questions, Outro, Email Capture).  
+- BE API (GET /quiz, POST /quiz, POST /lead).  
+- DB (Users, Sessions, Answers, Leads).  
+- Analytics (PostHog minimal events).  
+- Email Provider (lead sync).  
+
+**Procese modelate:**  
+- FE cere întrebări și copy din DB prin API.  
+- FE trimite răspunsuri și email la BE → DB.  
+- BE trimite subset evenimente la PostHog.  
+- BE trimite leaduri către Email Provider.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (FE flow, UI states), AIT-469 (UI/UX)  
-- [BE] AIT-509 (DB schema), AIT-524, AIT-510 (API endpoints)  
-- [Analytics] AIT-511 (event capture subset)  
-- [OPS] AIT-507 (arhitectura generală)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470), [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469)  
+- [BE] [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509), [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
 
 ---
 
-## 3) Component Diagram — Detailed
+### 1.3 Component Detailed
 
-![Component Detailed](./component-detailed-diagram.png)  
-**Fișiere:** [`component-detailed-diagram.mmd`](./component-detailed-diagram.mmd) • [`component-detailed-diagram.drawio`](./component-detailed-diagram.drawio)
+<img src="01-context/component-detailed-diagram.png" alt="Component Detailed" width="700"/>
 
-**Descriere:**  
-Detaliază fiecare bloc:  
-- FE: funcții (`initApp`, `parseUTM`, `runQuizLoop`, `inferIntent`, `pickOutro`, `captureEvent`).  
-- BE: API endpoints cu validări și inserții în DB.  
-- DB: `QUESTIONS`, `COPY_TEXT`, `QUIZ_SESSIONS`, `QUIZ_ANSWERS`, `LEADS`, `REMOTE_CONFIG`.  
-- Integrări: PostHog events whitelisted, Email API, Slack alerts pentru incidente.  
-- Ops: CSV loader pentru import content, nightly export pentru ML (ops-only).  
+**Fișiere:**  
+- [component-detailed-diagram.mmd](01-context/component-detailed-diagram.mmd)  
+- [component-detailed-diagram.drawio](01-context/component-detailed-diagram.drawio)  
 
-**Procese reprezentate:**  
-- Initialization → UTM tagging → Quiz loop → Intent inference → Adaptation → Outro → CTA.  
-- API calls validate & save answers/leads.  
-- Feature flags controlează flow-ul runtime.  
+**Descriere detaliată:**  
+Detaliază funcțiile și blocurile:  
+- FE: initApp, parseUTM, runQuizLoop, inferIntent, pickOutro, captureEvent.  
+- BE: validate & save API endpoints.  
+- DB: QUESTIONS, COPY_TEXT, QUIZ_SESSIONS, QUIZ_ANSWERS, LEADS, REMOTE_CONFIG.  
+- Integrări: PostHog events whitelisted, Email API, Slack alerts.  
+- OPS: CSV loader pentru import content, export nightly pentru ML.  
+
+**Procese modelate:**  
+- Initialization → quiz loop → infer intent → adaptare → outro → CTA.  
+- API calls → validate & insert.  
 - Observability: PostHog funnel + Slack alerts.  
+- OPS jobs: import/export.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (funcții quiz), AIT-469 (flow UI), AIT-505 (UTM tagging)  
-- [BE] AIT-509 (schema completă), AIT-524, AIT-510 (API validate & save), AIT-505 (campanii)  
-- [Analytics] AIT-511 (captureEvent), AIT-506 (funnel dashboards)  
-- [OPS] AIT-507 (arhitectura), CSV import (ops ticket), export ML (ops ticket), runbook (incident handling)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470), [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469), [AIT-505](https://alexandrafofel.atlassian.net/browse/AIT-505)  
+- [BE] [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509), [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511), [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507), CSV Import, Export Ops  
 
 ---
 
-## 4) Deployment View
+## 2. Runtime Flow
 
-![Deployment](./deployment-view.png)  
-**Fișiere:** [`deployment-view.mmd`](./deployment-view.mmd) • [`deployment-view.drawio`](./deployment-view.drawio)
+### 2.1 State Machine (Quiz Flow)
 
-**Descriere:**  
-Arată distribuția componentelor pe infrastructură:  
-- **Vercel Edge**: servește frontend-ul Next.js și rulează cu anon key pentru RLS.  
-- **Supabase**: Edge Functions (GET/POST /quiz, POST /lead), Postgres DB, Storage pentru export, Auth (anon vs service role).  
-- **Cron job**: nightly export în Storage (ops-only, fără ML consumer).  
-- **PostHog Cloud**: colectează evenimente whitelisted.  
-- **Email Provider**: API pentru sincronizare lead-uri.  
+<img src="02-runtime-flow/state-machine.png" alt="State Machine" width="700"/>
 
-**Procese reprezentate:**  
-- User → CDN → FE → Edge Functions → DB.  
-- Rate-limits și CORS middleware în fața Edge Functions.  
-- Service role keys doar în Edge Functions (FE = anon only).  
-- Export date zilnic → Storage.  
+**Fișiere:**  
+- [state-machine.mmd](02-runtime-flow/state-machine.mmd)  
+- [state-machine.drawio](02-runtime-flow/state-machine.drawio)  
 
-**Tickete impactate:**  
-- [FE] AIT-470 (integrarea FE cu API via Edge)  
-- [BE] AIT-524, AIT-510 (endpoints integrate), AIT-509 (RLS config), Ops secret mgmt  
-- [Analytics] AIT-511 (conexiune PostHog), AIT-506 (event flow funnel)  
-- [OPS] AIT-507 (deployment map), ops export ticket, incident runbook  
-
----
-
-## 5) State Machine (Quiz Flow)
-
-![State Machine](./state-machine.png)  
-**Fișiere:** [`state-machine.mmd`](./state-machine.mmd) • [`state-machine.drawio`](./state-machine.drawio)
-
-**Descriere:**  
+**Descriere detaliată:**  
 Definește logica adaptivă a quiz-ului:  
-- **Intro** → Q1 → Q2 → (infer intent + sample MidCheck) → Q3–Q6.  
-- **MidCheck**: aplică adaptation block max o singură dată (gard de cooldown).  
-- **Outro**: selectat în funcție de intent + flag `baby_wording_enabled`.  
-- **CTA**: deschide pagina tip, sincronizat cu event whitelisted.  
+- **Intro → Q1 → Q2 → inferIntent + optional MidCheck → Q3–Q6 → Outro → CTA**  
+- MidCheck se aplică doar o dată, controlat de flag + cooldown.  
+- Outro-ul e ales în funcție de intent (Norman, Torres, Neutral) și flagul `baby_wording_enabled`.  
+- CTA marchează completarea quiz-ului și deschide tip page.  
 
-**Procese reprezentate:**  
-- Condiții pentru trigger adaptation: `(score ≤ 2) AND (confidence ≥ threshold) AND cooldown = false`.  
-- Sampling pentru MidCheck (configurat via feature flag).  
-- Outro variant în funcție de persona detectată.  
+**Procese modelate:**  
+- Condițiile pentru injectarea Adaptation Block.  
+- Punctele unde se emit evenimente whitelisted (start, complete, CTA).  
+- Branching logică finală în Outro.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (implementarea quiz loop), AIT-469 (UI states)  
-- [BE] AIT-524 (payload cu flaguri pentru flow), AIT-510 (branching control)  
-- [Analytics] AIT-511 (event „quiz_complete”, „quiz_cta_clicked”)  
-- [OPS] AIT-507 (logică documentată ca parte din design oficial)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470), [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469)  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
 
 ---
 
-## 6) Sequence Diagram (E2E Flow)
+### 2.2 Control Flow — Quiz Loop
 
-![Sequence](./sequence-diagram.png)  
-**Fișiere:** [`sequence-diagram.mmd`](./sequence-diagram.mmd) • [`sequence-diagram.drawio`](./sequence-diagram.drawio)
+<img src="02-runtime-flow/control-flow-w-state-machine.png" alt="Control Flow" width="700"/>
 
-**Descriere:**  
-Ilustrează fluxul end-to-end:  
-1. User deschide quiz → FE capture „quiz_intro_shown”.  
-2. Start quiz → capture „quiz_start_clicked”.  
-3. FE cere conținut: **GET /quiz** → DB → payload cu `questions`, `copy`, `flags_subset`.  
-4. User răspunde → FE salvează cu **POST /quiz** → DB inserează sesiune și răspunsuri.  
-5. Dacă user lasă email → **POST /lead** → DB + sync către Email Provider.  
-6. La final → capture „quiz_complete” + „quiz_cta_clicked”.  
+**Fișiere:**  
+- [control-flow-w-state-machine.mmd](02-runtime-flow/control-flow-w-state-machine.mmd)  
+- [control-flow-w-state-machine.drawio](02-runtime-flow/control-flow-w-state-machine.drawio)  
 
-**Procese reprezentate:**  
-- Ordinea exactă a requesturilor API.  
-- Emiterea evenimentelor whitelisted în PostHog.  
+**Descriere detaliată:**  
+Detaliază implementarea `runQuizLoop()`:  
+- Intro și Start → emitere evenimente.  
+- Loop Q1–Q6 → la Q2 se face inferIntent.  
+- MidCheck (opțional) → aplică Adaptation Block dacă condițiile sunt îndeplinite.  
+- Outro + CTA → finalizează sesiunea și emite eventuri.  
+
+**Procese modelate:**  
+- Guard condition pentru Adaptation (max o dată).  
+- Call-uri către `captureEvent()` pentru PostHog.  
+- CTA ca ultim pas din flow.  
+
+**Tickete impactate:**  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470), [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+
+---
+
+### 2.3 Sequence Diagram (E2E Flow)
+
+<img src="02-runtime-flow/sequence-diagram.png" alt="Sequence Diagram" width="700"/>
+
+**Fișiere:**  
+- [sequence-diagram.mmd](02-runtime-flow/sequence-diagram.mmd)  
+- [sequence-diagram.drawio](02-runtime-flow/sequence-diagram.drawio)  
+
+**Descriere detaliată:**  
+Arată fluxul end-to-end dintre User, FE, BE, DB, PostHog și Email Provider:  
+1. User începe quiz → FE emite `quiz_intro_shown`.  
+2. Start → `quiz_start_clicked`.  
+3. FE → GET /quiz → DB → întrebări + copy + flags.  
+4. FE → POST /quiz → DB salvează answers și session.  
+5. FE → POST /lead → DB + sync către Email Provider.  
+6. Final → `quiz_complete`, `quiz_cta_clicked`.  
+
+**Procese modelate:**  
+- Ordinea apelurilor API.  
+- Emiterea trackingului whitelisted.  
 - Condiționalitatea pentru POST /lead.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (frontend calls GET/POST quiz, lead)  
-- [BE] AIT-524, AIT-510 (endpoints, flow complet)  
-- [Analytics] AIT-511 (momentele emiterii celor 4 eventuri)  
-- [OPS] AIT-507 (overview complet integrat)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
 
 ---
 
-## 7) ERD (Database Schema)
+### 2.4 Functions Overview (FE)
 
-![ERD](./ERD.png)  
-**Fișiere:** [`ERD.mmd`](./ERD.mmd) • [`ERD.drawio`](./ERD.drawio)
+<img src="02-runtime-flow/functions-overview.png" alt="Functions Overview" width="700"/>
 
-**Descriere:**  
-Prezintă tabelele din baza de date Supabase și relațiile lor:  
-- **USERS** – utilizatori autentificați (opțional în pre-MVP).  
-- **QUIZ_SESSIONS** – stochează metadate pentru fiecare sesiune de quiz (session_id, variant, started_at, completed_at).  
-- **QUIZ_ANSWERS** – răspunsurile per întrebare (session_id, question_id, answer_id).  
-- **LEADS** – adresele de email + consimțământ și sursa (utm).  
-- **QUESTIONS** – întrebările din quiz.  
-- **COPY_TEXT** – texte pentru intro/outro, variate pe persona.  
-- **REMOTE_CONFIG** – feature flags.  
+**Fișiere:**  
+- [functions-overview.mmd](02-runtime-flow/functions-overview.mmd)  
+- [functions-overview.drawio](02-runtime-flow/functions-overview.drawio)  
 
-**Procese reprezentate:**  
-- 1:N între QUIZ_SESSIONS și QUIZ_ANSWERS.  
-- 1:1 între QUIZ_SESSIONS și LEADS (opțional).  
-- Lookup din QUESTIONS și COPY_TEXT la runtime.  
-- REMOTE_CONFIG ca tabel mic, accesat la GET /quiz.  
+**Descriere detaliată:**  
+Listează funcțiile cheie FE și dependențele lor:  
+- `initApp()` → parseUTM, pregătește context.  
+- `loadQuiz()` → cere conținut de la API.  
+- `runQuizLoop()` → logica principală.  
+- `inferIntent()`, `askMidProgress()`, `applyAdaptation()`, `pickOutro()`.  
+- `onCTAClick()` → finalizează flow-ul.  
+- `captureEvent()` → trimite eventurile whitelisted.  
+
+**Procese modelate:**  
+- Ordinea execuției funcțiilor.  
+- Punctele de tracking.  
+- Aplicarea flagurilor runtime.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (payload de quiz → întrebări, copy text)  
-- [BE] AIT-509 (definirea tabelelor), AIT-524, AIT-510 (inserții în sessions/answers/leads)  
-- [Analytics] AIT-511 (corelarea event → session_id)  
-- [OPS] AIT-507 (schema oficială pre-MVP), CSV import (questions/copy)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470), [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469), [AIT-505](https://alexandrafofel.atlassian.net/browse/AIT-505)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
 
 ---
 
-## 8) Data Flow
+### 2.5 Feature Flags Map
 
-![Data Flow](./data-flow.png)  
-**Fișiere:** [`data-flow.mmd`](./data-flow.mmd) • [`data-flow.drawio`](./data-flow.drawio)
+<img src="02-runtime-flow/feature-flags-map.png" alt="Feature Flags Map" width="700"/>
 
-**Descriere:**  
-Arată traseul datelor din momentul în care user interacționează cu quiz-ul până la exportul zilnic:  
-- **Device** → trimite răspunsuri către API.  
-- **DB** → stochează sessions, answers, leads.  
-- **Analytics** → trimite subsetul de evenimente whitelisted către PostHog (fără PII).  
-- **Export ops-only** → job nightly → CSV/JSON în Supabase Storage.  
-- **Lead data** → sincronizare către Email Provider (doar dacă există consimțământ).  
+**Fișiere:**  
+- [feature-flags-map.mmd](02-runtime-flow/feature-flags-map.mmd)  
+- [feature-flags-map.drawio](02-runtime-flow/feature-flags-map.drawio)  
 
-**Procese reprezentate:**  
-- Separarea fluxului de analytics (PostHog) de fluxul de date sensibile (DB).  
-- Export pentru ML = manual/ops-only, fără consumator automatizat.  
-- Respectarea GDPR (PII doar în Leads, cu consimțământ).  
+**Descriere detaliată:**  
+Listează flagurile runtime controlate din `REMOTE_CONFIG`:  
+- `quiz_adaptive_enabled`  
+- `intent_conf_threshold`  
+- `midcheck_sample_rate`  
+- `baby_wording_enabled`  
+- `quiz_copy_variant`  
+
+**Procese modelate:**  
+- BE include flaguri în payload GET /quiz.  
+- FE aplică flaguri la runtime.  
+- Analytics corelează funnel results cu starea flagurilor.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (răspunsuri și email trimise corect)  
-- [BE] AIT-524, AIT-510 (inserții corecte în DB, sync către email)  
-- [Analytics] AIT-511 (evenimente whitelisted), AIT-506 (funnel dashboards)  
-- [OPS] CSV import ticket (input în DB), export ticket (ops job)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470), [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469)  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510), [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
 
 ---
 
-## 9) RLS & Access Control
+## 3. Backend API
 
-![RLS](./rls.png)  
-**Fișiere:** [`rls.mmd`](./rls.mmd) • [`rls.drawio`](./rls.drawio)
+### 3.1 GET /quiz — Build Payload
 
-**Descriere:**  
-Definește regulile de acces la baza de date în Supabase:  
-- **Frontend (Next.js)** → folosește **anon key**, acces indirect doar prin API (Edge Functions).  
-- **Edge Functions** → rulează cu **service role key**, permit inserții în QUIZ_SESSIONS, QUIZ_ANSWERS, LEADS.  
-- **PII protection** → tabelele LEADS, QUIZ_SESSIONS, QUIZ_ANSWERS nu sunt accesibile direct din FE.  
-- **Principiul least privilege** → FE vede doar payload-urile pre-filtrate (GET /quiz).  
+<img src="03-backend-api/get-quiz-build-payload-from-DB-and-flags.png" alt="GET /quiz" width="700"/>
 
-**Procese reprezentate:**  
-- Limitarea accesului la DB în funcție de rol.  
-- Serviciile externe (PostHog, Email Provider) nu au acces direct la DB → doar prin API.  
+**Fișiere:**  
+- [get-quiz-build-payload-from-DB-and-flags.mmd](03-backend-api/get-quiz-build-payload-from-DB-and-flags.mmd)  
+- [get-quiz-build-payload-from-DB-and-flags.drawio](03-backend-api/get-quiz-build-payload-from-DB-and-flags.drawio)  
+
+**Descriere detaliată:**  
+- Interoghează `QUESTIONS` și `COPY_TEXT` filtrat pe `version`.  
+- Adaugă flaguri runtime din `REMOTE_CONFIG`.  
+- Returnează payload complet către FE (questions, copy, flags).  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (folosește doar API, nu direct DB)  
-- [BE] AIT-509 (RLS setup), AIT-524, AIT-510 (Edge Functions cu service role)  
-- [Analytics] AIT-511 (asigurarea că doar subsetul whitelisted ajunge în PostHog)  
-- [OPS] AIT-507 (arhitectură de securitate documentată)  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510), [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
 
 ---
 
-## 10) Incident / Observability Flow
+### 3.2 POST /quiz — Validate & Save
 
-![Incident Flow](./incident-flow.png)  
-**Fișiere:** [`incident-flow.mmd`](./incident-flow.mmd) • [`incident-flow.drawio`](./incident-flow.drawio)
+<img src="03-backend-api/post-quiz-validate-save.png" alt="POST /quiz" width="700"/>
 
-**Descriere:**  
-Prezintă modul în care sistemul gestionează colectarea de evenimente și incidente operaționale:  
-- **Frontend** → trimite evenimente whitelisted către PostHog.  
-- **PostHog Dashboard** → monitorizează funnel-ul quiz-ului (Intro → Start → Complete → CTA).  
-- **Alerts** → trimise în Slack atunci când funnel rate scade sub praguri definite.  
-- **Runbook** → echipa poate aplica rapid măsuri: activare/dezactivare feature flags, ajustare rate-limits sau kill-switch.  
+**Fișiere:**  
+- [post-quiz-validate-save.mmd](03-backend-api/post-quiz-validate-save.mmd)  
+- [post-quiz-validate-save.drawio](03-backend-api/post-quiz-validate-save.drawio)  
 
-**Procese reprezentate:**  
-- Monitoring constant prin PostHog.  
-- Notificări automate în Slack pentru anomalii.  
-- Măsuri corective prin feature flags, fără redeploy.  
+**Descriere detaliată:**  
+- Validează `session_id` și structura răspunsurilor.  
+- Creează sau actualizează `QUIZ_SESSIONS`.  
+- Iterează răspunsurile și inserează în `QUIZ_ANSWERS`.  
+- Marchează `completed_at` la final.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (emite evenimente)  
-- [BE] AIT-524, AIT-510 (expun endpointuri monitorizate)  
-- [Analytics] AIT-511 (definire funnel), AIT-506 (dashboard + alerts)  
-- [OPS] AIT-507 (runbook incident), incident ops ticket  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
 
 ---
 
-## 11) Feature Flags Map
+### 3.3 POST /lead — Save & Sync
 
-![Feature Flags Map](./feature-flags-map.png)  
-**Fișiere:** [`feature-flags-map.mmd`](./feature-flags-map.mmd) • [`feature-flags-map.drawio`](./feature-flags-map.drawio)
+<img src="03-backend-api/post-lead-save-sync.png" alt="POST /lead" width="700"/>
 
-**Descriere:**  
-Prezintă lista de flag-uri runtime controlate din `REMOTE_CONFIG`:  
-- **quiz_adaptive_enabled** — activează/dezactivează logica adaptivă.  
-- **intent_conf_threshold** — prag de încredere pentru inferența de intent.  
-- **midcheck_sample_rate** — procent de utilizatori care primesc MidCheck.  
-- **baby_wording_enabled** — activează copy child-friendly la outro.  
-- **quiz_copy_variant** — selectează varianta implicită de copy pentru intro/outro.  
+**Fișiere:**  
+- [post-lead-save-sync.mmd](03-backend-api/post-lead-save-sync.mmd)  
+- [post-lead-save-sync.drawio](03-backend-api/post-lead-save-sync.drawio)  
 
-**Procese reprezentate:**  
-- FE citește payload-ul GET /quiz și aplică flagurile la runtime.  
-- BE servește flagurile din DB la request.  
-- Analytics corelează rezultatele în PostHog cu starea flagurilor.  
+**Descriere detaliată:**  
+- Validează consimțământul și email-ul.  
+- Salvează în `LEADS` (session_id, email, consent, synced=false).  
+- Încearcă sync către Email Provider.  
+- Dacă eșuează → `synced=false` rămâne și un retry job îl va reîncerca.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (flow adaptiv controlat prin flaguri), AIT-469 (variante UI/UX)  
-- [BE] AIT-524, AIT-510 (includ flaguri în payload GET /quiz), AIT-509 (REMOTE_CONFIG table)  
-- [Analytics] AIT-511 (analize funnel pe baza variantelor de flaguri)  
-- [OPS] AIT-507 (runbook: modificare flaguri), incident ops ticket  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [OPS] Export/retry job (runbook)  
 
 ---
 
-## 12) Functions Overview (FE)
+### 3.4 CSV Loader — Import Content (Versioned)
 
-![Functions Overview](./functions-overview.png)  
-**Fișiere:** [`functions-overview.mmd`](./functions-overview.mmd) • [`functions-overview.drawio`](./functions-overview.drawio)
+<img src="03-backend-api/csv-loader-import-content.png" alt="CSV Loader" width="700"/>
 
-**Descriere:**  
-Diagrama listează funcțiile cheie din Frontend și relațiile lor:  
-- **initApp()** — parsează UTM, pregătește context.  
-- **loadQuiz()** — cere conținut de la API.  
-- **onStartClick()** — marchează începutul quiz-ului.  
-- **runQuizLoop()** — logica principală pentru întrebări, adaptare și outro.  
-- **inferIntent()** — calculează profilul (Norman, Torres, Neutral) pe baza răspunsurilor timpurii.  
-- **askMidProgress()** — opțional, verifică progresul la jumătate.  
-- **applyAdaptation()** — injectează un bloc de adaptare dacă sunt îndeplinite condițiile.  
-- **pickOutro()** — selectează varianta de outro pe baza profilului + flag `baby_wording_enabled`.  
-- **onCTAClick()** — marchează finalul și deschide tip-ul.  
-- **captureEvent()** — trimite evenimente whitelisted către PostHog.  
-- **parseUTM()** — parsează parametrii din URL pentru sursă campanie.  
+**Fișiere:**  
+- [csv-loader-import-content.mmd](03-backend-api/csv-loader-import-content.mmd)  
+- [csv-loader-import-content.drawio](03-backend-api/csv-loader-import-content.drawio)  
 
-**Procese reprezentate:**  
-- Ordinea și dependențele dintre funcțiile FE.  
-- Punctele unde se emite tracking.  
-- Punctele unde se aplică flagurile runtime.  
+**Descriere detaliată:**  
+- Rulează în modurile: `dry-run`, `apply`, `rollback`.  
+- Validează unicitatea și consistența inputului.  
+- `apply` → face **UPSERT** cu `version=target_version`.  
+- `rollback` → revine la versiunea precedentă.  
+- Scrie toate operațiunile în `AUDIT_LOG`.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (implementarea funcțiilor), AIT-469 (flow UI/UX), AIT-505 (UTM tagging)  
-- [BE] AIT-524, AIT-510 (payload integrat cu FE funcții)  
-- [Analytics] AIT-511 (puncte de emitere eventuri)  
-- [OPS] AIT-507 (arhitectura documentată)  
+- [OPS] CSV Import (Ops)  
+- [BE] [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509)  
 
 ---
 
-## 13) GET /quiz — Build Payload
+### 3.5 captureEvent() — Minimal Tracking
 
-**Fișiere:** [`get-quiz-build-payload-from-DB-and-flags.mmd`](./get-quiz-build-payload-from-DB-and-flags.mmd) • [`get-quiz-build-payload-from-DB-and-flags.drawio`](./get-quiz-build-payload-from-DB-and-flags.drawio)
+<img src="03-backend-api/captureEvent–min-tracking-PostHog.png" alt="captureEvent" width="700"/>
 
-**Descriere:**  
-Explică endpoint-ul **GET /quiz**:  
-- Citește flagurile din `REMOTE_CONFIG`.  
-- Selectează întrebările din `QUESTIONS`.  
-- Selectează textele din `COPY_TEXT` (în funcție de `quiz_copy_variant`).  
-- Compilează `flags_subset` și le returnează împreună cu întrebările și copy.  
+**Fișiere:**  
+- [captureEvent–min-tracking-PostHog.mmd](03-backend-api/captureEvent–min-tracking-PostHog.mmd)  
+- [captureEvent–min-tracking-PostHog.drawio](03-backend-api/captureEvent–min-tracking-PostHog.drawio)  
 
-**Tickete impactate:**  
-- [BE] AIT-524, AIT-510 (integrare API cu FE), AIT-509 (REMOTE_CONFIG)  
-- [FE] AIT-470 (FE consumă payload pentru UI)  
-- [OPS] AIT-507 (arhitectura documentată)  
-
----
-
-## 14) POST /quiz — Validate & Save
-
-**Fișiere:** [`post-quiz-validate-save.mmd`](./post-quiz-validate-save.mmd) • [`post-quiz-validate-save.drawio`](./post-quiz-validate-save.drawio)
-
-**Descriere:**  
-Explică endpoint-ul **POST /quiz**:  
-- Validează `session_id` și lungimea array-ului de răspunsuri.  
-- Inserează o sesiune în `QUIZ_SESSIONS` dacă e prima dată.  
-- Iterează prin răspunsuri → validează întrebări/alegeri → inserează în `QUIZ_ANSWERS`.  
-- Marchează `completed_at`.  
-
-**Tickete impactate:**  
-- [BE] AIT-524, AIT-510 (validare & inserții)  
-- [FE] AIT-470 (trimite răspunsuri)  
-- [OPS] AIT-507 (arhitectura)  
-
----
-
-## 15) POST /lead — Save & Sync
-
-**Fișiere:** [`post-lead-save-sync.mmd`](./post-lead-save-sync.mmd) • [`post-lead-save-sync.drawio`](./post-lead-save-sync.drawio)
-
-**Descriere:**  
-Explică endpoint-ul **POST /lead**:  
-- Validează consimțământul și adresa de email.  
-- Inserează în `LEADS` (session_id, email, source).  
-- Dacă există cheie configurată → apelează API-ul providerului de email.  
-- Returnează status de `saved` și `synced`.  
-
-**Tickete impactate:**  
-- [BE] AIT-524, AIT-510 (lead capture flow), AIT-505 (campanii/UTM)  
-- [FE] AIT-470 (trimite email la finalul quiz-ului)  
-- [OPS] AIT-507 (arhitectura)  
-
----
-
-## 16) CSV Loader — Import Content
-
-**Fișiere:** [`csv-loader-import-content.mmd`](./csv-loader-import-content.mmd) • [`csv-loader-import-content.drawio`](./csv-loader-import-content.drawio)
-
-**Descriere:**  
-Explică jobul de import content:  
-- Citește `questions.csv` și inserează/upsert în `QUESTIONS`.  
-- Citește `copy.csv` și inserează/upsert în `COPY_TEXT`.  
-- Returnează un raport cu numărul de înregistrări.  
-
-**Tickete impactate:**  
-- [OPS] Ops ticket (import inițial conținut quiz + copy)  
-- [BE] AIT-509 (schema tabelelor)  
-
----
-
-## 17) captureEvent() — Minimal Tracking
-
-**Fișiere:** [`captureEvent–min-tracking-PostHog.mmd`](./captureEvent–min-tracking-PostHog.mmd) • [`captureEvent–min-tracking-PostHog.drawio`](./captureEvent–min-tracking-PostHog.drawio)
-
-**Descriere:**  
-Definește funcția client-side care trimite evenimente la PostHog:  
+**Descriere detaliată:**  
 - Acceptă doar eventurile whitelisted: `quiz_intro_shown`, `quiz_start_clicked`, `quiz_complete`, `quiz_cta_clicked`.  
-- Filtrează/șterge orice PII din props.  
+- Filtrează orice PII.  
 - Trimite batch către PostHog.  
+- Fallback dacă PostHog e indisponibil → local queue + retry.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (apelarea funcției în flow)  
-- [Analytics] AIT-511 (tracking minim), AIT-506 (funnel dashboards)  
-- [OPS] AIT-507 (design incident handling)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511), [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506)  
 
 ---
 
-## 18) inferIntent — Decision Logic
+### 3.6 inferIntent — Decision Logic
 
-**Fișiere:** [`inferIntent-features-decision.mmd`](./inferIntent-features-decision.mmd) • [`inferIntent-features-decision.drawio`](./inferIntent-features-decision.drawio)
+<img src="03-backend-api/inferIntent-features-decision.png" alt="inferIntent" width="700"/>
 
-**Descriere:**  
-Funcția care deduce profilul utilizatorului (Norman, Torres, Neutral):  
-- Colectează feature-uri din primele răspunsuri (emoții, dwell time, backtracks, etc.).  
-- Calculează scoruri pentru Norman vs Torres.  
-- Returnează profil + confidence (0–1).  
+**Fișiere:**  
+- [inferIntent-features-decision.mmd](03-backend-api/inferIntent-features-decision.mmd)  
+- [inferIntent-features-decision.drawio](03-backend-api/inferIntent-features-decision.drawio)  
+
+**Descriere detaliată:**  
+- Preia feature-uri timpurii (emoții, dwell time, backtracks).  
+- Calculează scor Norman vs Torres.  
+- Returnează intent + confidence.  
+- Confidence agregat → raportat în KPIs.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (aplică intent inference în runQuizLoop)  
-- [Analytics] AIT-511 (profilul poate fi corelat cu funnel)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
 
 ---
 
-## 19) pickOutro() — Mapping
+### 3.7 pickOutro — Mapping
 
-**Fișiere:** [`pick-outro-mapping.mmd`](./pick-outro-mapping.mmd) • [`pick-outro-mapping.drawio`](./pick-outro-mapping.drawio)
+<img src="03-backend-api/pick-outro-mapping.png" alt="pickOutro" width="700"/>
 
-**Descriere:**  
-Funcția care selectează varianta de outro:  
-- Dacă profil = Norman → `out_norman_v1`.  
-- Dacă profil = Torres → `out_torres_v1`.  
-- Dacă profil = Neutral → `out_neutral_v1`.  
-- Dacă flag `baby_wording_enabled` = true → aplică copy child-friendly.  
+**Fișiere:**  
+- [pick-outro-mapping.mmd](03-backend-api/pick-outro-mapping.mmd)  
+- [pick-outro-mapping.drawio](03-backend-api/pick-outro-mapping.drawio)  
+
+**Descriere detaliată:**  
+- Alege Outro pe baza intentului:  
+  - Norman → out_norman_v1  
+  - Torres → out_torres_v1  
+  - Neutral → out_neutral_v1  
+- Dacă `baby_wording_enabled` = true → se aplică copy child-friendly.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (outro logică)  
-- [BE] AIT-524 (payload conține flagul)  
-
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524)  
 ---
 
-## 20) Control Flow — Quiz Loop
+## 4. Data & Security
 
-**Fișiere:** [`control-flow-w-state-machine.mmd`](./control-flow-w-state-machine.mmd) • [`control-flow-w-state-machine.drawio`](./control-flow-w-state-machine.drawio)
+### 4.1 ERD — Database Schema (versioned + ML-ready)
 
-**Descriere:**  
-Detaliază logica internă a `runQuizLoop()`:  
-- Emitere event intro/start.  
-- Loop prin întrebări Q1–Q6.  
-- La Q2 → infer intent + opțional MidCheck.  
-- Dacă condiții → aplică Adaptation Block (max 1, cooldown activat).  
-- La final → Outro + CTA → emitere event complet/cta.  
+<img src="04-data-and-security/ERD.png" alt="ERD" width="700"/>
+
+**Fișiere:**  
+- [ERD.mmd](04-data-and-security/ERD.mmd)  
+- [ERD.drawio](04-data-and-security/ERD.drawio)  
+
+**Descriere detaliată:**  
+Schema DB include tabelele pre-MVP și extensiile pentru versionare și ML-ready:  
+- **QUIZ_SESSIONS** — sesiuni (id, variant, started_at, completed_at, source).  
+- **QUIZ_ANSWERS** — răspunsuri (session_id, question_id, answer_id).  
+- **LEADS** — email-uri cu consimțământ și **synced** (retry dacă provider-ul pică).  
+- **QUESTIONS** (cu **version**) — suport pentru A/B / rollback.  
+- **COPY_TEXT** (cu **version**) — variantarea textelor intro/outro.  
+- **REMOTE_CONFIG** — feature flags runtime.  
+- **FEEDBACK** — etichete manuale pentru ML (label_type/value, note).  
+- **INFER_LOGS** — log request/response pentru `/infer` (latency, payload-uri).  
+
+**Procese modelate:**  
+- 1:N **QUIZ_SESSIONS → QUIZ_ANSWERS**.  
+- 0/1:N **QUIZ_SESSIONS → LEADS / FEEDBACK / INFER_LOGS**.  
+- Versionare pe conținut: `QUESTIONS.version`, `COPY_TEXT.version`.  
 
 **Tickete impactate:**  
-- [FE] AIT-470 (implementarea flow-ului)  
-- [Analytics] AIT-511 (evenimente whitelisted)  
-- [OPS] AIT-507 (logică documentată pentru validare)  
+- [BE] [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509), [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+- [OPS] CSV Import (Ops), Export Ops  
 
 ---
 
+### 4.2 RLS — Row Level Security & Roles
+
+<img src="04-data-and-security/rls.png" alt="RLS & Access Control" width="700"/>
+
+**Fișiere:**  
+- [rls.mmd](04-data-and-security/rls.mmd)  
+- [rls.drawio](04-data-and-security/rls.drawio)  
+
+**Descriere detaliată:**  
+- **Frontend (Next.js)** folosește **anon key** → acces strict prin Edge Functions.  
+- **Edge Functions** rulează cu **service role** → pot insera în `QUIZ_*` și `LEADS`.  
+- **PII isolation**: FE nu vede niciodată tabelele sensibile; doar payload-uri pregătite de BE (GET /quiz).  
+- **Principiul least privilege** + limite clare pentru servicii externe (PostHog/Email fără acces DB).  
+
+**Procese modelate:**  
+- Limitarea accesului în funcție de rol (anon vs service role).  
+- Interdicția de acces direct din FE la tabelele cu PII.  
+
+**Tickete impactate:**  
+- [BE] [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509), [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
+
 ---
 
-## 📊 Traceability Matrix
+### 4.3 Data Flow — Collection → Storage/Export → Analytics (no PII)
 
-Tabelul de mai jos arată acoperirea fiecărui ticket Jira (FE, BE, OPS, Analytics) prin diagramele din acest folder.
+<img src="04-data-and-security/data-flow.png" alt="Data Flow" width="700"/>
 
-| Ticket ID | Categoria     | Descriere scurtă                     | Diagrame asociate |
-|-----------|---------------|--------------------------------------|-------------------|
-| [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470) | [FE] | Static quiz prototype | C4 Context, Component, Component Detailed, State Machine, Control Flow, Functions Overview, Sequence, Feature Flags Map |
-| [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469) | [FE] | UI/UX quiz flow | State Machine, Control Flow, Component Detailed |
-| [AIT-505](https://alexandrafofel.atlassian.net/browse/AIT-505) | [FE] | UTM tagging | Functions Overview (parseUTM), Component Detailed |
-| [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509) | [BE] | Schema DB | ERD, RLS & Access Control, Data Flow, Component Detailed |
-| [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524) | [BE] | API integration | Component, Component Detailed, Deployment View, Sequence, GET /quiz, POST /quiz, POST /lead |
-| [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510) | [BE] | Save answers/email | Deployment View, Sequence, POST /quiz, POST /lead |
-| [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511) | [Analytics] | Event tracking | C4 Context, Component, Sequence, captureEvent, Data Flow, Incident Flow, Feature Flags Map |
+**Fișiere:**  
+- [data-flow.mmd](04-data-and-security/data-flow.mmd)  
+- [data-flow.drawio](04-data-and-security/data-flow.drawio)  
+
+**Descriere detaliată:**  
+- **Colectare**: FE trimite răspunsuri (POST /quiz) și lead (POST /lead).  
+- **Stocare**: DB salvează sessions, answers, leads (cu consent).  
+- **Analytics**: evenimente **whitelisted** către PostHog (fără PII).  
+- **Export**: job nightly → JSON/CSV în **Storage** (*ops-only*, fără ML consumer automat).  
+
+**Procese modelate:**  
+- Separarea clară a fluxului de analytics (no PII) de fluxul de PII (DB).  
+- Exporturi controlate pentru antrenare ulterioară (manual/ops).  
+
+**Tickete impactate:**  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511), [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506)  
+- [OPS] Export Ops  
+
+---
+
+### 4.4 CORS & Rate Limits — Middleware
+
+<img src="04-data-and-security/cors-and-rate-limits.png" alt="CORS & Rate Limits" width="700"/>
+
+**Fișiere:**  
+- [cors-and-rate-limits.mmd](04-data-and-security/cors-and-rate-limits.mmd)  
+- [cors-and-rate-limits.drawio](04-data-and-security/cors-and-rate-limits.drawio)  
+
+**Descriere detaliată:**  
+- **CORS**: `ALLOW_ORIGINS` (prod/preview/local), `ALLOW_METHODS` (GET, POST, OPTIONS), headers minime, `MAX-AGE` 600s.  
+- **Rate limits** pe endpoint:  
+  - `/quiz GET`: **60 req/min per IP**  
+  - `/quiz POST`: **30 req/min per IP** + **10 req/min per session_id**  
+  - `/lead POST`: **10 req/min per IP** + **3 req/min per email_hash**  
+- **Preflight**: OPTIONS răspunde 204 cu header-ele setate.  
+- **Răspunsuri**: 403 (CORS), 405 (method), 429 (limit), altfel delegat la handler.  
+
+**Procese modelate:**  
+- Validare Origin + Method înainte de a intra în handler.  
+- Bucket-uri multiple pentru a limita abuzul (IP + session/email_hash).  
+- Adăugare sistematică a headerelor CORS pe răspuns.  
+
+**Tickete impactate:**  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
+---
+
+## 5. Ops & Observability
+
+### 5.1 Incident Flow — Funnel Metrics + Fallbacks
+
+<img src="05-ops-and-observability/incident-flow.png" alt="Incident Flow" width="700"/>
+
+**Fișiere:**  
+- [incident-flow.mmd](05-ops-and-observability/incident-flow.mmd)  
+- [incident-flow.drawio](05-ops-and-observability/incident-flow.drawio)  
+
+**Descriere detaliată:**  
+Diagrama centrală pentru observabilitate pre-MVP.  
+- **Evenimente whitelisted** → PostHog: `quiz_intro_shown`, `quiz_start_clicked`, `quiz_complete`, `quiz_cta_clicked`.  
+- **KPIs funnel** (calculate în dashboard):  
+  - `completion_rate = complete / start`  
+  - `bounce_rate = 1 - start / intro`  
+  - `optin_rate = leads / complete`  
+  - `avg_intent_confidence (p50/p90)`  
+- **Thresholds** → Slack alerts (e.g. completion < 0.35, bounce > 0.55, opt-in < 0.10, latency p95 > 1500ms).  
+- **Fallback-uri**:  
+  - PostHog down → queue local → retry backoff.  
+  - Email provider fail → `synced=false` + retry job.  
+  - Export fail → log + retry + alert Slack.  
+- **Runbook**: Slack alert → toggle flags / kill-switch → trigger retries → stakeholder comms.  
+
+**Tickete impactate:**  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511), [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506)  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507), Incident Runbook  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+- [BE] [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+
+---
+
+### 5.2 Deployment View — With Queues & Retries
+
+<img src="05-ops-and-observability/deployment-view.png" alt="Deployment View" width="700"/>
+
+**Fișiere:**  
+- [deployment-view.mmd](05-ops-and-observability/deployment-view.mmd)  
+- [deployment-view.drawio](05-ops-and-observability/deployment-view.drawio)  
+
+**Descriere detaliată:**  
+Arată cum sunt distribuite componentele și fallback-urile:  
+- **Frontend** servit din **Vercel Edge/CDN**.  
+- **Supabase Project**: Edge Functions (/quiz, /lead, /infer, /feedback), Postgres, Storage, Auth, cron nightly export.  
+- **PostHog** pentru analytics.  
+- **Email Provider** pentru leads.  
+- **Fallback layers**:  
+  - q_ph (PostHog fail → queue local).  
+  - q_mail (lead unsynced → retry).  
+  - q_exp (export fail → retry).  
+- **Security**: auth separă anon key (FE) de service role (BE).  
+
+**Tickete impactate:**  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507)  
+- [BE] [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524), [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510)  
+- [Analytics] [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511)  
+- [FE] [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470)  
+
+---
+
+### 5.3 Runbooks (Async)
+
+**Folder:** [`05-ops-and-observability/runbooks/`](05-ops-and-observability/runbooks/)  
+
+**Conținut:**  
+- `incident-runbook.md` → pași pentru fallback handling:  
+  - PH down → inspect queue → retry  
+  - Email provider down → check `synced=false` → rerun sync job  
+  - Storage export fail → manual retry + alert stakeholders  
+  - Always log in `AUDIT_LOG`  
+- `onboarding-tech.md` → overview pentru colegi noi, cu diagrame high-level (C4, Deployment) și explicarea flag-urilor.  
+
+**Rol:**  
+- Permite operarea **async/remote** (fără calluri urgente) → claritate cine, ce, când.  
+- Asigură consistență între diagrame și pași operaționali.  
+
+**Tickete impactate:**  
+- [OPS] [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507), Incident Runbook, Export Ops  
+- [Analytics] [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506)  
+---
+
+## 6. ML-Ready API
+
+### 6.1 ML-Ready API Overview
+
+<img src="06-ml-ready/ml-ready-api.png" alt="ML-Ready API" width="700"/>
+
+**Fișiere:**  
+- [ml-ready-api.mmd](06-ml-ready/ml-ready-api.mmd)  
+- [ml-ready-api.drawio](06-ml-ready/ml-ready-api.drawio)  
+
+**Descriere detaliată:**  
+- **POST /infer** → decide dacă folosește stub sau model extern (în funcție de flag `ml_infer_enabled` și `model_endpoint_url` în `REMOTE_CONFIG`).  
+- **POST /feedback** → salvează etichete manuale (labels, notes) în tabelul `FEEDBACK`.  
+- **Fallback-uri**:  
+  - dacă `ml_infer_enabled=false` → răspunde cu stub.  
+  - dacă modelul dă eroare → fallback stub + log în `INFER_LOGS`.  
+- **Export Ops**: feedback-ul și logurile se exportă nightly în Storage, **ops-only** (nu direct în model).  
+- **DB tables**:  
+  - `FEEDBACK` — manual labels.  
+  - `INFER_LOGS` — input/output + latency.  
+
+**Procese modelate:**  
+- Flag-driven routing (stub vs model).  
+- Safe-logging pentru toate apelurile.  
+- Validare și curățare PII pentru feedback.  
+
+**Tickete impactate:**  
+- [BE] (pregătire pentru viitor, nu obligatoriu pre-MVP)  
+- [OPS] Export feedback ops-only  
+
+---
+
+### 6.2 Sequence — /infer
+
+<img src="06-ml-ready/ml-infer-sequence.png" alt="ML Infer Sequence" width="700"/>
+
+**Fișiere:**  
+- [ml-infer-sequence.mmd](06-ml-ready/ml-infer-sequence.mmd)  
+- [ml-infer-sequence.drawio](06-ml-ready/ml-infer-sequence.drawio)  
+
+**Descriere detaliată:**  
+- User → FE → Edge Fn `/infer`.  
+- Edge citește config → decide stub sau model extern.  
+- Model poate răspunde 200 sau 5xx.  
+- Dacă eroare sau disabled → stub răspunde cu sugestii fallback.  
+- Toate request/response sunt logate în `INFER_LOGS`.  
+
+**Tickete impactate:**  
+- [BE] (future)  
+- [OPS] Export INFER_LOGS pentru audit/antrenament  
+
+---
+
+### 6.3 Sequence — /feedback
+
+<img src="06-ml-ready/ml-feedback-sequence.png" alt="ML Feedback Sequence" width="700"/>
+
+**Fișiere:**  
+- [ml-feedback-sequence.mmd](06-ml-ready/ml-feedback-sequence.mmd)  
+- [ml-feedback-sequence.drawio](06-ml-ready/ml-feedback-sequence.drawio)  
+
+**Descriere detaliată:**  
+- User trimite feedback prin FE → Edge Fn `/feedback`.  
+- Edge → validează payload, curăță PII.  
+- Inseră în `FEEDBACK` (label_type, value, note).  
+- Returnează `202 {accepted:true}` către FE.  
+- Nightly job → export în Storage pentru OPS (nu consum model direct).  
+
+**Tickete impactate:**  
+- [OPS] Export feedback ops-only  
+- [BE] (future) pregătire pentru supervised training loop  
+
+
+---
+
+## 7. Traceability Matrix
+
+Această secțiune mapează **ticketele Jira** pe categorii (FE, BE, OPS, Analytics) la **diagramele asociate**.  
+Scopul: asigurăm că **toate cerințele pre-MVP sunt acoperite vizual** și că nu există goluri sau conflicte.
+
+| Ticket | Categoria | Descriere | Diagrame asociate |
+|--------|-----------|-----------|-------------------|
+| [AIT-470](https://alexandrafofel.atlassian.net/browse/AIT-470) | [FE] | Static quiz prototype | Context, State Machine, Control Flow, Sequence, Functions Overview, Feature Flags Map, GET/POST quiz, POST lead, Data Flow, Deployment, Incident Flow |
+| [AIT-469](https://alexandrafofel.atlassian.net/browse/AIT-469) | [FE] | UI/UX quiz flow | State Machine, Control Flow, Component Detailed, Functions Overview |
+| [AIT-505](https://alexandrafofel.atlassian.net/browse/AIT-505) | [FE] | UTM tagging | Functions Overview, Component Detailed |
+| [AIT-504](https://alexandrafofel.atlassian.net/browse/AIT-504) | [FE] | Pilot Test | State Machine, Control Flow |
+| [AIT-509](https://alexandrafofel.atlassian.net/browse/AIT-509) | [BE] | Schema DB | ERD, RLS, Data Flow, Component Detailed |
+| [AIT-524](https://alexandrafofel.atlassian.net/browse/AIT-524) | [BE] | API integration | Component, Deployment, Sequence, GET/POST quiz, POST lead |
+| [AIT-510](https://alexandrafofel.atlassian.net/browse/AIT-510) | [BE] | Save answers/email | Deployment, Sequence, POST quiz, POST lead, Incident Flow |
+| [AIT-511](https://alexandrafofel.atlassian.net/browse/AIT-511) | [Analytics] | Event tracking | captureEvent, Sequence, Incident Flow, Feature Flags Map, Data Flow |
 | [AIT-506](https://alexandrafofel.atlassian.net/browse/AIT-506) | [Analytics] | Funnel dashboards | Incident Flow, Data Flow, Component Detailed |
-| [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507) | [OPS] | Arhitectură pre-MVP | C4 Context, Deployment View, Component, Incident Flow, Feature Flags Map, RLS |
+| [AIT-507](https://alexandrafofel.atlassian.net/browse/AIT-507) | [OPS] | Arhitectură pre-MVP | Context, Deployment, Incident Flow, Runbooks |
 | CSV Import (Ops) | [OPS] | Import content | CSV Loader, Component Detailed |
-| Ops Export (nightly) | [OPS] | Export answers/leads | Data Flow, Deployment View |
-| Incident Runbook (Ops) | [OPS] | Incident handling | Incident Flow, Feature Flags Map |
-| [AIT-504](https://alexandrafofel.atlassian.net/browse/AIT-504) | [FE] | Pre-MVP pilot | State Machine, Control Flow |
+| Export Ops (nightly) | [OPS] | Export answers/leads | Data Flow, Deployment, Incident Flow |
+| Incident Runbook (Ops) | [OPS] | Incident handling | Incident Flow, Runbooks |
 
----
-
-✅ **Rezumat:**  
-- Toate ticket-ele [FE], [BE], [OPS], [Analytics] au acoperire vizuală în diagrame.  
-- Diagramele low-level (`GET /quiz`, `POST /quiz`, `POST /lead`, `CSV loader`, `captureEvent`, `inferIntent`, `pickOutro`, `Control Flow`) sunt direct mapate pe implementarea codului.  
-- Diagramele high-level (`C4 Context`, `Component`, `Deployment`, `Data Flow`, `Incident Flow`, `Feature Flags Map`) oferă viziune transversală și suport pentru review / onboarding.  
 
 ---
 
