@@ -1,12 +1,20 @@
 flowchart TD
-  A["POST /lead {session_id, email, consent, source}"] --> B{"consent == true ?"}
-  B -- no --> BX["return 400"]
-  B -- yes --> C{"email valid ?"}
-  C -- no --> CX["return 400"]
-  C -- yes --> D["insert LEADS(session_id?, email, source, created_at)"]
-  D --> E{"EMAIL_PROVIDER_KEY present ?"}
-  E -- no --> F["return 200 {saved:true, synced:false}"]
-  E -- yes --> G["call Email API addContact(email, tags from source)"]
-  G --> H{"200 OK ?"}
-  H -- yes --> I["return 200 {saved:true, synced:true}"]
-  H -- no --> J["return 200 {saved:true, synced:false} and log error"]
+  %% POST /quiz — Validate & Save (with quiz_version)
+
+  A["POST /quiz { session_id, answers[6], quiz_version, meta }"]
+    --> B{"session_id format ok\nand answers length == 6 ?"}
+  B -- no --> Bx["400 Bad Request\n{error:'invalid-payload'}"]
+
+  B -- yes --> C["fetch QUESTIONS (ids by current version)\nfor validation"]
+  C --> D{"all answers reference known question/option ?"}
+  D -- no --> Dx["422 Unprocessable\n{error:'invalid-answer'}"]
+
+  D -- yes --> E["UPSERT QUIZ_SESSIONS\n(session_id, variant, quiz_version,\nstarted_at COALESCE, updated_at now)"]
+  E --> F["FOR each answer:\nINSERT INTO QUIZ_ANSWERS\n(session_id, question_id, answer_id)"]
+  F --> G["SET QUIZ_SESSIONS.completed_at = now"]
+  G --> H["200 { ok:true }"]
+
+  %% Side-effects / notes
+  classDef note fill:#f7f7f7,stroke:#bbb,color:#333,font-size:12px;
+  N1(["Note: RLS off via service role in Edge Fn"]):::note --> E
+  N2(["Note: on constraint violation\nuse ON CONFLICT DO NOTHING"]):::note --> F

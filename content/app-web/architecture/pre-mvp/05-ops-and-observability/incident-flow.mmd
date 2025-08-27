@@ -1,5 +1,6 @@
 flowchart TD
-  %% === SOURCES ===
+  %% Incident / Observability — KPIs + fallbacks + auto-retry
+
   subgraph FE["Frontend (Next.js)"]
     ev1["emit quiz_intro_shown"]
     ev2["emit quiz_start_clicked"]
@@ -9,71 +10,69 @@ flowchart TD
 
   subgraph PH["PostHog Cloud"]
     cap["/capture"]
-    dash["Dashboards\nFunnel & KPIs"]
+    dash["Dashboards / Funnels"]
   end
 
-  subgraph OPS["Ops / Alerts"]
+  subgraph OPS["Ops & Alerts"]
     slack["Slack #quiz-alerts"]
-    runbook["Runbook\n(steps: flags, kill-switch,\nretry jobs, comms)"]
+    runbook["Runbook steps:\nflags/kill-switch,\ntrigger retries,\nstatus comms"]
   end
 
-  subgraph BE["Supabase Edge Functions"]
-    leadSync["POST /lead → Email API"]
-    exportJob["Nightly Export → Storage"]
+  subgraph BE["Edge Functions"]
+    leadSync["POST /lead -> Email API"]
+    exportJob["Nightly Export -> Storage"]
+    infer["/infer -> Model or Stub"]
   end
 
   subgraph EXT["External Providers"]
     emailAPI["Email Provider API"]
-    storage["Supabase Storage exports/"]
+    storage["Supabase Storage"]
   end
 
-  %% === EVENTS TO PH ===
+  %% Emit events
   ev1 --> cap
   ev2 --> cap
   ev3 --> cap
   ev4 --> cap
   cap --> dash
 
-  %% === KPIs / FUNNEL ===
-  subgraph KPIs["KPIs (calc in dashboards)"]
+  %% KPIs
+  subgraph KPIs["KPIs (computed in dashboards)"]
     k1["completion_rate = complete / start"]
     k2["bounce_rate = 1 - start / intro"]
     k3["optin_rate = leads / complete"]
     k4["avg_intent_confidence (p50/p90)"]
+    k5["infer_success_rate"]
+    k6["latency_p95"]
   end
   dash --> KPIs
 
-  %% === THRESHOLDS ===
-  subgraph TH["Alert thresholds (config)"]
+  %% Thresholds -> Slack
+  subgraph TH["Thresholds"]
     t1["completion_rate < 0.35"]
     t2["bounce_rate > 0.55"]
     t3["optin_rate < 0.10"]
     t4["latency_p95 > 1500ms"]
+    t5["infer_success_rate < 0.9"]
   end
-  KPIs --> TH
-  TH --> slack
+  KPIs --> TH --> slack
 
-  %% === BE → PROVIDERS ===
+  %% BE -> providers
   leadSync --> emailAPI
   exportJob --> storage
 
-  %% === FALLBACKS ===
-  %% PostHog fallback
-  cap -->|5xx/timeout| phFail["PH fail handler\n(queue local, retry backoff)"]
-  phFail -->|retry 1h/24h| cap
-  phFail --> slack
+  %% Fallbacks
+  cap -->|5xx/timeout| phFail["PH fail -> queue local"]
+  emailAPI -->|fail/timeout| mailFail["set synced=false"]
+  storage -->|fail/space| expFail["export failed"]
 
-  %% Email sync fallback
-  emailAPI -->|fail/timeout| mailFail["mark synced=false\nschedule retry job"]
-  mailFail --> slack
+  %% Auto-retry crons
+  phFail --> cronPH["auto-retry: cron_ph_flush"] --> cap
+  mailFail --> cronLead["auto-retry: cron_leads_retry"] --> emailAPI
+  expFail --> cronExp["auto-retry: cron_export_retry"] --> storage
 
-  %% Storage export fallback
-  storage -->|fail/space| expFail["export failed\nlog + schedule retry"]
-  expFail --> slack
+  %% ML infer fallback metric path
+  infer --> k5
 
-  %% === RUNBOOK PATHS ===
+  %% Runbook path
   slack --> runbook
-  runbook --> flags["Toggle feature flags\n(e.g., quiz_adaptive_enabled,\nmidcheck_sample_rate)"]
-  runbook --> killsw["Apply kill-switch\n(minimal linear quiz)"]
-  runbook --> retries["Trigger retries\n(email sync / export)"]
-  runbook --> comms["Stakeholder comms\n(status, ETA)"]

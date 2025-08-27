@@ -30,3 +30,16 @@ sequenceDiagram
   FE->>PH: capture "quiz_complete"
   User->>FE: click CTA
   FE->>PH: capture "quiz_cta_clicked"
+
+
+  participant FE as Frontend
+  participant API as Edge
+  participant DB as Postgres
+
+  FE->>API: GET /quiz
+  API->>DB: read flags(version), questions, copy
+  API-->>FE: 200 { ..., quiz_version }
+
+  FE->>API: POST /quiz { ..., quiz_version }
+  API->>DB: insert QUIZ_SESSIONS.quiz_version = quiz_version
+

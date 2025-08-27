@@ -1,19 +1,44 @@
-flowchart TD
+flowchart LR
+  %% ===== Feature Flags Map (single diagram) =====
+
   subgraph FF["Feature Flags (REMOTE_CONFIG)"]
-    F1["quiz_adaptive_enabled\n(bool)"]
-    F2["intent_conf_threshold\n(float, default 0.6)"]
-    F3["midcheck_sample_rate\n(float 0–1)"]
-    F4["baby_wording_enabled\n(bool)"]
-    F5["quiz_copy_variant\n(string)"]
+    F1["quiz_adaptive_enabled (bool)"]
+    F2["intent_conf_threshold (float, default 0.6)"]
+    F3["midcheck_sample_rate (float 0-1)"]
+    F4["baby_wording_enabled (bool)"]
+    F5["quiz_copy_variant (string)"]
+    FV["version (int)"]
   end
 
-  F1 --> State["State Machine Flow"]
-  F2 --> Intent["Intent Inference (Q1–Q2)"]
-  F3 --> MidCheck["MidCheck Trigger"]
-  F4 --> Copy["Outro Copy (CTA wording)"]
+  subgraph FE["Frontend Quiz UI & Flow"]
+    State["State Machine Flow"]
+    Intent["Intent Inference (Q1- Q2)"]
+    MidCheck["MidCheck Trigger"]
+    Copy["Outro Copy (CTA wording)"]
+  end
+
+  subgraph API["GET /quiz payload"]
+    GETQ["GET /quiz returns { questions, copy, flags_subset, quiz_version }"]
+  end
+
+  subgraph DB["Postgres"]
+    SESSV["QUIZ_SESSIONS.quiz_version"]
+  end
+
+  %% Flags influence FE flow
+  F1 --> State
+  F2 --> Intent
+  F3 --> MidCheck
+  F4 --> Copy
   F5 --> Copy
 
-  State --> UI["Frontend Quiz UI"]
-  Intent --> UI
-  MidCheck --> UI
-  Copy --> UI
+  %% Versioning & snapshot path
+  FF --> GETQ
+  FV --> GETQ
+  GETQ --> SESSV
+
+  %% Visual chaining from FE to API to DB
+  State --> FE
+  Intent --> FE
+  MidCheck --> FE
+  Copy --> FE
