@@ -1,4 +1,6 @@
 flowchart LR
+  %% Deployment View — with queues & self-healing crons
+
   subgraph client["User Device"]
     ua["Mobile Browser"]
   end
@@ -12,10 +14,13 @@ flowchart LR
     pg["Postgres DB"]
     store["Storage exports/"]
     auth["Auth (anon vs service role)"]
-    cron["Nightly Export Job"]
+    cron_exp["cron_export_retry"]
+    cron_mail["cron_leads_retry"]
+    cron_ph["cron_ph_flush"]
+    cron_ml["cron_ml_retry"]
   end
 
-  subgraph posthog["PostHog Cloud"]
+  subgraph analytics["PostHog Cloud"]
     cap["/capture"]
   end
 
@@ -23,10 +28,11 @@ flowchart LR
     mail["addContact API"]
   end
 
-  subgraph ops["Ops & Fallbacks"]
-    q_ph["queue local events\nif PH fails"]
-    q_mail["mark synced=false\nretry later"]
-    q_exp["log + retry export\nif Storage fails"]
+  subgraph queues["Fallback Queues"]
+    q_ph["q_ph (events when PH down)"]
+    q_mail["LEADS.synced=false"]
+    q_exp["export retry queue"]
+    q_ml["q_ml (infer retry)"]
   end
 
   ua --> vercel
@@ -35,15 +41,24 @@ flowchart LR
   edge -. service role .- auth
   vercel -. anon jwt .- auth
 
-  %% Analytics
+  %% Analytics path
   vercel -. whitelist events .-> cap
-  cap -->|5xx| q_ph
+  cap -->|5xx/timeout| q_ph
+  q_ph --> cron_ph --> cap
 
-  %% Leads
+  %% Leads path
   edge --> mail
-  mail -->|fail| q_mail
+  mail -->|fail/timeout| q_mail
+  q_mail --> cron_mail --> mail
 
   %% Exports
   edge --> store
-  cron --> store
-  store -->|fail| q_exp
+  store -->|fail/space| q_exp
+  q_exp --> cron_exp --> store
+
+  %% ML infer
+  edge --> q_ml
+  q_ml --> cron_ml --> edge
+
+  %% DB relation
+  edge --> pg

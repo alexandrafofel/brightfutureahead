@@ -1,0 +1,60 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0" version="28.1.1">
+  <diagram name="Page-1" id="GX9_sibCSK7frRvHxRSh">
+    <mxGraphModel dx="695" dy="778" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PKObS21EWJMoTeiYM6qY-1" value="Expected" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="174" width="1260" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-2" value="Scenarios" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="74" y="20" width="1181" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-3" value="Sim PH down" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="109" y="45" width="153" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-4" value="Sim Email 5xx" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="415" y="45" width="159" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-5" value="Sim Storage export fail" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="693" y="45" width="224" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-6" value="Sim Model 5xx spikes" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1010" y="45" width="210" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-7" value="q_ph fills → cron_ph_flush empties&#xa;KPIs consistent" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="55" y="199" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-8" value="LEADS.synced=false → cron_leads_retry ok" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="365" y="199" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-9" value="export queued → cron_export_retry ok" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="675" y="199" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-10" value="q_ml fills → cron_ml_retry → success_rate stable" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="985" y="199" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-11" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="PKObS21EWJMoTeiYM6qY-3" target="PKObS21EWJMoTeiYM6qY-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-12" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="PKObS21EWJMoTeiYM6qY-4" target="PKObS21EWJMoTeiYM6qY-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-13" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="PKObS21EWJMoTeiYM6qY-5" target="PKObS21EWJMoTeiYM6qY-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="PKObS21EWJMoTeiYM6qY-14" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="PKObS21EWJMoTeiYM6qY-6" target="PKObS21EWJMoTeiYM6qY-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

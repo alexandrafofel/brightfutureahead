@@ -1,0 +1,31 @@
+flowchart TD
+  %% auto-recovery crons across subsystems
+
+  subgraph Queues
+    q_ph["q_ph (PH offline)"]
+    q_mail["LEADS.synced=false"]
+    q_exp["export retry queue"]
+    q_ml["q_ml (infer retry)"]
+  end
+
+  subgraph Crons
+    c_ph["cron_ph_flush"]
+    c_mail["cron_leads_retry"]
+    c_exp["cron_export_retry"]
+    c_ml["cron_ml_retry"]
+  end
+
+  subgraph Outputs
+    audit["AUDIT_LOG"]
+    slack["Slack #quiz-alerts"]
+  end
+
+  q_ph --> c_ph --> audit
+  q_mail --> c_mail --> audit
+  q_exp --> c_exp --> audit
+  q_ml --> c_ml --> audit
+
+  c_ph --> slack
+  c_mail --> slack
+  c_exp --> slack
+  c_ml --> slack
