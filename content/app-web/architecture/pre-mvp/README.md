@@ -437,7 +437,7 @@ Listează flagurile runtime controlate din `REMOTE_CONFIG`:
 
 ### 4.1 ERD — Database Schema (versioned + ML-ready)
 
-<img src="04-data-and-security/ERD.png" alt="ERD" width="700"/>
+<img src="04-data-and-security/erd.png" alt="ERD" width="700"/>
 
 **Fișiere:**  
 - [ERD.mmd](04-data-and-security/ERD.mmd)  
