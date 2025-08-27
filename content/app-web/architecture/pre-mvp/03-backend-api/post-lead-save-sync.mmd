@@ -1,0 +1,12 @@
+flowchart TD
+  A["POST /lead {session_id, email, consent, source}"] --> B{"consent == true ?"}
+  B -- no --> BX["return 400"]
+  B -- yes --> C{"email valid ?"}
+  C -- no --> CX["return 400"]
+  C -- yes --> D["insert LEADS(session_id?, email, source, created_at)"]
+  D --> E{"EMAIL_PROVIDER_KEY present ?"}
+  E -- no --> F["return 200 {saved:true, synced:false}"]
+  E -- yes --> G["call Email API addContact(email, tags from source)"]
+  G --> H{"200 OK ?"}
+  H -- yes --> I["return 200 {saved:true, synced:true}"]
+  H -- no --> J["return 200 {saved:true, synced:false} and log error"]

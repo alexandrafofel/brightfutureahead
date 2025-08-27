@@ -1,0 +1,24 @@
+flowchart TD
+  A["runQuizLoop(ctx)"] --> B["emit quiz_intro_shown"]
+  B --> C["wait start click"]
+  C --> D["emit quiz_start_clicked"]
+  D --> E["for q in 1..6"]
+  E --> F["render question q"]
+  F --> G["wait answer\nstore q, oid, tags (local)"]
+  G --> H{"q == 2 ? infer intent"}
+  H -- yes --> I["features = collectEarlyFeatures()"]
+  I --> J["{profile, conf} = inferIntent(features)"]
+  J --> K{"midcheck sample ok ?"}
+  K -- yes --> L["score = askMidProgress()"]
+  K -- no --> N["continue"]
+  L --> M{"(score <= 2) and (conf >= threshold) and (cooldown == false) ?"}
+  M -- yes --> O["branch = mapBranch(profile)"]
+  O --> P["applyAdaptation(branch)\ncooldown = true"]
+  M -- no --> N["continue"]
+  N --> Q{"q < 6 ?"}
+  Q -- yes --> E
+  Q -- no --> R["outId = pickOutro(profile, flag_baby_wording)"]
+  R --> S["show Outro(outId)"]
+  S --> T["emit quiz_complete"]
+  T --> U["on CTA click -> emit quiz_cta_clicked\nopen tip page"]
+  U --> V["return"]

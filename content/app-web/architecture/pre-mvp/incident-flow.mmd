@@ -1,6 +1,0 @@
-flowchart TD
-  FE["Frontend"] --> PH["PostHog: events & metrics"]
-  PH --> Dash["Dashboards (funnel, latency)"]
-  Dash --> Alert["Slack #quiz-alerts"]
-  Alert --> Run["Runbook: check flags,\nkill-switch if needed"]
-  Run --> FE

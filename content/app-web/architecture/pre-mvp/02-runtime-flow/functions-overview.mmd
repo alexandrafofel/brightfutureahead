@@ -1,0 +1,29 @@
+flowchart TD
+  subgraph FE["Frontend App (Next.js)"]
+    init["initApp()"]
+    loadQ["loadQuiz()"]
+    start["onStartClick()"]
+    loop["runQuizLoop()"]
+    infer["inferIntent(features)"]
+    mid["askMidProgress()"]
+    adapt["applyAdaptation(branch)"]
+    outro["pickOutro(profile,baby)"]
+    cta["onCTAClick()"]
+    cap["captureEvent(name,props)"]
+    utm["parseUTM()"]
+  end
+
+  init --> utm
+  init --> loadQ
+  loadQ --> start
+  start --> loop
+  loop --> infer
+  loop --> mid
+  loop --> adapt
+  loop --> outro
+  outro --> cta
+
+  cap -. called at .- init
+  cap -. called at .- start
+  cap -. called at .- loop
+  cap -. called at .- cta

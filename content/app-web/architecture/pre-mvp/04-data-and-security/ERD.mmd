@@ -1,0 +1,70 @@
+erDiagram
+  QUIZ_SESSIONS {
+    uuid id PK
+    text variant
+    timestamp started_at
+    timestamp completed_at
+    text source
+  }
+
+  QUIZ_ANSWERS {
+    uuid id PK
+    uuid session_id FK
+    int question_id
+    text answer_id
+  }
+
+  LEADS {
+    uuid id PK
+    uuid session_id FK
+    text email
+    boolean consent
+    boolean synced
+    timestamp created_at
+  }
+
+  QUESTIONS {
+    int id PK
+    text text
+    text type
+    int version
+    timestamp created_at
+  }
+
+  COPY_TEXT {
+    int id PK
+    text key
+    text text
+    int version
+    timestamp created_at
+  }
+
+  REMOTE_CONFIG {
+    text flag PK
+    text value
+    timestamp updated_at
+  }
+
+  FEEDBACK {
+    uuid id PK
+    uuid session_id FK
+    text label_type
+    text label_value
+    text note
+    timestamp created_at
+  }
+
+  INFER_LOGS {
+    uuid id PK
+    uuid session_id FK
+    json request_json
+    json response_json
+    int latency_ms
+    timestamp created_at
+  }
+
+  %% Relationships
+  QUIZ_SESSIONS ||--o{ QUIZ_ANSWERS : has
+  QUIZ_SESSIONS ||--o| LEADS : may_have
+  QUIZ_SESSIONS ||--o{ FEEDBACK : may_have
+  QUIZ_SESSIONS ||--o{ INFER_LOGS : generates

@@ -1,0 +1,79 @@
+flowchart TD
+  %% === SOURCES ===
+  subgraph FE["Frontend (Next.js)"]
+    ev1["emit quiz_intro_shown"]
+    ev2["emit quiz_start_clicked"]
+    ev3["emit quiz_complete"]
+    ev4["emit quiz_cta_clicked"]
+  end
+
+  subgraph PH["PostHog Cloud"]
+    cap["/capture"]
+    dash["Dashboards\nFunnel & KPIs"]
+  end
+
+  subgraph OPS["Ops / Alerts"]
+    slack["Slack #quiz-alerts"]
+    runbook["Runbook\n(steps: flags, kill-switch,\nretry jobs, comms)"]
+  end
+
+  subgraph BE["Supabase Edge Functions"]
+    leadSync["POST /lead → Email API"]
+    exportJob["Nightly Export → Storage"]
+  end
+
+  subgraph EXT["External Providers"]
+    emailAPI["Email Provider API"]
+    storage["Supabase Storage exports/"]
+  end
+
+  %% === EVENTS TO PH ===
+  ev1 --> cap
+  ev2 --> cap
+  ev3 --> cap
+  ev4 --> cap
+  cap --> dash
+
+  %% === KPIs / FUNNEL ===
+  subgraph KPIs["KPIs (calc in dashboards)"]
+    k1["completion_rate = complete / start"]
+    k2["bounce_rate = 1 - start / intro"]
+    k3["optin_rate = leads / complete"]
+    k4["avg_intent_confidence (p50/p90)"]
+  end
+  dash --> KPIs
+
+  %% === THRESHOLDS ===
+  subgraph TH["Alert thresholds (config)"]
+    t1["completion_rate < 0.35"]
+    t2["bounce_rate > 0.55"]
+    t3["optin_rate < 0.10"]
+    t4["latency_p95 > 1500ms"]
+  end
+  KPIs --> TH
+  TH --> slack
+
+  %% === BE → PROVIDERS ===
+  leadSync --> emailAPI
+  exportJob --> storage
+
+  %% === FALLBACKS ===
+  %% PostHog fallback
+  cap -->|5xx/timeout| phFail["PH fail handler\n(queue local, retry backoff)"]
+  phFail -->|retry 1h/24h| cap
+  phFail --> slack
+
+  %% Email sync fallback
+  emailAPI -->|fail/timeout| mailFail["mark synced=false\nschedule retry job"]
+  mailFail --> slack
+
+  %% Storage export fallback
+  storage -->|fail/space| expFail["export failed\nlog + schedule retry"]
+  expFail --> slack
+
+  %% === RUNBOOK PATHS ===
+  slack --> runbook
+  runbook --> flags["Toggle feature flags\n(e.g., quiz_adaptive_enabled,\nmidcheck_sample_rate)"]
+  runbook --> killsw["Apply kill-switch\n(minimal linear quiz)"]
+  runbook --> retries["Trigger retries\n(email sync / export)"]
+  runbook --> comms["Stakeholder comms\n(status, ETA)"]

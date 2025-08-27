@@ -1,0 +1,274 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0" version="28.1.1">
+  <diagram name="Page-1" id="UyfoY5iX4AQeVwGceZ_e">
+    <mxGraphModel dx="1034" dy="666" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-1" value="Rollback Path" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2212" y="629" width="330" height="454" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-2" value="Postgres (Supabase)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1282" y="1134" width="1260" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-3" value="Run" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="1242" height="1395" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-4" value="Loader Config (env/args)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1435" y="149" width="955" height="128" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-5" value="questions.csv" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1470" y="186" width="156" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-6" value="copy.csv" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1675" y="186" width="119" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-7" value="target_version (int)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1845" y="186" width="200" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-8" value="mode: dry-run | apply | rollback" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2095" y="174" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-9" value="startLoader()" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1030" y="45" width="155" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-10" value="readCSV(questions.csv)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="72" y="186" width="226" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-11" value="readCSV(copy.csv)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1002" y="186" width="190" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-12" value="validateQuestions()&#xa;(id unique, text non-empty, type in {single,multi})" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="55" y="327" width="260" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-13" value="validateCopy()&#xa;(key unique, text non-empty)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="967" y="339" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-14" value="computePlan()&#xa;upserts, inserts, conflicts" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="707" y="479" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-15" value="if mode == dry-run&#xa;→ print plan &amp; exit 0" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="55" y="1159" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-16" value="UPSERT QUESTIONS&#xa;(id, text, type, version=target_version)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="405" y="957" width="260" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-17" value="UPSERT COPY_TEXT&#xa;(id, key, text, version=target_version)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="855" y="805" width="260" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-18" value="set REMOTE_CONFIG&#xa;quiz_copy_variant/version pointers (optional)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="715" y="957" width="390" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-19" value="printReport()&#xa;inserted, updated, skipped, errors" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1312" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-20" value="QUESTIONS&#xa;id, text, type, version, created_at" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1317" y="1159" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-21" value="COPY_TEXT&#xa;id, key, text, version, created_at" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1627" y="1159" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-22" value="REMOTE_CONFIG&#xa;flag, value, updated_at" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1937" y="1159" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-23" value="AUDIT_LOG&#xa;id, op, table, row_id, version, ts" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2247" y="1159" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-24" value="validateRollback()&#xa;version exists?" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2247" y="654" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-25" value="planRollback()&#xa;select rows where version==X" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2247" y="817" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-26" value="applyRollback()&#xa;set active version to previous&#xa;(or delete version==X if safe)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2247" y="957" width="260" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-27" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.71;exitY=1;entryX=0;entryY=0.35;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-9" target="EJtpi25mH8PIpCc6HoVN-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1170" y="124" />
+              <mxPoint x="1170" y="149" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-28" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.77;exitY=1;entryX=0;entryY=0.4;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-9" target="EJtpi25mH8PIpCc6HoVN-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1190" y="124" />
+              <mxPoint x="1190" y="149" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-29" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.58;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-9" target="EJtpi25mH8PIpCc6HoVN-10">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="124" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-30" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-10" target="EJtpi25mH8PIpCc6HoVN-12">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-31" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.46;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-9" target="EJtpi25mH8PIpCc6HoVN-11">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1097" y="124" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-32" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-11" target="EJtpi25mH8PIpCc6HoVN-13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-33" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0;entryY=0.34;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-12" target="EJtpi25mH8PIpCc6HoVN-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="454" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-34" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=1;entryY=0.09;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-13" target="EJtpi25mH8PIpCc6HoVN-14">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1097" y="454" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-35" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.69;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-14" target="EJtpi25mH8PIpCc6HoVN-15">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="593" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-36" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.18;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-15" target="EJtpi25mH8PIpCc6HoVN-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="185" y="1287" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-37" value="mode==apply" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.91;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-14" target="EJtpi25mH8PIpCc6HoVN-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="535" y="593" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-38" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.65;entryX=0;entryY=0.41;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-16" target="EJtpi25mH8PIpCc6HoVN-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="1084" />
+              <mxPoint x="1180" y="1134" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-39" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.99;entryX=0;entryY=0.35;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-16" target="EJtpi25mH8PIpCc6HoVN-20">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="732" y="1084" />
+              <mxPoint x="732" y="1134" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-40" value="mode==apply" style="curved=1;startArrow=none;endArrow=block;exitX=0.8;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-14" target="EJtpi25mH8PIpCc6HoVN-17">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="985" y="593" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-41" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.95;entryX=0;entryY=0.41;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-17" target="EJtpi25mH8PIpCc6HoVN-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1200" y="932" />
+              <mxPoint x="1200" y="1134" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-42" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.9;exitY=1;entryX=0;entryY=0.32;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-17" target="EJtpi25mH8PIpCc6HoVN-21">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1140" y="932" />
+              <mxPoint x="1140" y="1134" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-43" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.31;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-17" target="EJtpi25mH8PIpCc6HoVN-18">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="932" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-44" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.93;exitY=1;entryX=0;entryY=0.38;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-18" target="EJtpi25mH8PIpCc6HoVN-22">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1160" y="1084" />
+              <mxPoint x="1160" y="1134" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-45" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.02;exitY=1;entryX=0.57;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-16" target="EJtpi25mH8PIpCc6HoVN-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="350" y="1084" />
+              <mxPoint x="350" y="1287" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-46" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.66;entryX=0.62;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-17" target="EJtpi25mH8PIpCc6HoVN-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="370" y="932" />
+              <mxPoint x="370" y="1287" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-47" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.16;exitY=1;entryX=1;entryY=0.23;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-18" target="EJtpi25mH8PIpCc6HoVN-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="712" y="1084" />
+              <mxPoint x="712" y="1287" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-48" value="mode==rollback" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.87;entryX=0;entryY=0.42;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-14" target="EJtpi25mH8PIpCc6HoVN-24">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1180" y="593" />
+              <mxPoint x="1180" y="629" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-49" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1.01;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-24" target="EJtpi25mH8PIpCc6HoVN-25">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-50" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-25" target="EJtpi25mH8PIpCc6HoVN-26">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-51" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-26" target="EJtpi25mH8PIpCc6HoVN-23">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2377" y="1134" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="EJtpi25mH8PIpCc6HoVN-52" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=1;entryY=0.35;rounded=0;" edge="1" parent="1" source="EJtpi25mH8PIpCc6HoVN-23" target="EJtpi25mH8PIpCc6HoVN-19">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2377" y="1262" />
+              <mxPoint x="1065" y="1287" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

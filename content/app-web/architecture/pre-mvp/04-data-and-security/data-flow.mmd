@@ -1,0 +1,8 @@
+flowchart TD
+  A["Device answers (no PII in events)"] --> B["POST /quiz"]
+  B --> C["DB: QUIZ_SESSIONS, QUIZ_ANSWERS"]
+  A -. optional email .-> D["POST /lead"]
+  D --> E["DB: LEADS (consent)"]
+  C --> F["Nightly export JSON/CSV\nOps-only, no ML consumer yet"]
+  F --> G["Supabase Storage bucket"]
+  A -. minimal analytics .-> H["PostHog capture (whitelist)"]

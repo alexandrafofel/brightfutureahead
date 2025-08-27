@@ -1,0 +1,130 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0" version="28.1.1">
+  <diagram name="Page-1" id="XaVQY6Sd-rh63p0Kh8H1">
+    <mxGraphModel dx="1034" dy="666" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-1" value="User" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="20" y="20" width="150" height="969" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-2" value="Frontend (Next.js)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="244" y="20" width="150" height="969" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-3" value="Edge Fn /infer" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="487" y="20" width="150" height="969" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-4" value="REMOTE_CONFIG" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="861" y="20" width="150" height="969" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-5" value="Stub Rules" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1061" y="20" width="150" height="969" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-6" value="Future Model API" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1261" y="20" width="150" height="969" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-7" value="INFER_LOGS" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1461" y="20" width="150" height="969" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-8" value="opt" style="shape=umlFrame;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=#B3B3B3;height=20;width=30" vertex="1" parent="1">
+          <mxGeometry x="551" y="412" width="596" height="155" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-9" value="[model error]" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="eEr0IlaFF7W4CTg-DjBt-8">
+          <mxGeometry x="30" width="566" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-10" value="alt" style="shape=umlFrame;dashed=1;pointerEvents=0;dropTarget=0;strokeColor=#B3B3B3;height=20;width=30" vertex="1" parent="1">
+          <mxGeometry x="541" y="257" width="806" height="475" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-11" value="[ml_infer_enabled == true]" style="text;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;" vertex="1" parent="eEr0IlaFF7W4CTg-DjBt-10">
+          <mxGeometry x="30" width="776" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-12" value="[ml_infer_enabled == false]" style="shape=line;dashed=1;whiteSpace=wrap;verticalAlign=top;labelPosition=center;verticalLabelPosition=middle;align=center;strokeColor=#B3B3B3;" vertex="1" parent="eEr0IlaFF7W4CTg-DjBt-10">
+          <mxGeometry y="325" width="806" height="3" as="geometry" />
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-13" value="trigger infer (payload)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-1" target="eEr0IlaFF7W4CTg-DjBt-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="216" y="129" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-14" value="POST /infer (payload)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-2" target="eEr0IlaFF7W4CTg-DjBt-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="449" y="183" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-15" value="read ml_infer_enabled, model_endpoint_url" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-3" target="eEr0IlaFF7W4CTg-DjBt-4">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="758" y="237" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-16" value="POST /predict (payload)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-3" target="eEr0IlaFF7W4CTg-DjBt-6">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="958" y="338" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-17" value="200 {predictions} or 5xx" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-6" target="eEr0IlaFF7W4CTg-DjBt-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="961" y="392" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-18" value="fallback infer" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-3" target="eEr0IlaFF7W4CTg-DjBt-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="858" y="493" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-19" value="200 {suggestions: stub}" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-5" target="eEr0IlaFF7W4CTg-DjBt-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="861" y="547" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-20" value="run stub rules" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-3" target="eEr0IlaFF7W4CTg-DjBt-5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="858" y="658" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-21" value="200 {suggestions: stub}" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-5" target="eEr0IlaFF7W4CTg-DjBt-3">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="861" y="712" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-22" value="insert INFER_LOGS (req, res, latency)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-3" target="eEr0IlaFF7W4CTg-DjBt-7">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1058" y="776" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-23" value="200 {predictions or stub}" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-3" target="eEr0IlaFF7W4CTg-DjBt-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="452" y="830" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eEr0IlaFF7W4CTg-DjBt-24" value="render suggestions" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="eEr0IlaFF7W4CTg-DjBt-2" target="eEr0IlaFF7W4CTg-DjBt-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="219" y="884" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

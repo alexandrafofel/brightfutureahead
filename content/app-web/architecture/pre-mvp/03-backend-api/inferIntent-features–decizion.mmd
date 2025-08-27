@@ -1,0 +1,33 @@
+flowchart TD
+  A["inferIntent(features)"] --> B["scoreNorman = 0\nscoreTorres = 0"]
+  B --> C{"emotion_kw_score >= 1 ?"}
+  C -- yes --> C1["scoreNorman++"]
+  C -- no --> D
+  C1 --> D{"avg dwell q1,q2 > 7000ms ?"}
+  D -- yes --> D1["scoreNorman++"]
+  D -- no --> E
+  D1 --> E{"night_mode ?"}
+  E -- yes --> E1["scoreNorman++"]
+  E -- no --> F
+  E1 --> F{"backtracks == 0 ?"}
+  F -- yes --> F1["scoreNorman++"]
+  F -- no --> G
+  F1 --> G{"clicked_preview or chose_action_opt ?"}
+  G -- yes --> G1["scoreTorres++"]
+  G -- no --> H
+  G1 --> H{"avg dwell q1,q2 < 6000ms ?"}
+  H -- yes --> H1["scoreTorres++"]
+  H -- no --> I
+  H1 --> I{"skipped_validation ?"}
+  I -- yes --> I1["scoreTorres++"]
+  I -- no --> J
+  I1 --> J["delta = scoreTorres - scoreNorman"]
+  J --> K{"delta >= 1 ?"}
+  K -- yes --> L["profile = Torres"]
+  K -- no --> M{"delta <= -1 ?"}
+  M -- yes --> N["profile = Norman"]
+  M -- no --> O["profile = Neutral"]
+  L --> P["confidence = min(1, abs(delta)/3)"]
+  N --> P
+  O --> P
+  P --> Q["return {profile, confidence, used}"]

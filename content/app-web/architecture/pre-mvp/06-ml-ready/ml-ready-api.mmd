@@ -1,0 +1,52 @@
+flowchart LR
+  %% ===== ML-READY API (separate view) =====
+
+  subgraph client["Frontend (Next.js)"]
+    fe_call_infer["callInfer(payload)"]
+    fe_send_feedback["sendFeedback(label, payload)"]
+  end
+
+  subgraph edge["Supabase Edge Functions"]
+    cors["CORS + rate limits"]
+    infer["POST /infer"]
+    feedback["POST /feedback"]
+    cfg["read REMOTE_CONFIG\nml_infer_enabled, model_endpoint_url"]
+  end
+
+  subgraph db["Postgres"]
+    tbl_feedback["FEEDBACK\nid, session_id, label_type, label_value, note, created_at"]
+    tbl_infer["INFER_LOGS\nid, session_id, request_json, response_json, latency_ms, created_at"]
+  end
+
+  subgraph model["Model layer"]
+    stub["Rule-based stub\n(pre-MVP)"]
+    future["Future Model API\nHTTP endpoint"]
+  end
+
+  %% FE -> Edge
+  fe_call_infer --> cors --> infer
+  fe_send_feedback --> cors --> feedback
+
+  %% Edge reads config
+  infer --> cfg
+  feedback --> cfg
+
+  %% Infer path
+  infer -->|"if ml_infer_enabled == false"| stub
+  infer -->|"if ml_infer_enabled == true"| future
+  stub --> infer_ok["200 {suggestions, debug:'stub'}"]
+  future --> infer_ok2["200 {predictions} or 502 fallback"]
+
+  %% Log and respond
+  infer_ok --> log_infer["insert INFER_LOGS"]
+  infer_ok2 --> log_infer
+  log_infer --> fe_call_infer
+
+  %% Feedback path
+  feedback --> validate["validate payload\nstrip PII"]
+  validate --> write_fb["insert FEEDBACK"]
+  write_fb --> ack["202 {accepted:true}"]
+  ack --> fe_send_feedback
+
+  %% Ops export
+  write_fb -. "nightly ops export" .-> export["Storage exports/"]

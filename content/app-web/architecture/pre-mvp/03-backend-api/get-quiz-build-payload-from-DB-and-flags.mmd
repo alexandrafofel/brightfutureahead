@@ -1,0 +1,7 @@
+flowchart TD
+  A["GET /quiz"] --> B["read REMOTE_CONFIG"]
+  B --> C["load QUESTIONS"]
+  C --> D["load COPY_TEXT for intro/outro\nusing quiz_copy_variant"]
+  D --> E["flags_subset = {\n  quiz_adaptive_enabled,\n  intent_conf_threshold,\n  midcheck_sample_rate,\n  baby_wording_enabled,\n  quiz_copy_variant\n}"]
+  E --> F["payload = { questions, copy, flags_subset }"]
+  F --> G["return 200 JSON(payload)"]

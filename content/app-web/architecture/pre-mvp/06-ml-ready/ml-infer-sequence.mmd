@@ -1,0 +1,28 @@
+sequenceDiagram
+  participant User
+  participant FE as Frontend (Next.js)
+  participant EDGE as Edge Fn /infer
+  participant CFG as REMOTE_CONFIG
+  participant STUB as Stub Rules
+  participant MODEL as Future Model API
+  participant DB as INFER_LOGS
+
+  User->>FE: trigger infer (payload)
+  FE->>EDGE: POST /infer (payload)
+  EDGE->>CFG: read ml_infer_enabled, model_endpoint_url
+
+  alt ml_infer_enabled == true
+    EDGE->>MODEL: POST /predict (payload)
+    MODEL-->>EDGE: 200 {predictions} or 5xx
+    opt model error
+      EDGE->>STUB: fallback infer
+      STUB-->>EDGE: 200 {suggestions: stub}
+    end
+  else ml_infer_enabled == false
+    EDGE->>STUB: run stub rules
+    STUB-->>EDGE: 200 {suggestions: stub}
+  end
+
+  EDGE->>DB: insert INFER_LOGS (req, res, latency)
+  EDGE-->>FE: 200 {predictions or stub}
+  FE-->>User: render suggestions

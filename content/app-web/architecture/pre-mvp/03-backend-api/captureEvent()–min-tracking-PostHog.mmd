@@ -1,0 +1,16 @@
+flowchart TD
+  A["captureEvent(name, props)"] --> B{"name in whitelist ?"}
+  B -- no --> X["return"]
+  B -- yes --> C{"contains PII ?"}
+  C -- yes --> D["strip PII"]
+  C -- no --> E["noop"]
+  D --> F["enqueue to /capture"]
+  E --> F["enqueue to /capture"]
+  F --> G["flush <= 1000ms"]
+  
+  subgraph whitelist
+    W1["quiz_intro_shown"]
+    W2["quiz_start_clicked"]
+    W3["quiz_complete"]
+    W4["quiz_cta_clicked"]
+  end
