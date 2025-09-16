@@ -1,0 +1,24 @@
+ce am facut: 
+
+1. [Ops] Setup conturi & proiecte Supabase + PostHog
+	✅ Next.js app creat (apps/lumlyn-web)
+	✅ Supabase conectat, tabel profiles cu RLS ON
+	✅ Smoke test /api/ping → { ok: true }
+	✅ PostHog conectat, event app_loaded vizibil
+	✅ Membri invitați (Supabase + PostHog) → @Georgiana-Bianca Hrisoveni  te-am invitat pe adresa de yahoo
+	✅ README_setup.md + CHECKLIST.md în branch web-setup-supabase-posthog
+2. [BE] Definire schema DB (user, quiz response, email lead)
+	✅ Repo set up – Next.js + Supabase conectat
+	✅ Supabase CLI instalat + inițializat (supabase init)
+	✅ Migration creată (supabase migration new init_core_schema)
+	✅ Schema DB definită (users, quiz_responses, leads cu PK, FK, required fields)
+	✅ Applied migration + DB reset (a rulat, deși cu un warning la seed.sql)
+	✅ Verificat în Postgres că tabelele există
+	✅ Commit & push în branch feature
+3. [BE][Spike] Integrare API cu frontend (save quiz answers, save email)
+	documentatie in \docs\ticket-documentation\backend\spike-api-dor.md
+4.[BE] GDPR Consent Logging
+	✅ am impins branch-ul web-setup-supabase-posthog pe remote,
+	✅ am comfirmat că healthcheck-ul /api/ping răspunde,
+	✅ am creat Pull Request catre mail	
+5.
