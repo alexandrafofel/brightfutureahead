@@ -1,9 +1,10 @@
 "use client";
 
 import { useForm, FormProvider, useWatch } from "react-hook-form";
-import { GdprConsentCheckbox } from "@/components/GdprConsentCheckbox";
-import { POLICY_VERSION } from "@/lib/policy";
+import { GdprConsentCheckbox } from "./GdprConsentCheckbox";
+import { POLICY_VERSION } from "../lib/policy";
 import { usePostHog } from "posthog-js/react";
+
 
 type FormValues = {
   email: string;
