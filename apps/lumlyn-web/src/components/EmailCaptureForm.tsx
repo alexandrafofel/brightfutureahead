@@ -4,6 +4,17 @@ import { useForm, FormProvider, useWatch } from "react-hook-form";
 import { GdprConsentCheckbox } from "./GdprConsentCheckbox";
 import { POLICY_VERSION } from "../lib/policy";
 import { usePostHog } from "posthog-js/react";
+import { EmailCaptureForm } from "@/components/EmailCaptureForm";
+import { Logo } from "@/components/Logo";
+
+export default function Page() {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <EmailCaptureForm />
+      <Logo variant="center" />
+    </div>
+  );
+}
 
 
 type FormValues = {
