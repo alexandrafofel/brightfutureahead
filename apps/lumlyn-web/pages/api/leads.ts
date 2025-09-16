@@ -42,7 +42,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     return res.status(200).json({ ok: true, lead_id: data.id, policy_version: data.policy_version });
-  } catch (e: any) {
-    return res.status(500).json({ error: e?.message ?? "internal_error" });
-  }
+  } catch (e: unknown) {
+    const _err = e instanceof Error ? e : new Error(String(e));
+return res.status(500).json({ error: _err.message || "internal_error" });}
 }
+
+

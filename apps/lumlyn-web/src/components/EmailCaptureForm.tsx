@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 import { useForm, FormProvider, useWatch } from "react-hook-form";
 import { GdprConsentCheckbox } from "./GdprConsentCheckbox";
 import { POLICY_VERSION } from "../lib/policy";
 import { usePostHog } from "posthog-js/react";
-import { EmailCaptureForm } from "@/components/EmailCaptureForm";
+
 import { Logo } from "@/components/Logo";
 
 export default function Page() {
@@ -36,7 +36,7 @@ export function EmailCaptureForm() {
     formState: { errors, isSubmitting },
   } = methods;
 
-  // urmărim starea checkbox-ului pentru a controla butonul
+  // urmÄƒrim starea checkbox-ului pentru a controla butonul
   const consentChecked = useWatch({
     control: methods.control,
     name: "gdprConsent",
@@ -44,8 +44,8 @@ export function EmailCaptureForm() {
 
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      email: data.email, // ⚠️ email NU se trimite la PostHog
-      consent_marketing: true, // AC: trebuie să fie true când ajunge aici
+      email: data.email, // âš ï¸ email NU se trimite la PostHog
+      consent_marketing: true, // AC: trebuie sÄƒ fie true cÃ¢nd ajunge aici
       policy_version: POLICY_VERSION, // AC
     };
 
@@ -58,7 +58,7 @@ export function EmailCaptureForm() {
 
       if (!res.ok) throw new Error(`Lead submit failed: ${res.status}`);
 
-      // 🔵 Tracking PostHog — fără PII
+      // ðŸ”µ Tracking PostHog â€” fÄƒrÄƒ PII
       posthog?.capture("gdpr_consent_given", {
         source: "email_capture",
         policy_version: POLICY_VERSION,
@@ -66,11 +66,11 @@ export function EmailCaptureForm() {
       });
       posthog?.capture("lead_submitted", { source: "email_capture" });
 
-      // aici poți seta un toast / redirect
-      console.log("✅ lead submitted", { policy_version: POLICY_VERSION });
+      // aici poÈ›i seta un toast / redirect
+      console.log("âœ… lead submitted", { policy_version: POLICY_VERSION });
     } catch (err) {
       console.error(err);
-      // opțional: posthog?.capture("lead_submit_error", { source: "email_capture" });
+      // opÈ›ional: posthog?.capture("lead_submit_error", { source: "email_capture" });
     }
   };
 
@@ -92,14 +92,14 @@ export function EmailCaptureForm() {
           />
           {errors.email && (
             <p className="text-sm text-red-600" role="alert">
-              Hmm… that doesn’t look like a valid email. Try again?
+              Hmmâ€¦ that doesnâ€™t look like a valid email. Try again?
             </p>
           )}
         </div>
 
         <GdprConsentCheckbox />
 
-        {/* Hint vizibil când consimțământul nu e bifat */}
+        {/* Hint vizibil cÃ¢nd consimÈ›ÄƒmÃ¢ntul nu e bifat */}
         {!consentChecked && (
           <p className="text-sm text-gray-600">
             Please tick the box to agree to the Terms & Privacy before
@@ -109,7 +109,7 @@ export function EmailCaptureForm() {
 
         <button
           type="submit"
-          // disabled până avem bifă + loading
+          // disabled pÃ¢nÄƒ avem bifÄƒ + loading
           disabled={!consentChecked || isSubmitting}
           className="w-full rounded bg-indigo-600 px-4 py-2 text-white transition-opacity disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >

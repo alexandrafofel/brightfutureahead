@@ -1,14 +1,3 @@
-// apps/lumlyn-web/app/page.tsx
-"use client";
-
-import { EmailCaptureForm } from "@/components/EmailCaptureForm";
-import { Logo } from "@/components/Logo";
-
-export default function Page() {
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center">
-      <EmailCaptureForm />
-      <Logo variant="center" />
-    </div>
-  );
-}
+﻿import dynamic from "next/dynamic";
+const ConsentHero = dynamic(() => import("@/components/ConsentHero"), { ssr: true });
+export default function Page() { return <ConsentHero />; }

@@ -1,4 +1,4 @@
-﻿import fs from "node:fs/promises";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { remark } from "remark";
 import html from "remark-html";
@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Nunito_Sans } from "next/font/google";
 
-export const metadata = { title: "Privacy Policy – Lumlyn" };
+export const metadata = { title: "Terms & Conditions – Lumlyn" };
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -14,13 +14,13 @@ const nunito = Nunito_Sans({
   display: "swap",
 });
 
-async function loadPrivacyMarkdown() {
-  const full = path.join(process.cwd(), "content", "legal", "privacy-policy-v1.0.md");
+async function loadTermsMarkdown() {
+  const full = path.join(process.cwd(), "content", "legal", "terms-and-conditions-v1.0.md");
   return fs.readFile(full, "utf8");
 }
 
 export default async function Page() {
-  const md = await loadPrivacyMarkdown();
+  const md = await loadTermsMarkdown();
   const processed = await remark().use(html).process(md);
   const __html = String(processed);
 
@@ -29,6 +29,7 @@ export default async function Page() {
       {/* Header */}
       <div className="w-full max-w-4xl mx-auto px-4 pt-6">
         <div className="flex items-center justify-between">
+          {/* Back button ca în mock */}
           <Link
             href="/"
             className="inline-flex items-center gap-2 px-4 h-10 rounded-[10px] bg-[#E5E7EB] text-[#0F1B2E] font-semibold text-[16px] shadow-[0_0_2px_rgba(0,0,0,0.25)]"
@@ -36,6 +37,8 @@ export default async function Page() {
           >
             ← Back
           </Link>
+
+          {/* Logo mai mare (≈2x) */}
           <Image
             src="/lumlyn-logo-512.png"
             alt="Lumlyn"
