@@ -24,14 +24,17 @@ export function EmailCaptureForm() {
     formState: { errors, isSubmitting },
   } = methods;
 
-  // 👇 urmărim starea checkbox-ului pentru a controla butonul
-  const consentChecked = useWatch({ control: methods.control, name: "gdprConsent" });
+  // urmărim starea checkbox-ului pentru a controla butonul
+  const consentChecked = useWatch({
+    control: methods.control,
+    name: "gdprConsent",
+  });
 
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      email: data.email,                           // ⚠️ email NU se trimite către PostHog
-      consent_marketing: true,                     // cerință AC
-      policy_version: POLICY_VERSION,              // cerință AC
+      email: data.email, // ⚠️ email NU se trimite la PostHog
+      consent_marketing: true, // AC: trebuie să fie true când ajunge aici
+      policy_version: POLICY_VERSION, // AC
     };
 
     try {
@@ -43,17 +46,15 @@ export function EmailCaptureForm() {
 
       if (!res.ok) throw new Error(`Lead submit failed: ${res.status}`);
 
-      // 🔵 PostHog — fără PII
+      // 🔵 Tracking PostHog — fără PII
       posthog?.capture("gdpr_consent_given", {
         source: "email_capture",
         policy_version: POLICY_VERSION,
         consent_marketing: true,
       });
-      posthog?.capture("lead_submitted", {
-        source: "email_capture",
-      });
+      posthog?.capture("lead_submitted", { source: "email_capture" });
 
-      // TODO: arată mesajul de success / redirect
+      // aici poți seta un toast / redirect
       console.log("✅ lead submitted", { policy_version: POLICY_VERSION });
     } catch (err) {
       console.error(err);
@@ -71,7 +72,6 @@ export function EmailCaptureForm() {
             autoComplete="email"
             {...register("email", {
               required: true,
-              // validare simplă de format
               pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
             })}
             className="w-full rounded border px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
@@ -90,13 +90,14 @@ export function EmailCaptureForm() {
         {/* Hint vizibil când consimțământul nu e bifat */}
         {!consentChecked && (
           <p className="text-sm text-gray-600">
-            Please tick the box to agree to the Terms & Privacy before continuing.
+            Please tick the box to agree to the Terms & Privacy before
+            continuing.
           </p>
         )}
 
         <button
           type="submit"
-          // 🔒 disabled până avem bifă + gestionăm și loading
+          // disabled până avem bifă + loading
           disabled={!consentChecked || isSubmitting}
           className="w-full rounded bg-indigo-600 px-4 py-2 text-white transition-opacity disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >

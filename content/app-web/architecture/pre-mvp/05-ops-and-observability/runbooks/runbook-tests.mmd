@@ -1,0 +1,21 @@
+flowchart TD
+  %% simulation scenarios for ops drills
+
+  subgraph Scenarios
+    s1["Sim PH down"]
+    s2["Sim Email 5xx"]
+    s3["Sim Storage export fail"]
+    s4["Sim Model 5xx spikes"]
+  end
+
+  subgraph Expected
+    e1["q_ph fills → cron_ph_flush empties\nKPIs consistent"]
+    e2["LEADS.synced=false → cron_leads_retry ok"]
+    e3["export queued → cron_export_retry ok"]
+    e4["q_ml fills → cron_ml_retry → success_rate stable"]
+  end
+
+  s1 --> e1
+  s2 --> e2
+  s3 --> e3
+  s4 --> e4

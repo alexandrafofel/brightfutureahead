@@ -1,52 +1,55 @@
 flowchart LR
-  %% ===== ML-READY API (separate view) =====
+  %% ML-Ready API Overview — with q_ml and metrics
 
-  subgraph client["Frontend (Next.js)"]
-    fe_call_infer["callInfer(payload)"]
-    fe_send_feedback["sendFeedback(label, payload)"]
+  subgraph FE["Frontend (Next.js)"]
+    fe_infer["call POST /infer (payload)"]
+    fe_fb["call POST /feedback (label, note)"]
   end
 
-  subgraph edge["Supabase Edge Functions"]
+  subgraph Edge["Edge Functions"]
     cors["CORS + rate limits"]
-    infer["POST /infer"]
-    feedback["POST /feedback"]
-    cfg["read REMOTE_CONFIG\nml_infer_enabled, model_endpoint_url"]
+    infer["/infer"]
+    feedback["/feedback"]
+    cfg["read REMOTE_CONFIG\n{ ml_infer_enabled, model_endpoint_url }"]
+    q_ml["q_ml (retry queue)"]
+    logi["insert INFER_LOGS"]
+    logf["insert FEEDBACK"]
   end
 
-  subgraph db["Postgres"]
-    tbl_feedback["FEEDBACK\nid, session_id, label_type, label_value, note, created_at"]
-    tbl_infer["INFER_LOGS\nid, session_id, request_json, response_json, latency_ms, created_at"]
+  subgraph Model["Model Layer"]
+    stub["Stub rules (fallback)"]
+    ext["Model API (future)"]
   end
 
-  subgraph model["Model layer"]
-    stub["Rule-based stub\n(pre-MVP)"]
-    future["Future Model API\nHTTP endpoint"]
+  subgraph Cron["Self-healing jobs"]
+    cron_ml["cron_ml_retry"]
   end
 
-  %% FE -> Edge
-  fe_call_infer --> cors --> infer
-  fe_send_feedback --> cors --> feedback
-
-  %% Edge reads config
-  infer --> cfg
-  feedback --> cfg
+  subgraph KPIs["Metrics"]
+    sr["infer_success_rate"]
+    l95["latency_p95"]
+    er["error_rate"]
+  end
 
   %% Infer path
-  infer -->|"if ml_infer_enabled == false"| stub
-  infer -->|"if ml_infer_enabled == true"| future
-  stub --> infer_ok["200 {suggestions, debug:'stub'}"]
-  future --> infer_ok2["200 {predictions} or 502 fallback"]
+  fe_infer --> cors --> infer --> cfg
+  infer -->|ml_infer_enabled == false| stub --> logi
+  infer -->|ml_infer_enabled == true| ext
+  ext -->|200| logi
+  ext -->|5xx/timeout| q_ml
+  q_ml --> cron_ml --> ext
 
-  %% Log and respond
-  infer_ok --> log_infer["insert INFER_LOGS"]
-  infer_ok2 --> log_infer
-  log_infer --> fe_call_infer
+  logi --> sr
+  logi --> l95
+  q_ml --> er
 
   %% Feedback path
-  feedback --> validate["validate payload\nstrip PII"]
-  validate --> write_fb["insert FEEDBACK"]
-  write_fb --> ack["202 {accepted:true}"]
-  ack --> fe_send_feedback
+  fe_fb --> cors --> feedback --> cfg
+  feedback --> vfb["validate & strip PII"]
+  vfb --> logf
 
-  %% Ops export
-  write_fb -. "nightly ops export" .-> export["Storage exports/"]
+  %% Responses
+  logi --> r1["200 {predictions or stub}"]
+  logf --> r2["202 {accepted:true}"]
+  r1 --> fe_infer
+  r2 --> fe_fb

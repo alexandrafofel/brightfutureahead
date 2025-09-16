@@ -1,0 +1,24 @@
+flowchart TD
+  %% Config versioning + snapshot at GET /quiz
+
+  subgraph REM["REMOTE_CONFIG"]
+    rc["flags (JSON)"]
+    rcv["version (INT)"]
+  end
+
+  subgraph API["Edge Fn GET /quiz"]
+    read["read flags + rcv"]
+    build["build payload {questions, copy, flags_subset, quiz_version=rcv}"]
+    snap["INSERT CONFIG_SNAPSHOTS\n(session_id?, version=rcv, flags_json)"]
+    resp["return 200 payload"]
+  end
+
+  subgraph DB["Postgres"]
+    qs["QUIZ_SESSIONS.quiz_version (INT)"]
+    cs["CONFIG_SNAPSHOTS\nid, session_id?, version, flags_json, created_at"]
+  end
+
+  REM --> read --> build --> snap --> resp
+  resp --> qs
+
+  snap -. on fail: log + continue .- resp

@@ -1,0 +1,32 @@
+flowchart LR
+  %% ML retry pipeline + metrics
+
+  subgraph Edge["Edge Fn /infer"]
+    infer["/infer"]
+    qml["q_ml (retry queue)"]
+    logi["insert INFER_LOGS"]
+  end
+
+  subgraph Model["Model Layer"]
+    ext["Model API"]
+    stub["Stub rules (fallback)"]
+  end
+
+  subgraph Cron["Self-healing"]
+    cron["cron_ml_retry\n(backoff, max_retries)"]
+  end
+
+  subgraph KPIs["Metrics"]
+    sr["infer_success_rate"]
+    l95["latency_p95"]
+    er["error_rate"]
+  end
+
+  infer -->|"call ext"| ext
+  ext -->|200| logi
+  ext -->|5xx/timeout| qml
+  infer -->|"flag disabled"| stub --> logi
+  qml --> cron --> ext
+  logi --> sr
+  logi --> l95
+  qml --> er

@@ -1,28 +1,47 @@
 erDiagram
+  REMOTE_CONFIG {
+    text flag PK
+    text value
+    int version
+    timestamp updated_at
+  }
+
   QUIZ_SESSIONS {
     uuid id PK
     text variant
+    int quiz_version
     timestamp started_at
     timestamp completed_at
     text source
   }
 
-  QUIZ_ANSWERS {
+  CONFIG_SNAPSHOTS {
     uuid id PK
-    uuid session_id FK
-    int question_id
-    text answer_id
-  }
-
-  LEADS {
-    uuid id PK
-    uuid session_id FK
-    text email
-    boolean consent
-    boolean synced
+    uuid session_id
+    int version
+    json flags_json
     timestamp created_at
   }
 
+  FEEDBACK {
+    uuid id PK
+    uuid session_id
+    text label_type
+    text label_value
+    text note
+    timestamp created_at
+  }
+
+  INFER_LOGS {
+    uuid id PK
+    uuid session_id
+    json request_json
+    json response_json
+    int latency_ms
+    timestamp created_at
+  }
+
+  %% Existing tables (keep as-is, ensure versions)
   QUESTIONS {
     int id PK
     text text
@@ -39,32 +58,24 @@ erDiagram
     timestamp created_at
   }
 
-  REMOTE_CONFIG {
-    text flag PK
-    text value
-    timestamp updated_at
-  }
-
-  FEEDBACK {
+  LEADS {
     uuid id PK
-    uuid session_id FK
-    text label_type
-    text label_value
-    text note
+    uuid session_id
+    text email
+    boolean consent
+    boolean synced
     timestamp created_at
   }
 
-  INFER_LOGS {
+  QUIZ_ANSWERS {
     uuid id PK
-    uuid session_id FK
-    json request_json
-    json response_json
-    int latency_ms
-    timestamp created_at
+    uuid session_id
+    int question_id
+    text answer_id
   }
 
-  %% Relationships
   QUIZ_SESSIONS ||--o{ QUIZ_ANSWERS : has
   QUIZ_SESSIONS ||--o| LEADS : may_have
   QUIZ_SESSIONS ||--o{ FEEDBACK : may_have
   QUIZ_SESSIONS ||--o{ INFER_LOGS : generates
+  QUIZ_SESSIONS ||--o{ CONFIG_SNAPSHOTS : snapshot_for
