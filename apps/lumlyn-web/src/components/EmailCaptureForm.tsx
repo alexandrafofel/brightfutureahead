@@ -1,8 +1,9 @@
 "use client";
 
-import { useForm, FormProvider } from "react-hook-form";
+import { useForm, FormProvider, useWatch } from "react-hook-form";
 import { GdprConsentCheckbox } from "@/components/GdprConsentCheckbox";
 import { POLICY_VERSION } from "@/lib/policy";
+import { usePostHog } from "posthog-js/react";
 
 type FormValues = {
   email: string;
@@ -12,7 +13,10 @@ type FormValues = {
 export function EmailCaptureForm() {
   const methods = useForm<FormValues>({
     defaultValues: { email: "", gdprConsent: false },
+    mode: "onChange",
   });
+
+  const posthog = usePostHog();
 
   const {
     handleSubmit,
@@ -20,23 +24,41 @@ export function EmailCaptureForm() {
     formState: { errors, isSubmitting },
   } = methods;
 
+  // urmărim starea checkbox-ului pentru a controla butonul
+  const consentChecked = useWatch({
+    control: methods.control,
+    name: "gdprConsent",
+  });
+
   const onSubmit = async (data: FormValues) => {
     const payload = {
-      email: data.email,
-      consent_marketing: data.gdprConsent,
-      policy_version: POLICY_VERSION,
+      email: data.email, // ⚠️ email NU se trimite la PostHog
+      consent_marketing: true, // AC: trebuie să fie true când ajunge aici
+      policy_version: POLICY_VERSION, // AC
     };
 
-    const res = await fetch("/api/lead", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
 
-    if (!res.ok) {
-      console.error("❌ lead submit failed");
-    } else {
-      console.log("✅ lead submitted", payload);
+      if (!res.ok) throw new Error(`Lead submit failed: ${res.status}`);
+
+      // 🔵 Tracking PostHog — fără PII
+      posthog?.capture("gdpr_consent_given", {
+        source: "email_capture",
+        policy_version: POLICY_VERSION,
+        consent_marketing: true,
+      });
+      posthog?.capture("lead_submitted", { source: "email_capture" });
+
+      // aici poți seta un toast / redirect
+      console.log("✅ lead submitted", { policy_version: POLICY_VERSION });
+    } catch (err) {
+      console.error(err);
+      // opțional: posthog?.capture("lead_submit_error", { source: "email_capture" });
     }
   };
 
@@ -46,23 +68,38 @@ export function EmailCaptureForm() {
         <div>
           <input
             type="email"
-            {...register("email", { required: true })}
-            className="w-full rounded border px-3 py-2"
+            inputMode="email"
+            autoComplete="email"
+            {...register("email", {
+              required: true,
+              pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            })}
+            className="w-full rounded border px-3 py-2 outline-none focus:ring-2 focus:ring-indigo-500"
             placeholder="Enter your email to get your calm tip"
+            aria-invalid={!!errors.email}
           />
           {errors.email && (
-            <p className="text-sm text-red-600">
-              Please enter a valid email address.
+            <p className="text-sm text-red-600" role="alert">
+              Hmm… that doesn’t look like a valid email. Try again?
             </p>
           )}
         </div>
 
         <GdprConsentCheckbox />
 
+        {/* Hint vizibil când consimțământul nu e bifat */}
+        {!consentChecked && (
+          <p className="text-sm text-gray-600">
+            Please tick the box to agree to the Terms & Privacy before
+            continuing.
+          </p>
+        )}
+
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="w-full rounded bg-indigo-600 px-4 py-2 text-white disabled:opacity-50"
+          // disabled până avem bifă + loading
+          disabled={!consentChecked || isSubmitting}
+          className="w-full rounded bg-indigo-600 px-4 py-2 text-white transition-opacity disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-indigo-500"
         >
           {isSubmitting ? "Submitting..." : "Get Early Access"}
         </button>
