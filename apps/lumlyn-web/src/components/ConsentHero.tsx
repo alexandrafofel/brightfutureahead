@@ -72,9 +72,8 @@ export default function ConsentHero({ onConfirm }: Props) {
                 </svg>
               </span>
             </span>
-
             <span className="ml-6 text-[16px]" style={{ lineHeight: "26px" }}>
-              I agree to the{" "}
+              I agree wtih the{"  "}
               <Link
                 href={TERMS_URL}
                 className="text-[#4C8BF5] font-medium hover:underline focus:underline"
@@ -100,7 +99,7 @@ export default function ConsentHero({ onConfirm }: Props) {
             disabled={!checked}
             className={[
               "w-[220px] h-[44px] rounded-[8px] font-semibold text-[16px] transition-all duration-150",
-              "text-white",
+              "!text-white",
               "border-0 outline-none ring-0",
               !checked && "bg-[#D0D5DD] cursor-not-allowed",
               checked &&
@@ -178,8 +177,8 @@ export default function ConsentHero({ onConfirm }: Props) {
                 </span>
               </span>
 
-              <span className="ml-6 text-[16px]" style={{ lineHeight: "26px" }}>
-                I agree to the {" "}
+              <span style={{ marginInlineStart: "15px", lineHeight: "26px" }}>
+                I agree with the {" "}
                 <Link
                   href={TERMS_URL}
                   className="text-[#4C8BF5] font-medium hover:underline focus:underline"
@@ -203,7 +202,7 @@ export default function ConsentHero({ onConfirm }: Props) {
               disabled={!checked}
               className={[
                 "w-[220px] h-[44px] rounded-[8px] font-semibold text-[16px] transition-all duration-150",
-                "text-white",
+                "!text-white",
                 "border-0 outline-none ring-0",
                 !checked && "bg-[#D0D5DD] cursor-not-allowed",
                 checked &&
@@ -215,7 +214,7 @@ export default function ConsentHero({ onConfirm }: Props) {
                     "focus-visible:shadow-[0_0_8px_0_#FF6B00]",
                   ].join(" "),
               ].join(" ")}
-              style={{ lineHeight: "26px" }}
+              style={{ color: "#fff", lineHeight: "26px", font: "Nunito_Sans"}}
               onClick={() => {
                 if (!checked) return;
                 try {
