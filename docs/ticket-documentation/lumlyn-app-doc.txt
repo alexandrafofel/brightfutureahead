@@ -21,4 +21,5 @@ ce am facut:
 	✅ am impins branch-ul web-setup-supabase-posthog pe remote,
 	✅ am comfirmat că healthcheck-ul /api/ping răspunde,
 	✅ am creat Pull Request catre mail	
-5.
+5. [FE] GDPR Consent Checkbox UI
+

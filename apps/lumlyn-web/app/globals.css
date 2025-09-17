@@ -2,19 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* ✅ mapăm font-sans la Nunito (nu la Geist) */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-nunito-sans); /* ← important */
+  /* opțional: definește mono dacă îl folosești
+     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  */
 }
 
+/* Dark scheme vars - ok să rămână */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -22,8 +25,11 @@
   }
 }
 
+/* ❌ scoatem font-family ca să nu suprascrie Tailwind/next-font
+   ❌ scoatem background aici ca să nu bată peste bg din layout (Tailwind)
+*/
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* background: var(--background); */ /* comentat, layout folosește Tailwind bg-[#ECE9F1] */
+  /* color: var(--foreground); */      /* dacă vrei, îl poți lăsa, dar nu afecta fontul */
+  /* font-family: Arial, Helvetica, sans-serif; */ /* ← eliminat */
 }

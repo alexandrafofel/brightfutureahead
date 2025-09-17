@@ -3,5 +3,5 @@
 export const POLICY_EFFECTIVE =
   process.env.NEXT_PUBLIC_POLICY_EFFECTIVE || "2025-10-31";
 
-export const TERMS_URL = "/terms";
+export const TERMS_URL = "/gdpr-consent"; // putem muta pe /terms după ce avem pagina
 export const PRIVACY_URL = "/privacy-policy";
