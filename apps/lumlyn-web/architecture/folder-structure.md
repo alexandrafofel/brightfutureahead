@@ -1,69 +1,41 @@
+```plaintext
 lumlyn-web/
 
-│── app/
+app/
+ ├── api/
+      └── leads.ts              # endpoint API pentru lead-uri
+ 
+ ├── gdpr-consent/              # pagină GDPR
+ ├── privacy-policy/            # pagină Privacy
+ ├── terms/                     # pagină Terms
+ 
+ ├── layout.tsx                 # layout global
+ ├── page.tsx                   # pagina principală
+ ├── providers.tsx              # providers (react-hook-form, supabase)
+ └── globals.css                # stiluri globale
 
-│   │── api/
+components/                      # componente reutilizabile
+ ├── EmailCaptureForm.tsx
+ ├── GdprConsentCheckbox.tsx
+ ├── Logo.tsx
+ └── ConsentHero.tsx
 
-│   │   └── leads.ts          # endpoint API pentru lead-uri
+public/                          # assets statice (imagini, favicon, etc.)
+ └── lumlyn-logo-512.png
 
-│   │── gdpr-consent/         # pagină gdpr
+styles/                          # (opțional, css suplimentar)
 
-│   │── privacy-policy/       # pagină privacy
+lib/                             # funcții utilitare / helpers
+ ├── policy.ts
+ └── supabaseClient.ts
 
-│   │── terms/                # pagină terms
+e2e/                             # teste end-to-end
+tests/                           # teste unitare
 
-│   │── layout.tsx            # layout global
+.env.local                       # variabile de mediu
+next.config.js                   # config Next.js
+tailwind.config.js                # config Tailwind
+tsconfig.json                     # config TypeScript
+package.json
 
-│   │── page.tsx              # pagina principală
-
-│   │── providers.tsx         # providers (ex. pentru react-hook-form, supabase)
-
-│   └── globals.css           # stiluri globale
-
-│
-
-│── components/               # componente reutilizabile
-
-│   ├── EmailCaptureForm.tsx
-
-│   ├── GdprConsentCheckbox.tsx
-
-│   ├── Logo.tsx
-
-│   └── ConsentHero.tsx
-
-│
-
-│── public/                   # assets statice (imagini, favicon, etc.)
-
-│   └── lumlyn-logo-512.png
-
-│
-
-│── styles/                   # (opțional, dacă ai css suplimentar)
-
-│
-
-│── lib/                      # funcții utilitare / helpers
-
-│   └── policy.ts
-
-│   └── supabaseClient.ts
-
-│
-
-│── e2e/                      # teste end-to-end
-
-│── tests/                    # teste unitare
-
-│
-
-│── .env.local                # variabile de mediu
-
-│── next.config.js            # config Next.js
-
-│── tailwind.config.js        # config Tailwind
-
-│── tsconfig.json             # config TypeScript
-
-│── package.json
+```
