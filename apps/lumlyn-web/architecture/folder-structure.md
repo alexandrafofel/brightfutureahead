@@ -2,61 +2,60 @@ lumlyn-web/
 
 │  ── app/
 
-│     │  ── api/
+      │  ── api/
 
-│     │     └── leads.ts          # endpoint API pentru lead-uri
+            └── leads.ts          # endpoint API pentru lead-uri
 
-│     │  ── gdpr-consent/         # pagină gdpr
+      │  ── gdpr-consent/         # pagină gdpr
 
-│     │  ── privacy-policy/       # pagină privacy
+      │  ── privacy-policy/       # pagină privacy
 
-│     │  ── terms/                # pagină terms
+      │  ── terms/                # pagină terms
 
-│     │  ── layout.tsx            # layout global
+      │  ── layout.tsx            # layout global
 
-│     │  ── page.tsx              # pagina principală
+      │  ── page.tsx              # pagina principală
 
-│     │  ── providers.tsx         # providers (ex. pentru react-hook-form, supabase)
+      │  ── providers.tsx         # providers (ex. pentru react-hook-form, supabase)
 
-│     └──   globals.css           # stiluri globale
+      └──   globals.css           # stiluri globale
 
-│
+
 
 │  ── components/               # componente reutilizabile
 
-│     ├──   EmailCaptureForm.tsx
+      ├──   EmailCaptureForm.tsx
 
-│     ├──   GdprConsentCheckbox.tsx
+      ├──   GdprConsentCheckbox.tsx
 
-│     ├──   Logo.tsx
+      ├──   Logo.tsx
 
-│     └──   ConsentHero.tsx
+      └──   ConsentHero.tsx
 
-│
+
 
 │  ── public/                   # assets statice (imagini, favicon, etc.)
 
-│     └──   lumlyn-logo-512.png
+      └──   lumlyn-logo-512.png
 
-│
+
 
 │  ── styles/                   # (opțional, dacă ai css suplimentar)
 
-│
+
 
 │  ── lib/                      # funcții utilitare / helpers
 
-│     └──   policy.ts
+      └──   policy.ts
 
-│     └──   supabaseClient.ts
+      └──   supabaseClient.ts
 
-│
+
 
 │  ──   e2e/                      # teste end-to-end
 
-│  ──   tests/                    # teste unitare
 
-│
+│  ──   tests/                    # teste unitare
 
 │  ──   .env.local                # variabile de mediu
 
