@@ -16,7 +16,7 @@ app/
  ├── layout.tsx                 # layout global
  ├── page.tsx                   # pagina principală
  ├── providers.tsx              # providers (react-hook-form, supabase)
- └── globals.css                # stiluri globale
+
 
 components/                      # componente reutilizabile
  ├── EmailCaptureForm.tsx
@@ -30,7 +30,8 @@ public/                          # assets statice (imagini, favicon, etc.)
  └── lumlyn-logo-512.png
 
 styles/                          # (opțional, css suplimentar)
-
+ ├──tailwind.config.js                # config Tailwind
+ └── globals.css                # stiluri globale
 lib/                             # funcții utilitare / helpers
  ├── policy.ts
  └── supabaseClient.ts
@@ -40,7 +41,6 @@ tests/                           # teste unitare
 
 .env.local                       # variabile de mediu
 next.config.js                   # config Next.js
-tailwind.config.js                # config Tailwind
 tsconfig.json                     # config TypeScript
 package.json
 
