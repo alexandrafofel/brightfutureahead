@@ -30,7 +30,6 @@ public/                          # assets statice (imagini, favicon, etc.)
  └── lumlyn-logo-512.png
 
 styles/                          # (opțional, css suplimentar)
- ├──tailwind.config.js                # config Tailwind
  └── globals.css                # stiluri globale
 lib/                             # funcții utilitare / helpers
  ├── policy.ts
@@ -41,6 +40,7 @@ tests/                           # teste unitare
 
 .env.local                       # variabile de mediu
 next.config.js                   # config Next.js
+tailwind.config.js                # config Tailwind
 tsconfig.json                     # config TypeScript
 package.json
 
