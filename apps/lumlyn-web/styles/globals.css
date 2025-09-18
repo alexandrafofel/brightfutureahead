@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* (opțional) culori globale, fără a forța fontul aici */
+:root {
+  --background: rgba(249, 246, 255, 0.90);  /* fără # */
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: rgba(249, 246, 255, 0.90);
+    --foreground: #ededed;
+  }
+}
+
+/* nu seta font-family aici, îl controlăm via Tailwind `font-sans` */
+body {
+  /* color: var(--foreground); */
+  /* background: var(--background); */
+}

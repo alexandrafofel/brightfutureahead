@@ -1,19 +1,17 @@
-import type { Config } from "tailwindcss";
-
-const config: Config = {
+/**** tailwind.config.js ****/
+module.exports = {
   content: [
-    "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}",
-    "./src/**/*.{ts,tsx}",
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+    "./lib/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        sans: ["var(--font-nunito-sans)"], // ← face font-sans = Nunito
+        // 👇 mapăm clasa `font-sans` la variabila expusă de next/font
+        sans: ["var(--font-nunito-sans)", "system-ui", "sans-serif"],
       },
     },
   },
   plugins: [],
 };
-
-export default config;
