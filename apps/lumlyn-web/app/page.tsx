@@ -1,3 +1,3 @@
 ﻿import dynamic from "next/dynamic";
-const ConsentHero = dynamic(() => import("@/components/ConsentHero"), { ssr: true });
-export default function Page() { return <ConsentHero />; }
+const HomePageDraft = dynamic(() => import("@/components/HomePageDraft"), { ssr: true });
+export default function Page() { return <HomePageDraft />; }

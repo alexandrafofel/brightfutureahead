@@ -4,7 +4,6 @@ import { useForm, FormProvider, useWatch } from "react-hook-form";
 import GdprConsentCheckbox from "./GdprConsentCheckbox";
 import { POLICY_VERSION } from "../lib/policy";
 import { usePostHog } from "posthog-js/react";
-
 import { Logo } from "@/components/Logo";
 
 export default function Page() {

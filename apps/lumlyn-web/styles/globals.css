@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-/* (opțional) culori globale, fără a forța fontul aici */
+/* (optional) global colors */
 :root {
-  --background: rgba(249, 246, 255, 0.90);  /* fără # */
+  --background: rgba(249, 246, 255, 0.90);
   --foreground: #171717;
 }
 
@@ -15,8 +15,9 @@
   }
 }
 
-/* nu seta font-family aici, îl controlăm via Tailwind `font-sans` */
-body {
-  /* color: var(--foreground); */
-  /* background: var(--background); */
+/* ✅ Set Nunito globally without @apply */
+html {
+  font-family: var(--font-nunito-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
