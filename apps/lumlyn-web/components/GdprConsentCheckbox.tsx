@@ -1,3 +1,4 @@
+// apps/lumlyn-web/src/components/GdprConsentCheckbox.tsx
 "use client";
 
 import React from "react";

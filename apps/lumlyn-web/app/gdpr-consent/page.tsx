@@ -1,3 +1,4 @@
+import Link from "next/link";
 import fs from "fs/promises";
 import path from "path";
 import { remark } from "remark";
@@ -22,12 +23,12 @@ export default async function TermsPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
       <Logo variant="top-left" />
-      <a
-        href="/"
+      <Link
+         href="/"
         className="mb-6 inline-block text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"
       >
         ← Back
-      </a>
+      </Link>
       <article
         className="prose prose-neutral max-w-none"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
