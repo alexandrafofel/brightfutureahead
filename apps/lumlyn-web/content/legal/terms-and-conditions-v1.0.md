@@ -1,4 +1,3 @@
-
 Version: v1.0 – Effective date: October 31, 2025
 
 1. Who we are

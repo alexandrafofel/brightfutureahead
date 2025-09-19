@@ -5,6 +5,7 @@ import html from "remark-html";
 import Link from "next/link";
 import Image from "next/image";
 import { Nunito_Sans } from "next/font/google";
+import BackButton from "@/components/ui/BackButton";
 
 export const metadata = { title: "Privacy Policy – Lumlyn" };
 
@@ -29,13 +30,7 @@ export default async function Page() {
       {/* Header */}
       <div className="w-full max-w-4xl mx-auto px-4 pt-6">
         <div className="flex items-center justify-between">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-4 h-10 rounded-[10px] bg-[#E5E7EB] text-[#0F1B2E] font-semibold text-[16px] shadow-[0_0_2px_rgba(0,0,0,0.25)]"
-            style={{ lineHeight: "26px" }}
-          >
-            ← Back
-          </Link>
+          <BackButton />
           <Image
             src="/lumlyn-logo-512.png"
             alt="Lumlyn"
@@ -46,6 +41,18 @@ export default async function Page() {
           />
         </div>
       </div>
+<h1
+style={{
+    fontFamily: "Nunito Sans, sans-serif",
+    fontSize: "24px",
+    fontWeight: 700,
+    lineHeight: "32px",
+    color: "var(--Text-Primary, #1E293B)",
+    margin: "16px 0 12px 0",
+  }}
+>
+  Privacy Policy
+</h1>
 
       {/* Conținut */}
       <div className="w-full max-w-4xl mx-auto px-4 py-6">

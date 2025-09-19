@@ -30,7 +30,7 @@ export default function ConsentHero({ onConfirm }: Props) {
         {/* Grupul ancorat la checkbox: left = 536px, top = 465px (checkbox 44x44) */}
         <div
           className="absolute"
-          style={{ left: 536, top: 465 }}
+          style={{ left: 536, top: 420 }}
           aria-label="GDPR consent group"
         >
           <label className="flex items-center select-none cursor-pointer" style={{ columnGap: 16 }}>
@@ -127,7 +127,7 @@ export default function ConsentHero({ onConfirm }: Props) {
 
       {/* ===== MOBILE/TABLET fallback — centrat și accesibil ===== */}
       <div className="block xl:hidden">
-        <div className="pt-12 flex items-center justify-center">
+        <div className="pt-8 flex items-center justify-center">
           <Image
             src="/lumlyn-logo-512.png"
             alt="Lumlyn"
@@ -137,7 +137,7 @@ export default function ConsentHero({ onConfirm }: Props) {
           />
         </div>
 
-        <div className="px-6 mt-10 flex items-center justify-center">
+        <div className="px-6 mt-3 flex items-center justify-center">
           <div className="flex flex-col items-center">
             <label className="flex items-center !gap-x-5 select-none cursor-pointer">
               <span className="relative inline-flex items-center justify-center h-11 w-11 shrink-0 mr-4">

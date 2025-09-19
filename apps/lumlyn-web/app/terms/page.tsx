@@ -5,6 +5,7 @@ import html from "remark-html";
 import Link from "next/link";
 import Image from "next/image";
 import { Nunito_Sans } from "next/font/google";
+import BackButton from "@/components/ui/BackButton";
 
 export const metadata = { title: "Terms & Conditions – Lumlyn" };
 
@@ -30,14 +31,7 @@ export default async function Page() {
       <div className="w-full max-w-4xl mx-auto px-4 pt-6">
         <div className="flex items-center justify-between">
           {/* Back button ca în mock */}
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 px-4 h-10 rounded-[10px] bg-[#E5E7EB] text-[#0F1B2E] font-semibold text-[16px] shadow-[0_0_2px_rgba(0,0,0,0.25)]"
-            style={{ lineHeight: "26px" }}
-          >
-            ← Back
-          </Link>
-
+          <BackButton />
           {/* Logo mai mare (≈2x) */}
           <Image
             src="/lumlyn-logo-512.png"
