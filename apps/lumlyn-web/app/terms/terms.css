@@ -1,0 +1,45 @@
+/* === PRIMUL PARAGRAF (ex: Version: v1.0 – Effective date) === */
+.terms-content p:first-of-type {
+  color: var(--Text-Secondary, #344054);
+}
+
+/* === LINK EMAIL (mailto:) === */
+.terms-content a[href^="mailto:"] {
+  color: var(--Text-Primary, #1E293B);
+  font-family: "Nunito", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600; /* SemiBold */
+  line-height: 26px;
+
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: auto;
+  text-decoration-thickness: auto;
+  text-underline-offset: auto;
+  text-underline-position: from-font;
+}
+
+/* === SUBTITLURI NUMEROTATE (## sau ### în Markdown) === */
+.terms-content h2,
+.terms-content h3 {
+  color: var(--Text-Primary, #1E293B);
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700; /* Heading 18 */
+  line-height: 28px;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+/* === PARAGRAFE GENERALE (body text) === */
+.terms-content p {
+  color: var(--Text-Primary, #1E293B);
+  font-family: "Nunito Sans", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400; /* Regular */
+  line-height: 26px;
+  margin-bottom: 16px;
+}

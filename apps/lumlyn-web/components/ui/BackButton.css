@@ -1,0 +1,83 @@
+/* BackButton.module.css */
+
+.button {
+
+  display: flex;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-shrink: 0;
+
+  border-radius: 8px;
+  border: 1px solid #9747FF;       /* Border default desktop */
+  background: #FFF;                 /* interiorul butonului */
+  color: #6C63FF;                   /* culoarea săgeții */
+  font-weight: 700;
+  line-height: 1;
+  user-select: none;
+  cursor: pointer;
+  transition: border-color 120ms ease, border-width 120ms ease,
+              box-shadow 120ms ease, background-color 120ms ease,
+              padding 120ms ease, transform 80ms ease;
+}
+
+/* HOVER — desktop spec */
+.button:hover {
+  border-width: 3px;
+  border-color: #4F46FF;            /* border color hover */
+  background: rgba(249, 246, 255, 0.90); /* Background lavandă */
+  box-shadow: 0 4px 16px 0 rgba(79, 70, 255, 0.25);
+  padding: 10px;                    /* layout hover */
+}
+
+/* PRESSED (active) — both variants */
+.button:active {
+  border-width: 2px;
+  border-color: #574FE3;            /* border pressed */
+  background: #FFF;
+  color: #574FE3;                   /* săgeată pressed */
+  padding: 10px;                    /* layout pressed */
+  transform: translateY(0.5px);
+  box-shadow: none;
+}
+
+/* FOCUS — desktop spec */
+.button:focus-visible {
+  outline: none;
+  border-width: 2px;
+  border-color: #4ED2E0;            /* border focus */
+  background: #FFF;
+  color: #6C63FF;                   /* săgeată focus */
+  padding: 10px;                    /* layout focus */
+  box-shadow: none;
+}
+
+/* ===== MOBILE VARIANT (<= 768px) ===== */
+@media (max-width: 768px) {
+  .button {
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+
+    border-width: 1px;
+    border-color: #9747FF;          /* mobile default */
+    background: #FFF;
+    color: #6C63FF;                 /* săgeată default */
+    box-shadow: none;
+  }
+
+  /* Mobile pressed (specificat) */
+  .button:active {
+    border-width: 2px;
+    border-color: #574FE3;          /* mobile pressed */
+    color: #574FE3;                 /* săgeată pressed */
+    background: #FFF;
+    padding: 10px;
+    box-shadow: none;
+  }
+
+  /* Notă: Nu s-a cerut explicit hover mobile; pe touch nu se aplică oricum. */
+}

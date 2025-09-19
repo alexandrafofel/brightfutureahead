@@ -2,16 +2,16 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { remark } from "remark";
 import html from "remark-html";
-import Link from "next/link";
-import Image from "next/image";
+import gfm from "remark-gfm";                 // 👈 auto-link pentru emailuri/URL-uri
 import { Nunito_Sans } from "next/font/google";
 import BackButton from "@/components/ui/BackButton";
+import "./terms.css";
 
 export const metadata = { title: "Terms & Conditions – Lumlyn" };
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
-  weight: ["400","500","600"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
@@ -21,35 +21,65 @@ async function loadTermsMarkdown() {
 }
 
 export default async function Page() {
+  // 👇 md este definit aici, în același scope cu .process()
   const md = await loadTermsMarkdown();
-  const processed = await remark().use(html).process(md);
+  const processed = await remark().use(gfm).use(html).process(md);
   const __html = String(processed);
 
   return (
-    <main className={`${nunito.className} bg-white min-h-screen`}>
-      {/* Header */}
-      <div className="w-full max-w-4xl mx-auto px-4 pt-6">
-        <div className="flex items-center justify-between">
-          {/* Back button ca în mock */}
-          <BackButton />
-          {/* Logo mai mare (≈2x) */}
-          <Image
-            src="/lumlyn-logo-512.png"
-            alt="Lumlyn"
-            width={56}
-            height={56}
-            className="opacity-90"
-            priority
-          />
-        </div>
-      </div>
+    <main className={nunito.className} style={{ background: "#FFF", minHeight: "100vh" }}>
+      {/* Header sticky: Back + Title */}
+      <header
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 50,
+          display: "flex",
+          width: "100%",
+          maxWidth: "1440px",
+          margin: "0 auto",
+          padding: "60px 856px 16px 360px",
+          flexDirection: "column",
+          justifyContent: "flex-end",
+          alignItems: "flex-start",
+          gap: "37px",
+          borderRadius: "12px",
+          background: "#FFF",
+          boxShadow: "0 1px 2px 0 rgba(0,0,0,0.14)",
+          color: "#1E293B",
+        }}
+      >
+        <BackButton ariaLabel="Back" />
+        <h1
+          style={{
+            margin: 0,
+            color: "#1E293B",
+            fontFamily: '"Nunito Sans", sans-serif',
+            fontSize: "24px",
+            fontWeight: 700,
+            lineHeight: "32px",
+          }}
+        >
+          Terms &amp; Conditions
+        </h1>
+      </header>
 
-      {/* Conținut */}
-      <div className="w-full max-w-4xl mx-auto px-4 py-6">
-        <div className="prose max-w-none text-black">
-          <div dangerouslySetInnerHTML={{ __html }} />
-        </div>
-      </div>
+      {/* Conținut Terms */}
+      <section
+        className="terms-content"
+        style={{
+          maxWidth: "1440px",
+          margin: "0 auto",
+          padding: "24px 360px 80px 360px",
+          color: "#344054",
+          fontFamily: '"Nunito Sans", sans-serif',
+          fontSize: "16px",
+          fontWeight: 400,
+          lineHeight: "26px",
+        }}
+      >
+        <div dangerouslySetInnerHTML={{ __html }} />
+      </section>
     </main>
   );
 }
