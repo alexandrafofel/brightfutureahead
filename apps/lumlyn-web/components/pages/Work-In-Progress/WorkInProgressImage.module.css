@@ -1,0 +1,49 @@
+.Composite {
+  position: relative;
+  width: min(520px, 100vw);   /* scalează frumos pe mobil */
+  aspect-ratio: 327 / 223;   /* păstrează proporțiile SVG-ului */
+  user-select: none;
+}
+
+.Base {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    z-index: 2;
+    pointer-events: none;       /* imaginea nu interceptează clickuri */
+}
+
+.LogoWrap {
+  position: absolute;
+  display: block;
+  z-index: 1;
+  top: 30%;
+  left: 12%;
+  width: 48%;   /* dimensiunea logo-ului relativ la container */
+}
+
+.LogoWrap > * {
+  width: 100%;
+  height: auto;
+}
+
+.WorkImage{
+    position: relative;
+    top: 15px;
+    left: 30%;
+}
+/* Când containerul e hover, forțăm layerele logo-ului să fie vizibile */
+.WorkImage:hover :global(.cloud),
+.WorkImage:hover :global(.letters),
+.WorkImage:hover :global(.letterssolmon) {
+  opacity: 1 !important;        /* peste .hide din componenta de logo */
+}
+
+/* Bonus: când NU e hover, păstrăm comportamentul implicit (opțional) */
+.WorkImage :global(.cloud),
+.WorkImage :global(.letters),
+.WorkImage :global(.letterssolmon) {
+  transition: opacity 200ms ease;
+}
+

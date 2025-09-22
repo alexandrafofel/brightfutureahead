@@ -6,6 +6,10 @@
   width: 48px;
   height: 48px;
   padding: 12px;
+  top: 300px;
+  left: 423px;
+   position: absolute;
+
   align-items: center;
   justify-content: center;
   gap: 10px;

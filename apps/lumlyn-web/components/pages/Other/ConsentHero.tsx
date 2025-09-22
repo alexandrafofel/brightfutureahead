@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { TERMS_URL, PRIVACY_URL } from "../lib/policy";
+import { TERMS_URL, PRIVACY_URL } from "../../../lib/policy";
 
 type Props = {
   onConfirm?: () => void;

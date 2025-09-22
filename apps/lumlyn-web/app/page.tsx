@@ -1,3 +1,11 @@
-﻿import dynamic from "next/dynamic";
-const HomePageDraft = dynamic(() => import("@/components/HomePageDraft"), { ssr: true });
-export default function Page() { return <HomePageDraft />; }
+﻿'use client';
+
+import WorkInProgressPage from "@/components/pages/Work-In-Progress/WorkInProgressPage";
+
+export default function Page() {
+  return (
+    <main className="flex min-h-screen items-center justify-center">
+      <WorkInProgressPage />
+    </main>
+  );
+}

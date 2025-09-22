@@ -4,7 +4,7 @@ import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
 import { Nunito_Sans } from "next/font/google";
-import BackButton from "components/ui/BackButton";
+import BackButton from "@/components/ui/BackButton/BackButton";
 
 export const metadata = { title: "Privacy Policy – Lumlyn" };
 

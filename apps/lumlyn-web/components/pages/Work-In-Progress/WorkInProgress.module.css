@@ -1,0 +1,114 @@
+.FrameRoot{
+  position: absolute;
+  width: 1440px;
+  height: 1024px;
+  background: var(--Background-lavanda, rgba(249, 246, 255, 0.90));
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.15);
+}
+
+.AllText{
+  position: absolute;
+  width: 800px;
+  height: 566px;
+  flex-shrink: 0;
+}
+
+.BOXintroMessage{
+  position: relative; 
+  width: 800px;
+  height: 500px;
+  flex-shrink: 0;
+  left: 320px;
+  bottom: 10px;
+}
+
+.Heading{
+  position: relative;
+    left: 40px;
+  width: 720px;
+  height: 128px;
+  flex-shrink: 0;
+  color: #333;
+  text-align: center;
+  font-family: "Nunito Sans";
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px; 
+  letter-spacing: 0.048px;
+  white-space: normal; 
+  display: block;      
+}
+
+.FrameDetails{
+  display: flex;
+  width: 750px;
+  padding: 64px 10px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 12px;
+}
+
+.Details{
+  width: 680px;
+  height: 128px;
+  left: 18px;
+  bottom: 40px;
+  position: relative;
+  color: #333;
+  text-align: center;
+  font-family: "Nunito Sans";
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 177.778% */
+
+}
+
+.BOXcomingSoonDescription{
+  position: absolute;
+  bottom: 60px;
+  left: 36%;
+  display: flex;
+  width: 200px;
+  padding: 20px 12px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 999px;
+  background: var(--Blue-calm, linear-gradient(180deg, #A8EDE1 0%, #52D6C5 100%));
+  background: linear-gradient(180deg, #A8EDE1 0%, #52D6C5 100%);
+}
+
+.BoxWorkInProgressImage{
+  position: relative;
+  width: 459px;
+  height: 400px;
+  flex-shrink: 0;
+  top: 33px;
+  right: 200px;
+  max-width: calc(100% - 64px); 
+}
+
+.FrameFooter{
+    position: absolute;
+    bottom: 20px;
+    left: 40%;
+    color: #888;
+    font-family: "Nunito Sans";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 18px; /* 150% */
+
+
+}
+
+.hoverGroup {
+  position: relative;
+  width: 100%;
+  height: auto;
+}
+
+
