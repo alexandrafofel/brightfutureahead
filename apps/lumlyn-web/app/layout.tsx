@@ -1,24 +1,18 @@
-// app/layout.tsx
-import type { Metadata } from "next";
-import "@/styles/globals.css";
 import { Nunito_Sans } from "next/font/google";
+import "@/styles/globals.css";
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
-  variable: "--font-nunito-sans",
   display: "swap",
+  variable: "--font-nunito-sans",
 });
-
-export const metadata: Metadata = {
-  title: "Lumlyn",
-  description: "Feel calm & confident – science-backed parenting guidance.",
-};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={nunito.variable}>
-      <body className="font-sans antialiased bg-[#ECE9F1] text-[#1F2A37]">
+      {/* forțează alb, indiferent de variabile/tailwind config */}
+      <body className="min-h-dvh bg-white text-[#344054]">
         {children}
       </body>
     </html>

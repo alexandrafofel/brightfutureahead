@@ -1,0 +1,70 @@
+/* ====== HEADER BAR (full width, alb, umbră) ============================ */
+.headerBar {
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.14);
+}
+
+/* Container central: 720px la desktop, altfel 100% - 32px (16px margini) */
+.centerLine {
+  width: min(720px, calc(100% - 32px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Header inner: Back deasupra Titlului, cu gap EXACT 37px */
+.headerInner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 37px; /* distanța Back ↔ Title */
+  padding-top: clamp(24px, 4.2vw, 60px);
+  padding-bottom: 16px;
+}
+
+/* Titlul (Label/Heading 24) */
+.headerTitle {
+  margin: 0;
+  font-family: "Nunito Sans", var(--font-nunito-sans), system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  color: #000;
+  align-self: stretch; /* ca în Figma */
+}
+
+/* ====== CONȚINUT ======================================================= */
+/* Folosim ACEEAȘI coloană centrală de 720px pentru conținut */
+.contentInner {
+  /* aceeași lățime și aliniere ca header-ul */
+  width: min(720px, calc(100% - 32px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Tipografie Label / 16 Regular (#344054) */
+.policyContent {
+  font-family: "Nunito Sans", var(--font-nunito-sans), system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 400;
+  color: var(--Text-Secondary, #344054);
+}
+
+/* ascunde primul h1 din markdown ca să nu dubleze titlul */
+.policyContent h1:first-child {
+  position: absolute !important;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* Spațieri standard în text */
+.policyContent p { margin-bottom: 1.5rem; }
+.policyContent ul, .policyContent ol { margin: 1.5rem 0; padding-left: 2rem; }
+.policyContent li { margin-bottom: 0.5rem; }
+.policyContent a[href^="mailto:"] { text-decoration: underline; color: #0066cc; }
+
+/* țintește direct butonul care are clasa .backWrap */
+.backWrap { transform: translateX(23.5rem); }
+
+
+

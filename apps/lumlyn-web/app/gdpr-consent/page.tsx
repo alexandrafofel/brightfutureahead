@@ -3,7 +3,7 @@ import fs from "fs/promises";
 import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
-import { LogoStackedTwoLayers } from "@/components/ui/Logo/LogoStackedTwoLayers";
+import { LogoStackedTwoLayers } from "@/components/ui/Logo/LogoStack";
 import BackButton from "@/components/ui/BackButton/BackButton";
 
 export const metadata = {

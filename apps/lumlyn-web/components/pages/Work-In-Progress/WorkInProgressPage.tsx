@@ -1,48 +1,60 @@
-// app/work-in-progress/WorkInProgressPage.tsx
-import LogoStackedTwoLayers from "@/components/ui/Logo/LogoStackedTwoLayers";
-import FooterTermsPrivacy from "@/components/ui/FooterTermsPrivacy/FooterTermsPrivacy";
-import styles from "./WorkInProgress.module.css";
-import WorkInProgressImage from "./WorkInProgressImage";
+"use client";
 
+import React from "react";
+import s from "./WorkInProgress.module.css";
+import WorkInProgressImage from "./WorkInProgressImage";
+import Link from "next/link";
 
 export default function WorkInProgressPage() {
   return (
-    <div className={styles.FrameRoot}>
-      <header className={styles.hoverGroup} aria-label="Brand">
-        <WorkInProgressImage/>
-      </header>
-      <div className={styles.AllText}>
-        <div className={styles.BOXintroMessage} role="main" aria-labelledby="wip-title">        
-          <div className={styles.InProgress}>
-            <h2 id="wip-title" className={styles.Heading}>
+    <main className={s.FrameRoot} aria-labelledby="wip-title">
+      {/* Canvas 1440×1024 (responsive scale) */}
+      <div className={s.Canvas}>
+        {/* HEADER – ilustrație */}
+        <header className={s.hoverGroup} aria-hidden="true">
+          <div className={s.BoxWorkInProgressImage}>
+            <WorkInProgressImage />
+          </div>
+        </header>
+
+        {/* MAIN – text frame */}
+        <section className={s.AllText}>
+          {/* Headline, “mai înghesuit” */}
+          <div className={s.HeadingFrame}>
+            <h1 id="wip-title" className={s.Heading}>
               This space is still in progress.
-                <br /><br />
+              <br />
               Soon, it will bring you something warm and useful — designed with
               care, calm, and science.
-            </h2>
+            </h1>
           </div>
-          <section className={styles.FrameDetails}>
-            <p className={styles.Details}>
-              Calm in the making — <strong>quiz, chatbot, and personalised guidance to support your child</strong>, and
-              to help <strong>parents, educators, and therapists</strong> with science and care. We’re also creating{" "}
-              <strong>storybooks for children</strong> — gentle, realistic tales about rare but important moments like
-              adoption or life with a twin.
+
+          {/* Paragraf – “înghesuit” ca în a doua poză */}
+          <div className={s.FrameDetails}>
+            <p className={s.Details}>
+              Calm in the making — <strong>quiz, chatbot, and personalised
+              guidance to support your child</strong>, and to help <strong>parents,
+              educators, and therapists</strong> with science and care. We’re also
+              creating <strong>storybooks for children</strong> — gentle, realistic
+              tales about rare but important moments like adoption or life with a
+              twin. <strong>Coming Oct 31, 2025.</strong>
             </p>
-          </section>
+          </div>
 
-          {/* 5) Frame: Release date (badge unic) */}
-          <section className={styles.BOXcomingSoonDescription} aria-label="Release date">
-            <span className={styles.ReleaseBadge}>
-              Coming <time dateTime="2025-10-31">Oct 31, 2025</time>
-            </span>
-          </section>
-        </div>
+          {/* CTA */}
+          <div className={s.BOXcomingSoonDescription} role="status" aria-live="polite">
+            Coming Oct 31, 2025
+          </div>
+        </section>
+
+        {/* FOOTER */}
+        <footer className={s.FrameFooter}>
+          <span>© 2025 Lumlyn ·&nbsp;</span>
+          <Link href="/terms">Terms & Conditions</Link>
+          <span>&nbsp;·&nbsp;</span>
+          <Link href="/policy">Privacy Policy</Link>
+        </footer>
       </div>
-
-      {/* 6) Frame: Footer */}
-      <footer className={styles.FrameFooter} aria-label="Legal & Policies">
-        <FooterTermsPrivacy />
-      </footer>
-    </div>
+    </main>
   );
 }

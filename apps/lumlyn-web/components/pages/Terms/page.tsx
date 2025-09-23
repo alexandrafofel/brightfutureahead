@@ -1,12 +1,13 @@
-﻿import fs from "node:fs/promises";
+import fs from "node:fs/promises";
 import path from "node:path";
 import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
 import { Nunito_Sans } from "next/font/google";
 import BackButton from "@/components/ui/BackButton/BackButton";
+import "./terms.css";
 
-export const metadata = { title: "Privacy Policy – Lumlyn" };
+export const metadata = { title: "Terms & Conditions – Lumlyn" };
 
 const nunito = Nunito_Sans({
   subsets: ["latin"],
@@ -14,27 +15,27 @@ const nunito = Nunito_Sans({
   display: "swap",
 });
 
-async function loadPrivacyMarkdown() {
+async function loadTermsMarkdown() {
   const full = path.join(
     process.cwd(),
     "content",
     "legal",
-    "privacy-policy-v1.0.md"
+    "terms-and-conditions-v1.0.md"
   );
   return fs.readFile(full, "utf8");
 }
 
 export default async function Page() {
-  const md = await loadPrivacyMarkdown();
+  const md = await loadTermsMarkdown();
   const processed = await remark().use(gfm).use(html).process(md);
   const __html = String(processed);
 
-  // padding orizontal: mic pe mobil, crește pe ecrane mari
+  // padding orizontal responsive (16px pe mobil → 120px pe desktop)
   const padX = "clamp(16px, 5vw, 120px)";
 
   return (
     <main className={nunito.className} style={{ background: "#FFF", minHeight: "100vh" }}>
-      {/* Bandă full-width */}
+      {/* BANDĂ FULL-WIDTH */}
       <header
         style={{
           position: "sticky",
@@ -45,7 +46,7 @@ export default async function Page() {
           boxShadow: "0 1px 2px 0 rgba(0,0,0,0.14)",
         }}
       >
-        {/* Container centrat, max 1440px */}
+        {/* CONTAINER CENTRAT 1440px */}
         <div
           style={{
             maxWidth: "1440px",
@@ -69,15 +70,16 @@ export default async function Page() {
               lineHeight: "32px",
             }}
           >
-            Privacy Policy
+            Terms &amp; Conditions
           </h1>
         </div>
       </header>
 
-      {/* Bandă full-width */}
+      {/* BANDĂ FULL-WIDTH */}
       <section style={{ width: "100%", background: "#FFF" }}>
-        {/* Container centrat, max 1440px */}
+        {/* CONTAINER CENTRAT 1440px */}
         <div
+          className="terms-content"
           style={{
             maxWidth: "1440px",
             margin: "0 auto",

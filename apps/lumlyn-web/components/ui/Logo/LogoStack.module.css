@@ -1,0 +1,90 @@
+/* Containerul controlează scara și raportul; rem/clamp = responsive + accesibil */
+.logoWrap {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  width: clamp(8rem, 15vw, 12rem); 
+  padding: 4rem 0;         
+  left: 40%;
+  top: 20%;
+  /* background-color: black; */
+}
+
+.cloud {
+  position: absolute;                    
+  width: 80%;
+  height: auto;
+  display: block;
+  left: 10%;
+  opacity: 0.3;
+  transition:
+    opacity 50s ease-out,
+    transform 50s ease-out;
+}
+
+.letterssolmon,
+.letterswhite{
+  position:absolute;
+  width: 50%;                       
+  height: auto;
+  display: block;
+  left: 25%;
+  top:46%;   
+}
+
+.logoWrap:hover .cloud {
+  transition: 
+    opacity 1s ease-out,
+    transform 1s ease-out;
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+.letterswhite {
+  position: absolute;
+  width: 50%;
+  height: auto;
+  display: block;
+  left: 24%;
+  top: 48%;
+  transition:
+    opacity 50s ease-out,
+    transform 50s ease-out;
+  opacity: 0;      /* invizibil la început */
+  z-index: 5;
+}
+
+.letterssolmon {
+  position: absolute;
+  width: 50%;
+  height: auto;
+  display: block;
+  left: 24%;
+  top: 48%;
+  opacity: 1;      /* vizibil la început */
+  transition:
+    opacity 50s ease-out,
+    transform 50s ease-out;
+}
+
+/* Hover → fade swap */
+.logoWrap:hover .letterswhite {
+  transition: 
+    opacity 1s ease-out,
+    transform 1s ease-out;
+  opacity: 1;
+  transform: scale(1.5); /* dacă vrei și scalare pe alb */
+}
+
+.logoWrap:hover .letterssolmon {
+  transition: 
+    opacity 1s ease-out,
+    transform 1s ease-out;
+  opacity: 0;
+  transform: scale(1.5); /* doar pe fade-out */
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .cloud, .letters { transition: none !important; }
+}

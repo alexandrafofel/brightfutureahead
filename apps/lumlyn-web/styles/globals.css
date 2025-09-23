@@ -1,23 +1,33 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* (optional) global colors */
+/* ---------- Design tokens & colors (global) ---------- */
 :root {
-  --background: rgba(249, 246, 255, 0.90);
-  --foreground: #171717;
+  /* ALB pur pe tot site-ul */
+  --background: #ffffff;
+  --foreground: #344054;
+
+  --container-max: 1440px;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+
+  --text-body: 16px;
+  --text-body-line: 26px;
+  --text-h1: 24px;
+  --text-h1-line: 32px;
 }
 
+/* nu activăm dark mode; păstrăm aceeași valoare (alb) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: rgba(249, 246, 255, 0.90);
-    --foreground: #ededed;
+    --background: #ffffff;
+    --foreground: #344054;
   }
 }
 
-/* ✅ Set Nunito globally without @apply */
-html {
-  font-family: var(--font-nunito-sans), system-ui, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Asigurăm alb hard și dacă există clase utilitare peste body */
+html, body {
+  background: #ffffff !important;
+  color: var(--foreground);
+  min-height: 100dvh;
 }
