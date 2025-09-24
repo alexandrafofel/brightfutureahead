@@ -4,7 +4,7 @@ import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
 import { Nunito_Sans } from "next/font/google";
-import BackButton from "@/components/ui/BackButton/BackButton";
+import BackButton from "@/components/BackButton/BackButton";
 import "./terms.css";
 
 export const metadata = { title: "Terms & Conditions – Lumlyn" };
@@ -96,3 +96,4 @@ export default async function Page() {
     </main>
   );
 }
+

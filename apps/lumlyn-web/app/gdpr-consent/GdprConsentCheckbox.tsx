@@ -1,8 +1,8 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
-import BackButton from '@/components/ui/BackButton/BackButton';
-import LogoStackedTwoLayers from '@/components/ui/Logo/LogoStack';
+import BackButton from '@/components/BackButton/BackButton';
+import LogoStackedTwoLayers from '@/components/Logo/LogoStack';
 import { TERMS_URL, PRIVACY_URL } from '@/lib/policy';
 
 

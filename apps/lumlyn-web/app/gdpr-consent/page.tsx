@@ -1,16 +1,15 @@
+'use client';
+
 import Link from "next/link";
 import fs from "fs/promises";
 import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
-import { LogoStackedTwoLayers } from "@/components/ui/Logo/LogoStack";
-import BackButton from "@/components/ui/BackButton/BackButton";
-
-export const metadata = {
-  title: "Terms & Conditions • Lumlyn",
-};
+import LogoStack from "@/components/Logo/LogoStack";
+import BackButton from "@/components/BackButton/BackButton";
 
 export default async function TermsPage() {
+  title: "Terms & Conditions • Lumlyn"
   const filePath = path.join(
     process.cwd(),
     "content",
@@ -23,7 +22,7 @@ export default async function TermsPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8">
-      <LogoStackedTwoLayers variant="right" />
+      <LogoStack />
       <Link
          href="/"
         className="mb-6 inline-block text-indigo-600 hover:underline focus:outline-none focus:ring-2 focus:ring-indigo-500"

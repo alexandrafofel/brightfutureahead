@@ -34,12 +34,14 @@
 
 /* ===== HEADER: imagine 459×400, top≈33px ===== */
 .hoverGroup {
+  position: relative;               /* nou: creează context */
   width: calc(var(--s) * 459px);
   height: calc(var(--s) * 400px);
   margin-top: calc(var(--s) * 33px);
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;                 /* nou: taie surplusul de imagine */
 }
 
 .BoxWorkInProgressImage { width: 100%; height: 100%; }

@@ -1,11 +1,11 @@
-﻿import fs from "fs";
+import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
 import { Nunito_Sans } from "next/font/google";
-import BackButton from "@/components/ui/BackButton/BackButton";
+import BackButton from "@/components/BackButton/BackButton";
 import styles from "./policy.module.css";
 
 const nunito = Nunito_Sans({

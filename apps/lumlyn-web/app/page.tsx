@@ -1,11 +1,11 @@
 ﻿'use client';
 
-import WorkInProgressPage  from "../components/pages/Work-In-Progress/WorkInProgressPage";
+import TermsPage  from "./gdpr-consent/page";
 
 export default function Page() {
   return (
     <main className="flex min-h-screen items-center justify-center">
-      <WorkInProgressPage />
+      <TermsPage />
     </main>
   );
 }
