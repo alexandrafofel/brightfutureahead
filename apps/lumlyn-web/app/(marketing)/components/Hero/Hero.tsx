@@ -29,18 +29,18 @@ export default function Hero(): JSX.Element {
         Skip to main content
       </a>
 
-      <header 
+     <header 
         role="banner" 
         className="
-          mx-auto relative
-          xl:absolute xl:left-[68px] xl:top-[42px]
+          relative xl:absolute
           w-full xl:w-[192.188px] xl:h-[247px]
           px-4 py-3 
-          block shrink-0
+          flex justify-center xl:justify-start
+          mx-auto xl:left-[68px] xl:top-[42px]
+          aria-label='Lumlyn home'
         "
-        aria-label="Lumlyn home"
       >   
-        <LogoStack/>
+        <LogoStack />
 
         <nav
           aria-label="Primary"

@@ -16,7 +16,7 @@ const nunito = Nunito_Sans({
 });
 
 export default async function PrivacyOrTermsPage() {
-  const mdFile = "privacy-policy-v1.0.md"; // schimbă la "terms-and-conditions-v1.0.md" pentru Terms
+  const mdFile = "privacy-policy-v1.0.md"; 
   const filePath = path.join(process.cwd(), "content/legal", mdFile);
   const { content } = matter(fs.readFileSync(filePath, "utf8"));
   const contentHtml = (await remark().use(html).use(gfm).process(content)).toString();

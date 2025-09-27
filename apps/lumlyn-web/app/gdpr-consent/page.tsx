@@ -1,11 +1,9 @@
-'use client';
-
 import Link from "next/link";
 import fs from "fs/promises";
 import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
-import LogoStack from "@/components/Logo/LogoStack";
+import { LogoStack } from "@/components/Logo/LogoStack";
 import BackButton from "@/components/BackButton/BackButton";
 
 export default async function TermsPage() {
@@ -14,7 +12,7 @@ export default async function TermsPage() {
     process.cwd(),
     "content",
     "legal",
-    "GDPR-consent-checkbox–v1.0.md"
+    "GDPR-consent-checkbox-v1.0.md"
   );
   const md = await fs.readFile(filePath, "utf8");
   const processed = await remark().use(html).process(md);

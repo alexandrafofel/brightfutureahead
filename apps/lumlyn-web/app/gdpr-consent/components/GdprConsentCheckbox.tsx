@@ -2,7 +2,7 @@
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import BackButton from '@/components/BackButton/BackButton';
-import LogoStackedTwoLayers from '@/components/Logo/LogoStack';
+import {LogoStack} from '@/components/Logo/LogoStack';
 import { TERMS_URL, PRIVACY_URL } from '@/lib/policy';
 
 
@@ -19,7 +19,7 @@ export default function GdprConsentCheckbox() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex items-start gap-3">
-      <LogoStackedTwoLayers/>
+      <LogoStack/>
       <input
         id="gdpr"
         type="checkbox"
