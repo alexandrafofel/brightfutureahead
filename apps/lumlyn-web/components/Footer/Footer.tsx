@@ -9,12 +9,16 @@ function TermsPrivacy(){
         <div className={styles.terms_privacy}>
             <label className={styles.Lumlyn2025}>
             © 2025 Lumlyn ·{" "}
-            <Link href={TERMS_URL} className="underline hover:text-blue-600">
+            <Link href={TERMS_URL} className="underline text-[#4C90E6]">
             Terms & Conditions
             </Link>{" "}
              · {" "}
-            <Link href={PRIVACY_URL} className="underline hover:text-blue-600">
+            <Link href={PRIVACY_URL} className="underline text-[#4C90E6]">
             Privacy Policy
+            </Link>{" "}
+             · {" "}
+            <Link href="/contact" className="underline text-[#4C90E6]">
+            Contact us
             </Link>
       </label>    
         </div>

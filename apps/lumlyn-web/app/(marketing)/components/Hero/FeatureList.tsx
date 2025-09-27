@@ -1,5 +1,5 @@
 // components/FeatureList.tsx
-import { CheckCircle } from "lucide-react";
+import { BulletFavicon } from "./BulletFavicon";
 
 interface FeatureListProps {
   items: string[];
@@ -22,7 +22,7 @@ export function FeatureList({ items, title }: FeatureListProps) {
           role="listitem"
           className="flex items-start gap-2 text-gray-800 leading-relaxed text-center"
         >
-          <CheckCircle className="w-5 h-5 text-blue-600 shrink-0" aria-hidden="true" />
+          <BulletFavicon/>
           <span>{item}</span>
         </li>
       ))}

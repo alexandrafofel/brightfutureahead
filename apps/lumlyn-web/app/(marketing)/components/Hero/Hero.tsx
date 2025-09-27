@@ -29,18 +29,17 @@ export default function Hero(): JSX.Element {
         Skip to main content
       </a>
 
-     <header 
+      <header 
         role="banner" 
         className="
-          relative xl:absolute
-          w-full xl:w-[192.188px] xl:h-[247px]
-          px-4 py-3 
+          w-full px-4 py-3
           flex justify-center xl:justify-start
-          mx-auto xl:left-[68px] xl:top-[42px]
-          aria-label='Lumlyn home'
+          xl:absolute xl:left-[68px] xl:top-[42px]
+          xl:w-[192.188px] xl:h-[247px]
         "
-      >   
-        <LogoStack />
+        aria-label="Lumlyn home"
+      > 
+      <LogoStack/>
 
         <nav
           aria-label="Primary"
@@ -53,19 +52,17 @@ export default function Hero(): JSX.Element {
             variant="secondary"
             className="whitespace-nowrap xl:absolute xl:left-[700px] xl:top-[30px]"
           >
-            <Link href="/about-app" aria-label="Learn about the Lumlyn app">
-              {hero.nav.aboutApp}
+            <Link href="/about-us" aria-label="Learn about the Lumlyn team">
+              {hero.nav.aboutUs}
             </Link>
           </Button>
-
-          {/* Primary */}
           <Button
             asChild
             variant="secondary"
             className="whitespace-nowrap xl:absolute xl:left-[1026px] xl:top-[30px]"
           >
-            <Link href="/about-us" aria-label="Learn about the Lumlyn team">
-              {hero.nav.aboutUs}
+            <Link href="/about-app" aria-label="Learn about the Lumlyn app">
+              {hero.nav.aboutApp}
             </Link>
           </Button>
         </nav>
@@ -163,7 +160,7 @@ export default function Hero(): JSX.Element {
         </motion.section>
       </main>
 
-      <footer role="contentinfo" className="px-4 py-6 flex flex-col">
+      <footer role="contentinfo" className="px-4 py-6 text-center">
         <Footer />
       </footer>
     </div>
