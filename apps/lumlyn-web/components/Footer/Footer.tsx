@@ -18,7 +18,7 @@ function TermsPrivacy(){
             </Link>{" "}
              · {" "}
             <Link href="/contact" className="underline text-[#4C90E6]">
-            Contact us
+            Contact
             </Link>
       </label>    
         </div>

@@ -43,7 +43,7 @@ export default function Hero(): JSX.Element {
 
         <nav
           aria-label="Primary"
-          className="flex items-center gap-2 justify-end xl:flex"  // era xl:hidden
+          className="hidden xl:flex items-center gap-2 justify-end"  // era xl:hidden
         >
 
           {/* Secondary */}
