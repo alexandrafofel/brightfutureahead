@@ -21,7 +21,7 @@ function TermsPrivacy(){
     );
 }
 
-export default function FooterTermsPrivacy() {
+export function Footer(): JSX.Element {
   return (
     <>
       <TermsPrivacy />

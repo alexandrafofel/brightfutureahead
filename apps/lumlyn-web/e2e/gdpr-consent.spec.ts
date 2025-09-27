@@ -1,10 +1,4 @@
-# din apps/lumlyn-web
-npm i -D @playwright/test
-npx playwright install
 
-# creează folderul de teste + fișierul cu 3 teste
-mkdir -p tests
-tee tests/gdpr-consent.spec.ts >/dev/null <<'TS'
 import { test, expect } from '@playwright/test';
 
 // 1) Email validation — mesaj de eroare pentru format invalid
@@ -54,10 +48,8 @@ test('checkbox text links open in new tab with safe rel', async ({ page, context
   const pagesAfter = context.pages().length;
   expect(pagesAfter).toBeGreaterThan(pagesBefore);
 });
-TS
 
-# config Playwright minimal (dacă nu-l ai deja)
-tee playwright.config.ts >/dev/null <<'TS'
+
 import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
@@ -70,7 +62,3 @@ export default defineConfig({
     timeout: 60_000,
   },
 });
-TS
-
-# rulează testele
-npx playwright test

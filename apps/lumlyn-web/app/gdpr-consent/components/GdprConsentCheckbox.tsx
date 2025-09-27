@@ -19,7 +19,7 @@ export default function GdprConsentCheckbox() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex items-start gap-3">
-      <LogoStackedTwoLayers variant="center" />
+      <LogoStackedTwoLayers/>
       <input
         id="gdpr"
         type="checkbox"

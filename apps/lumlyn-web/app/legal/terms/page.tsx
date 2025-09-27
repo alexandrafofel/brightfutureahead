@@ -5,7 +5,7 @@ import html from "remark-html";
 import gfm from "remark-gfm";
 import { Nunito_Sans } from "next/font/google";
 import BackButton from "@/components/BackButton/BackButton";
-import "./terms.css";
+import styles from "./terms.module.css";  
 
 export const metadata = { title: "Terms & Conditions – Lumlyn" };
 

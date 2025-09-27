@@ -8,8 +8,8 @@ export const POLICY_EFFECTIVE =
   process.env.NEXT_PUBLIC_POLICY_EFFECTIVE || "2025-10-31";
 
 // URL-uri oficiale (rămân fixe)
-export const TERMS_URL = "/terms";
-export const PRIVACY_URL = "/privacy-policy";
+export const TERMS_URL = "/legal/terms";
+export const PRIVACY_URL = "/legal/privacy-policy";
 
 // Structură de documente legale (extensibilă)
 export const legalDocs = {

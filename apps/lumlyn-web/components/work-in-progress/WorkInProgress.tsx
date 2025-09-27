@@ -2,10 +2,10 @@
 
 import React from "react";
 import s from "./WorkInProgress.module.css";
-import WorkInProgressImage from "./WorkInProgressImage";
+import {WorkInProgressImage} from "./WorkInProgressImage";
 import Link from "next/link";
 
-export default function WorkInProgressPage() {
+export function WorkInProgressPage() {
   return (
     <main className={s.FrameRoot} aria-labelledby="wip-title">
       {/* Canvas 1440×1024 (responsive scale) */}

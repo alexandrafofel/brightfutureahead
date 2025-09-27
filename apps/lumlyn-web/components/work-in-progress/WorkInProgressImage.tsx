@@ -1,8 +1,8 @@
 import Image from "next/image";
 import styles from "./WorkInProgressImage.module.css";
-import LogoStack from "@/components/Logo/LogoStack";
+import {LogoStack} from "@/components/Logo/LogoStack";
 
-export default function WorkInProgressImage() {
+export function WorkInProgressImage() {
   return (
     <section className={styles.WorkImage}>
       <div className={styles.Stage}>
