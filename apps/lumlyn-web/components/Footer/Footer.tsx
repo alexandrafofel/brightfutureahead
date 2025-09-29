@@ -1,5 +1,5 @@
 "use client";
-import { TERMS_URL, PRIVACY_URL } from "@/lib/policy";
+import { TERMS_URL, PRIVACY_URL, CONTACT_URL } from "@/lib/policy";
 import Link from "next/link";
 import styles from "./FooterTermsPrivacy.module.css";
 
@@ -17,7 +17,7 @@ function TermsPrivacy(){
             Privacy Policy
             </Link>{" "}
              · {" "}
-            <Link href="/contact" className="underline text-[#4C90E6]">
+            <Link href={CONTACT_URL} className="underline text-[#4C90E6]">
             Contact
             </Link>
       </label>    

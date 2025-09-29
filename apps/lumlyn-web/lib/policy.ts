@@ -10,6 +10,7 @@ export const POLICY_EFFECTIVE =
 // URL-uri oficiale (rămân fixe)
 export const TERMS_URL = "/legal/terms";
 export const PRIVACY_URL = "/legal/privacy-policy";
+export const CONTACT_URL = "/contact";
 
 // Structură de documente legale (extensibilă)
 export const legalDocs = {
@@ -25,6 +26,10 @@ export const legalDocs = {
     effective: POLICY_EFFECTIVE,
     version: POLICY_VERSION,
   },
+  contact: {
+    title: "Contact us",
+    url: CONTACT_URL,
+  }
 } as const;
 
 // Funcție helper care poate întoarce placeholder de WIP

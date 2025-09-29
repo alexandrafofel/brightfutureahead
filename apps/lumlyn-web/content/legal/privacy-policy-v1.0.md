@@ -1,6 +1,8 @@
-﻿Version: v1.0 – Effective date: October 31, 2025
-
-## 1. Who collects your data
+﻿<version>
+*Version: v1.0 – Effective date: October 31, 2025*
+<version/>
+<br>
+## 1. Who collects your data 
 The Lumlyn app is operated by **Lumlyn OÜ**, a company registered in Estonia, with its registered office at [full address].
 Data protection contact: privacy@lumlyn.com
 
@@ -64,5 +66,6 @@ The new version will be displayed with a **policy_version number** (e.g., v1.9
 ## 10. Supervisory authorities
 **EU/EEA:** you have the right to contact the **Data Protection Inspectorate (AKI), Estonia** – www.aki.ee or the authority in your country of residence.
 **UK:** you have the right to contact the **Information Commissioner’s Office (ICO)**, [www.ico.org.uk](https://www.ico.org.uk).
+<br>
 
-This Privacy Policy is Version v1.0, effective as of October 31, 2025.
+*This Privacy Policy is Version v1.0, effective as of October 31, 2025.*

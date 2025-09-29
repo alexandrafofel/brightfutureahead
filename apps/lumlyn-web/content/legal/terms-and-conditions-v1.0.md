@@ -1,11 +1,12 @@
 
 Version: v1.0 – Effective date: October 31, 2025
 
-## 1. Who we are
+
+## 1. Who we are 
 Lumlyn is an app operated by **Lumlyn OÜ**, a company registered in Estonia, with its registered office at [full address].
 For inquiries, contact us at [contact@lumlyn.com](mailto:contact@lumlyn.com).
 
-## 2. Who can use the app
+## 2. Who can use the app 
 The app is intended for adults: parents, guardians, educators, and therapists caring for children aged **0–6 years**.
 You must be at least **18 years old** to create an account.
 In the **EU/EEA**, parental consent is required for children under 16 (or the lower age set by your national law).
@@ -51,4 +52,5 @@ Disputes will be resolved in the courts of Estonia, except where mandatory consu
 We may update these Terms from time to time.
 The new version will be published in the app and will include a **version number** (e.g., v1.2).
 
-These Terms & Conditions are Version v1.0, effective as of October 31, 2025.
+
+*These Terms & Conditions are Version v1.0, effective as of October 31, 2025.*

@@ -1,7 +1,7 @@
-'use client';'use client';
+'use client';
 
-import React, { CSSProperties } from 'react';
-import { motion, scale } from "framer-motion";
+import React from 'react';
+import { motion } from "framer-motion";
 import {Logo} from "./LogoImages";
 
 export function LogoStack(): JSX.Element {
