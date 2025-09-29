@@ -1,4 +1,4 @@
-"use client"
+
 import Link from "next/link";
 import fs from "fs/promises";
 import path from "path";
