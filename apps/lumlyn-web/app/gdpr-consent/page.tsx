@@ -1,10 +1,11 @@
+"use client"
 import Link from "next/link";
 import fs from "fs/promises";
 import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
 import { LogoStack } from "@/components/Logo/LogoStack";
-import BackButton from "@/components/BackButton/BackButton";
+import { Button } from "@/components/Button/button";
 
 export default async function TermsPage() {
   title: "Terms & Conditions • Lumlyn"
@@ -30,7 +31,7 @@ export default async function TermsPage() {
         className="prose prose-neutral max-w-none"
         dangerouslySetInnerHTML={{ __html: contentHtml }}
       />
-      <BackButton />
+      <Button />
     </main>
   );
 }

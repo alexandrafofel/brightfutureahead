@@ -1,99 +1,81 @@
-import fs from "node:fs/promises";
-import path from "node:path";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
 import gfm from "remark-gfm";
-import { Nunito_Sans } from "next/font/google";
-import BackButton from "@/components/BackButton/BackButton";
-import styles from "./terms.module.css";  
+import { Button } from "@/components/Button/button";
 
-export const metadata = { title: "Terms & Conditions – Lumlyn" };
-
-const nunito = Nunito_Sans({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-  display: "swap",
-});
-
-async function loadTermsMarkdown() {
-  const full = path.join(
-    process.cwd(),
-    "content",
-    "legal",
-    "terms-and-conditions-v1.0.md"
-  );
-  return fs.readFile(full, "utf8");
-}
-
-export default async function Page() {
-  const md = await loadTermsMarkdown();
-  const processed = await remark().use(gfm).use(html).process(md);
-  const __html = String(processed);
-
-  // padding orizontal responsive (16px pe mobil → 120px pe desktop)
-  const padX = "clamp(16px, 5vw, 120px)";
+export default async function PrivacyOrTermsPage() {
+  const mdFile = "terms-and-conditions-v1.0.md"; 
+  const filePath = path.join(process.cwd(), "content/legal", mdFile);
+  const { content } = matter(fs.readFileSync(filePath, "utf8"));
+  const contentHtml = (await remark().use(html).use(gfm).process(content)).toString();
+  const headerTitle = mdFile.startsWith("terms") ? "Terms & Conditions" : "Privacy Policy";
 
   return (
-    <main className={nunito.className} style={{ background: "#FFF", minHeight: "100vh" }}>
-      {/* BANDĂ FULL-WIDTH */}
-      <header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          width: "100%",
-          background: "#FFF",
-          boxShadow: "0 1px 2px 0 rgba(0,0,0,0.14)",
-        }}
+    <div>
+      <header className="
+        xl:relative
+        flex
+        xl:fixed z-50
+        w-[1440px]
+        h-[185px]
+        bg-white
+        shadow-[0_1px_2px_rgba(0,0,0,0.14)]
+        xl:pt-[60px] pr-[856px] pb-[16px] pl-[10px]
+        flex-col
+        justify-end
+        items-start
+        gap-[37px]
+        "
       >
-        {/* CONTAINER CENTRAT 1440px */}
-        <div
-          style={{
-            maxWidth: "1440px",
-            margin: "0 auto",
-            padding: `60px ${padX} 16px ${padX}`,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "flex-start",
-            gap: "37px",
-            color: "#1E293B",
-          }}
+        <Button 
+          variant="back" 
+          className="
+            whitespace-nowrap 
+            xl:absolute 
+            xl:left-[360px] 
+            bottom-[85px]
+            "
+        />
+           
+        <h1 
+          className="
+            xl:absolute
+            text-[24px]
+            text-[#000]
+            xl:left-[360px]
+            bottom-[16px]
+            font-semibold
+            leading-[32px]
+            "
         >
-          <BackButton ariaLabel="Back" />
-          <h1
-            style={{
-              margin: 0,
-              color: "#1E293B",
-              fontFamily: '"Nunito Sans", sans-serif',
-              fontSize: "24px",
-              fontWeight: 700,
-              lineHeight: "32px",
-            }}
-          >
             Terms &amp; Conditions
           </h1>
-        </div>
       </header>
+      <main
+        className="
+            absolute top-[185px]
+            self-stretch
+            text-[#344054]
+            text-[16px] leading-[26px]
+            font-normal not-italic
+            flex
+            w-[740px]
+            px-[10px] pt-[10px] pb-[24px]
 
-      {/* BANDĂ FULL-WIDTH */}
-      <section style={{ width: "100%", background: "#FFF" }}>
-        {/* CONTAINER CENTRAT 1440px */}
-        <div
-          className="terms-content"
-          style={{
-            maxWidth: "1440px",
-            margin: "0 auto",
-            padding: `24px ${padX} 80px ${padX}`,
-            color: "#344054",
-            fontFamily: '"Nunito Sans", sans-serif',
-            fontSize: "16px",
-            fontWeight: 400,
-            lineHeight: "26px",
-          }}
-          dangerouslySetInnerHTML={{ __html }}
+            flex-col
+            justify-center
+            items-center
+
+            gap-[10px]
+            left-[360px]
+            ">
+        <article
+          dangerouslySetInnerHTML={{ __html: contentHtml }}
         />
-      </section>
-    </main>
+      </main>
+    </div>
   );
 }
-

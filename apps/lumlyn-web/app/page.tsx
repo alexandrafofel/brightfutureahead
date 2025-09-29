@@ -11,12 +11,11 @@ export default function Page() {
 }
 
 
-// import {Logo} from "../components/Logo/LogoImages";
-// import { use } from "react";
+// import {Button} from "../components/Button/button";
 // export default function Page(){
 //   return (
 //     <main>
-//       {Logo.cloud}
+//       <Button variant="back"/>
 //     </main>
 //   )
 // }
