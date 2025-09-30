@@ -17,35 +17,38 @@ export default function AboutUs(): JSX.Element{
     >
       <header 
         className="
-          grid grid-cols-2 items-center
+          grid grid-cols-[1fr_auto_1fr] items-center h-16 px-4
+          mb-[100px]
           "
         >
-        <div 
-          className="
-            justify-self-center 
-            "
-          >
-    
-          <div 
-            className="
-            col-start-2 justify-self-center 
-            "
-          >
-            <Logo />
-          </div>
-
-          <div className="justify-self-center">
-            <Button
+          <Button
               variant="back"
               className="
+              absolute
+              top-[31px] 
+              right-[31px]   /* default = mobile */
+              lg:left-[31px] /* pe XL mutăm pe stânga */
+              lg:right-auto
+              justify-self-end lg:justify-self-start lg:col-start-1
               shrink-0 
               focus-visible:ring-2 
               focus-visible:ring-slate-400"
             >
               <span className="sr-only">Back</span>
             </Button>
+    
+          <div 
+            className="
+            col-start-2 justify-self-center 
+            block
+            "
+          >
+            <Logo />
           </div>
-        </div>
+
+         
+            
+        
       </header>
     
       <main 
@@ -118,6 +121,7 @@ export default function AboutUs(): JSX.Element{
             aria-label="mission"
             className="
               xl:mb-20
+              mb-20
               flex 
               w-[318px] h-[110px]
               xl:w-[705px] xl:h-[105px]
@@ -138,6 +142,7 @@ export default function AboutUs(): JSX.Element{
 
         <footer className="
           text-center
+          
           "
         >
           <Footer/>
