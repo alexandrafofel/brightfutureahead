@@ -5,7 +5,7 @@
 
 :root {
   /* ALB pur pe tot site-ul */
-  --background: #ffffff;
+  --background: rgba(249, 246, 255, 0.90);
   --foreground: #344054;
 
   --container-max: 1440px;
@@ -24,14 +24,14 @@
 /* nu activăm dark mode; păstrăm aceeași valoare (alb) */
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ffffff;
+    --background:  rgba(249, 246, 255, 0.90);
     --foreground: #344054;
   }
 }
 
 /* 🔹 Setări globale */
 html, body {
-  background: #ffffff !important;
+  background:  rgba(249, 246, 255, 0.90);
   color: var(--foreground);
   min-height: 100dvh;
 }

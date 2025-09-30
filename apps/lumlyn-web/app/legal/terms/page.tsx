@@ -1,6 +1,6 @@
 // "Terms & Conditions"
 
- import fs from "fs";
+import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
@@ -8,7 +8,7 @@ import html from "remark-html";
 import gfm from "remark-gfm";
 import { LegalHeader } from "@/app/legal/LegalHeader";
 
-export default async function PrivacyOrTermsPage() {
+export async function PrivacyOrTermsPage() {
   const mdFile = "terms-and-conditions-v1.0.md"; // sau "terms-*.md"
   const filePath = path.join(process.cwd(), "content/legal", mdFile);
   const { content } = matter(fs.readFileSync(filePath, "utf8"));
