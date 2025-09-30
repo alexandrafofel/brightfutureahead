@@ -6,7 +6,7 @@ import html from "remark-html";
 import gfm from "remark-gfm";
 import { LegalHeader } from "@/app/legal/LegalHeader";
 
-export async function PrivacyOrTermsPage() {
+export default async function PrivacyOrTermsPage() {
   const mdFile = "privacy-policy-v1.0.md"; // sau "terms-*.md"
   const filePath = path.join(process.cwd(), "content/legal", mdFile);
   const { content } = matter(fs.readFileSync(filePath, "utf8"));

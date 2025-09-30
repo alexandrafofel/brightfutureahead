@@ -2,7 +2,6 @@
 "use client"
 
 import {Logo} from "@/components/Logo/Logo";
-import { motion } from "framer-motion";
 import { about } from "../about-us/messages/en";
 import { Footer } from "@/components/Footer/Footer";
 import { AboutUsImage } from "./AboutUsImage";
