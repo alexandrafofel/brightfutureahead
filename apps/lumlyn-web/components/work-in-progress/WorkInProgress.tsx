@@ -4,6 +4,7 @@ import React from "react";
 import { Footer } from "@/components/Footer/Footer";
 import { Logo } from "@/components/Logo/Logo";
 import { inProgress } from "../work-in-progress/messeges/en"
+import { Button } from "../Button/button";
 
 export function WorkInProgressPage() {
   return (
@@ -30,6 +31,7 @@ export function WorkInProgressPage() {
         className="
             text-center font-[#333]  
             flex flex-col 
+            items-center
             gap-8     
           "
         >
@@ -59,17 +61,20 @@ export function WorkInProgressPage() {
           </div>
           <p 
             className="
-              xl:text-lg
-                              xl:w-[680px]
-                mx-auto
-            "
-          >
+              xl:text-lg xl:w-[680px]
+              mx-auto
+              "
+            >
             {inProgress.description}
           </p>
-          <p 
+          <p
             className="
-              xl:text-xs
-            "
+              gap-3
+              xl:w-[200px] xl:h-[64px] rounded-full
+              border-[#6C63FF] bg-gradient-to-b from-[#A8EDE1] to-[#52D6C5] 
+              text-base text-black text-center
+              justify-center items-center py-5 px-3
+              "
           >
             {inProgress.release}
           </p>
@@ -80,6 +85,7 @@ export function WorkInProgressPage() {
       role="contentinfo" 
       className="
         text-center
+        mt-40
         "
       >
         <Footer />

@@ -5,7 +5,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { ButtonLoader } from "./button-loader";
 import { useRouter } from "next/navigation";
 
-type Variant = "primary" | "secondary" | "deactivated" | "loading" | "back" | "contact";
+type Variant = "primary" | "secondary" | "deactivated" | "loading" | "back" | "contact" ;
 
 type ButtonProps = {
   asChild?: boolean;
@@ -63,7 +63,7 @@ export function Button({
     contact:
       "border-2 border-[#6C63FF] bg-[#7C73FF] text-[16px] text-white not-italic font-bold leading-normal " +
       "hover:bg-[#E1DEFF] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:text-[#6C63FF] " +
-      "active:bg-[#6C63FF] active:text-white active:shadow-[0_2px_4px_rgba(0,0,0,0.05)]",
+      "active:bg-[#6C63FF] active:text-white active:shadow-[0_2px_4px_rgba(0,0,0,0.05)]"
   };
 
   const classes = clsx(
