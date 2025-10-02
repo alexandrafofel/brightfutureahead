@@ -5,17 +5,17 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/Button/button";
 import { LogoStack } from "@/components/Logo/LogoStack";
+import { Logo } from "@/components/Logo/Logo";
 import { Footer } from "@/components/Footer/Footer";
 import { FeatureList } from "./FeatureList";
 import { hero } from "./messages/en";
 
 export default function Hero(): JSX.Element {
   return (
+    
     <div
-      style={{ 
-        background: "var(--Background-lavanda, rgba(249, 246, 255, 0.90))" 
-      }}
       className="
+        min-h-screen bg-[var(--Background-lavanda,_rgba(249,246,255,0.90))] text-[#344054]
         relative mx-auto w-full
         flex flex-col
         xl:max-w-[1440px] xl:min-h-[1024px]
@@ -39,11 +39,22 @@ export default function Hero(): JSX.Element {
         "
         aria-label="Lumlyn home"
       > 
-      <LogoStack/>
+        <p
+          className="hidden xl:block"
+        >
+          <LogoStack/>
+        </p>
+        
+        <p 
+        className="xl:hidden"
+        >
+          <Logo/>
+        </p>
+      
 
         <nav
           aria-label="Primary"
-          className="hidden xl:flex items-center justify-end" 
+          className="hidden xl:flex xl:items-center xl:justify-end" 
         >
 
           {/* Secondary */}
@@ -82,14 +93,15 @@ export default function Hero(): JSX.Element {
         <motion.section
           aria-labelledby="hero-title"
           aria-describedby="hero-reassurance"
-          className="w-full xl:w-[720px] xl:h-[531px] max-w-3xl text-center space-y-6 p-8 flex flex-col items-center"
-          // Card-ul principal (gradient + border + shadow)
-          style={{
-            borderRadius: "12px",
-            border: "3px solid rgba(151, 71, 255, 0.40)",
-            background: "linear-gradient(180deg, #FFF9F5 0%, #ECFDF5 100%)",
-            boxShadow: "0 4px 16px 0 rgba(0, 0, 0, 0.15)",
-          }}
+          className="
+          hidden
+          xl:w-full 
+          xl:w-[720px] xl:h-[531px] xl:max-w-3xl xl:text-center xl:space-y-6 xl:p-8 xl:flex xl:flex-col xl:items-center
+          xl:rounded-[12px] xl:border-[3px] xl:border-[rgba(151,71,255,0.40)]
+          xl:bg-gradient-to-b xl:from-[#FFF9F5] xl:to-[#ECFDF5]
+          xl:shadow-[0_4px_16px_0_rgba(0,0,0,0.15)]
+          "
+         
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -158,9 +170,112 @@ export default function Hero(): JSX.Element {
             </Button>
           </motion.div>
         </motion.section>
+        <motion.section
+          className="
+          xl:hidden
+          flex flex-col items-center justify-center gap-3
+          text-[#111]
+          "
+        >
+          <motion.h1
+            className="
+            w-[280px]
+            font-bold text-lg leading-[34px]
+            "
+          >
+            {hero.headlineMob}
+          </motion.h1>
+
+          <motion.p
+            className="
+              w-[334px] h-[55px] shrink-o
+              text-center text-base leading-[28px]
+            "
+          >
+              {hero.subheadlineMob}
+          </motion.p>
+
+          <motion.button>
+            <Button 
+              asChild variant="primary"
+              className="
+                !text-[xl] !font-semibold !leading-[24px]
+                mt-5 gap-[10px]
+              "
+            >
+              <Link href="/quiz">{hero.ctaMob}</Link>
+            </Button>
+          </motion.button>
+
+          <motion.article
+            className="
+              flex flex-col items-center
+            "
+          >
+            <p
+              className="
+                w-[320px] h-[34px] mb-[10px] mt-[10px]
+                text-center text-[#9747FF] text-lg font-bold leading-[34px]              
+              "
+            >
+                {hero.benefitsTitleMob}
+            </p>
+            <div 
+            className="
+              flex flex-col items-center justify-center mb-[15px]
+              leading-[28px] text-base font-normal text-center
+              ">
+              {hero.benefitsMob.map((benefit, index) => (
+                <p key={index} className="text-center">
+                  {benefit}
+                </p>
+              ))}
+            </div>
+
+            <p
+              className="
+                w-[277px] h[55px] mb-[15px] shrink-0
+                text-[#6CA9F6] text-center text-base font-semibold leading-[28px]
+              "
+            >
+              {hero.reassuranceMob}
+            </p>
+          </motion.article>
+          <motion.button>
+            <div
+              className="
+                w-[300px] h-[56px] shrink-0 justify-center items-center flex flex-col mb-3
+                rounded-[12px] bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9] shadow-[0_2px_4px_0_rgba(0,0,0,0.05)]
+              ">
+              <h2
+                className="
+                  text-[#111] text-sm font-bold leading-[14px]
+                "
+              >{hero.comingMob[0].tantrumsTitle}</h2>
+              <p
+                className="
+                  text-[#111] text-sm font-normal leading-[14px]
+                "
+              >{hero.comingMob[0].tantrumsDescr}</p>
+            </div>
+            <div
+              className="
+                w-[300px] h-[56px] shrink-0 justify-center items-center flex flex-col mb-5
+                rounded-[12px] bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9] shadow-[0_2px_4px_0_rgba(0,0,0,0.05)]
+              ">
+              <h2>{hero.comingMob[1].sleepTitle}</h2>
+              <p
+                className="
+                  text-[#111] text-sm font-normal leading-[14px]
+                "
+                >
+                  {hero.comingMob[1].sleepDescr}</p>
+            </div>
+          </motion.button>
+        </motion.section>
       </main>
 
-      <footer role="contentinfo" className="px-4 text-center">
+      <footer role="contentinfo" className="px-4 text-center mb-5">
         <Footer />
       </footer>
     </div>
