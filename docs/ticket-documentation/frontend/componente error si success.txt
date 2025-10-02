@@ -1,0 +1,53 @@
+
+Mobile si Desktop:
+
+Toast/ErrorSendEmail:
+display: flex;
+width: 260px;
+height: 123px;
+padding: 12px;
+align-items: flex-start;
+gap: 8px;
+border-radius: 12px;
+background: #F6A6A6;
+Action: After delay
+Delay: 1600ms
+Action: Close overlay
+text: "Oops – something went wrong." si dedesubt "Please try again."
+width: 260px;
+height: 48px;
+position: absolute;
+bottom: 37px;
+color: #FFF;
+text-align: center;
+font-family: "Nunito Sans";
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 150% */
+
+Toast/SuccesSendEmail:
+display: flex;
+width: 260px;
+height: 123px;
+padding: 12px;
+align-items: flex-start;
+gap: 8px;
+border-radius: 12px;
+background: rgba(168, 230, 207, 0.90);
+Action: After delay
+Delay: 1600ms
+Action: Close overlay
+text: Thank you! We’ve received your message and will reply with care within 48 hours."
+width: 260px;
+height: 72px;
+position: absolute;
+bottom: 25px;
+color: #111;
+text-align: center;
+font-family: "Nunito Sans";
+font-size: 16px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px; /* 150% */
+

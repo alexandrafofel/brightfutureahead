@@ -5,7 +5,7 @@ import { Slot } from "@radix-ui/react-slot";
 import { ButtonLoader } from "./button-loader";
 import { useRouter } from "next/navigation";
 
-type Variant = "primary" | "secondary" | "deactivated" | "loading" | "back";
+type Variant = "primary" | "secondary" | "deactivated" | "loading" | "back" | "contact";
 
 type ButtonProps = {
   asChild?: boolean;
@@ -60,6 +60,10 @@ export function Button({
       "active:border-2 active:border-[#574FE3] active:bg-white active:text-[#574FE3] active:p-[10px] active:translate-y-[0.5px] active:shadow-none " +
       "focus-visible:border-2 focus-visible:border-[#4ED2E0] focus-visible:bg-white focus-visible:text-[#6C63FF] focus-visible:p-[10px] focus-visible:shadow-none " +
       "md:w-[48px] md:h-[48px] md:p-[12px] max-md:w-[44px] max-md:h-[44px] max-md:p-[10px]",
+    contact:
+      "border-2 border-[#6C63FF] bg-[#7C73FF] text-[16px] text-white not-italic font-bold leading-normal " +
+      "hover:bg-[#E1DEFF] hover:shadow-[0_2px_4px_rgba(0,0,0,0.05)] hover:text-[#6C63FF] " +
+      "active:bg-[#6C63FF] active:text-white active:shadow-[0_2px_4px_rgba(0,0,0,0.05)]",
   };
 
   const classes = clsx(

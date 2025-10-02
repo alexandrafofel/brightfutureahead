@@ -2,76 +2,89 @@
 
 import React from "react";
 import { Footer } from "@/components/Footer/Footer";
-import { LegalHeader } from "@/app/legal/LegalHeader";
+import { Logo } from "@/components/Logo/Logo";
+import { inProgress } from "../work-in-progress/messeges/en"
 
 export function WorkInProgressPage() {
   return (
-    <div className="
-    min-h-dvh bg-white  
-    ">    
-      <LegalHeader 
-        title="Working on it..." 
-      />
-      
-    <main aria-labelledby="wip-title">
-        
-      <div>
-        <section>
-          <div
-            className="
-            text-center
-            mt-[10%]
-            xl:mt-[3%]
-            "  
-          >
-            <h1 id="wip-title">
-              This space is still in progress.
-              <br />
-              Soon, it will bring you something warm and useful — designed with
-              care, calm, and science.
-            </h1>
-          </div>
-          <div
-            className="
-            text-center
-            mt-[5%]
-            mr-[5%]
-            ml-[5%]
-            xl:mt-[3%]
-            "  
-          >
-            <p>
-              Calm in the making — <strong>quiz, chatbot, and personalised
-              guidance to support your child</strong>, and to help <strong>parents,
-              educators, and therapists</strong> with science and care. We’re also
-              creating <strong>storybooks for children</strong> — gentle, realistic
-              tales about rare but important moments like adoption or life with a
-              twin. <strong>Coming Oct 31, 2025.</strong>
-            </p>
-          </div>
-          <div 
-          role="status" 
-          aria-live="polite"
-          className="
-            text-center
-            mt-[35%]
-            xl:mt-[20%]
-            " 
-          >
-            Coming Oct 31, 2025
-          </div>
-        </section>
-        <footer 
-        role="contentinfo" 
+    <div
+      className="
+        relative
+        flex flex-col  
+        items-center
+        xl:w-[1440px] xl:h-[1024px]
+        gap-1
+      "
+    >   
+      <header  
+        aria-labelledby="Lumlyn Logo"
         className="
-          px-4 py-6 
-          text-center
+          
           "
         >
-          <Footer />
-        </footer>
-      </div>
-    </main>
-    </div>
+        <Logo/>
+      </header> 
+       
+      <main 
+        aria-labelledby="wip-details"
+        className="
+            text-center font-[#333]  
+            flex flex-col 
+            gap-8     
+          "
+        >
+          <div 
+              className="   
+                font-bold xl:text-2xl
+                flex flex-col 
+                items-center
+                gap-5 
+                xl:w-[720px]
+                mx-auto
+              ">
+            <p 
+              className="   
+                
+              "
+            >
+              {inProgress.status}
+            </p>  
+            <p 
+              className="
+
+              "
+            >
+              {inProgress.promise}
+            </p>
+          </div>
+          <p 
+            className="
+              xl:text-lg
+                              xl:w-[680px]
+                mx-auto
+            "
+          >
+            {inProgress.description}
+          </p>
+          <p 
+            className="
+              xl:text-xs
+            "
+          >
+            {inProgress.release}
+          </p>
+
+      </main>
+
+    <footer 
+      role="contentinfo" 
+      className="
+        text-center
+        "
+      >
+        <Footer />
+    </footer>
+
+  </div>
   );
 }

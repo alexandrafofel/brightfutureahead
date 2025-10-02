@@ -1,7 +1,7 @@
 
 "use client"
 
-import {Logo} from "@/components/Logo/Logo";
+import { Logo } from "@/components/Logo/Logo";
 import { about } from "../about-us/messages/en";
 import { Footer } from "@/components/Footer/Footer";
 import { AboutUsImage } from "./AboutUsImage";
@@ -45,9 +45,6 @@ export default function AboutUs(): JSX.Element{
             <Logo />
           </div>
 
-         
-            
-        
       </header>
     
       <main 
@@ -74,7 +71,7 @@ export default function AboutUs(): JSX.Element{
           className="
             mx-auto self-center               /* centrează secțiunea în părinte */
             w-full max-w-[390px] xl:max-w-[605px]
-            min-h-[220px] xl:min-h-[400px]    /* dă înălțime ca să meargă centrara pe verticală */
+            min-h-[200px] xl:min-h-[400px]    /* dă înălțime ca să meargă centrara pe verticală */
             flex flex-col justify-center items-center
             text-sm p-2.5 gap-2.5 leading-[20px] text-center
           "
@@ -120,7 +117,7 @@ export default function AboutUs(): JSX.Element{
             aria-label="mission"
             className="
               xl:mb-20
-              mb-20
+              mb-10
               flex 
               w-[318px] h-[110px]
               xl:w-[705px] xl:h-[105px]
@@ -141,7 +138,6 @@ export default function AboutUs(): JSX.Element{
 
         <footer className="
           text-center
-          
           "
         >
           <Footer/>

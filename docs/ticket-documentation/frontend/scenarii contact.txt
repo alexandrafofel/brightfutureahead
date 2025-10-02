@@ -1,0 +1,4 @@
+scenarii:
+nume completatat + adresa de email scrisa corect + mesaj in textBox3 + checked button -> Toast/SuccesSendEmail
+nume necompletat + adresa de email scrisa corect + mesaj in textBox3 + checked button -> Toast/SuccesSendEmail
+restul scenariilor -> Toast/ErrorSendEmail

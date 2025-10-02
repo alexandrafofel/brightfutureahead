@@ -32,9 +32,9 @@ export default function Hero(): JSX.Element {
       <header 
         role="banner" 
         className="
-          w-full px-4 py-3
+          w-full px-4
           flex justify-center xl:justify-start
-          xl:absolute xl:left-[68px] xl:top-[42px]
+          xl:absolute xl:left-[68px] xl:top-[25px]
           xl:w-[192.188px] xl:h-[247px]
         "
         aria-label="Lumlyn home"
@@ -43,7 +43,7 @@ export default function Hero(): JSX.Element {
 
         <nav
           aria-label="Primary"
-          className="hidden xl:flex items-center gap-2 justify-end"  // era xl:hidden
+          className="hidden xl:flex items-center justify-end" 
         >
 
           {/* Secondary */}
@@ -75,7 +75,7 @@ export default function Hero(): JSX.Element {
           flex
           items-center 
           justify-center 
-          px-4 py-8
+          px-4
           text-center 
         "
         >
@@ -160,7 +160,7 @@ export default function Hero(): JSX.Element {
         </motion.section>
       </main>
 
-      <footer role="contentinfo" className="px-4 py-6 text-center">
+      <footer role="contentinfo" className="px-4 text-center">
         <Footer />
       </footer>
     </div>
