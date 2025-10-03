@@ -21,8 +21,6 @@ export default function AboutUs(): JSX.Element{
           mb-[100px]
           "
         >
-        
-    
           <div 
             className="
             col-start-2 justify-self-center 
@@ -31,33 +29,34 @@ export default function AboutUs(): JSX.Element{
           >
             <Logo />
           </div>
-
       </header>
-    <nav
-      className="hidden xl:block"
-    >
-    <Button
-                  variant="back"
-                  className="
-                  absolute
-                  top-[31px] 
-                  right-[31px]   /* default = mobile */
-                  lg:left-[31px] /* pe XL mutăm pe stânga */
-                  lg:right-auto
-                  justify-self-end lg:justify-self-start lg:col-start-1
-                  shrink-0 
-                  focus-visible:ring-2 
-                  focus-visible:ring-slate-400"
-                >
-                  <span className="sr-only">Back</span>
-                </Button>
-    </nav>
-        <nav 
-          aria-label="Primary nav mobile"
-          className="xl:hidden absolute top-[15px] right-[30px]"
-        >
-          <MobileMenu />
-        </nav> 
+    
+      <nav
+        className="hidden xl:block"
+      >
+      <Button
+                    variant="back"
+                    className="
+                    absolute
+                    top-[31px] 
+                    right-[31px]   /* default = mobile */
+                    lg:left-[31px] /* pe XL mutăm pe stânga */
+                    lg:right-auto
+                    justify-self-end lg:justify-self-start lg:col-start-1
+                    shrink-0 
+                    focus-visible:ring-2 
+                    focus-visible:ring-slate-400"
+                  >
+                    <span className="sr-only">Back</span>
+                  </Button>
+      </nav>
+    
+      <nav 
+        aria-label="Primary nav mobile"
+        className="xl:hidden absolute top-[15px] right-[30px]"
+      >
+        <MobileMenu />
+      </nav> 
 
       <main 
       className="
@@ -66,7 +65,6 @@ export default function AboutUs(): JSX.Element{
         text-center
         "
       >
-
         <h1
           aria-label="title"
           className='
@@ -79,13 +77,14 @@ export default function AboutUs(): JSX.Element{
         </h1>
 
         <section
-          aria-label="section text"
+          aria-label="section desktp text"
           className="
-            mx-auto self-center               /* centrează secțiunea în părinte */
-            w-full max-w-[390px] xl:max-w-[605px]
-            min-h-[200px] xl:min-h-[400px]    /* dă înălțime ca să meargă centrara pe verticală */
-            flex flex-col justify-center items-center
-            text-sm p-2.5 gap-2.5 leading-[20px] text-center
+            hidden
+            xl:mx-auto xl:self-center               /* centrează secțiunea în părinte */
+            xl:w-full xl:max-w-[390px] xl:max-w-[605px]
+            xl:min-h-[200px] xl:min-h-[400px]    /* dă înălțime ca să meargă centrara pe verticală */
+            xl:flex xl:flex-col xl:justify-center xl:items-center
+            xl:text-sm xl:p-2.5 xl:gap-2.5 xl:leading-[20px] xl:text-center
           "
         >
           <p 
@@ -116,9 +115,7 @@ export default function AboutUs(): JSX.Element{
             ">
             {about.solution}
           </p>
-        </section>
-
-        <div 
+                  <div 
           aria-label="mission frame"
           className="
             flex flex-col
@@ -145,11 +142,76 @@ export default function AboutUs(): JSX.Element{
             {about.mission}
           </p>
         </div>
+        </section>
+
+        <section
+          aria-label="section mobile text"
+          className="
+            xl:hidden
+            mx-auto self-center             
+            w-full max-w-[345px] max-h-[476px]
+            flex flex-col justify-center items-center
+            text-base p-2.5 gap-1 leading-[28px] text-center left-[28px] !text-left font-normal
+          "
+        >
+          <p 
+            aria-label="intro"
+            className="
+            mt-[250px]
+            "
+          >
+            {about.introMob}
+          </p>
+
+          <p
+            aria-label="descriptive image"
+            >
+            <AboutUsImage/>
+          </p>
+
+          <p
+            aria-label="problem"
+            >
+            {about.problemMob}
+          </p>
+
+          <p aria-label="solution" className="mt-4">
+            {about.solutionMob}
+          </p>
+          
+          <div 
+            aria-label="mission frame"
+            className="
+              flex flex-col
+              justify-center 
+              items-center 
+              mt-1
+              ">
+          <p
+            aria-label="mission"
+            className="
+              mb-10
+              flex 
+              w-[318px] h-[110px]
+              pt-[23px] pr-[19px] pb-[22px] pl-[19px]
+              justify-center 
+              items-center 
+              shrink-0
+              rounded-xl
+              bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9]
+              shadow-[0_4px_24px_0_rgba(0,0,0,0.25)]
+              "
+          >
+            {about.missionMob}
+          </p>
+        </div>
+        </section>
 
       </main>
 
         <footer className="
           text-center
+          xl:mt-0 mt-[220px]
           "
         >
           <Footer/>

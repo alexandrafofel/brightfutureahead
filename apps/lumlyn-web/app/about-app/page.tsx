@@ -14,6 +14,7 @@ export default function AboutUs(): JSX.Element{
     <section
       className="
         bg-[var(--Background-lavanda,_rgba(249,246,255,0.90))] 
+        flex flex-col items-center justify-center
       "
     >
       <header 
@@ -60,14 +61,13 @@ export default function AboutUs(): JSX.Element{
 
       <main 
       className="
-        flex-col 
-        items-center
-        text-center
+        flex flex-col items-center justify-center
+        xl:max-w-[550px]
+        max-w-[]
         "
       >
-
         <h1
-          aria-label="title"
+          aria-label="title desktop"
           className='
             text-2xl md:text-2xl 
             font-bold 
@@ -82,7 +82,7 @@ export default function AboutUs(): JSX.Element{
           className="
             mx-auto 
             w-full max-w-[390px] xl:max-w-[713px]
-            min-h-[200px] xl:min-h-[400px]    /* dă înălțime ca să meargă centrara pe verticală */
+            xl:min-h-[200px]    /* dă înălțime ca să meargă centrara pe verticală */
             flex flex-col justify-center 
             text-sm p-2.5 gap-2.5 leading-[20px]
           "
@@ -90,11 +90,23 @@ export default function AboutUs(): JSX.Element{
           <p 
             aria-label="intro"
             className="
-            text-left
-            mb-4
+            hidden
+            xl:text-left
+            xl:mt-[10px]
             "
           >
             {app.description}
+          </p>
+
+          <p 
+            aria-label="intro"
+            className="
+            xl:hidden
+            text-left
+            mt-[10px]
+            "
+          >
+            {app.descriptionMob}
           </p>
 
 
@@ -102,23 +114,44 @@ export default function AboutUs(): JSX.Element{
             aria-label="how?"
             className="
               flex flex-row gap-2
-              font-bold
-              text-left
+              font-bold text-left text-base
+              mt-[15px]
             "
             >
             <LogoCloud/> {app.titleHow}
           </p>
 
+          <div aria-label="solution" className="hidden xl:flex xl:flex-col xl:mb-[10px] xl:mt-[10px]">
+            {app.how.map((how, index) => (
+              <div key={index} className="flex items-start gap-1">
+                <div className="w-[3.5px] h-[3.5px] mt-2 bg-[#6C63FF] shrink-0 rounded-full">
+                </div>
+                <p className="text-left">{how}</p>
+              </div>
+            ))}
+          </div>
+
           <p 
-            aria-label="solution"
-            className="
-            text-left
-            mb-5
-            ">
-            {app.how}
-            
+            className="hidden xl:mt-8 xl:max-w-[720px] xl:text-center xl:text-[#6CA9F6] xl:text-base xl:font-medium xl:leading-6 xl:px-4">
+            {app.promise}
           </p>
+          
+          <div aria-label="solution" className="hidden:xl flex flex-col mb-[10px] mt-[10px]">
+            {app.howMob.map((howMob, index) => (
+              <div key={index} className="flex items-start gap-1">
+                <div className="w-[3.5px] h-[3.5px] mt-2 bg-[#6C63FF] shrink-0 rounded-full">
+                </div>
+                <p className="text-left">{howMob}</p>
+              </div>
+            ))}
+          </div>
+
         </section>
+
+          <p 
+            className="xl:hidden mt-8 max-w-[720px] text-center text-[#6CA9F6] text-base font-medium leading-6 px-4 mb-[35px]">
+            {app.promiseMob}
+          </p>
 
         <div 
           aria-label="mission frame"
@@ -127,40 +160,46 @@ export default function AboutUs(): JSX.Element{
             justify-center 
             items-center 
             text-left
+            xl:max-w-[550px]
             ">
           <p
             aria-label="mission"
             className="
-              xl:mb-20
-              mb-10
-              flex 
-              w-[318px] h-[110px]
-              xl:w-[713px] xl:h-[134px]
-              pt-[23px] pr-[19px] pb-[22px] pl-[19px]
-              justify-center 
-              shrink-0
-              rounded-xl
-              bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9]
-              shadow-[0_4px_24px_0_rgba(0,0,0,0.25)]
-              gap-x-[1rem]
+              hidden
+              xl:flex xl:w-[550px] xl:h-[134px] xl:pt-[10px] xl:pr-[19px] xl:pb-[22px] xl:pl-[19px]
+              xl:justify-center xl:shrink-0 xl:rounded-xl
+              xl:bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9]
+              xl:shadow-[0_4px_24px_0_rgba(0,0,0,0.25)]
+              xl:gap-x-[1rem]
               "
           >
                <AboutUsImage/>{app.other}
           </p>
-          <p 
-          className="mt-8 max-w-[720px] text-center text-[#6CA9F6] text-base font-medium leading-6 px-4">
-          {app.promise}
-          </p>
-        </div>
 
+          <p
+            aria-label="mission"
+            className="
+              xl:hidden
+              flex pt-[10px] pr-[19px] pb-[22px] pl-[19px]
+              justify-center shrink-0 rounded-xl max-w-[394px] max-h-[90px]
+              bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9]
+              shadow-[0_4px_24px_0_rgba(0,0,0,0.25)]
+              gap-x-[1rem] mb-[50px]
+              "
+          >
+               <AboutUsImage/>{app.otherMob}
+          </p>
+
+        </div>
       </main>
 
-        <footer className="
+      <footer className="
           text-center
+          mb-[200px]
           "
         >
           <Footer/>
-        </footer>
+      </footer>
     </section>
   )
 }

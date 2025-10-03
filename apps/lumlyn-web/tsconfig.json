@@ -46,7 +46,7 @@
     "next-env.d.ts",
     "tests/**/*",
     ".next/types/**/*.ts"
-  ],
+, "app/about-app/FeatureList.tsx"  ],
   "exclude": [
     "node_modules",
     ".next"

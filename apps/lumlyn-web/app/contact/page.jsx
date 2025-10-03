@@ -52,14 +52,14 @@ export default function ContactPage() {
             <span className="sr-only">Back</span>
           </Button>
 
-</nav>
+      </nav>
 
-<nav 
-  aria-label="Primary nav mobile"
-  className="xl:hidden absolute top-[15px] right-[30px]"
->
-  <MobileMenu />
-</nav> 
+      <nav 
+        aria-label="Primary nav mobile"
+        className="xl:hidden absolute top-[15px] right-[30px]"
+      >
+        <MobileMenu />
+      </nav> 
 
       {/* Form card */}
       <main className="w-full flex flex-col items-center px-4">
