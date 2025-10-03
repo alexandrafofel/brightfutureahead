@@ -7,6 +7,7 @@ import { Footer } from "@/components/Footer/Footer";
 import { AboutUsImage } from "../about-us/AboutUsImage";
 import { Button } from "@/components/Button/button";
 import {LogoCloud} from "@/components/Logo/LogoCloud";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
 
 export default function AboutUs(): JSX.Element{
   return(
@@ -20,23 +21,7 @@ export default function AboutUs(): JSX.Element{
           grid grid-cols-[1fr_auto_1fr] items-center h-16 px-4
           mb-[110px]
           "
-        >
-          <Button
-              variant="back"
-              className="
-              absolute
-              top-[31px] 
-              right-[31px]   /* default = mobile */
-              lg:left-[31px] /* pe XL mutăm pe stânga */
-              lg:right-auto
-              justify-self-end lg:justify-self-start lg:col-start-1
-              shrink-0 
-              focus-visible:ring-2 
-              focus-visible:ring-slate-400"
-            >
-              <span className="sr-only">Back</span>
-            </Button>
-    
+        >    
           <div 
             className="
             col-start-2 justify-self-center 
@@ -45,9 +30,34 @@ export default function AboutUs(): JSX.Element{
           >
             <Logo />
           </div>
-
       </header>
-    
+      <nav
+        aria-label="Primary nav Desktop"
+        className="hidden xl:block"
+        >
+        <Button
+        variant="back"
+        className="
+        absolute
+        top-[31px] 
+        right-[31px]   /* default = mobile */
+        lg:left-[31px] /* pe XL mutăm pe stânga */
+        lg:right-auto
+        justify-self-end lg:justify-self-start lg:col-start-1
+        shrink-0 
+        focus-visible:ring-2 
+        focus-visible:ring-slate-400"
+        >
+        <span className="sr-only">Back</span>
+        </Button>
+        </nav>
+      <nav 
+        aria-label="Primary nav mobile"
+        className="xl:hidden absolute top-[15px] right-[30px]"
+        >
+        <MobileMenu />
+      </nav> 
+
       <main 
       className="
         flex-col 

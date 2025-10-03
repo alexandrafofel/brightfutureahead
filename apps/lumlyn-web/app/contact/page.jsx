@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Logo } from "@/components/Logo/Logo";
 import { Footer } from "@/components/Footer/Footer";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { Button } from "@/components/Button/button";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
 
 /**
  * Contact page – routes under `/contact`.
@@ -16,12 +18,7 @@ export default function ContactPage() {
     <div className="min-h-dvh flex flex-col items-center bg-[var(--background)] text-[#111]">
       {/* Header */}
       <header className="relative w-full max-w-[1440px] px-4 lg:px-8 flex flex-col items-center gap-0">
-        {/* <Button
-          variant="back"
-          className="!mx-0 !self-auto top-6 right-6 lg:left-8 lg:top-8 lg:right-auto"
-        >
-          <span className="sr-only">Back</span>
-        </Button> */}
+        
         <div className="z-10">
           <Logo />
         </div>
@@ -45,6 +42,25 @@ export default function ContactPage() {
           </div>
         </div>
       </header>
+      <nav
+        aria-label="Primary nav Desktop"
+        className="hidden xl:block"      >
+          <Button
+            variant="back"
+            className="hidden xl:block xl:!mx-0 xl:!self-auto xl:top-6 xl:right-6 xl:left-8 xl:top-8 xl:right-auto"
+          >
+            <span className="sr-only">Back</span>
+          </Button>
+
+</nav>
+
+<nav 
+  aria-label="Primary nav mobile"
+  className="xl:hidden absolute top-[15px] right-[30px]"
+>
+  <MobileMenu />
+</nav> 
+
       {/* Form card */}
       <main className="w-full flex flex-col items-center px-4">
         <div className="relative w-full max-w-[350px] sm:max-w-[640px] bg-white border-[3px] border-[rgba(151,71,255,0.40)] rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.15)] p-4 sm:p-6">

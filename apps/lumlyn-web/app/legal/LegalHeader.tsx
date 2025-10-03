@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/Button/button";
 import { Logo } from "@/components/Logo/Logo";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
 
 type LegalHeaderProps = {
   title: string;
@@ -9,7 +10,7 @@ type LegalHeaderProps = {
 
 export function LegalHeader({ title }: LegalHeaderProps) {
   return (
-    <header className="sticky top-0 z-50 w-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.14)]">
+    <section className="sticky top-0 z-50 w-full bg-white shadow-[0_1px_2px_rgba(0,0,0,0.14)]">
         <div
             className="
             relative
@@ -21,20 +22,38 @@ export function LegalHeader({ title }: LegalHeaderProps) {
             xl:w-[1440px] xl:pl-[360px] xl:pt-[100px] xl:pb-[16px] xl:gap-[37px]
             "
         >
-          <div className="flex items-center gap-3">
-            <Button
-              variant="back"
-              className="
-                  absolute
-                  shrink-0 
-                  focus-visible:ring-2
-                  focus-visible:ring-slate-400  
-                  xl:left-[360px]
-                  !mx-0 !self-auto  
-                  top-[25%] left-[5%]
-              "
-            />
-            <span className="sr-only">Back</span>
+          <div>
+          <header 
+                className="
+                absolute 
+                xl:left-[60%] xl:top-[10%]
+                left-[55%] top-[10%]
+                "
+              >
+                  <Logo/>
+          </header>
+          <nav
+                  aria-label="Primary nav Desktop"
+                  >
+                    <Button
+                      variant="back"
+                      className="
+                        absolute 
+                        xl:!mx-0 xl:!self-auto xl:top-4 xl:right-12 xl:left-[25.5%] xl:top-[35%] xl:right-auto
+                        top-[14px] left-[20px]
+                      "
+                    >
+                      <span className="sr-only">Back</span>
+                    </Button>
+               </nav>
+          
+                <nav 
+                  aria-label="Primary nav mobile"
+                  className="xl:hidden absolute top-[15px] right-[30px]"
+                >
+                  <MobileMenu />
+                </nav> 
+            </div>
             <h1
               className="
                   text-2xl
@@ -43,9 +62,9 @@ export function LegalHeader({ title }: LegalHeaderProps) {
                   pt-[15%]
                   pb-[5%]
 
-                  relative right-[27%]   /* mobil */
+                  relative right-[20%]   /* mobil */
                   xl:right-0            /* desktop reset */
-
+                  xl:left-2
                   xl:pb-[5%]
                   xl:text-3xl
                   sm:whitespace-nowrap
@@ -54,18 +73,8 @@ export function LegalHeader({ title }: LegalHeaderProps) {
               >
               {title}
             </h1>
-              <div 
-                className="
-                absolute left-[60%]
-                absolute top-[10%]
-                "
-              >
-                  <Logo/>
-              </div>
-
           </div>
-      </div>
-    </header>
+    </section>
   );
 }
 

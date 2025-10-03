@@ -6,6 +6,7 @@ import { about } from "../about-us/messages/en";
 import { Footer } from "@/components/Footer/Footer";
 import { AboutUsImage } from "./AboutUsImage";
 import { Button } from "@/components/Button/button";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
 
 export default function AboutUs(): JSX.Element{
   return(
@@ -20,21 +21,7 @@ export default function AboutUs(): JSX.Element{
           mb-[100px]
           "
         >
-          <Button
-              variant="back"
-              className="
-              absolute
-              top-[31px] 
-              right-[31px]   /* default = mobile */
-              lg:left-[31px] /* pe XL mutăm pe stânga */
-              lg:right-auto
-              justify-self-end lg:justify-self-start lg:col-start-1
-              shrink-0 
-              focus-visible:ring-2 
-              focus-visible:ring-slate-400"
-            >
-              <span className="sr-only">Back</span>
-            </Button>
+        
     
           <div 
             className="
@@ -46,7 +33,32 @@ export default function AboutUs(): JSX.Element{
           </div>
 
       </header>
-    
+    <nav
+      className="hidden xl:block"
+    >
+    <Button
+                  variant="back"
+                  className="
+                  absolute
+                  top-[31px] 
+                  right-[31px]   /* default = mobile */
+                  lg:left-[31px] /* pe XL mutăm pe stânga */
+                  lg:right-auto
+                  justify-self-end lg:justify-self-start lg:col-start-1
+                  shrink-0 
+                  focus-visible:ring-2 
+                  focus-visible:ring-slate-400"
+                >
+                  <span className="sr-only">Back</span>
+                </Button>
+    </nav>
+        <nav 
+          aria-label="Primary nav mobile"
+          className="xl:hidden absolute top-[15px] right-[30px]"
+        >
+          <MobileMenu />
+        </nav> 
+
       <main 
       className="
         flex-col 

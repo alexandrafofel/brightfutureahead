@@ -47,7 +47,7 @@ export default function Hero(): JSX.Element {
         </section>
         
         <section
-        className="xl:hidden"
+        className="xl:hidden mt-[11px]"
         >
           <Logo/>
         </section>

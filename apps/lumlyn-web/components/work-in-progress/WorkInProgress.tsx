@@ -4,7 +4,8 @@ import React from "react";
 import { Footer } from "@/components/Footer/Footer";
 import { Logo } from "@/components/Logo/Logo";
 import { inProgress } from "../work-in-progress/messeges/en"
-import { Button } from "../Button/button";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
+import { Button } from "@/components/Button/button";
 
 export function WorkInProgressPage() {
   return (
@@ -25,7 +26,24 @@ export function WorkInProgressPage() {
         >
         <Logo/>
       </header> 
-       
+      <nav
+        aria-label="Primary nav Desktop"
+        className="hidden xl:block"      >
+          <Button
+            variant="back"
+            className="hidden xl:block xl:!mx-0 xl:!self-auto xl:top-6 xl:right-6 xl:left-8 xl:top-8 xl:right-auto"
+          >
+            <span className="sr-only">Back</span>
+          </Button>
+
+</nav>
+
+<nav 
+  aria-label="Primary nav mobile"
+  className="xl:hidden absolute top-[15px] right-[30px]"
+>
+  <MobileMenu />
+</nav> 
       <main 
         aria-labelledby="wip-details"
         className="
