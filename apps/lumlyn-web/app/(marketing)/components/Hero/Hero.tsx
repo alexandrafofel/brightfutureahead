@@ -9,6 +9,7 @@ import { Logo } from "@/components/Logo/Logo";
 import { Footer } from "@/components/Footer/Footer";
 import { FeatureList } from "./FeatureList";
 import { hero } from "./messages/en";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
 
 export default function Hero(): JSX.Element {
   return (
@@ -39,21 +40,27 @@ export default function Hero(): JSX.Element {
         "
         aria-label="Lumlyn home"
       > 
-        <p
+        <section
           className="hidden xl:block"
         >
           <LogoStack/>
-        </p>
+        </section>
         
-        <p 
+        <section
         className="xl:hidden"
         >
           <Logo/>
-        </p>
-      
+        </section>
+
+        <nav 
+          aria-label="Primary nav mobile"
+          className="xl:hidden absolute top-[15px] right-[30px]"
+        >
+          <MobileMenu />
+        </nav> 
 
         <nav
-          aria-label="Primary"
+          aria-label="Primary Nav Desktop"
           className="hidden xl:flex xl:items-center xl:justify-end" 
         >
 
@@ -77,6 +84,7 @@ export default function Hero(): JSX.Element {
             </Link>
           </Button>
         </nav>
+
       </header>
 
       <main 
