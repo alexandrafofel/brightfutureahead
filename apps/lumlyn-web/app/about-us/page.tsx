@@ -12,7 +12,7 @@ export default function AboutUs(): JSX.Element{
   return(
     <section
       className="
-        bg-[var(--Background-lavanda,_rgba(249,246,255,0.90))] 
+        bg-[var(--Background-lavanda,_rgba(249,246,255,0.90))]
       "
     >
       <header 
@@ -31,48 +31,25 @@ export default function AboutUs(): JSX.Element{
           </div>
       </header>
     
-      <nav
-        className="hidden xl:block"
+      <nav aria-label="desktop nav" className="hidden xl:block"
       >
-      <Button
-                    variant="back"
-                    className="
-                    absolute
-                    top-[31px] 
-                    right-[31px]   /* default = mobile */
-                    lg:left-[31px] /* pe XL mutăm pe stânga */
-                    lg:right-auto
-                    justify-self-end lg:justify-self-start lg:col-start-1
-                    shrink-0 
-                    focus-visible:ring-2 
-                    focus-visible:ring-slate-400"
-                  >
-                    <span className="sr-only">Back</span>
-                  </Button>
+        <Button
+          variant="back"
+          className="
+            absolute top-[31px] right-[31px] lg:left-[31px] lg:right-auto justify-self-end lg:justify-self-start lg:col-start-1
+            shrink-0 focus-visible:ring-2 focus-visible:ring-slate-400"
+        >
+            <span className="sr-only">Back</span>
+            </Button>
       </nav>
     
-      <nav 
-        aria-label="Primary nav mobile"
-        className="xl:hidden absolute top-[15px] right-[30px]"
-      >
+      <nav aria-label="Primary nav mobile" className="xl:hidden absolute top-[15px] right-[30px]">
         <MobileMenu />
       </nav> 
 
-      <main 
-      className="
-        flex-col 
-        items-center
-        text-center
-        "
-      >
-        <h1
-          aria-label="title"
-          className='
-            text-2xl md:text-2xl 
-            font-bold 
-            text-[#111]
-          '
-        >
+      <main className="flex-col items-center text-center">
+
+        <h1 aria-label="title" className='text-2xl md:text-2xl font-bold text-[#111]'>
           {about.title}
         </h1>
 
@@ -154,68 +131,43 @@ export default function AboutUs(): JSX.Element{
             text-base p-2.5 gap-1 leading-[28px] text-center left-[28px] !text-left font-normal
           "
         >
-          <p 
-            aria-label="intro"
-            className="
-            mt-[250px]
-            "
-          >
+          <p aria-label="intro mobile" className="mt-[250px]">
             {about.introMob}
           </p>
 
-          <p
-            aria-label="descriptive image"
-            >
+          <p aria-label="descriptive image">
             <AboutUsImage/>
           </p>
 
-          <p
-            aria-label="problem"
-            >
+          <p aria-label="problem mobile" >
             {about.problemMob}
           </p>
 
-          <p aria-label="solution" className="mt-4">
+          <p aria-label="solution mobile" className="mt-4">
             {about.solutionMob}
           </p>
           
-          <div 
-            aria-label="mission frame"
-            className="
-              flex flex-col
-              justify-center 
-              items-center 
-              mt-1
-              ">
-          <p
-            aria-label="mission"
-            className="
-              mb-10
-              flex 
-              w-[318px] h-[110px]
-              pt-[23px] pr-[19px] pb-[22px] pl-[19px]
-              justify-center 
-              items-center 
-              shrink-0
-              rounded-xl
-              bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9]
-              shadow-[0_4px_24px_0_rgba(0,0,0,0.25)]
-              "
-          >
-            {about.missionMob}
-          </p>
-        </div>
+          <div aria-label="mission frame"
+            className=" flex flex-col justify-center items-center mt-1 ">
+            <p
+            aria-label="mission mobile"
+            className=" 
+              mb-10 flex w-[318px] h-[110px] pt-[23px] pr-[19px] pb-[22px] pl-[19px]
+              justify-center items-center shrink-0 rounded-xl
+              bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9] shadow-[0_4px_24px_0_rgba(0,0,0,0.25)]"
+            >
+              {about.missionMob}
+            </p>
+          </div>
+          
         </section>
 
       </main>
 
-        <footer className="
-          text-center
-          xl:mt-0 mt-[220px]
-          "
-        >
+        <footer className="text-center mt-[220px] xl:mt-10 xl:mb-[200px]">
           <Footer/>
         </footer>
+
     </section>
   )
 }

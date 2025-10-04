@@ -24,9 +24,9 @@ export function Button({
   loading = false,
   type = "button",
   disabled = false,
-  className,
   iconLeft,
   iconRight,
+  className,
   onClick,
   ...rest
 }: ButtonProps): JSX.Element {
@@ -34,7 +34,7 @@ export function Button({
   const router = useRouter();
 
   const base =
-    "inline-flex select-none items-center justify-center gap-[10px] " +
+    "inline-flex select-none items-center justify-center " +
     "rounded-[12px] h-[56px] w-[300px] text-center " +
     "transition-colors duration-200 focus-visible:outline-none " +
     "focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#4ED2E0]";
@@ -53,7 +53,7 @@ export function Button({
     loading:
       "border-2 border-[#6C63FF] bg-[linear-gradient(90deg,#6FAAF7_0%,#5597F2_100%)] text-[20px] text-[#1A1A1A] not-italic font-bold leading-normal",
     back:
-      "absolute top-[46px] left-[200px] w-12 h-12 p-3 shrink-0 " +
+      "absolute top-[50x] left-[200px] w-12 h-12 shrink-0 " +
       "rounded-md border border-[#9747FF] bg-white text-[#6C63FF] font-bold leading-none " +
       "transition duration-[120ms] ease-in-out " +
       "hover:border-[3px] hover:border-[#4F46FF] hover:bg-[rgba(249,246,255,0.90)] hover:shadow-[0_4px_16px_rgba(79,70,255,0.25)] hover:p-[10px] " +
