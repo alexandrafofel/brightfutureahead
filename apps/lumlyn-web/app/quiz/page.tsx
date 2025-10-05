@@ -1,11 +1,5 @@
-"use client";
+import LPQuiz from "./components/LPQuiz";
 
-import { WorkInProgressPage } from "../../components/work-in-progress/WorkInProgress";
-
-export default function Page() {
-  return (
-    <main className="flex min-h-screen items-center justify-center">
-      <WorkInProgressPage />
-    </main>
-  );
+export default function QuizPage() {
+  return <LPQuiz />;
 }

@@ -47,10 +47,7 @@ export default function AboutApp(): JSX.Element{
         </Button>
       </nav>
 
-      <nav 
-        aria-label="Primary nav mobile"
-        className="xl:hidden absolute top-[15px] right-[30px]"
-        >
+      <nav aria-label="Primary nav mobile" className="xl:hidden absolute top-[15px] right-[30px]">
         <MobileMenu />
       </nav> 
 
