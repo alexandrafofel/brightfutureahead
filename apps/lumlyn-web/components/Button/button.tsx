@@ -4,7 +4,6 @@ import clsx from "clsx";
 import { Slot } from "@radix-ui/react-slot";
 import { ButtonLoader } from "./button-loader";
 import { useRouter } from "next/navigation";
-import StartQuiz from "@/app/quiz/components/OptionButton";
 
 type Variant = "primary" | "secondary" | "deactivated" | "loading" | "back" | "contact" ;
 
