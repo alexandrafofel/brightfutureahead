@@ -10,8 +10,14 @@ import { Footer } from "@/components/Footer/Footer";
 import { FeatureList } from "./FeatureList";
 import { hero } from "./messages/en";
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
+import * as React from "react";
+import LPQuizOverlay from "@/app/quiz/components/LPQuizOverlay";
+
+
+
 
 export default function Hero(): JSX.Element {
+  const [open, setOpen] = React.useState(false);
   return (
     
     <div
@@ -173,9 +179,10 @@ export default function Hero(): JSX.Element {
             transition={{ delay: 0.65, duration: 0.6 }}
           >
             {/* Single primary CTA în viewport */}
-            <Button asChild variant="primary">
-              <Link href="/quiz">{hero.cta}</Link>
+            <Button variant="primary" onClick={() => setOpen(true)}>
+              {hero.cta}
             </Button>
+
           </motion.div>
         </motion.section>
         <motion.section
@@ -205,14 +212,13 @@ export default function Hero(): JSX.Element {
 
           <motion.button>
             <Button 
-              asChild variant="primary"
-              className="
-                !text-[xl] !font-semibold !leading-[24px]
-                mt-5 gap-[10px]
-              "
+              variant="primary"
+              className="!text-[xl] !font-semibold !leading-[24px] mt-5 gap-[10px]"
+              onClick={() => setOpen(true)}
             >
-              <Link href="/quiz">{hero.ctaMob}</Link>
+              {hero.ctaMob}
             </Button>
+
           </motion.button>
 
           <motion.article
@@ -281,6 +287,7 @@ export default function Hero(): JSX.Element {
             </div>
           </motion.button>
         </motion.section>
+        <LPQuizOverlay open={open} onClose={() => setOpen(false)} />
       </main>
 
       <footer role="contentinfo" className="px-4 text-center mb-5">

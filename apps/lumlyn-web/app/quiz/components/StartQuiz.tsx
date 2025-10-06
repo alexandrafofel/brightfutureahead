@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useForm, FormProvider } from "react-hook-form";
 import CheckLegal, { LegalValues, defaultLegalValues } from "@/components/Quiz/CheckLegal";
 import { Button } from "@/components/Button/button";
-import Link from "next/link";
+
 
 type Props = {
   redirectTo?: string;   // ex: "/quiz"
@@ -51,17 +51,15 @@ export default function StartQuiz({
             disabled={disabled || isSubmitting || !bothChecked}
             className="!mb-5 !text-base !font-semibold !w-[320px] !border"
         >
-          
-            <Link href="/quiz/Stay-Close" aria-label="Quiz is about to start">
-                Start Quiz ({minutes} minutes)
-            </Link>
+            Start Quiz ({minutes} minutes)
+           
         </Button>
 
         <CheckLegal className="space-y-2" />
 
         {!bothChecked && (
-          <p className="mt-2 text-xs text-muted-foreground" aria-live="polite">
-            Please check both boxes to continue.
+          <p className="mt-2 text-xs text-muted-foreground text-[#F6A6A6]" aria-live="polite">
+            Please check <strong>both boxes</strong> to continue.
           </p>
         )}
 
