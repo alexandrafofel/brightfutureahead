@@ -2,90 +2,92 @@
 "use client";
 
 import * as React from "react";
-import { Nunito_Sans } from "next/font/google";
 import StartQuiz from "./StartQuiz";
-import { lpQuiz } from "../messages/en"; // { title, explanation, message }
+import { Logo } from "@/components/Logo/Logo";
+import { lpQuiz } from "../messages/en";
 import { FooterLP } from "@/components/Quiz/FooterLP";
 
-const nunito = Nunito_Sans({
-  subsets: ["latin"],
-  weight: ["400", "600", "700"],
-});
+/**
+ * LPQuiz – card-ul de “teaser” pentru quiz, folosit pe landing sau în overlay.
+ * - Fără prop `redirectTo`: StartQuiz navighează forțat la `/quiz/run`.
+ * - Copy aliniat cu content-hierarchy (headline, subheadline).
+ * - Tailwind corect (fără `hidden:xl`, fără dubluri `w-[...] w-[...]`).
+ * - A11y: headings, descrieri, role=region, landmark clar.
+ */
 
 export default function LPQuiz() {
-  return (
-    <section className="p-0 mr-[6.5px]">
-      {/* Card / Frame */}
-      <div
-        className={[
-          "flex flex-col items-center justify-start mx-auto",
-          "border border-[#9747FF] bg-[rgba(249,246,255,0.90)] rounded-[12px]",
-          "shadow-[0_8px_24px_0_rgba(0,0,0,0.10)]",
-          "px-[31px] pr-[32px]", // (31 / 32) exact din specificație
-          "pt-[10px] xl:pt-[40px]", // 10px de top până la Title
-          "pb-[15px]", // 15px până la Footer (dacă îl pui în afara acestui card)
-           "w-[420px] w-[410px] xl:w-[720px] xl:h-[531px]" ,
-          "aspect-auto",
-          nunito.className,
-        ].join(" ")}
-      >
-        {/* titleMob */}
-        <h1
-          className="hidden xl:w-full xl:text-center xl:text-[#111] xl:font-bold"
-          style={{ fontFamily: '"Nunito Sans", ui-sans-serif, system-ui', lineHeight: "30px", fontSize: 24 }}
-        >
-          {lpQuiz.title}
-        </h1>
+  const headlineId = React.useId();
+  const descId = React.useId();
 
+  return (
+    <section
+      role="region"
+      aria-labelledby={headlineId}
+      aria-describedby={descId}
+      className="relative mx-auto xl:w-[720px] xl:h-[531px] w-[340px] h-[448px] rounded-2xl shadow-xl border bg-white/90 backdrop-blur p-6 xl:p-8"
+      data-role="lp_quiz_card"
+    >
+      
+      <div aria-label="Lumlyn-logo" /* Badge/logo (opțional): ascuns pe ecrane foarte mici */
+        className="mb-3 hidden xl:flex items-center gap-2">
+        <div className="h-8 w-8 rounded-full bg-[#C9BDF9]" aria-hidden> <Logo/> </div> 
+        <span className="text-sm text-black/60">Lumlyn · Early access</span>
+      </div>
+
+      <header aria-label="header mobile"
+        className="max-w-[400px] w-full mx-auto text-center xl:text-left overflow-hidden">
         <h1
-          className="hidden:xl w-full max-w-[440px] text-center text-[#111] font-bold"
-          style={{ fontFamily: '"Nunito Sans", ui-sans-serif, system-ui', lineHeight: "30px", fontSize: 24 }}
+          id={headlineId}
+          className="break-words text-2xl leading-[30px] font-bold text-[#111] xl:text-[28px] xl:leading-8"
         >
           {lpQuiz.titleMob}
         </h1>
 
-        {/* Explanation (la 25px sub title) */}
         <p
-          className="hidden xl:mt-[25px] xl:w-full xl:max-w-[440px] xl:text-center xl:text-[#333] xl:font-semibold"
-          style={{ fontFamily: '"Nunito Sans", ui-sans-serif, system-ui', lineHeight: "24px", fontSize: 16 }}
-        >
-          {lpQuiz.explanation}
-        </p>
-
-        <p
-          className="hidden:xl mt-[25px] w-full max-w-[440px] text-center text-[#333] font-semibold"
-          style={{ fontFamily: '"Nunito Sans", ui-sans-serif, system-ui', lineHeight: "24px", fontSize: 16 }}
+          id={descId}
+          className="mt-5 break-words text-base leading-[24px] font-semibold text-[#333] xl:text-[16px] xl:leading-6"
         >
           {lpQuiz.explanationMob}
         </p>
+      </header>
 
-        {/* Message (la 10px sub explanation) */}
-        <p
-          className="hidden xl:mt-[10px] xl:w-full xl:max-w-[440px] xl:text-center xl:text-[#9A7BD9] xl:font-normal"
-          style={{ fontFamily: '"Nunito Sans", ui-sans-serif, system-ui', lineHeight: "18px", fontSize: 13 }}
-          aria-live="polite"
+      <header aria-label="header desktop"
+        className="hidden xl:max-w-[720px] xl:w-full xl:mx-auto xl:text-center xl:text-left xl:overflow-hidden">
+        <h1
+          id={headlineId}
+          className="break-words text-2xl leading-[30px] font-bold text-[#111] xl:text-[28px] xl:leading-8"
         >
-          {lpQuiz.message}
-        </p>  
+          {lpQuiz.title}
+        </h1>
 
         <p
-          className="hidden:xl mt-[10px] w-full max-w-[440px] text-center text-[#9A7BD9] font-normal"
-          style={{ fontFamily: '"Nunito Sans", ui-sans-serif, system-ui', lineHeight: "18px", fontSize: 13 }}
-          aria-live="polite"
+          id={descId}
+          className="mt-5 break-words text-base leading-[24px] font-semibold text-[#333] xl:text-[16px] xl:leading-6"
         >
+          {lpQuiz.explanation}
+        </p>
+      </header>
+
+      <div className="mt-2">
+        <p className="text-xs font-normal leading-[18px] text-[#9A7BD9] xl:max-w-[560px]">
           {lpQuiz.messageMob}
-        </p>  
-
-        {/* Start Quiz + CheckLegal (înăuntrul StartQuiz) – la 32px sub message */}
-        <div className="mt-[32px] w-full flex flex-col items-center">
-          {/* StartQuiz conține CheckLegal și dezactivează butonul până sunt bifele ok.
-              Navighează la /quiz (app/quiz/page.tsx) când totul e valid. */}
-          <StartQuiz redirectTo="/quiz/Stay-Close" className="w-full flex flex-col items-center" />
-        </div>
-        <footer>
-            <FooterLP/>
-        </footer>
+        </p>
       </div>
+
+      {/* CTA principal – pornește fluxul pe /quiz/run prin StartQuiz */}
+      <div className="mt-10 flex w-full justify-center xl:justify-start">
+        <StartQuiz
+          className="w-full flex flex-col items-center"
+          minutes={1}
+          // Notă: StartQuiz gestionează singur legal/GDPR + dezactivează CTA până la bife
+        />
+      </div>
+
+      {/* Microcopy despre email & GDPR – informativ (StartQuiz conține componenta legală efectivă) */}
+      <div className="absolute bottom-[0px] left-0 w-full text-center xl:text-left text-xs leading-[18px] text-black/60">
+        <FooterLP />
+      </div>
+
     </section>
   );
 }

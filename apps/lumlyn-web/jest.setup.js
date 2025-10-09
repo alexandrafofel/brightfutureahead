@@ -1,15 +1,22 @@
-﻿import "@testing-library/jest-dom";
+﻿// jest.setup.js
+import '@testing-library/jest-dom';
+// 👉 asta înregistrează ȘI tipurile pentru matcherul .toHaveNoViolations
+import 'jest-axe/extend-expect';
+import '@testing-library/jest-dom';
+import 'jest-axe/extend-expect';
 
-// Blochează orice apel real către analytics în teste.
-jest.mock("posthog-js", () => ({
+
+// (mock-urile tale existente – păstrează-le)
+jest.mock('posthog-js', () => ({
   capture: () => {},
   init: () => {},
   identify: () => {},
 }));
 
-// (Optional) Polyfill ușor pentru TextEncoder/TextDecoder dacă apar avertismente în Node.
-if (typeof global.TextEncoder === "undefined") {
-  const { TextEncoder, TextDecoder } = require("util");
+// polyfills (dacă le ai deja, păstrează-le)
+if (typeof global.TextEncoder === 'undefined') {
+  const { TextEncoder, TextDecoder } = require('util');
   global.TextEncoder = TextEncoder;
   global.TextDecoder = TextDecoder;
+  
 }
