@@ -1,4 +1,20 @@
+
+import nextJest from 'next/jest';
 import type { Config } from 'jest';
+
+
+const createJestConfig = nextJest({ dir: './' });
+
+const customJestConfig: Config = {
+  testEnvironment: 'jest-environment-jsdom',
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  moduleNameMapper: { '^@/(.*)$': '<rootDir>/$1' },
+  testMatch: [
+    '<rootDir>/**/__tests__/**/*.(spec|test).[jt]s?(x)',
+    '<rootDir>/**/*.(spec|test).[jt]s?(x)',
+  ],
+};
+
 
 const config: Config = {
   testEnvironment: 'jsdom',
@@ -34,4 +50,16 @@ const config: Config = {
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
 };
 
-export default config;
+// jest.config.ts (esential)
+export default {
+  testEnvironment: "jsdom",
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/$1",
+    setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+testEnvironment: 'jest-environment-jsdom',
+
+  },
+};
+
+

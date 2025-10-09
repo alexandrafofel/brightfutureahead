@@ -1,6 +1,6 @@
 "use client";
 
-import { WorkInProgressPage } from "@/components/work-in-progress/WorkInProgress";
+import WorkInProgressPage from "@/components/work-in-progress/WorkInProgress";
 
 export default function Page() {
   return (
