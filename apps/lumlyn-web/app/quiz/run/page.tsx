@@ -10,9 +10,17 @@ import { useMediaQuery } from "@/components/Quiz/useMediaQuery";
 import heroDesk from "@/assets/lottie/hero-bg.json";
 import heroMob from "@/assets/lottie/hero-bg-mob.json";
 
-// ajustează aceste importuri la proiectul tău
+// logica quiz existentă (păstrează importurile reale din proiectul tău)
 import { quizReducer, createInitialState } from "../lib/quizReducer";
 import { quizQuestions, midCheck, labels } from "../messages/quiz-options";
+
+// ✅ persist answers helpers (nou)
+import {
+  ensureAnswers,
+  mergeAnswer,
+  saveAnswers,
+  clearAnswers,
+} from "@/functions/persistQuizAnswers";
 
 type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
 
@@ -31,7 +39,7 @@ function isAge0to2(answers: Record<string, any> | undefined): boolean {
     .join(" ")
     .toLowerCase();
 
-  return /\b0\s*[-–to_]\s*2\b/.test(text);
+  return /\b0\s*[-–to_]\s*2\b/.test(text) || /\b0-?2m\b/.test(text) || /\bunder\s*2\b/.test(text);
 }
 
 export default function QuizRunPage(): JSX.Element {
@@ -41,6 +49,11 @@ export default function QuizRunPage(): JSX.Element {
     quizReducer as React.Reducer<any, any>,
     createInitialState()
   );
+
+  // pregătim storage-ul (nu scrie nimic dacă există deja)
+  React.useEffect(() => {
+    ensureAnswers();
+  }, []);
 
   const optionRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
   const [activeIdx, setActiveIdx] = React.useState(0);
@@ -71,16 +84,20 @@ export default function QuizRunPage(): JSX.Element {
 
   React.useEffect(() => {
     (window as any)?.posthog?.capture?.("quiz_start");
+    // la start curățăm eventuale răspunsuri vechi (opțional: comentează dacă vrei să reiei ultima sesiune)
+    try {
+      clearAnswers();
+      ensureAnswers();
+    } catch {}
     dispatch({ type: "START" });
   }, []);
 
-  // La completare: baby -> outro?variant=baby; altfel -> outro?variant=v1 (start lanț)
+  // La completare: baby -> outro?variant=baby; altfel -> outro?variant=v1 (lanț din en.ts)
   React.useEffect(() => {
     if (state.step === "complete") {
       try {
-        if ((state as any).answers) {
-          localStorage.setItem("lumlyn_quiz_answers", JSON.stringify((state as any).answers));
-        }
+        // snapshot final pentru tips
+        saveAnswers((state as any).answers ?? {});
       } catch {}
 
       const answers = (state as any).answers as Record<string, any> | undefined;
@@ -93,6 +110,7 @@ export default function QuizRunPage(): JSX.Element {
     }
   }, [state.step, router, state]);
 
+  // Focus pe opțiunea selectată
   React.useEffect(() => {
     if (state.step !== "question") return;
     const q = quizQuestions[state.index];
@@ -108,8 +126,15 @@ export default function QuizRunPage(): JSX.Element {
   const handleAnswer = React.useCallback((qid: string, oid: string) => {
     setActivating({ qid, oid });
     (window as any)?.posthog?.capture?.("quiz_answer_click", { qid, oid });
+
     window.setTimeout(() => {
       (window as any)?.posthog?.capture?.("quiz_answer", { qid, oid });
+
+      // ✅ persistăm incremental răspunsul (local/session storage)
+      try {
+        mergeAnswer(qid, oid);
+      } catch {}
+
       dispatch({ type: "ANSWER", qid, oid });
       setActivating(null);
     }, ANSWER_DELAY);
@@ -123,6 +148,7 @@ export default function QuizRunPage(): JSX.Element {
   const handleBack = React.useCallback(() => {
     if (state.step === "question" && state.index === 0) {
       try {
+        // curățăm doar flag-urile, nu răspunsurile (ca să poată reveni)
         localStorage.removeItem("lumlyn_gdpr_processing");
         localStorage.removeItem("lumlyn_accept_legal");
         sessionStorage.removeItem("lumlyn_restore_legal");
@@ -137,6 +163,7 @@ export default function QuizRunPage(): JSX.Element {
 
   return (
     <>
+      {/* Background */}
       <div
         aria-hidden
         className={
@@ -148,6 +175,7 @@ export default function QuizRunPage(): JSX.Element {
         <Lottie animationData={lottieData} loop autoplay />
       </div>
 
+      {/* Overlay blur */}
       {rect.width > 0 && (
         <div
           className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100"
@@ -167,6 +195,7 @@ export default function QuizRunPage(): JSX.Element {
               xl:w-[640px] xl:h-[460px]
             "
           >
+            {/* Back */}
             <Button
               variant="back"
               onClick={handleBack}
@@ -174,6 +203,7 @@ export default function QuizRunPage(): JSX.Element {
               className="absolute left-[11px] top-[10px]"
             />
 
+            {/* Questions */}
             {state.step === "question" && currentQuestion && (
               <div className="flex flex-col items-center w-full h-full">
                 <div className="mt-[17px]">
@@ -249,6 +279,7 @@ export default function QuizRunPage(): JSX.Element {
               </div>
             )}
 
+            {/* Mid-check */}
             {state.step === "midcheck" && (
               <div className="flex flex-col items-center w-full h-full">
                 <div className="mt-[275px] px-4">
