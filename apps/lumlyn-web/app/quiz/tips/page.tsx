@@ -127,22 +127,20 @@ export default function TipsPage(): JSX.Element {
   };
 
   return (
-    <main className="relative min-h-screen w-full flex items-center justify-center px-4 py-8">
+    <main 
+      className="
+        relative 
+        flex items-center justify-center 
+        px-4 py-8">
       {/* Background Lottie */}
-      <div
-        aria-hidden
-        className={
-          "pointer-events-none z-0 " +
-          "absolute inset-x-0 top-0 h-[940px] " +
-          "md:fixed md:inset-0 md:h-auto"
-        }
-      >
-      </div>
 
       {/* Content frame */}
-      <div className="relative z-20 w-full max-w-[680px] flex flex-col items-center">
+      <div 
+        className="
+          relative z-20 flex flex-col items-center">
         {/* Calm Tip Card */}
         <CalmTipCard
+          
           text={tipText}
           headline="You’re in a calm space."
           subheadline="Here’s what might bring more calm today."
@@ -152,9 +150,9 @@ export default function TipsPage(): JSX.Element {
         {/* Email capture frame */}
         <section
           className="
-            mt-6 w-full max-w-[390px]
+            w-full max-w-[354px]
             rounded-[12px] bg-[rgba(249,246,255,0.90)]
-            text-center text-[#1A1A1A] font-medium text-[16px] leading-[18px]
+            text-[#1A1A1A] font-medium text-[16px] leading-[18px]
             mx-auto p-4
           "
           aria-labelledby="email-capture-title"
@@ -166,8 +164,7 @@ export default function TipsPage(): JSX.Element {
           {/* Label */}
           <label
             htmlFor="email"
-            className="mx-auto block text-left w-fit text-[#344054] text-[14px] font-semibold"
-            style={{ width: 38 }}
+            className="text-left text-[#344054] text-xs font-semibold w-[38px]"
           >
             Email
           </label>
@@ -196,7 +193,7 @@ export default function TipsPage(): JSX.Element {
               type="submit"
               variant="secondary"
               disabled={!emailValid || submit.status === "submitting"}
-              className="mt-[10px] h-10 px-4 font-semibold text-base aria-disabled:opacity-60"
+              className="mt-10"
               data-role="tips_email_submit"
             >
               {submit.status === "submitting" ? "Sending…" : "Send me the full calm tip"}

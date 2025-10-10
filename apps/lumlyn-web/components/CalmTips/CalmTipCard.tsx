@@ -44,7 +44,7 @@ export default function CalmTipCard({
   return (
     <section
       className={clsx(
-        "w-full max-w-[390px] mx-auto flex flex-col items-center",
+        "mx-auto flex flex-col items-center  xl:w-[730px] xl:h-[531px] xl:mt-[10%] border border-black",
         className
       )}
       aria-label="Calm tip"
@@ -58,7 +58,7 @@ export default function CalmTipCard({
       ) : null}
 
       {subheadline ? (
-        <h2 className="mt-1 text-[#111] font-normal text-[18px] leading-7 text-center">
+        <h2 className="mt-2 text-[#111] font-normal text-[18px] leading-7 text-center">
           {subheadline}
         </h2>
       ) : null}
@@ -66,7 +66,7 @@ export default function CalmTipCard({
       {/* Gradient frame */}
       <div
         className={clsx(
-          "mt-4",
+          "mt-10",
           // frame: 375 x 273 (mobile spec) with inner padding ~18 / 3 / 2 px
           "flex w-[375px] h-[273px] p-[18px] pr-[2px] pl-[3px] justify-center items-center shrink-0",
           "rounded-[12px]",
@@ -74,13 +74,14 @@ export default function CalmTipCard({
           "bg-[linear-gradient(90deg,rgba(158,140,246,0.80)_0%,rgba(201,189,249,0.80)_100%)]",
           "shadow-[inset_0_4px_24px_rgba(0,0,0,0.10)]",
           // upscale at md+ while keeping aspect aesthetics
-          "md:w-[520px] md:h-[320px]"
+          "md:w-[520px] md:h-[320px]",
+          "xl:w-[611px] xl:h-[206px]"
         )}
         role="article"
         aria-live="polite"
         aria-atomic="true"
       >
-        <div className="w-[370px] h-[237px] shrink-0 flex flex-col items-center justify-center text-center">
+        <div className="xl:w-[600px] xl:h-[200px] w-[370px] h-[237px] shrink-0 flex flex-col items-center justify-center text-center">
           {paragraphs.length === 0 ? (
             <p className="text-[#1A1A1A] text-[16px] leading-[18px] font-medium">
               A gentle step is on the way.
@@ -90,8 +91,8 @@ export default function CalmTipCard({
               <p
                 key={i}
                 className={clsx(
-                  "text-[#1A1A1A] text-[16px] leading-[18px] font-medium text-center",
-                  i > 0 && "mt-3"
+                  "text-[#1A1A1A] text-base leading-[18px] font-semibold text-center",
+                  i > 0 && "mt-4"
                 )}
               >
                 {p}

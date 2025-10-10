@@ -25,21 +25,21 @@
     "topic": "limits",
     "age_band": "2-3",
     "user_type": "action",
-    "text": "Tantrum brewing? Kneel, soften voice: “You want the red cup. I hear you.” Offer 2 choices you can accept: red now or blue and red next time.\n\nHold boundary kindly; choices restore control without giving in."
+    "text": "Tantrum brewing?\n\n Kneel, soften voice: “You want the red cup. I hear you.” \n\nOffer 2 choices you can accept: red now or blue and red next time.\n\nHold boundary kindly; choices restore control without giving in."
   },
   {
     "tip_id": "limits_4-6_clarity_01",
     "topic": "limits",
     "age_band": "4-6",
     "user_type": "clarity",
-    "text": "Set one rule, one reason, one follow-through.\nRule: “Toys stay on the floor.” Reason: “So we don’t trip.” Follow-through: help put 3 toys away together, then they finish. Calm > lectures."
+    "text": "Set one rule, one reason, one follow-through.\n\nRule: \n“Toys stay on the floor.” Reason: “So we don’t trip.”\n\n Follow-through: help put 3 toys away together, then they finish.\n\n Calm > lectures."
   },
   {
     "tip_id": "cooperation_2-3_action_01",
     "topic": "cooperation",
     "age_band": "2-3",
     "user_type": "action",
-    "text": "Make it a tiny game: “Can the socks ride the feet train?” Count 1–2–3 while you help. Praise the effort, not the result: “You tried. High five.”\n\nPlay shrinks resistance."
+    "text": "Make it a tiny game:\n\n “Can the socks ride the feet train?” \n\nCount 1–2–3 while you help. \n\nPraise the effort, not the result: “You tried. High five.”\n\nPlay shrinks resistance."
   },
   {
     "tip_id": "cooperation_4-6_clarity_01",
@@ -116,7 +116,7 @@
     "topic": "meals",
     "age_band": "2-3",
     "user_type": "clarity",
-    "text": "Set roles: you decide the what/when/where; they decide whether/how much. Close the kitchen between meals — snacks at set times."
+    "text": "Set roles:\n\n You decide the what/when/where; they decide whether/how much. \n\nClose the kitchen between meals — snacks at set times."
   },
   {
     "tip_id": "limits_2-3_emotional_01",
