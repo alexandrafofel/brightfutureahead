@@ -1,4 +1,5 @@
 import * as React from "react";
+import { Logo } from "@/components/Logo/Logo";
 
 export function CalmTipEmail({
   tipText,
@@ -15,6 +16,7 @@ export function CalmTipEmail({
 }) {
   return (
     <div style={{ fontFamily: "Nunito Sans, Arial, sans-serif", color: "#1A1A1A" }}>
+        <Logo/>
       <h1 style={{ fontSize: 20, lineHeight: "28px", margin: 0, fontWeight: 700 }}>
         Your calm tip from Lumlyn
       </h1>

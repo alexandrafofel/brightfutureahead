@@ -1,19 +1,8 @@
 // apps/lumlyn-web/functions/classifyUser.ts
-// Determină user_type, topic și age_band pornind din răspunsurile quiz.
-// - EN only (MVP)
-// - Fără side-effects: doar transformă datele
-// - Robustețe: acceptă atât id-uri (ex: "sleep"), cât și etichete ("Sleep / Rest").
-//
-// Answers așteptate (dar tolerant):
-//  Q2: vârsta copilului (ex: "0-2", "2-3", "4-6", "0–2m", "under 2")
-//  Q3: topicul (ex: "sleep" | "limits" | "cooperation" | "meals")
-//  Q4: tipul de ajutor dorit (cuvinte-cheie pentru user_type)
-//
-// Dacă lipsesc informații, folosim fallback-urile:
-//  - age_band -> "2-3"
-//  - topic -> "sleep"
-//  - user_type -> "clarity"
-// Vezi și calm_tips.json pentru valori valide.
+// FIX: interpretează corect răspunsurile când sunt stocate ca *ID-uri de opțiuni*
+//      folosind schema din quizQuestions (Q2/Q3/Q4).
+
+import { quizQuestions } from "@/app/quiz/messages/quiz-options";
 
 export type Topic = "sleep" | "limits" | "cooperation" | "meals";
 export type AgeBand = "<2" | "2-3" | "4-6";
@@ -25,7 +14,8 @@ export interface ClassifiedResult {
   age_band: AgeBand;
 }
 
-/** Normalizează string (lowercase, fără diacritice, spații compacte) */
+/* -------------------- helpers -------------------- */
+
 function norm(v?: unknown): string {
   return String(v ?? "")
     .normalize("NFD")
@@ -35,72 +25,85 @@ function norm(v?: unknown): string {
     .trim();
 }
 
-/** Extrage banda de vârstă din Q2 (etichete diverse tolerate) */
-export function parseAgeBand(input?: unknown): AgeBand {
-  const s = norm(input);
+function findOptionLabel(qid: string, oid?: string): string | undefined {
+  if (!qid || !oid) return;
+  const q = quizQuestions.find((x) => x.id === qid);
+  const opt = q?.options?.find((o) => o.id === oid);
+  return (opt?.label ?? (opt as any)?.text ?? (opt as any)?.value) as string | undefined;
+}
 
-  // Exemple tolerate: "0-2", "0 – 2", "0 to 2", "under 2", "0-2m", "0-24 months"
+/* Q2 – vârstă */
+export function parseAgeBandFromIdOrLabel(q2Id?: string, q2Label?: string): AgeBand {
+  const s = norm(q2Label || q2Id);
+
   if (
     /\b(under\s*2|0\s*[-–to_]\s*2|0-?24\s*months?|<\s*2)\b/.test(s) ||
-    /\b0-?2m\b/.test(s)
+    /\b0-?2m\b/.test(s) ||
+    /\b(0[_-]?2|lt2|under2)\b/.test(s)
   )
     return "<2";
 
-  if (/\b(2\s*[-–to_]\s*3|2-?3\s*years?)\b/.test(s)) return "2-3";
+  if (/\b(2\s*[-–to_]\s*3|2-?3\s*years?)\b/.test(s) || /\b(2[_-]?3|age2?3)\b/.test(s))
+    return "2-3";
 
-  if (/\b(4\s*[-–to_]\s*6|4-?6\s*years?)\b/.test(s)) return "4-6";
+  if (/\b(4\s*[-–to_]\s*6|4-?6\s*years?)\b/.test(s) || /\b(4[_-]?6|age4?6)\b/.test(s))
+    return "4-6";
 
-  // Fallback preferat conform brief -> "2-3"
-  return "2-3";
+  return "2-3"; // fallback preferat
 }
 
-/** Map pentru topic (Q3) – tolerant la id sau label */
-export function parseTopic(input?: unknown): Topic {
-  const s = norm(input);
-  if (/sleep|rest|bedtime/.test(s)) return "sleep";
-  if (/limit|tantrum|boundar|rules?/.test(s)) return "limits";
-  if (/cooperat|morning routine|get dressed|brush/.test(s)) return "cooperation";
-  if (/meal|food|eat|picky|snack/.test(s)) return "meals";
-  // fallback rezonabil
+/* Q3 – topic */
+export function parseTopicFromIdOrLabel(q3Id?: string, q3Label?: string): Topic {
+  const s = norm(q3Label || q3Id);
+  if (/sleep|rest|bedtime/.test(s) || /\bsleep\b|q3_sleep|opt_sleep/.test(s)) return "sleep";
+  if (/limit|tantrum|boundar|rules?/.test(s) || /limits?|tantrums?|q3_limits?/.test(s)) return "limits";
+  if (/cooperat|morning|dress|brush/.test(s) || /cooperation|q3_coop/.test(s)) return "cooperation";
+  if (/meal|food|eat|picky|snack/.test(s) || /meals?|q3_meals?/.test(s)) return "meals";
   return "sleep";
 }
 
-/** Heuristici pentru user_type (Q4 + orice alt text relevant).
- *  Reguli simple, deterministe; dacă apar mai multe potriviri, aplicăm o prioritate.
- */
+/* Q4 – user type (help style) */
 const KEYWORDS: Record<UserType, RegExp> = {
   emotional: /(overwhelm|anx|stress|cry|feel|reassur|calm(?!\s*step))/,
-  clarity: /(clear|step(?:s)?|what to do|exact|structure|plan)/,
+  clarity: /(clear|step(?:s)?|exact|structure|plan|what to do)/,
   action: /(do now|practic|action|today|quick|immediat|start)/,
   indecisive: /(unsure|don'?t know|confus|maybe|not sure)/,
   frequency: /(often|every day|again|repeat|keeps|frequen)/,
 };
-
-// Prioritate când se potrivesc mai multe (poți schimba dacă ai reguli din doc):
 const PRIORITY: UserType[] = ["clarity", "action", "emotional", "frequency", "indecisive"];
 
-export function parseUserType(...inputs: Array<unknown>): UserType {
-  const bag = inputs.map(norm).join(" | ");
+export function parseUserTypeFromIdOrLabel(q4Id?: string, q4Label?: string): UserType {
+  const bag = [q4Id, q4Label].map(norm).join(" | ");
+  const hit = PRIORITY.find((t) => KEYWORDS[t].test(bag));
+  if (hit) return hit;
 
-  const hits = PRIORITY.filter((t) => KEYWORDS[t].test(bag));
-  if (hits.length > 0) return hits[0];
+  // suportă ID-uri descriptive (ex. help_clarity, want_action etc.)
+  if (/\bclarit(y|y_)?\b|help[_-]?clar/i.test(bag)) return "clarity";
+  if (/\baction\b|do[_-]?now/i.test(bag)) return "action";
+  if (/\bemotion|reassur/i.test(bag)) return "emotional";
+  if (/\bfrequen|often|again/i.test(bag)) return "frequency";
+  if (/\bindecis|unsure|not[_-]?sure/i.test(bag)) return "indecisive";
 
-  // Fallback sigur
   return "clarity";
 }
 
-/** Extrage valori dintr-un obiect answers care poate conține fie id-ul opțiunii, fie eticheta.
- *  Exemplu structură așteptată:
- *   answers = { Q2: "2-3", Q3: "sleep", Q4: "I need clear steps" }
- */
-export function classifyUser(answers?: Record<string, any>): ClassifiedResult {
-  const rawQ2 = answers?.Q2 ?? answers?.q2 ?? answers?.age ?? "";
-  const rawQ3 = answers?.Q3 ?? answers?.q3 ?? answers?.topic ?? "";
-  const rawQ4 = answers?.Q4 ?? answers?.q4 ?? answers?.help ?? "";
+/* -------------------- API principal -------------------- */
 
-  const age_band = parseAgeBand(rawQ2);
-  const topic = parseTopic(rawQ3);
-  const user_type = parseUserType(rawQ4, rawQ3, rawQ2);
+export function classifyUser(
+  answers?: Record<string, any>
+): ClassifiedResult {
+  // acceptă atât ID-uri cât și texte
+  const q2id = answers?.Q2 ?? answers?.q2 ?? answers?.age ?? "";
+  const q3id = answers?.Q3 ?? answers?.q3 ?? answers?.topic ?? "";
+  const q4id = answers?.Q4 ?? answers?.q4 ?? answers?.help ?? "";
+
+  const q2label = findOptionLabel("Q2", q2id);
+  const q3label = findOptionLabel("Q3", q3id);
+  const q4label = findOptionLabel("Q4", q4id);
+
+  const age_band = parseAgeBandFromIdOrLabel(String(q2id), q2label);
+  const topic = parseTopicFromIdOrLabel(String(q3id), q3label);
+  const user_type = parseUserTypeFromIdOrLabel(String(q4id), q4label);
 
   return { user_type, topic, age_band };
 }
