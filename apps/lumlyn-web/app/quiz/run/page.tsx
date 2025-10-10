@@ -2,48 +2,65 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/Button/button";
-import { quizReducer, createInitialState } from "../lib/quizReducer";
-import { quizQuestions, midCheck, labels } from "../messages/quiz-options";
 import Lottie from "lottie-react";
 
-// Lottie JSON – import static cu alias @
+import { Button } from "@/components/Button/button";
+import { useMediaQuery } from "@/components/Quiz/useMediaQuery";
+
 import heroDesk from "@/assets/lottie/hero-bg.json";
 import heroMob from "@/assets/lottie/hero-bg-mob.json";
 
-/* Hook media-query sigur (fără SSR mismatch) */
-function useMediaQuery(query: string) {
-  const [matches, setMatches] = React.useState(false);
-  React.useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia(query);
-    const update = () => setMatches(mq.matches);
-    update();
-    if (mq.addEventListener) mq.addEventListener("change", update);
-    else (mq as any).addListener(update);
-    return () => {
-      if (mq.removeEventListener) mq.removeEventListener("change", update);
-      else (mq as any).removeListener(update);
-    };
-  }, [query]);
-  return matches;
+// logica quiz existentă (păstrează importurile reale din proiectul tău)
+import { quizReducer, createInitialState } from "../lib/quizReducer";
+import { quizQuestions, midCheck, labels } from "../messages/quiz-options";
+
+// ✅ persist answers helpers (nou)
+import {
+  ensureAnswers,
+  mergeAnswer,
+  saveAnswers,
+  clearAnswers,
+} from "@/functions/persistQuizAnswers";
+
+type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
+
+/** Detectează dacă Q2 (vârsta) este 0–2 (ani/luni), tolerând formate diferite. */
+function isAge0to2(answers: Record<string, any> | undefined): boolean {
+  if (!answers) return false;
+  const q2Id = "Q2";
+  const selectedOptId = answers[q2Id];
+  if (!selectedOptId) return false;
+
+  const q2 = quizQuestions.find((q) => q.id === q2Id);
+  const opt = q2?.options?.find((o) => o.id === selectedOptId);
+
+  const text = [opt?.label, (opt as any)?.value, (opt as any)?.id]
+    .filter(Boolean)
+    .join(" ")
+    .toLowerCase();
+
+  return /\b0\s*[-–to_]\s*2\b/.test(text) || /\b0-?2m\b/.test(text) || /\bunder\s*2\b/.test(text);
 }
 
-export default function QuizRunPage() {
+export default function QuizRunPage(): JSX.Element {
   const router = useRouter();
+
   const [state, dispatch] = React.useReducer(
     quizReducer as React.Reducer<any, any>,
     createInitialState()
   );
 
+  // pregătim storage-ul (nu scrie nimic dacă există deja)
+  React.useEffect(() => {
+    ensureAnswers();
+  }, []);
+
   const optionRefs = React.useRef<Array<HTMLButtonElement | null>>([]);
   const [activeIdx, setActiveIdx] = React.useState(0);
 
-  // ——— Background Lottie: mobil/desktop
   const isMobile = useMediaQuery("(max-width: 767.98px)");
   const lottieData = (isMobile ? heroMob : heroDesk) as any;
 
-  // ——— Overlay “gaură” în jurul frame-ului (blur + darken + opacity)
   const frameRef = React.useRef<HTMLDivElement | null>(null);
   const [rect, setRect] = React.useState({ top: 0, left: 0, width: 0, height: 0 });
 
@@ -65,19 +82,35 @@ export default function QuizRunPage() {
     };
   }, []);
 
-  // ——— Lifecycle quiz
   React.useEffect(() => {
     (window as any)?.posthog?.capture?.("quiz_start");
+    // la start curățăm eventuale răspunsuri vechi (opțional: comentează dacă vrei să reiei ultima sesiune)
+    try {
+      clearAnswers();
+      ensureAnswers();
+    } catch {}
     dispatch({ type: "START" });
   }, []);
 
+  // La completare: baby -> outro?variant=baby; altfel -> outro?variant=v1 (lanț din en.ts)
   React.useEffect(() => {
     if (state.step === "complete") {
-      (window as any)?.posthog?.capture?.("quiz_complete");
-      router.replace("/quiz/outro");
-    }
-  }, [state.step, router]);
+      try {
+        // snapshot final pentru tips
+        saveAnswers((state as any).answers ?? {});
+      } catch {}
 
+      const answers = (state as any).answers as Record<string, any> | undefined;
+      const isBaby = isAge0to2(answers);
+
+      (window as any)?.posthog?.capture?.("quiz_complete", { is_baby: isBaby });
+
+      const variant: ResultKey = isBaby ? "baby" : "v1";
+      router.replace(`/quiz/outro?variant=${variant}`);
+    }
+  }, [state.step, router, state]);
+
+  // Focus pe opțiunea selectată
   React.useEffect(() => {
     if (state.step !== "question") return;
     const q = quizQuestions[state.index];
@@ -87,15 +120,21 @@ export default function QuizRunPage() {
     requestAnimationFrame(() => optionRefs.current[idx]?.focus?.());
   }, [state]);
 
-  // ——— Feedback vizibil la click: buton activ, apoi next după 250ms
   const [activating, setActivating] = React.useState<{ qid: string; oid: string } | null>(null);
   const ANSWER_DELAY = 250;
 
   const handleAnswer = React.useCallback((qid: string, oid: string) => {
     setActivating({ qid, oid });
     (window as any)?.posthog?.capture?.("quiz_answer_click", { qid, oid });
+
     window.setTimeout(() => {
       (window as any)?.posthog?.capture?.("quiz_answer", { qid, oid });
+
+      // ✅ persistăm incremental răspunsul (local/session storage)
+      try {
+        mergeAnswer(qid, oid);
+      } catch {}
+
       dispatch({ type: "ANSWER", qid, oid });
       setActivating(null);
     }, ANSWER_DELAY);
@@ -109,6 +148,7 @@ export default function QuizRunPage() {
   const handleBack = React.useCallback(() => {
     if (state.step === "question" && state.index === 0) {
       try {
+        // curățăm doar flag-urile, nu răspunsurile (ca să poată reveni)
         localStorage.removeItem("lumlyn_gdpr_processing");
         localStorage.removeItem("lumlyn_accept_legal");
         sessionStorage.removeItem("lumlyn_restore_legal");
@@ -123,33 +163,39 @@ export default function QuizRunPage() {
 
   return (
     <>
-      {/* LAYER 1: Lottie pe fundal (mobil min-h 940, desktop full viewport) */}
+      {/* Background */}
       <div
         aria-hidden
         className={
           "pointer-events-none z-0 " +
-          "absolute inset-x-0 top-0 h-[940px] " + // mobile default (h fixă)
+          "absolute inset-x-0 top-0 h-[940px] " +
           "md:fixed md:inset-0 md:h-auto"
         }
       >
         <Lottie animationData={lottieData} loop autoplay />
       </div>
 
-      {/* LAYER 1.5: Overlay blur + darken + opacitate, DOAR în afara frame-ului */}
+      {/* Overlay blur */}
       {rect.width > 0 && (
-        <div className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100" aria-hidden>
-         
-        </div>
+        <div
+          className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100"
+          aria-hidden
+        />
       )}
 
-      {/* LAYER 2: Conținutul quiz-ului peste overlay (neafectat) */}
-      <main className="relative z-20 w-full bg-transparent flex items-center justify-center min-h-[940px] md:min-h-screen">
+      <main className="relative z-20 w-full bg-transparent flex items-center justify-center min-h-[940px] xl:right-[150px] md:min-h-screen">
         <section className="w-full max-w-[390px] p-4">
           <div
             ref={frameRef}
             aria-label="quiz frame"
-            className="relative mx-auto w-full aspect-[195/422] border border-[#9747FF] rounded-[12px] bg-[rgba(249,246,255,0.90)] shadow-sm overflow-hidden"
+            className="
+              relative mx-auto w-full aspect-[195/422] 
+              border border-[#9747FF] rounded-[12px] 
+              bg-[rgba(249,246,255,0.90)] shadow-sm overflow-hidden
+              xl:w-[640px] xl:h-[460px]
+            "
           >
+            {/* Back */}
             <Button
               variant="back"
               onClick={handleBack}
@@ -157,16 +203,23 @@ export default function QuizRunPage() {
               className="absolute left-[11px] top-[10px]"
             />
 
+            {/* Questions */}
             {state.step === "question" && currentQuestion && (
               <div className="flex flex-col items-center w-full h-full">
                 <div className="mt-[17px]">
-                  <span aria-live="polite" className="text-[#666] text-base leading-[20px] font-bold">
+                  <span
+                    aria-live="polite"
+                    className="text-[#666] text-base leading-[20px] font-bold"
+                  >
                     {labels.progress(state.index + 1)}
                   </span>
                 </div>
 
-                <div className="mt-[132px] px-4">
-                  <h2 id={`q-${currentQuestion.id}`} className="text-[#1A1A1A] text-lg font-bold text-center">
+                <div className="mt-[132px] xl:mt-[37px] px-4">
+                  <h2
+                    id={`q-${currentQuestion.id}`}
+                    className="text-[#1A1A1A] text-lg font-bold text-center"
+                  >
                     {currentQuestion.prompt}
                   </h2>
                 </div>
@@ -174,7 +227,7 @@ export default function QuizRunPage() {
                 <div
                   role="radiogroup"
                   aria-labelledby={`q-${currentQuestion.id}`}
-                  className="mt-[40px] flex flex-col items-center gap-5 px-4"
+                  className="mt-[40px] xl:mt-[23px] flex flex-col items-center gap-5 px-4"
                 >
                   {currentQuestion.options.map((opt, i) => {
                     const isSelected =
@@ -226,16 +279,23 @@ export default function QuizRunPage() {
               </div>
             )}
 
+            {/* Mid-check */}
             {state.step === "midcheck" && (
               <div className="flex flex-col items-center w-full h-full">
                 <div className="mt-[275px] px-4">
-                  <h2 className="text-[#1A1A1A] text-[24px] font-bold text-center">{midCheck.heading}</h2>
+                  <h2 className="text-[#1A1A1A] text-[24px] font-bold text-center">
+                    {midCheck.heading}
+                  </h2>
                   <p className="mt-[10px] text-[#000] text-[16px] font-normal text-center">
                     {midCheck.subheading}
                   </p>
                 </div>
                 <div className="mt-[40px]">
-                  <Button variant="secondary" onClick={handleContinue} data-role="quiz_midcheck_continue">
+                  <Button
+                    variant="secondary"
+                    onClick={handleContinue}
+                    data-role="quiz_midcheck_continue"
+                  >
                     {midCheck.cta}
                   </Button>
                 </div>
