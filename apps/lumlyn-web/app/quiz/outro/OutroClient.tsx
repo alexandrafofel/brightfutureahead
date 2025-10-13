@@ -1,4 +1,3 @@
-// app/quiz/outro/OutroClient.tsx
 "use client";
 
 import * as React from "react";
@@ -10,18 +9,7 @@ import heroDesk from "@/assets/lottie/hero-bg.json";
 import heroMob from "@/assets/lottie/hero-bg-mob.json";
 import * as OutroMsgs from "./messages/en";
 
-export type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
-
-/**
- * Props suplimentare pentru a permite controlul din overlay. Dacă `variant` este
- * furnizat, nu mai este citit din query string sau din storage. Dacă
- * `onGoToTips` este furnizat, butonul CTA va apela această funcție în loc de
- * router.push. În absența lor, comportamentul original este păstrat.
- */
-export type OutroClientProps = {
-  variant?: ResultKey;
-  onGoToTips?: () => void;
-};
+type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
 
 const OUTRO_MAP =
   (OutroMsgs as any)?.RESULT_CONTENT ??
@@ -45,13 +33,16 @@ function isAge0to2FromAnswers(answers?: Record<string, any>): boolean {
   return /\b0\s*[-–to_]\s*2\b/.test(q2);
 }
 
-export default function OutroClient({ variant: propVariant, onGoToTips }: OutroClientProps = {}): JSX.Element {
+export default function OutroClient(): JSX.Element {
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const isMobile = useMediaQuery("(max-width: 767.98px)");
   const lottieData = (isMobile ? heroMob : heroDesk) as any;
+
   const frameRef = React.useRef<HTMLDivElement | null>(null);
   const [rect, setRect] = React.useState({ top: 0, left: 0, width: 0, height: 0 });
+
   React.useLayoutEffect(() => {
     const update = () => {
       if (!frameRef.current) return;
@@ -70,13 +61,9 @@ export default function OutroClient({ variant: propVariant, onGoToTips }: OutroC
     };
   }, []);
 
-  const [variant, setVariant] = React.useState<ResultKey>(propVariant ?? "v4");
+  const [variant, setVariant] = React.useState<ResultKey>("v4");
 
   React.useEffect(() => {
-    if (propVariant) {
-      setVariant(propVariant);
-      return;
-    }
     const qv = (searchParams.get("variant") || "").toLowerCase();
     if (qv === "baby" || qv === "v1" || qv === "v2" || qv === "v3" || qv === "v4") {
       setVariant(qv as ResultKey);
@@ -85,13 +72,7 @@ export default function OutroClient({ variant: propVariant, onGoToTips }: OutroC
     const answers = readAnswers();
     const isBaby = isAge0to2FromAnswers(answers);
     setVariant(isBaby ? "baby" : "v1");
-  }, [searchParams, propVariant]);
-
-  // logare la montare
-  React.useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log("[Outro] mounted");
-  }, []);
+  }, [searchParams]);
 
   const content =
     OUTRO_MAP?.[variant] ??
@@ -101,16 +82,6 @@ export default function OutroClient({ variant: propVariant, onGoToTips }: OutroC
       cta: "I want the solution",
       href: "/quiz/tips",
     };
-
-  const onClickCTA = () => {
-    (window as any)?.posthog?.capture?.("quiz_outro_cta");
-    if (onGoToTips) {
-      // dacă vine din overlay, nu navigăm full page
-      onGoToTips();
-    } else {
-      router.push(content.href);
-    }
-  };
 
   return (
     <main className="relative min-h-screen w-full flex items-center justify-center px-6 py-10">
@@ -124,34 +95,37 @@ export default function OutroClient({ variant: propVariant, onGoToTips }: OutroC
       >
         <Lottie animationData={lottieData} loop autoplay />
       </div>
+
       {rect.width > 0 && (
         <div
           className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100"
           aria-hidden
         />
       )}
+
       <section
         ref={frameRef}
         className=" relative z-20 flex flex-col
-            w-[390px] h-[844px]
-            items-center
-            px-[35px] pt-[287px] pb-[355px]
-            gap-[46px]
-            rounded-[12px]
-            border border-[#9747FF]
-            bg-[rgba(249,246,255,0.90)]
-            md:w-[640px] md:h-[460px]
-            md:items-start
-            md:p-8
-            md:gap-5
-            md:shrink-0
-            md:aspect-[32/23]
-            md:border-[3px]"
+        w-[390px] h-[844px]
+        items-center
+        px-[35px] pt-[287px] pb-[355px]
+        gap-[46px]
+        rounded-[12px]
+        border border-[#9747FF]
+        bg-[rgba(249,246,255,0.90)]
+        md:w-[640px] md:h-[460px]
+        md:items-start
+        md:p-8
+        md:gap-5
+        md:shrink-0
+        md:aspect-[32/23]
+        md:border-[3px]"
         aria-labelledby="outro-heading"
       >
         <h2 id="outro-heading" className="sr-only">
           Outro
         </h2>
+
         <div
           aria-live="polite"
           aria-atomic="true"
@@ -160,10 +134,11 @@ export default function OutroClient({ variant: propVariant, onGoToTips }: OutroC
           <p className="text-[#1A1A1A] text-lg xl:text-xl mb-[27px] leading-8 xl:font-bold !font-extrabold text-center">
             {content.message}
           </p>
+
           <Button
             variant="primary"
             className="xl:mt-6 mt-5"
-            onClick={onClickCTA}
+            onClick={() => router.push(content.href)}
             data-role="quiz_outro_cta"
           >
             {content.cta}

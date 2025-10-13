@@ -2,10 +2,11 @@
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
+import Lottie from "lottie-react";
 
 import { Button } from "@/components/Button/button";
 import { useMediaQuery } from "@/components/Quiz/useMediaQuery";
-import MobileMenu from "@/components/MobileMenu/MobileMenu";  
+
 import heroDesk from "@/assets/lottie/hero-bg.json";
 import heroMob from "@/assets/lottie/hero-bg-mob.json";
 
@@ -42,7 +43,6 @@ function isAge0to2(answers: Record<string, any> | undefined): boolean {
 }
 
 export default function QuizRunPage(): JSX.Element {
-
   const router = useRouter();
 
   const [state, dispatch] = React.useReducer(
@@ -84,7 +84,7 @@ export default function QuizRunPage(): JSX.Element {
 
   React.useEffect(() => {
     (window as any)?.posthog?.capture?.("quiz_start");
-
+    // la start curățăm eventuale răspunsuri vechi (opțional: comentează dacă vrei să reiei ultima sesiune)
     try {
       clearAnswers();
       ensureAnswers();
@@ -163,11 +163,28 @@ export default function QuizRunPage(): JSX.Element {
 
   return (
     <>
-   <main className="relative z-20 w-full bg-transparent flex items-center justify-center min-h-[940px] xl:right-[150px] md:min-h-screen">
+      {/* Background */}
+      <div
+        aria-hidden
+        className={
+          "pointer-events-none z-0 " +
+          "absolute inset-x-0 top-0 h-[940px] " +
+          "md:fixed md:inset-0 md:h-auto"
+        }
+      >
+        <Lottie animationData={lottieData} loop autoplay />
+      </div>
+
+      {/* Overlay blur */}
+      {rect.width > 0 && (
+        <div
+          className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100"
+          aria-hidden
+        />
+      )}
+
+      <main className="relative z-20 w-full bg-transparent flex items-center justify-center min-h-[940px] xl:right-[150px] md:min-h-screen">
         <section className="w-full max-w-[390px] p-4">
-          <nav aria-label="Primary nav mobile" className="absolute top-[15px] right-[30px]">
-            <MobileMenu />
-          </nav>         
           <div
             ref={frameRef}
             aria-label="quiz frame"
@@ -175,7 +192,7 @@ export default function QuizRunPage(): JSX.Element {
               relative mx-auto w-full aspect-[195/422] 
               border border-[#9747FF] rounded-[12px] 
               bg-[rgba(249,246,255,0.90)] shadow-sm overflow-hidden
-              xl:w-[640px] xl:h-[460px] 
+              xl:w-[640px] xl:h-[460px]
             "
           >
             {/* Back */}

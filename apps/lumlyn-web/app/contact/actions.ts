@@ -1,161 +1,117 @@
 "use server";
 
-import { z } from "zod";
 import { headers } from "next/headers";
-// ajustează importul dacă aliasul @ nu e configurat
 import { rateLimit } from "./rate-limit";
 
-/** Schema de validare pentru form-ul de contact */
-const ContactSchema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(2, "Name too short")
-    .max(80, "Name too long")
-    .optional()
-    .or(z.literal("").transform(() => undefined)),
-  email: z.string().trim().email("Invalid email"),
-  message: z.string().trim().min(4, "Message too short").max(5000, "Message too long"),
-  consent: z.boolean().refine((v) => v === true, { message: "Consent is required" }),
-});
-
-export type SubmitContactResult = { ok: true } | { ok: false; error: string };
-
 /**
- * ENV așteptate:
- * - NEXT_PUBLIC_LEAD_ENDPOINT / LEAD_ENDPOINT (backend-ul care trimite auto-reply la user)
- * - RESEND_API_KEY (cheia Resend)
- * - CONTACT_FORWARD_TO (ex: contact@lumlyn.com)
- * - CONTACT_DEBUG=1 (opțional, pentru mesaje de eroare detaliate în toast)
+ * Server action to handle submission of the contact form.
+ *
+ * Because this code executes on the server it can access HTTP headers to
+ * implement per-IP rate limiting and perform an authenticated call to the
+ * backend API.  Validation is duplicated here to protect the server from
+ * malformed input in case the client-side checks are bypassed.
+ *
+ * The returned object follows a simple `{ ok: boolean, error?: string }` shape
+ * which is consumed by the client component.  When `ok` is `false` a
+ * descriptive `error` message may be provided, although the UI will display
+ * a generic toast.
  */
-const RESEND_API_KEY = process.env.RESEND_API_KEY ?? "";
-const CONTACT_FORWARD_TO = process.env.CONTACT_FORWARD_TO ?? "";
-const LEAD_ENDPOINT =
-  process.env.NEXT_PUBLIC_LEAD_ENDPOINT ?? process.env.LEAD_ENDPOINT ?? "";
-const DEBUG = process.env.CONTACT_DEBUG === "1";
+export async function submitContact(formData: FormData): Promise<{ ok: boolean; error?: string }> {
+  // Extract raw values from FormData.  Each call to `get` returns `FormDataEntryValue | null`.
+  const emailValue = formData.get("email");
+  const messageValue = formData.get("message");
+  const nameValue = formData.get("name");
+  const consentValue = formData.get("consent");
+  
+  const email = typeof emailValue === "string" ? emailValue.trim() : "";
+  const message = typeof messageValue === "string" ? messageValue.trim() : "";
+  const name = typeof nameValue === "string" && nameValue.trim() !== "" ? nameValue.trim() : undefined;
+  // Checkbox values come back as "on" or may be omitted.
+  const consent = consentValue === "on" || consentValue === "true";
 
-async function getClientIp(): Promise<string> {
-  const h = await headers();
-  const xff = h.get("x-forwarded-for");
-  if (xff) return xff.split(",")[0]?.trim() ?? "unknown";
-  return h.get("x-real-ip") ?? "unknown";
-}
+  // Server-side validation mirrors the client rules.  We do not reveal
+  // specific error messages to the user in the toast to avoid exposing
+  // implementation details.  Instead a generic error toast is shown on
+  // failure.  These checks still short-circuit the network call when
+  // invalid input is detected.
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return { ok: false, error: "Invalid email" };
+  }
+  if (message.length < 10) {
+    return { ok: false, error: "Message too short" };
+  }
+  if (!consent) {
+    return { ok: false, error: "Consent not given" };
+  }
 
-async function forwardToTeam(params: {
-  name?: string;
-  email: string;
-  message: string;
-}): Promise<void> {
-  if (!RESEND_API_KEY || !CONTACT_FORWARD_TO) return;
+  // Read the request headers to attempt to identify the client IP.  On
+  // Vercel and many proxies the original IP is forwarded in
+  // `x-forwarded-for`.  If not present we fall back to a constant string.
+  const hdrs = await headers();
+  const forwarded = hdrs.get("x-forwarded-for");
+  const ip = forwarded?.split(",")[0]?.trim() ?? "unknown";
 
-  const { name, email, message } = params;
+  // Apply a very simple rate‑limit to protect the backend.  This uses an
+  // in‑memory map and therefore resets whenever the server process restarts.
+  if (!rateLimit(ip).allowed) {
+    return { ok: false, error: "Too many requests" };
+  }
+
+  // Determine the session identifier.  In a real application this would be
+  // derived from cookies or Supabase auth.  Until that mechanism is
+  // implemented we fall back to a sentinel value so the API contract
+  // remains stable.
+  const sessionId = hdrs.get("x-session-id") ?? "unknown";
+
+  // Compose the payload for the lead endpoint.  Note that `consent` is
+  // converted to a boolean literal for clarity.
+  const payload = {
+    email,
+    message,
+    consent: true,
+    name,
+    session_id: sessionId,
+  } as const;
+
   try {
-    const body = {
-      from: "Lumlyn <contact@lumlyn.com>",
-      to: [CONTACT_FORWARD_TO],
-      reply_to: email, // permite Reply direct către user din inbox
-      subject: `[Contact] ${name ?? email}`,
-      text: `From: ${name ?? "(no name)"} <${email}>\n\n${message}`,
-    } as const;
+    // Build an absolute URL for the lead endpoint.  Node’s fetch cannot
+    // resolve relative URLs on the server, so we compute a base
+    // (`NEXT_PUBLIC_BASE_URL` or `VERCEL_URL` or localhost) and resolve
+    // any relative path.  If `NEXT_PUBLIC_LEAD_ENDPOINT` is already
+    // absolute (includes a scheme), it is used directly.
+    const envEndpoint = process.env.NEXT_PUBLIC_LEAD_ENDPOINT;
+    const isAbsolute = (str?: string) => !!str && /^[a-zA-Z][a-zA-Z0-9+.-]*:\/\//.test(str);
+    let leadUrl: string;
+    if (envEndpoint && isAbsolute(envEndpoint)) {
+      leadUrl = envEndpoint;
+    } else {
+      const baseEnv = process.env.NEXT_PUBLIC_BASE_URL;
+      const vercelDomain = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined;
+      const base = baseEnv ?? vercelDomain ?? "http://localhost:3000";
+      const path = envEndpoint ?? "/lead";
+      leadUrl = new URL(path, base).toString();
+    }
 
-    const r = await fetch("https://api.resend.com/emails", {
+    const response = await fetch(leadUrl, {
       method: "POST",
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-      cache: "no-store",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
     });
-
-    if (!r.ok) {
-      const t = await r.text().catch(() => "");
-      console.error("[contact] Resend forward failed", r.status, t);
+    if (!response.ok) {
+      // Log the response text on the server for debugging purposes.  This
+      // information is not surfaced to the client.
+      try {
+        const text = await response.text();
+        console.error("POST /lead failed", text);
+      } catch (_) {
+        /* noop */
+      }
+      return { ok: false, error: "Failed to submit" };
     }
-  } catch (e) {
-    console.error("[contact] Resend forward error", e);
-  }
-}
-
-async function postLead(payload: unknown): Promise<Response> {
-  if (!LEAD_ENDPOINT) {
-    // fallback: nu blocăm UX-ul dacă endpoint-ul nu e setat încă
-    return new Response("lead endpoint missing", { status: 200 });
-  }
-  return fetch(LEAD_ENDPOINT, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-    cache: "no-store",
-  });
-}
-
-export async function submitContact(formData: FormData): Promise<SubmitContactResult> {
-  try {
-    // 1) Extract & validate
-    const raw = {
-      name: (formData.get("name") ?? "") as string,
-      email: (formData.get("email") ?? "") as string,
-      message: (formData.get("message") ?? "") as string,
-      consent: String(formData.get("consent") ?? "false") === "true",
-    };
-    const parsed = ContactSchema.safeParse(raw);
-    if (!parsed.success) {
-      const msg = parsed.error.issues?.[0]?.message ?? "Invalid payload";
-      return { ok: false, error: msg };
-    }
-
-    const { name, email, message, consent } = parsed.data;
-
-    // 2) Rate-limit per IP (semnătura existentă primește DOAR cheia string)
-    const ip = await getClientIp();
-    try {
-      await rateLimit(`contact:${ip}`);
-    } catch (e) {
-      return {
-        ok: false,
-        error: DEBUG
-          ? `RATE_LIMIT:${(e as Error)?.message ?? String(e)}`
-          : "Too many requests. Please try again later.",
-      };
-    }
-
-    // 3) Payload pentru lead (auto-reply la user e orchestrat în backend)
-    const payload = {
-      name,
-      email,
-      message,
-      consent,
-      source: "web_contact",
-      ts: new Date().toISOString(),
-    };
-
-    // 4) Așteptăm LEAD (pentru a garanta auto-reply la user)
-    const leadResp = await postLead(payload);
-
-    // 5) Forward către echipă (NON-BLOCKING, nu afectează UX)
-    const forwardPromise = forwardToTeam({ name, email, message });
-    await Promise.allSettled([forwardPromise]);
-
-    // 6) Dacă lead a eșuat, informăm utilizatorul
-    if (!leadResp.ok) {
-      const body = await leadResp.text().catch(() => "");
-      return {
-        ok: false,
-        error: DEBUG
-          ? `LEAD_FAIL:${leadResp.status}:${body.slice(0, 300)}`
-          : "Something went wrong. Please try again.",
-      };
-    }
-
     return { ok: true };
-  } catch (e) {
-    console.error("[contact] submitContact fatal", e);
-    return {
-      ok: false,
-      error: DEBUG
-        ? `FATAL:${(e as Error)?.message ?? String(e)}`
-        : "Unexpected error. Please try again.",
-    };
+  } catch (err) {
+    console.error("Error submitting contact", err);
+    return { ok: false, error: "Error submitting" };
   }
 }
