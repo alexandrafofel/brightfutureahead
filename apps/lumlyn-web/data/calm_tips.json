@@ -4,21 +4,21 @@
     "topic": "sleep",
     "age_band": "<2",
     "user_type": "emotional",
-    "text": "It’s hard when your baby’s sleep shifts. This is normal.\n\nHold them close, breathe slowly together for 4 counts in / 6 counts out.\n\n Dim the lights and hum the same short melody for 60–90 seconds.\n\nYour calm tone tells their nervous system: “you’re safe”. \n\nYou’re doing enough."
+    "text": "It’s hard when your baby’s sleep shifts. This is normal.\n\nHold them close, breathe slowly together for 4 counts in / 6 counts out. Dim the lights and hum the same short melody for 60–90 seconds.\n\nYour calm tone tells their nervous system: “you’re safe”. You’re doing enough."
   },
   {
     "tip_id": "sleep_2-3_emotional_01",
     "topic": "sleep",
     "age_band": "2-3",
     "user_type": "emotional",
-    "text": "Bedtime pushback is common at 2–3. Start a tiny, repeatable ritual: \n\n light off → one picture book → 2-minute cuddle → lights stay off.\n\nSay: “Your body is learning to sleep. I’m here.”\n\nShort and the same every night beats long and changing."
+    "text": "Bedtime pushback is common at 2–3. Start a tiny, repeatable ritual: light off → one picture book → 2-minute cuddle → lights stay off.\n\nSay: “Your body is learning to sleep. I’m here.”\n\nShort and the same every night beats long and changing."
   },
   {
     "tip_id": "sleep_4-6_clarity_01",
     "topic": "sleep",
     "age_band": "4-6",
     "user_type": "clarity",
-    "text": "Make sleep steps visible.\n\n Use a 3-step card: pajamas → brush → story.\n\n Point to each step, then lights.\n\nIf they call out, walk back, whisper one line, and leave.\n\n Consistency, not volume, makes the boundary clear."
+    "text": "Make sleep steps visible. Use a 3-step card: pajamas → brush → story. Point to each step, then lights.\n\nIf they call out, walk back, whisper one line, and leave. Consistency, not volume, makes the boundary clear."
   },
   {
     "tip_id": "limits_2-3_action_01",
@@ -32,7 +32,7 @@
     "topic": "limits",
     "age_band": "4-6",
     "user_type": "clarity",
-    "text": "Set one rule, one reason, one follow-through.\n\nRule: \n“Toys stay on the floor.” \n\nReason: “So we don’t trip.”\n\n Follow-through: help put 3 toys away together, then they finish.\n\n Calm > lectures."
+    "text": "Set one rule, one reason, one follow-through.\n\nRule: \n“Toys stay on the floor.” Reason: “So we don’t trip.”\n\n Follow-through: help put 3 toys away together, then they finish.\n\n Calm > lectures."
   },
   {
     "tip_id": "cooperation_2-3_action_01",
@@ -46,35 +46,35 @@
     "topic": "cooperation",
     "age_band": "4-6",
     "user_type": "clarity",
-    "text": "Give a when-then: “When teeth are brushed, then we pick a song.”\n\nState once, point to the ‘then,’ and wait.\n\n Silence is part of the tool."
+    "text": "Give a when-then: “When teeth are brushed, then we pick a song.”\n\nState once, point to the ‘then,’ and wait. Silence is part of the tool."
   },
   {
     "tip_id": "meals_2-3_frequency_01",
     "topic": "meals",
     "age_band": "2-3",
     "user_type": "frequency",
-    "text": "Picky today? \n\nServe one safe food + one familiar + one tiny explore bite.\n\nNo pressure lines. Say: “You don’t have to eat it.” \n\nOffer again next time. Repeated calm exposures build trust."
+    "text": "Picky today? Serve one safe food + one familiar + one tiny explore bite.\n\nNo pressure lines. Say: “You don’t have to eat it.” Offer again next time. Repeated calm exposures build trust."
   },
   {
     "tip_id": "meals_4-6_action_01",
     "topic": "meals",
     "age_band": "4-6",
     "user_type": "action",
-    "text": "Invite a helper role: they plate the cucumber stars.\n\n Give a 2-minute timer to start.\n\nOwnership increases trying; keep portions small and praise curiosity."
+    "text": "Invite a helper role: they plate the cucumber stars. Give a 2-minute timer to start.\n\nOwnership increases trying; keep portions small and praise curiosity."
   },
   {
     "tip_id": "sleep_2-3_indecisive_01",
     "topic": "sleep",
     "age_band": "2-3",
     "user_type": "indecisive",
-    "text": "Pick one soothing step for 3 nights only: hand on back for 60 seconds. \n\nSet a phone timer. \n\nEach night, same words, same length. \n\nPredictability calms more than adding steps."
+    "text": "Pick one soothing step for 3 nights only: hand on back for 60 seconds. Set a phone timer. Each night, same words, same length. Predictability calms more than adding steps."
   },
   {
     "tip_id": "limits_<2_emotional_01",
     "topic": "limits",
     "age_band": "<2",
     "user_type": "emotional",
-    "text": "Crying in arms is communication, not manipulation. \n\nName the feeling softly: “Big feelings. Safe with me.”\n\nSway slowly; your rhythm lends theirs stability."
+    "text": "Crying in arms is communication, not manipulation. Name the feeling softly: “Big feelings. Safe with me.”\n\nSway slowly; your rhythm lends theirs stability."
   },
   {
     "tip_id": "cooperation_<2_action_01",
@@ -88,14 +88,14 @@
     "topic": "meals",
     "age_band": "<2",
     "user_type": "clarity",
-    "text": "Tiny tummies = tiny portions. \n\nOffer 2–3 soft options, let them touch and smell first. \n\nMessy is learning."
+    "text": "Tiny tummies = tiny portions. Offer 2–3 soft options, let them touch and smell first. Messy is learning."
   },
   {
     "tip_id": "limits_4-6_frequency_01",
     "topic": "limits",
     "age_band": "4-6",
     "user_type": "frequency",
-    "text": "If reminders repeat, switch to a routine cue: a picture checklist.\n\n Point, wait 5 seconds, then assist one step. \n\nFewer words, more doing."
+    "text": "If reminders repeat, switch to a routine cue: a picture checklist. Point, wait 5 seconds, then assist one step. Fewer words, more doing."
   },
   {
     "tip_id": "cooperation_4-6_emotional_01",
@@ -109,7 +109,7 @@
     "topic": "sleep",
     "age_band": "4-6",
     "user_type": "action",
-    "text": "Teach a calm body script: squeeze pillow 3x, relax arms, slow exhale. \n\nPractice at daytime first, use at bedtime as the ‘calm superpower’."
+    "text": "Teach a calm body script: squeeze pillow 3x, relax arms, slow exhale. Practice at daytime first, use at bedtime as the ‘calm superpower’."
   },
   {
     "tip_id": "meals_2-3_clarity_01",
@@ -123,20 +123,20 @@
     "topic": "limits",
     "age_band": "2-3",
     "user_type": "emotional",
-    "text": "Kneel + name: “You wanted more screen. Disappointing.”\n\nHold limit, offer comfort: hug or sit nearby.\n\n Feelings pass faster when welcomed."
+    "text": "Kneel + name: “You wanted more screen. Disappointing.”\n\nHold limit, offer comfort: hug or sit nearby. Feelings pass faster when welcomed."
   },
   {
     "tip_id": "cooperation_2-3_frequency_01",
     "topic": "cooperation",
     "age_band": "2-3",
     "user_type": "frequency",
-    "text": "Use a first/then board: first shoes, then choose a song.\n\n Repeat the same pairing all week to automate the habit."
+    "text": "Use a first/then board: first shoes, then choose a song. Repeat the same pairing all week to automate the habit."
   },
   {
     "tip_id": "meals_4-6_indecisive_01",
     "topic": "meals",
     "age_band": "4-6",
     "user_type": "indecisive",
-    "text": "Offer a sampler plate: 3 bites, 3 colors. \n\nLet them pick the order. \n\nNo “just one more” requests — curiosity grows when pressure drops."
+    "text": "Offer a sampler plate: 3 bites, 3 colors. Let them pick the order. No “just one more” requests — curiosity grows when pressure drops."
   }
 ]

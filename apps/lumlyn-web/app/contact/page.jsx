@@ -1,11 +1,9 @@
 import Image from "next/image";
-import { Logo } from "../../components/Logo/Logo";
-import { Footer } from "../../components/Footer/Footer";
-import { Button } from "../../components/Button/button";
-import MobileMenu from "../../components/MobileMenu/MobileMenu";
-import ContactFormClient from "./ContactFormClient";
-
-
+import { Logo } from "@/components/Logo/Logo";
+import { Footer } from "@/components/Footer/Footer";
+import { ContactForm } from "@/components/contact/ContactForm";
+import { Button } from "@/components/Button/button";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
 
 /**
  * Contact page – routes under `/contact`.
@@ -66,7 +64,7 @@ export default function ContactPage() {
       {/* Form card */}
       <main className="w-full flex flex-col items-center px-4">
         <div className="relative w-full max-w-[350px] sm:max-w-[640px] bg-white border-[3px] border-[rgba(151,71,255,0.40)] rounded-xl shadow-[0_4px_16px_rgba(0,0,0,0.15)] p-4 sm:p-6">
-          <ContactFormClient />
+          <ContactForm />
         </div>
         <p className="mt-8 max-w-[720px] text-center text-[#6CA9F6] text-base font-medium leading-6 px-4">
           ✨ Our promise: Every message is read with empathy. We respond without judgement, always with the goal of helping families feel calmer and more supported.

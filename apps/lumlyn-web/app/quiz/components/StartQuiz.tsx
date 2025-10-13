@@ -16,20 +16,12 @@ type Props = {
   minutes?: number;
   disabled?: boolean;
   className?: string;
-  /**
-   * Callback apelat când utilizatorul a trecut de validările legale și dorește
-   * să înceapă quiz-ul. Dacă este definit, componenta nu va naviga automat la
-   * ruta `/quiz/run`, ci va invoca această funcție. În caz contrar se
-   * comportă ca înainte, folosind router.push.
-   */
-  onStart?: () => void;
 };
 
 export default function StartQuiz({
   minutes = 1,
   disabled,
   className,
-  onStart,
 }: Props) {
   const router = useRouter();
 
@@ -57,7 +49,8 @@ export default function StartQuiz({
     formState: { isSubmitting },
   } = methods;
 
-  const bothChecked = !!watch("gdpr_processing") && !!watch("accept_legal");
+  const bothChecked =
+    !!watch("gdpr_processing") && !!watch("accept_legal");
 
   const onValid = () => {
     // Salvează bifele pentru ca, la Back din Q1, să rămână setate.
@@ -70,12 +63,7 @@ export default function StartQuiz({
       // ignore storage errors (Safari private mode etc.)
     }
     // Intră în fluxul de întrebări
-    if (onStart) {
-      // dacă se oferă un callback, îl apelăm în loc să navigăm
-      onStart();
-    } else {
-      router.push("/quiz/run");
-    }
+    router.push("/quiz/run");
   };
 
   return (
@@ -88,18 +76,21 @@ export default function StartQuiz({
           className="!mb-5 !text-base !font-semibold !w-[320px] !border"
           data-role="start_quiz"
         >
-          {`Start Quiz (${minutes} minute${minutes !== 1 ? "s" : ""})`}
+          Start Quiz ({minutes} minute{minutes !== 1 ? "s" : ""})
         </Button>
 
         <CheckLegal className="space-y-2" />
 
-        <p
-          aria-label="isChecked"
-          className={`absolute bottom-[50px] left-0 right-0 w-full text-center text-xs leading-5 text-[#F6A6A6] transition-all duration-300 ease-in-out ${bothChecked ? "invisible opacity-0" : "visible opacity-100"}`}
+        <p aria-label="isChecked"
+          className={`absolute bottom-[50px] left-0 right-0 w-full text-center text-xs leading-5 text-[#F6A6A6] transition-all duration-300 ease-in-out ${
+            bothChecked ? "invisible opacity-0" : "visible opacity-100"
+          }`}
           aria-hidden={bothChecked}
         >
           Please check <strong>both boxes</strong> to continue.
         </p>
+
+
       </form>
     </FormProvider>
   );

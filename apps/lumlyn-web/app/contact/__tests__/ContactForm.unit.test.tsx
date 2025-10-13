@@ -2,8 +2,7 @@
 // Use a relative import instead of the `@` alias to avoid the need for
 // moduleNameMapper configuration in Jest.  The path climbs three levels
 // out of the test folder to reach the components directory.
-import ContactForm from "../../../components/contact/ContactForm";
-
+import { ContactForm } from "../../../components/contact/ContactForm";
 
 // Mock the server action and analytics to avoid network calls during tests.
 jest.mock("../actions", () => ({

@@ -8,7 +8,7 @@ export function FooterLP() {
       <p
         className="font-[Nunito_Sans] text-[12px] font-semibold leading-[18px] text-[rgba(136,136,136,0.6)]"
       >
-        You can unsubscribe anytime. See{" "}
+        Unsubscribe anytime. See{" "}
         <Link
           href={PRIVACY_URL || "/privacy"}
           className="text-[#4C90E6] hover:underline"
