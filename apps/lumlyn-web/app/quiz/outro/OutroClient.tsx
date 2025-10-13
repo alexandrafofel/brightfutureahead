@@ -113,34 +113,17 @@ export default function OutroClient({ variant: propVariant, onGoToTips }: OutroC
   };
 
   return (
-    <main className="relative min-h-screen w-full flex items-center justify-center px-6 py-10">
-      <div
-        aria-hidden
-        className={
-          "pointer-events-none z-0 " +
-          "absolute inset-x-0 top-0 h-[940px] " +
-          "md:fixed md:inset-0 md:h-auto"
-        }
-      >
-        <Lottie animationData={lottieData} loop autoplay />
-      </div>
-      {rect.width > 0 && (
-        <div
-          className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100"
-          aria-hidden
-        />
-      )}
+    <main className="relative w-fullflex items-center justify-center px-6 py-10">
       <section
         ref={frameRef}
         className=" relative z-20 flex flex-col
-            w-[390px] h-[844px]
+            xl:w-[640px] xl:h-[460px]  w-[390px] h-[844px] 
             items-center
             px-[35px] pt-[287px] pb-[355px]
             gap-[46px]
             rounded-[12px]
             border border-[#9747FF]
             bg-[rgba(249,246,255,0.90)]
-            md:w-[640px] md:h-[460px]
             md:items-start
             md:p-8
             md:gap-5

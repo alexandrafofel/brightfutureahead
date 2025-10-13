@@ -135,26 +135,25 @@ export default function CalmTipCard({
         "relative mx-auto w-full aspect-[195/422]",
         "border border-[#9747FF] rounded-[12px]",
         "bg-[rgba(249,246,255,0.90)] shadow-sm overflow-hidden",
-        "xl:w-[640px] xl:h-[460px] h-[880px]",
+        "xl:w-[730px] xl:h-[581px] h-[880px]",
         className
       )}
       
       data-testid={testId}
     >
-      <LottieBG desktopSrc={heroDesktop} mobileSrc={heroMobile} breakpoint={768} />
-      <nav aria-label="Primary nav mobile" className="xl:hidden absolute top-[15px] right-[30px]">
+      <nav aria-label="Primary nav mobile" className="absolute top-[15px] right-[30px]">
         <MobileMenu />
       </nav> 
 
       {/* Headings */}
       {headline ? (
-        <h1 className="mt-[35%] text-[#1A1A1A] font-bold text-[22px] leading-[32px] text-center">
+        <h1 className="mt-[35%] xl:mt-[4%] text-[#1A1A1A] font-bold text-[22px] leading-[32px] text-center">
           {headline}
         </h1>
       ) : null}
 
       {subheadline ? (
-        <h2 className="text-[#111] font-normal text-[18px] leading-7 text-center">
+        <h2 className=" xl:mt-[1%] text-[#111] font-normal text-[18px] leading-7 text-center">
           {subheadline}
         </h2>
       ) : null}
@@ -163,17 +162,17 @@ export default function CalmTipCard({
       <div
         className={clsx(
           "mt-[15%] ml-[3%] w-[380px] h-[250px] p-[18px] pr-[2px] pl-[3px]",
+          "xl:mt-[5%] xl:ml-[10%] xl:w-[611px] xl:h-[206px] xl:p-[13px] xl:pr-[6px] xl:pl-[12px]",
           "flex justify-center items-center shrink-0",
           "rounded-[12px]",
           "bg-[linear-gradient(90deg,rgba(158,140,246,0.80)_0%,rgba(201,189,249,0.80)_100%)]",
-          "shadow-[inset_0_4px_24px_rgba(0,0,0,0.10)]",
-          "xl:w-[611px] xl:h-[206px]"
+          "shadow-[inset_0_4px_24px_rgba(0,0,0,0.10)]"
         )}
         role="article"
         aria-live="polite"
         aria-atomic="true"
       >
-        <div className="xl:w-[600px] xl:h-[220px] w-[340px] h-[237px] shrink-0 flex flex-col items-center justify-center text-center">
+        <div className="xl:w-[600px] xl:h-[206px] w-[340px] h-[237px] shrink-0 flex flex-col items-center justify-center text-center">
           {paragraphs.length === 0 ? (
             <p className="text-[#1A1A1A] text-base leading-6">…</p>
           ) : (
@@ -196,7 +195,7 @@ export default function CalmTipCard({
       {/* Email capture — în același container + bg */}
       {withEmailCapture && (
         <div
-          className="w-full max-w-[354px] text-[#1A1A1A] font-semibold text-base leading-[18px] mx-auto mt-4"
+          className="w-full max-w-[354px] text-[#1A1A1A] font-semibold text-base leading-[18px] mx-auto "
           aria-labelledby="email-capture-title"
         >
           <h3 id="email-capture-title" className="sr-only">
@@ -205,7 +204,7 @@ export default function CalmTipCard({
 
           <label
             htmlFor="email"
-            className="block ml-3 text-[#344054] text-sm font-semibold mt-[10%]"
+            className="block ml-3 text-[#344054] text-left text-sm font-semibold mt-[10%] xl:mt-2"
           >
             Email
           </label>
@@ -221,7 +220,7 @@ export default function CalmTipCard({
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email to receive your full calm tip"
               className="
-                flex w-[320px] h-[40px] px-4 py-3 mb-[10%]
+                flex w-[320px] h-[40px] px-4 py-3 mb-[10%] xl:mb-1
                 rounded-[12px] border border-[#D0D5DD] bg-white
                 placeholder:text-[#667085] text-sm
                 focus:outline-none focus:ring-2 focus:ring-[#9747FF] focus:ring-offset-2

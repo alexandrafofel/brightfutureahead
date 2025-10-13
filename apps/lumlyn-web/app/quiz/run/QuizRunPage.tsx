@@ -45,6 +45,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
     createInitialState(),
   );
 
+  // pregătim storage-ul (nu scrie nimic dacă există deja)
   React.useEffect(() => {
     ensureAnswers();
   }, []);
@@ -78,6 +79,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
 
   React.useEffect(() => {
     (window as any)?.posthog?.capture?.("quiz_start");
+    // la start curățăm eventuale răspunsuri vechi (opțional: comentează dacă vrei să reiei ultima sesiune)
     try {
       clearAnswers();
       ensureAnswers();
@@ -85,9 +87,11 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
     dispatch({ type: "START" });
   }, []);
 
+  // La completare: baby -> outro?variant=baby; altfel -> outro?variant=v1 (lanț din en.ts)
   React.useEffect(() => {
     if (state.step === "complete") {
       try {
+        // snapshot final pentru tips
         saveAnswers((state as any).answers ?? {});
       } catch {}
 
@@ -96,6 +100,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
       (window as any)?.posthog?.capture?.("quiz_complete", { is_baby: isBaby });
       const variant: ResultKey = isBaby ? "baby" : "v1";
       if (onComplete) {
+        // dacă rulează în overlay, notificăm overlay‑ul cu varianta
         onComplete(variant);
       } else {
         router.replace(`/quiz/outro?variant=${variant}`);
@@ -103,6 +108,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
     }
   }, [state.step, router, state, onComplete]);
 
+  // Focus pe opțiunea selectată
   React.useEffect(() => {
     if (state.step !== "question") return;
     const q = quizQuestions[state.index];
@@ -120,6 +126,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
     (window as any)?.posthog?.capture?.("quiz_answer_click", { qid, oid });
     window.setTimeout(() => {
       (window as any)?.posthog?.capture?.("quiz_answer", { qid, oid });
+      // ✅ persistăm incremental răspunsul (local/session storage)
       try {
         mergeAnswer(qid, oid);
       } catch {}
@@ -177,7 +184,26 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
 
   return (
     <>
- 
+      {/* Background */}
+      <div
+        aria-hidden
+        className={
+          "pointer-events-none z-0 " +
+          "absolute inset-x-0 top-0 h-[940px] " +
+          "md:fixed md:inset-0 md:h-auto"
+        }
+      >
+        <Lottie animationData={lottieData} loop autoplay />
+      </div>
+
+      {/* Overlay blur */}
+      {rect.width > 0 && (
+        <div
+          className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100"
+          aria-hidden
+        />
+      )}
+
       <main className="relative z-20 w-full bg-transparent flex items-center justify-center min-h-[940px] xl:right-[150px] md:min-h-screen">
         <section className="w-full max-w-[390px] p-4">
           <div
