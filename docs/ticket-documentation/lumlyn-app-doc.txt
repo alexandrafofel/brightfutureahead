@@ -1,0 +1,49 @@
+ce am facut: 
+
+1. [Ops] Setup conturi & proiecte Supabase + PostHog
+	✅ Next.js app creat (apps/lumlyn-web)
+	✅ Supabase conectat, tabel profiles cu RLS ON
+	✅ Smoke test /api/ping → { ok: true }
+	✅ PostHog conectat, event app_loaded vizibil
+	✅ Membri invitați (Supabase + PostHog) → @Georgiana-Bianca Hrisoveni  te-am invitat pe adresa de yahoo
+	✅ README_setup.md + CHECKLIST.md în branch web-setup-supabase-posthog
+2. [BE] Definire schema DB (user, quiz response, email lead)
+	✅ Repo set up – Next.js + Supabase conectat
+	✅ Supabase CLI instalat + inițializat (supabase init)
+	✅ Migration creată (supabase migration new init_core_schema)
+	✅ Schema DB definită (users, quiz_responses, leads cu PK, FK, required fields)
+	✅ Applied migration + DB reset (a rulat, deși cu un warning la seed.sql)
+	✅ Verificat în Postgres că tabelele există
+	✅ Commit & push în branch feature
+3. [BE][Spike] Integrare API cu frontend (save quiz answers, save email)
+	documentatie in \docs\ticket-documentation\backend\spike-api-dor.md
+4.[BE] GDPR Consent Logging
+	✅ am impins branch-ul web-setup-supabase-posthog pe remote,
+	✅ am comfirmat că healthcheck-ul /api/ping răspunde,
+	✅ am creat Pull Request catre mail	
+5. [FE] GDPR Consent Checkbox UI
+✅ Am creat componenta GdprConsentCheckbox.tsx în src/components/
+    – folosește react-hook-form pentru validare și legare la formular
+    – conține checkbox + label cu textul „I agree with the Terms and Privacy”
+    – am adăugat link-uri către TERMS_URL și PRIVACY_URL
+
+✅ Am rezolvat erorile de build inițiale:
+    – htmlFor pus corect pe <label> în loc de <span>
+    – import Link adăugat din next/link
+    – am șters importurile nefolosite (ex: fonturi)
+
+✅ Am integrat componenta în EmailCaptureForm.tsx
+    – am definit tipurile FormValues cu email și gdprConsent
+    – am folosit useWatch pentru a urmări checkbox-ul și a controla butonul Submit
+    – am adăugat mesaj de hint „Please tick the box…” dacă nu e bifat
+
+✅ Am conectat logica cu PostHog tracking (fără PII)
+    – event gdpr_consent_given trimis când utilizatorul bifează checkbox-ul
+    – event lead_submitted logat la submit valid
+
+✅ Am testat vizual și am ajustat UI cu Tailwind CSS:
+    – poziționare cu flex items-start space-x-2
+    – styling pentru checkbox (mt-1) și label (text-sm text-gray-700)
+    – link-urile styled cu underline hover:text-blue-600
+
+✅ Am confirmat că formularul nu permite submit fără bifă și afișează mesaj de eroare corespunzător.

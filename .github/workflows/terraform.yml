@@ -1,12 +1,21 @@
-name: Terraform Init & Plan
+﻿name: Terraform Init & Plan
 
+ = @"
 on:
   push:
-    branches:
-      - main
-      - aws-pipeline-mvp
-
+    branches: [ main ]
+    paths:
+      - 'infra/**'
+      - '.github/workflows/terraform.yml'
+      - '**/*.tf'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'infra/**'
+      - '.github/workflows/terraform.yml'
+      - '**/*.tf'
 jobs:
+
   terraform:
     name: Terraform Init and Plan
     runs-on: ubuntu-latest
@@ -31,3 +40,4 @@ jobs:
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
+

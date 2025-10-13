@@ -1,0 +1,82 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36 Edg/140.0.0.0" version="28.1.1">
+  <diagram name="Page-1" id="RMo0GP2iNcT5rbBAbNg8">
+    <mxGraphModel dx="1800" dy="930" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-119" value="System: Lumlyn Web (Next.js on Vercel)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="830" y="514" width="789" height="278" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-120" value="User: Parent / Visitor" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1204" y="410" width="213" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-121" value="FE App (App Router + Tailwind)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1181" y="539" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-122" value="Local .md (content/legal)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="865" y="701" width="246" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-123" value="Browser localStorage (lumlyn_gdpr)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1161" y="689" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-124" value="Vercel CDN/Edge" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1654" y="701" width="182" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-125" value="PostHog (analytics)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1886" y="701" width="197" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-126" value="Supabase API (future: leads)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2132" y="689" width="260" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-127" value="Email Provider (future)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="2150" y="865" width="225" height="54" as="geometry" />
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-128" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="Xg8ZkN2bPlii9_FDcR8h-120" target="Xg8ZkN2bPlii9_FDcR8h-121">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-129" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0;exitY=0.89;entryX=0.5;entryY=0.01;rounded=0;" edge="1" parent="1" source="Xg8ZkN2bPlii9_FDcR8h-121" target="Xg8ZkN2bPlii9_FDcR8h-122">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="988" y="653" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-130" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.46;exitY=1;entryX=0.5;entryY=0.01;rounded=0;" edge="1" parent="1" source="Xg8ZkN2bPlii9_FDcR8h-121" target="Xg8ZkN2bPlii9_FDcR8h-123">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1291" y="653" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-131" value="" style="curved=1;startArrow=none;endArrow=block;exitX=0.5;exitY=1;entryX=0;entryY=0.22;rounded=0;" edge="1" parent="1" source="Xg8ZkN2bPlii9_FDcR8h-121" target="Xg8ZkN2bPlii9_FDcR8h-124">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1311" y="653" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-132" value="optional events" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.65;exitY=1;entryX=0;entryY=0.28;rounded=0;" edge="1" parent="1" source="Xg8ZkN2bPlii9_FDcR8h-121" target="Xg8ZkN2bPlii9_FDcR8h-125">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1388" y="653" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-133" value="future POST /lead" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.94;exitY=1;entryX=0;entryY=0.33;rounded=0;" edge="1" parent="1" source="Xg8ZkN2bPlii9_FDcR8h-121" target="Xg8ZkN2bPlii9_FDcR8h-126">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1532" y="653" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xg8ZkN2bPlii9_FDcR8h-134" value="sends" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=0.5;exitY=1.01;entryX=0.5;entryY=0;rounded=0;" edge="1" parent="1" source="Xg8ZkN2bPlii9_FDcR8h-126" target="Xg8ZkN2bPlii9_FDcR8h-127">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  /* ALB pur pe tot site-ul */
+  --background: rgba(249, 246, 255, 0.90);
+  --foreground: #344054;
+
+  --container-max: 1440px;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+
+  --text-body: 16px;
+  --text-body-line: 26px;
+  --text-h1: 24px;
+  --text-h1-line: 32px;
+}
+
+/* nu activăm dark mode; păstrăm aceeași valoare (alb) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background:  rgba(249, 246, 255, 0.90);
+    --foreground: #344054;
+  }
+}
+
+/* 🔹 Setări globale */
+html, body {
+  background:  rgba(249, 246, 255, 0.90);
+  color: var(--foreground);
+  min-height: 100dvh;
+}
+
+/* 🔹 Aplică fontul global (Nunito Sans din layout.tsx / Tailwind config) */
+body {
+  @apply font-sans;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

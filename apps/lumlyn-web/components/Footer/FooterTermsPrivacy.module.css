@@ -1,0 +1,15 @@
+.terms_privacy{
+display: inline-flex;
+padding: 10px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+
+color: #888;
+font-family: "Nunito Sans";
+font-size: 12px;
+font-style: normal;
+font-weight: 600;
+line-height: 18px; /* 150% */
+
+}
