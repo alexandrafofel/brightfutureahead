@@ -29,7 +29,8 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
-    "resend": "^4.8.0"
+    "resend": "^4.8.0",
+    "zod": "^4.1.12"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.10.2",

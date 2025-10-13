@@ -9,4 +9,10 @@ module.exports = {
     },
   },
   plugins: [require("@tailwindcss/typography")], // ✅ adăugat
+  safelist: [
+    "bg-black/40",
+    "bg-black/50",
+    "bg-black/60",
+    "backdrop-blur-[10px]",
+  ],
 };

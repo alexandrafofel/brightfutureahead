@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import OutroClient from "./OutroClient"; // <-- direct import din client component
+import OutroClient from "./OutroClient"; 
 
-export default function Page() {
+export default function Outro() {
   return (
     <Suspense fallback={null}>
       <OutroClient />

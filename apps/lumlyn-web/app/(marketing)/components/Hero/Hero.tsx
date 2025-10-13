@@ -12,9 +12,12 @@ import MobileMenu from "@/components/MobileMenu/MobileMenu";
 import * as React from "react";
 import LPQuizOverlay from "@/app/quiz/components/LPQuizOverlay";
 import dynamic from "next/dynamic";
-const MotionButton = motion(Button);
+import QuizRunPage from "@/app/quiz/run/QuizRunPage";
 
+const MotionButton = motion(Button);
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
+
+
 
 function usePrefersReducedMotion() {
   const [prefers, setPrefers] = React.useState(false);
@@ -168,67 +171,66 @@ export default function Hero(): JSX.Element {
           </motion.section>
 
           {/* Mobile */}
-<motion.section className="xl:hidden flex flex-col items-center justify-center gap-3 text-[#111]">
-  <motion.h1 className="w-[280px] font-bold text-lg leading-[34px]">
-    {hero.headlineMob}
-  </motion.h1>
+          <motion.section className="xl:hidden flex flex-col items-center justify-center gap-3 text-[#111]">
+            <motion.h1 className="w-[280px] font-bold text-lg leading-[34px]">
+              {hero.headlineMob}
+            </motion.h1>
 
-  <motion.p className="w-[334px] h-[55px] shrink-0 text-center text-base leading-[28px]">
-    {hero.subheadlineMob}
-  </motion.p>
+            <motion.p className="w-[334px] h-[55px] shrink-0 text-center text-base leading-[28px]">
+              {hero.subheadlineMob}
+            </motion.p>
 
-  {/* NU mai înfășura Button într-un <motion.button> */}
-  <motion.div>
-    <MotionButton
-      variant="primary"
-      className="!text-[xl] !font-semibold !leading-[24px] mt-5 gap-[10px]"
-      onClick={() => setOpen(true)}
-      layout
-      whileTap={{ scale: 0.98 }}
-      whileHover={{ y: -1 }}
-    >
-      {hero.ctaMob}
-    </MotionButton>
-  </motion.div>
+        {/* NU mai înfășura Button într-un <motion.button> */}
+            <motion.div>
+              <MotionButton
+                variant="primary"
+                className="!text-[xl] !font-semibold !leading-[24px] mt-5 gap-[10px]"
+                onClick={() => setOpen(true)}
+                layout
+                whileTap={{ scale: 0.98 }}
+                whileHover={{ y: -1 }}
+              >
+                {hero.ctaMob}
+              </MotionButton>
+            </motion.div>
 
-  <motion.article className="flex flex-col items-center">
-    <p className="w-[320px] h-[34px] mb-[10px] mt-[10px] text-center text-[#9747FF] text-lg font-bold leading-[34px]">
-      {hero.benefitsTitleMob}
-    </p>
-    <div className="flex flex-col items-center justify-center mb-[15px] leading-[28px] text-base font-normal text-center">
-      {hero.benefitsMob.map((benefit, index) => (
-        <p key={index} className="text-center">{benefit}</p>
-      ))}
-    </div>
+            <motion.article className="flex flex-col items-center">
+              <p className="w-[320px] h-[34px] mb-[10px] mt-[10px] text-center text-[#9747FF] text-lg font-bold leading-[34px]">
+                {hero.benefitsTitleMob}
+              </p>
+              <div className="flex flex-col items-center justify-center mb-[15px] leading-[28px] text-base font-normal text-center">
+                {hero.benefitsMob.map((benefit, index) => (
+                  <p key={index} className="text-center">{benefit}</p>
+                ))}
+              </div>
 
-    {/* typo fix: h-[55px] și shrink-0 */}
-    <p className="w-[277px] h-[55px] mb-[15px] shrink-0 text-[#6CA9F6] text-center text-base font-semibold leading-[28px]">
-      {hero.reassuranceMob}
-    </p>
-  </motion.article>
+              {/* typo fix: h-[55px] și shrink-0 */}
+              <p className="w-[277px] h-[55px] mb-[15px] shrink-0 text-[#6CA9F6] text-center text-base font-semibold leading-[28px]">
+                {hero.reassuranceMob}
+              </p>
+            </motion.article>
 
-  {/* Cardurile informative NU sunt interactive => nu folosi <button> ca wrapper */}
-  <motion.div aria-hidden="true">
-    <div className="w-[300px] h-[56px] shrink-0 justify-center items-center flex flex-col mb-3 rounded-[12px] bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9] shadow-[0_2px_4px_0_rgba(0,0,0,0.05)]">
-      <h2 className="text-[#111] text-sm font-bold leading-[14px]">
-        {hero.comingMob[0].tantrumsTitle}
-      </h2>
-      <p className="text-[#111] text-sm font-normal leading-[14px]">
-        {hero.comingMob[0].tantrumsDescr}
-      </p>
-    </div>
+            <motion.div aria-hidden="true">
+              <div className="w-[300px] h-[56px] shrink-0 justify-center items-center flex flex-col mb-3 rounded-[12px] bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9] shadow-[0_2px_4px_0_rgba(0,0,0,0.05)]">
+                <h2 className="text-[#111] text-sm font-bold leading-[14px]">
+                  {hero.comingMob[0].tantrumsTitle}
+                </h2>
+                <p className="text-[#111] text-sm font-normal leading-[14px]">
+                  {hero.comingMob[0].tantrumsDescr}
+                </p>
+              </div>
 
-    <div className="w-[300px] h-[56px] shrink-0 justify-center items-center flex flex-col mb-5 rounded-[12px] bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9] shadow-[0_2px_4px_0_rgba(0,0,0,0.05)]">
-      <h2 className="text-[#111] text-sm font-bold leading-[14px]">
-        {hero.comingMob[1].sleepTitle}
-      </h2>
-      <p className="text-[#111] text-sm font-normal leading-[14px]">
-        {hero.comingMob[1].sleepDescr}
-      </p>
-    </div>
-  </motion.div>
-</motion.section>
-
+              <div className="w-[300px] h-[56px] shrink-0 justify-center items-center flex flex-col mb-5 rounded-[12px] bg-gradient-to-r from-[#9E8CF6] to-[#C9BDF9] shadow-[0_2px_4px_0_rgba(0,0,0,0.05)]">
+                <h2 className="text-[#111] text-sm font-bold leading-[14px]">
+                  {hero.comingMob[1].sleepTitle}
+                </h2>
+                <p className="text-[#111] text-sm font-normal leading-[14px]">
+                  {hero.comingMob[1].sleepDescr}
+                </p>
+              </div>
+            </motion.div>
+          </motion.section>
+          
           <LPQuizOverlay open={open} onClose={() => setOpen(false)} />
         </main>
 
