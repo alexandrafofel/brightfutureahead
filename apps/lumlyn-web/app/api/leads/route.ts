@@ -35,7 +35,6 @@ export async function POST(req: Request) {
         subject,
         react: CalmTipEmail({
           tipText: tip_text,
-          tipId: String(tip_id),
           topic: String(topic),
           ageBand: String(age_band),
           userType: String(user_type),

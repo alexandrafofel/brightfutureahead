@@ -13,9 +13,23 @@ import { FooterLP } from "@/components/Quiz/FooterLP";
  * - Copy aliniat cu content-hierarchy (headline, subheadline).
  * - Tailwind corect (fără `hidden:xl`, fără dubluri `w-[...] w-[...]`).
  * - A11y: headings, descrieri, role=region, landmark clar.
+ *
+ * Această versiune acceptă opțional o funcție `onStart` care este transmisă
+ * mai departe către StartQuiz. Atunci când este prezentă, StartQuiz va apela
+ * această funcție în loc să folosească `router.push` pentru a naviga la ruta
+ * “/quiz/run”. Această schimbare este pur logică și nu afectează markup-ul
+ * sau stilurile vizibile.
  */
 
-export default function LPQuiz() {
+export type LPQuizProps = {
+  /**
+   * Funcție apelată când utilizatorul pornește quiz-ul.
+   * Dacă nu este definită, StartQuiz va naviga normal la ruta implicită.
+   */
+  onStart?: () => void;
+};
+
+export default function LPQuiz({ onStart }: LPQuizProps) {
   const headlineId = React.useId();
   const descId = React.useId();
 
@@ -27,15 +41,22 @@ export default function LPQuiz() {
       className="relative mx-auto xl:w-[720px] xl:h-[531px] w-[340px] h-[448px] rounded-2xl shadow-xl border bg-white/90 backdrop-blur p-6 xl:p-8"
       data-role="lp_quiz_card"
     >
-      
-      <div aria-label="Lumlyn-logo" /* Badge/logo (opțional): ascuns pe ecrane foarte mici */
-        className="mb-3 hidden xl:flex items-center gap-2">
-        <div className="h-8 w-8 rounded-full bg-[#C9BDF9]" aria-hidden> <Logo/> </div> 
+      {/* Badge/logo (opțional): ascuns pe ecrane foarte mici */}
+      <div
+        aria-label="Lumlyn-logo"
+        className="mb-3 hidden xl:flex items-center gap-2"
+      >
+        <div className="h-8 w-8 rounded-full bg-[#C9BDF9]" aria-hidden>
+          <Logo />
+        </div>
         <span className="text-sm text-black/60">Lumlyn · Early access</span>
       </div>
 
-      <header aria-label="header mobile"
-        className="max-w-[400px] w-full mx-auto text-center xl:text-left overflow-hidden">
+      {/* Header pentru mobile */}
+      <header
+        aria-label="header mobile"
+        className="max-w-[400px] w-full mx-auto text-center xl:text-left overflow-hidden"
+      >
         <h1
           id={headlineId}
           className="break-words text-2xl leading-[30px] font-bold text-[#111] xl:text-[28px] xl:leading-8"
@@ -51,8 +72,11 @@ export default function LPQuiz() {
         </p>
       </header>
 
-      <header aria-label="header desktop"
-        className="hidden xl:max-w-[720px] xl:w-full xl:mx-auto xl:text-center xl:text-left xl:overflow-hidden">
+      {/* Header pentru desktop */}
+      <header
+        aria-label="header desktop"
+        className="hidden xl:max-w-[720px] xl:w-full xl:mx-auto xl:text-center xl:text-left xl:overflow-hidden"
+      >
         <h1
           id={headlineId}
           className="break-words text-2xl leading-[30px] font-bold text-[#111] xl:text-[28px] xl:leading-8"
@@ -80,6 +104,7 @@ export default function LPQuiz() {
           className="w-full flex flex-col items-center"
           minutes={1}
           // Notă: StartQuiz gestionează singur legal/GDPR + dezactivează CTA până la bife
+          onStart={onStart}
         />
       </div>
 
@@ -87,7 +112,6 @@ export default function LPQuiz() {
       <div className="absolute bottom-[0px] left-0 w-full text-center xl:text-left text-xs leading-[18px] text-black/60">
         <FooterLP />
       </div>
-
     </section>
   );
 }
