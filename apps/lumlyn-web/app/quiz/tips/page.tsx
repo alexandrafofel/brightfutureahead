@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import CalmTipCard from "@/components/CalmTips/CalmTipCard";
+import CalmTipFrame from "@/components/CalmTips/CalmTipFrame";
 import InviteAFriend from "@/components/CalmTips/InviteAFriend";
 import getCalmTip from "@/functions/getCalmTip";
 
@@ -47,15 +47,7 @@ export default function TipsPage(): JSX.Element {
   return (
     <main className="relative flex items-center justify-center px-4 py-8">
       <div className="relative z-20 flex flex-col items-center">
-        {/* Cardul include și formularul + Footer în interior */}
-        <CalmTipCard
-          text={tipText}
-          headline="You’re in a calm space."
-          subheadline="Here’s what might bring more calm today."
-          meta={meta}
-          withEmailCapture
-          onInviteFriend={() => setInviteOpen(true)}
-        />
+        <CalmTipFrame tipText={tipText} meta={meta} postUrl="/api/leads" />
       </div>
 
       <InviteAFriend open={inviteOpen} onClose={() => setInviteOpen(false)} />

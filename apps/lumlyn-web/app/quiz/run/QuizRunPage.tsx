@@ -54,7 +54,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
   const [activeIdx, setActiveIdx] = React.useState(0);
 
   const isMobile = useMediaQuery("(max-width: 767.98px)");
-  const lottieData = (isMobile ? heroMob : heroDesk) as any;
+
 
   const frameRef = React.useRef<HTMLDivElement | null>(null);
   const [rect, setRect] = React.useState({ top: 0, left: 0, width: 0, height: 0 });
@@ -193,16 +193,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
           "md:fixed md:inset-0 md:h-auto"
         }
       >
-        <Lottie animationData={lottieData} loop autoplay />
       </div>
-
-      {/* Overlay blur */}
-      {rect.width > 0 && (
-        <div
-          className="fixed inset-0 z-10 pointer-events-none bg-black/50 backdrop-blur-[10px] opacity-100"
-          aria-hidden
-        />
-      )}
 
       <main className="relative z-20 w-full bg-transparent flex items-center justify-center min-h-[940px] xl:right-[150px] md:min-h-screen">
         <section className="w-full max-w-[390px] p-4">

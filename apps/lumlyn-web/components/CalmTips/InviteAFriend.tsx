@@ -66,7 +66,10 @@ export default function InviteAFriend({
 
   return (
     <div
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/50 backdrop-blur-[2px]"
+      className="
+      fixed inset-0 ] z-[60]
+      flex items-center justify-center bg-black/50 backdrop-blur-[2px]
+      "
       role="dialog"
       aria-modal="true"
       aria-labelledby="invite-title"
@@ -75,10 +78,10 @@ export default function InviteAFriend({
       <div
         ref={dialogRef}
         tabIndex={-1}
-        className="w-[92%] max-w-[400px] rounded-2xl bg-white p-5 outline-none shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
+        className="w-[300px] h-[200px] border-2 border-[#9747FF] rounded-2xl bg-white p-5 outline-none shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
       >
         <div className="flex items-start justify-between">
-          <h2 id="invite-title" className="text-[#1A1A1A] text-xl font-bold leading-[28px]">
+          <h2 id="invite-title" className="text-[#1A1A1A] ml-[30%] mt-[5%] text-base font-semibold leading-[24px]">
             Invite a friend
           </h2>
           <button
@@ -90,47 +93,34 @@ export default function InviteAFriend({
           </button>
         </div>
 
-        <p className="mt-2 text-[#111] text-base leading-[24px]">
-          Share this calm tip with someone who might need a gentle step today.
+        <p id="invite-question" className="text-[#1A1A1A] text-[14px] font-semibold leading-[24px]">
+            Want a friend to get their calm tip too?
         </p>
 
         <div className="mt-4">
-          <label htmlFor="invite-link" className="block text-sm font-semibold text-[#344054] mb-1">
-            Share link
-          </label>
-          <div className="flex gap-2">
-            <input
-              id="invite-link"
-              readOnly
-              value={url}
-              className="w-full h-10 rounded-[12px] border border-[#D0D5DD] bg-white px-3 text-sm text-[#1A1A1A] focus:outline-none focus:ring-2 focus:ring-[#9747FF]"
-            />
+          <div className="flex flex-col items-center justify-center gap-2">
             <Button
-              variant="secondary"
+              variant="primary"
               onClick={onCopy}
-              className="h-10 px-3 text-sm font-semibold"
+              className="!w-[175px] !h-[35px] border !border-[#4C90E6] text-sm font-semibold"
               aria-live="polite"
             >
-              {copied ? "Copied" : "Copy"}
+              {copied ? "Copied" : "Copy Link"}
             </Button>
+          
+            <Button
+              type="button"
+              variant="primary"
+              className="!w-[175px] !h-[35px] !bg-[#9747FF] hover:!bg-[#7e3df0] text-white border border-[#4C90E6] text-sm font-semibold"
+              onClick={() => {
+                (window as any)?.posthog?.capture?.("tips_invite_mailto");
+                window.location.href = mailto;
+              }}
+            >
+              Share via Email
+            </Button>
+
           </div>
-        </div>
-
-        <div className="mt-3">
-          <label className="block text-sm font-semibold text-[#344054] mb-1">Or send an email</label>
-          <a
-            href={mailto}
-            onClick={() => (window as any)?.posthog?.capture?.("tips_invite_mailto")}
-            className="inline-flex items-center justify-center rounded-[12px] border border-[#D0D5DD] h-10 px-4 text-sm font-semibold text-[#111] hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-[#9747FF] focus:ring-offset-2"
-          >
-            Share via Email
-          </a>
-        </div>
-
-        <div className="mt-5 flex justify-end gap-2">
-          <Button variant="secondary" onClick={onClose} className="h-10 px-4 text-sm font-semibold">
-            Close
-          </Button>
         </div>
       </div>
     </div>
