@@ -1,23 +1,23 @@
-// apps/lumlyn-web/app/quiz/tips/layout.tsx
-// Segment layout for /quiz/tips with SEO protection (noindex/nofollow).
-// Server Component (no "use client").
+import { Nunito_Sans } from "next/font/google";
+import "@/styles/globals.css";
+import { ToastProvider } from "@/components/ToastError/ToastContext"; // 👈 import nou
 
-import * as React from "react";
+const nunito = Nunito_Sans({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+  display: "swap",
+  variable: "--font-nunito-sans",
+});
 
-export const metadata = {
-  robots: {
-    index: false,
-    follow: false,
-    nocache: true,
-  },
-  // (opțional) dacă vrei și noarchive în meta standard:
-  // other: { "googlebot": "noindex,nofollow,noarchive" },
-};
-
-export default function TipsLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}): JSX.Element {
-  return <>{children}</>;
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={nunito.variable}>
+      {/* fortam fundalul alb indiferent de tema */}
+      <body className="min-h-dvh bg-white text-[#344054] relative">
+        <ToastProvider>
+          {children}
+        </ToastProvider>
+      </body>
+    </html>
+  );
 }

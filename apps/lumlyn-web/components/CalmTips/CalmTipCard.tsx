@@ -3,9 +3,9 @@
 import clsx from "clsx";
 import * as React from "react";
 import { motion } from "framer-motion";
-
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
 import EmailTips from "./EmailTips";
+
 
 export type CalmTipCardProps = {
   text: string;
