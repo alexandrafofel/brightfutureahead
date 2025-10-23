@@ -1,8 +1,10 @@
 "use client";
 
-import * as React from "react";
 import clsx from "clsx";
+import * as React from "react";
+
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
+
 import EmailTips from "./EmailTips";
 
 export type CalmTipCardProps = {
@@ -26,7 +28,6 @@ export default function CalmTipCard({
   meta = {},
   postUrl = "/api/leads",
   withEmailCapture = true,
-  onInviteFriend,
   onSuccess, // ✅
   "data-testid": testId = "calm-tip-card",
 }: CalmTipCardProps): JSX.Element {

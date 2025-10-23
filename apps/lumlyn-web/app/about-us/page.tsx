@@ -1,12 +1,14 @@
 
 "use client"
 
-import { Logo } from "@/components/Logo/Logo";
-import { about } from "../about-us/messages/en";
-import { Footer } from "@/components/Footer/Footer";
-import { AboutUsImage } from "./AboutUsImage";
 import { Button } from "@/components/Button/button";
+import { Footer } from "@/components/Footer/Footer";
+import { Logo } from "@/components/Logo/Logo";
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
+
+import { AboutUsImage } from "./AboutUsImage";
+import { about } from "../about-us/messages/en";
+
 
 export default function AboutUs(): JSX.Element{
   return(

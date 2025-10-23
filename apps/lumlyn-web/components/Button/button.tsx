@@ -1,9 +1,11 @@
 "use client";
-import * as React from "react";
-import clsx from "clsx";
 import { Slot } from "@radix-ui/react-slot";
-import { ButtonLoader } from "./button-loader";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
+import * as React from "react";
+
+import { ButtonLoader } from "./button-loader";
+
 
 type Variant = "primary" | "secondary" | "deactivated" | "loading" | "back" | "contact";
 

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { createPortal } from "react-dom";
+
 import LPQuizOverlay from "@/app/quiz/components/LPQuizOverlay";
 import QuizRunPage from "@/app/quiz/run/QuizRunPage";
 
@@ -55,7 +56,7 @@ export default function QuizFlowPortal({
         {phase === "overlay" ? (
           <LPQuizOverlay open onClose={onCloseOverlay} />
         ) : (
-          <QuizRunPage open onClose={onCloseQuiz} />
+          <QuizRunPage onClose={onCloseQuiz} />
         )}
       </div>
     </div>

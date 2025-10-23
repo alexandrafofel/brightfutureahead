@@ -1,27 +1,24 @@
 // app/quiz/run/QuizRunPage.tsx
 "use client";
 
-import * as React from "react";
 import { useRouter } from "next/navigation";
-import Lottie from "lottie-react";
+import * as React from "react";
 
 import { Button } from "@/components/Button/button";
 import { useMediaQuery } from "@/components/Quiz/useMediaQuery";
 
-import heroDesk from "@/assets/lottie/hero-bg.json";
-import heroMob from "@/assets/lottie/hero-bg-mob.json";
-
 // logica quiz existentă (păstrează importurile reale din proiectul tău)
-import { quizReducer, createInitialState } from "../lib/quizReducer";
-import { quizQuestions, midCheck, labels } from "../messages/quiz-options";
-
-// ✅ persist answers helpers (nou)
 import {
   ensureAnswers,
   mergeAnswer,
   saveAnswers,
   clearAnswers,
 } from "@/functions/persistQuizAnswers";
+
+import { quizReducer, createInitialState } from "../lib/quizReducer";
+import { quizQuestions, midCheck, labels } from "../messages/quiz-options";
+
+// ✅ persist answers helpers (nou)
 
 // definim tipul pentru rezultat
 export type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
@@ -35,6 +32,7 @@ export type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
 export type QuizRunPageProps = {
   onComplete?: (variant: ResultKey) => void;
   onBack?: () => void;
+  onClose?: () => void;
 };
 
 export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {}): JSX.Element {
@@ -161,7 +159,7 @@ export default function QuizRunPage({ onComplete, onBack }: QuizRunPageProps = {
 
   // logare la montare
   React.useEffect(() => {
-    // eslint-disable-next-line no-console
+     
     console.log("[Run] mounted");
   }, []);
 

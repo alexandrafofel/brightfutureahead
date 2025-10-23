@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
+import * as React from "react";
 
 // lottie-react doar pe client
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });

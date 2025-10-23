@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+
 import WorkInProgressPage from "@/components/work-in-progress/WorkInProgress";
 
 export default function NotFound(): JSX.Element {

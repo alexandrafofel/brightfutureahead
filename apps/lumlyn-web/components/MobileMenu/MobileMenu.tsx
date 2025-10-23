@@ -1,8 +1,8 @@
 'use client';
 
-import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import * as React from 'react';
 
 /**
  * MobileMenu – stable, accessible, no external deps

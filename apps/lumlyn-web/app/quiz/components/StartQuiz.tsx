@@ -1,13 +1,14 @@
 "use client";
 
-import * as React from "react";
 import { useRouter } from "next/navigation";
+import * as React from "react";
 import { useForm, FormProvider } from "react-hook-form";
+
+import { Button } from "@/components/Button/button";
 import CheckLegal, {
   type LegalValues,
   defaultLegalValues,
 } from "@/components/Quiz/CheckLegal";
-import { Button } from "@/components/Button/button";
 
 const LS_KEY_GDPR = "lumlyn_gdpr_processing";
 const LS_KEY_ACCEPT = "lumlyn_accept_legal";

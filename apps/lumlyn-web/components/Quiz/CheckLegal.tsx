@@ -4,6 +4,7 @@
 import Link from "next/link";
 import * as React from "react";
 import { useFormContext, FieldErrors } from "react-hook-form";
+
 import { Checkbox } from "@/components/Checkbox/Checkbox";
 
 export type LegalValues = {

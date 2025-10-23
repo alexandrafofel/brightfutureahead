@@ -1,5 +1,5 @@
-import { quizReducer, createInitialState } from '../quizReducer';
 import { quizQuestions, QUIZ_LENGTH } from '../../messages/quiz-options';
+import { quizReducer, createInitialState } from '../quizReducer';
 
 describe('quizReducer', () => {
   test('START -> intră direct în prima întrebare (index 0)', () => {

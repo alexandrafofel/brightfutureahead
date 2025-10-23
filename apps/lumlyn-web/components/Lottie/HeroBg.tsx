@@ -1,11 +1,12 @@
 "use client";
 
 import * as React from "react";
+
+import heroMobile from "@/assets/lottie/hero-bg-mob.json";
+import heroDesktop from "@/assets/lottie/hero-bg.json";
 import LottieBG from "@/components/Lottie/LottieBackgroundResponsive";
 
 // 👉 folosim direct JSON-urile tale din assets
-import heroDesktop from "@/assets/lottie/hero-bg.json";
-import heroMobile from "@/assets/lottie/hero-bg-mob.json";
 
 type Props = {
   /** px breakpoint pentru mobile (default 768) */

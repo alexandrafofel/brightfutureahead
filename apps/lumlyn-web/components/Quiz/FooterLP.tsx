@@ -1,5 +1,6 @@
 // components/Quiz/FooterLP.tsx
 import Link from "next/link";
+
 import { PRIVACY_URL, TERMS_URL } from "@/lib/policy";
 
 export function FooterLP() {

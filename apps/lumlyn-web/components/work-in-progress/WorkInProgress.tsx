@@ -1,13 +1,15 @@
 // app/(marketing)/components/work-in-progress/WorkInProgress.tsx
 "use client";
 
+import dynamic from "next/dynamic";
 import React from "react";
+
+import { Button } from "@/components/Button/button";
 import { Footer } from "@/components/Footer/Footer";
 import { Logo } from "@/components/Logo/Logo";
-import { inProgress } from "../work-in-progress/messeges/en";
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
-import { Button } from "@/components/Button/button";
-import dynamic from "next/dynamic";
+
+import { inProgress } from "../work-in-progress/messeges/en";
 
 // Lazy-load Lottie doar pe client
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });

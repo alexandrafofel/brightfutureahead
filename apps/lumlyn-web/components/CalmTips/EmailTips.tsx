@@ -1,7 +1,8 @@
 "use client";
 
-import * as React from "react";
 import clsx from "clsx";
+import * as React from "react";
+
 import { Button } from "@/components/Button/button";
 
 const EMAIL_RGX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;

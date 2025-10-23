@@ -1,18 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import * as React from "react";
+
+import LPQuizOverlay from "@/app/quiz/components/LPQuizOverlay";
+import QuizRunPage from "@/app/quiz/run/QuizRunPage";
 import { Button } from "@/components/Button/button";
-import { LogoStack } from "@/components/Logo/LogoStack";
-import { Logo } from "@/components/Logo/Logo";
 import { Footer } from "@/components/Footer/Footer";
+import { Logo } from "@/components/Logo/Logo";
+import { LogoStack } from "@/components/Logo/LogoStack";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";
+
 import { FeatureList } from "./FeatureList";
 import { hero } from "./messages/en";
-import MobileMenu from "@/components/MobileMenu/MobileMenu";
-import * as React from "react";
-import LPQuizOverlay from "@/app/quiz/components/LPQuizOverlay";
-import dynamic from "next/dynamic";
-import QuizRunPage from "@/app/quiz/run/QuizRunPage";
 
 const MotionButton = motion(Button);
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });

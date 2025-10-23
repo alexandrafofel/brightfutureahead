@@ -1,55 +1,94 @@
-﻿import { NextResponse } from "next/server";
-import { Resend } from "resend";
-import CalmTipEmail from "@/emails/CalmTipEmail";
+﻿// apps/lumlyn-web/app/api/leads/route.ts
+import { NextResponse } from 'next/server';
+import { Resend } from 'resend';
 
-export const runtime = "nodejs";
+export const runtime = 'nodejs'; // Resend folosește Node runtime, nu Edge
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-const EMAIL_RGX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+type LeadPayload = {
+  email: string;
+  name?: string;
+  firstName?: string;
+  lastName?: string;
+  source?: string;
+  message?: string;
+  utm?: Record<string, string>;
+};
 
-export async function POST(req: Request) {
+function getResend() {
+  const key = process.env.RESEND_API_KEY;
+  if (!key) return null;
   try {
-    const body = (await req.json().catch(() => ({}))) as any;
-
-    const email = (body.email ?? body.lead?.email ?? "").toString().trim().toLowerCase();
-    if (!email) return NextResponse.json({ ok: false, error: "Missing payload: email" }, { status: 400 });
-    if (!EMAIL_RGX.test(email)) return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
-
-    const tip_id = body.tip_id ?? body.lead?.tip_id ?? "unknown_tip";
-    const user_type = body.user_type ?? body.lead?.user_type ?? "clarity";
-    const topic = body.topic ?? body.lead?.topic ?? "sleep";
-    const age_band = body.age_band ?? body.lead?.age_band ?? "2-3";
-    const strategy = body.strategy ?? body.lead?.strategy ?? "unknown";
-    const source = body.source ?? body.lead?.source ?? "quiz_tips";
-    const tip_text = body.tip_text ?? body.lead?.tip_text ?? "A gentle step is on the way.";
-
-    const from = process.env.EMAIL_FROM || "Lumlyn <no-reply@lumlyn.com>";
-    const subject = "Your calm tip from Lumlyn";
-
-    if (!process.env.RESEND_API_KEY) {
-      console.warn("[/api/leads] RESEND_API_KEY missing — skipping send()");
-    } else {
-      const { error } = await resend.emails.send({
-        from,
-        to: email,
-        subject,
-        react: CalmTipEmail({
-          tipText: tip_text,
-          topic: String(topic),
-          ageBand: String(age_band),
-          userType: String(user_type),
-        }),
-      });
-      if (error) console.error("[/api/leads] resend error", error);
-    }
-
-    return NextResponse.json({ ok: true }, { status: 201 });
-  } catch (e) {
-    console.error("[/api/leads] server error", e);
-    return NextResponse.json({ ok: false, error: "Server error" }, { status: 500 });
+    return new Resend(key);
+  } catch {
+    return null;
   }
 }
 
-export async function GET() {
-  return NextResponse.json({ ok: true, route: "/api/leads" });
+function isValidEmail(email: unknown): email is string {
+  return typeof email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+export async function POST(req: Request) {
+  let payload: LeadPayload;
+
+  // 1) Parse body
+  try {
+    payload = await req.json();
+  } catch {
+    return NextResponse.json({ ok: false, error: 'Invalid JSON body' }, { status: 400 });
+  }
+
+  // 2) Validate minimal fields
+  if (!isValidEmail(payload.email)) {
+    return NextResponse.json({ ok: false, error: 'Valid email is required' }, { status: 422 });
+  }
+
+  // 3) (Optional) Persist lead în DB/analytics aici, dacă aveți integrare
+  // TODO: save lead
+
+  // 4) Email notification (safe + optional)
+  const resend = getResend();
+  if (!resend) {
+    // Fără cheie în dev/CI → nu blocăm build-ul/răspunsul
+    return NextResponse.json(
+      { ok: true, emailSent: false, reason: 'RESEND_API_KEY missing — skipped email send' },
+      { status: 202 }
+    );
+  }
+
+  const to = process.env.LEADS_NOTIFY_TO; // cui notificăm
+  const from = process.env.LEADS_FROM_EMAIL ?? 'Lumlyn <no-reply@lumlyn.com>';
+
+  if (!to) {
+    // Lipsă destinație: nu e critic; răspundem 202 ca „acceptat”
+    return NextResponse.json(
+      { ok: true, emailSent: false, reason: 'LEADS_NOTIFY_TO missing — skipped email send' },
+      { status: 202 }
+    );
+  }
+
+  try {
+    await resend.emails.send({
+      from,
+      to,
+      subject: `New lead: ${payload.email}`,
+      html: `
+        <h2>New lead captured</h2>
+        <p><b>Email:</b> ${payload.email}</p>
+        ${payload.name ? `<p><b>Name:</b> ${payload.name}</p>` : ''}
+        ${payload.firstName || payload.lastName ? `<p><b>First/Last:</b> ${payload.firstName ?? ''} ${payload.lastName ?? ''}</p>` : ''}
+        ${payload.source ? `<p><b>Source:</b> ${payload.source}</p>` : ''}
+        ${payload.message ? `<p><b>Message:</b> ${payload.message}</p>` : ''}
+        ${payload.utm ? `<pre>${JSON.stringify(payload.utm, null, 2)}</pre>` : ''}
+      `,
+    });
+
+    return NextResponse.json({ ok: true, emailSent: true }, { status: 200 });
+  } catch (err: any) {
+    // Nu dăm fail la request-ul UI dacă emailul eșuează
+    return NextResponse.json(
+      { ok: true, emailSent: false, reason: 'Resend send error', detail: String(err?.message ?? err) },
+      { status: 202 }
+    );
+  }
 }

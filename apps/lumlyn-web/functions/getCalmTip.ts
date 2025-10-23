@@ -5,6 +5,7 @@
 // - Aplică o ierarhie de fallback (menține topic + user_type, apoi age_band "2-3")
 // - Opțional persistă un snapshot în sessionStorage (pentru consistență la refresh)
 
+import calmTips from "@/data/calm_tips.json";
 import classifyUser, {
   ClassifiedResult,
   UserType,
@@ -12,7 +13,6 @@ import classifyUser, {
   AgeBand,
 } from "@/functions/classifyUser";
 // Dacă în tsconfig ai "resolveJsonModule": true, acest import merge direct.
-import calmTips from "@/data/calm_tips.json";
 
 export interface CalmTipEntry {
   tip_id: string;

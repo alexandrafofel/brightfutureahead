@@ -1,6 +1,8 @@
 import Image from "next/image";
-import styles from "./WorkInProgressImage.module.css";
+
 import {LogoStack} from "@/components/Logo/LogoStack";
+
+import styles from "./WorkInProgressImage.module.css";
 
 export function WorkInProgressImage() {
   return (

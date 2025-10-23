@@ -2,10 +2,13 @@
 "use client";
 
 import * as React from "react";
-import StartQuiz from "./StartQuiz";
+
 import { Logo } from "@/components/Logo/Logo";
-import { lpQuiz } from "../messages/en";
 import { FooterLP } from "@/components/Quiz/FooterLP";
+
+import StartQuiz from "./StartQuiz";
+import { lpQuiz } from "../messages/en";
+
 
 /**
  * LPQuiz – card-ul de “teaser” pentru quiz, folosit pe landing sau în overlay.

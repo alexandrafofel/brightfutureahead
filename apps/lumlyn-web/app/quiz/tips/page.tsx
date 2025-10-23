@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+
 import CalmTipFrame from "@/components/CalmTips/CalmTipFrame";
 import InviteAFriend from "@/components/CalmTips/InviteAFriend";
 import getCalmTip from "@/functions/getCalmTip";

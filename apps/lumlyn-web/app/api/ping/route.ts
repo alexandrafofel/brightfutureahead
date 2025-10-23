@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import { NextResponse } from 'next/server'
 
 // 🔑 forțează ruta să fie "dinamică", deci nu se generează în build
 export const dynamic = "force-dynamic";

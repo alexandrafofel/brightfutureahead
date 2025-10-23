@@ -1,11 +1,12 @@
 "use client";
 
-import * as React from "react";
 import clsx from "clsx";
+import * as React from "react";
+
 import { Button } from "@/components/Button/button";
 import InviteAFriend from "@/components/CalmTips/InviteAFriend";
-import { FooterLP } from "@/components/Quiz/FooterLP";
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
+import { FooterLP } from "@/components/Quiz/FooterLP";
 
 export type SuccessTipProps = {
   email: string;
@@ -37,17 +38,6 @@ export default function SuccessTip({
       data-testid={testId}
       aria-live="polite"
     >
-      <nav aria-label="desktop nav" className=""
-      >
-        <Button
-          variant="back"
-          className="
-            mt-[5%] mr-[80%] xl:left-[2px] right-[20%] justify-self-end lg:justify-self-start lg:col-start-1
-            shrink-0 focus-visible:ring-2 focus-visible:ring-slate-400"
-        >
-            <span className="sr-only">Back</span>
-            </Button>
-      </nav>
       <nav aria-label="Primary nav mobile" className="absolute top-[15px] right-[30px]">
         <MobileMenu />
       </nav> 
@@ -55,7 +45,7 @@ export default function SuccessTip({
       <div className="grid items-center justify-center xl:mt-[5%] mt-[50%]">
         <label
           htmlFor="email-success"
-          className="text-[#344054] xl:mr-[74%] mr-[80%] text-sm font-semibold"
+          className="text-[#344054] xl:mr-[92%] xl:mt-[10%] mr-[80%] text-sm font-semibold"
         >
           Email
         </label>

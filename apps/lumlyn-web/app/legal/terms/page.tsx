@@ -2,10 +2,12 @@
 
 import fs from "fs";
 import path from "path";
+
 import matter from "gray-matter";
 import { remark } from "remark";
-import html from "remark-html";
 import gfm from "remark-gfm";
+import html from "remark-html";
+
 import { LegalHeader } from "@/app/legal/LegalHeader";
 
 export default async function PrivacyOrTermsPage() {

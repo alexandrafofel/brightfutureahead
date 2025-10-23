@@ -1,13 +1,15 @@
 // app/quiz/outro/OutroClient.tsx
 "use client";
 
-import * as React from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import Lottie from "lottie-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import * as React from "react";
+
+import heroMob from "@/assets/lottie/hero-bg-mob.json";
+import heroDesk from "@/assets/lottie/hero-bg.json";
 import { Button } from "@/components/Button/button";
 import { useMediaQuery } from "@/components/Quiz/useMediaQuery";
-import heroDesk from "@/assets/lottie/hero-bg.json";
-import heroMob from "@/assets/lottie/hero-bg-mob.json";
+
 import * as OutroMsgs from "./messages/en";
 
 export type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
@@ -89,7 +91,7 @@ export default function OutroClient({ variant: propVariant, onGoToTips }: OutroC
 
   // logare la montare
   React.useEffect(() => {
-    // eslint-disable-next-line no-console
+     
     console.log("[Outro] mounted");
   }, []);
 

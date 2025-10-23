@@ -4,6 +4,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import * as React from "react";
+
 import LPQuiz from "./LPQuiz";
 
 // definim aici tipurile pentru a evita importurile circulare
@@ -56,7 +57,7 @@ export default function LPQuizOverlay({ open, onClose }: Props) {
   // log pentru a diagnostica modul curent în overlay
   React.useEffect(() => {
     if (open) {
-      // eslint-disable-next-line no-console
+       
       console.log(`[Overlay] mode=${mode}`);
     }
   }, [mode, open]);

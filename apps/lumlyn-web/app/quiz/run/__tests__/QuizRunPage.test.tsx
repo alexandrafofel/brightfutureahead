@@ -1,11 +1,11 @@
 // quiz/run/__tests__/QuizRunPage.test.tsx
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
+import React from 'react';
 
-import QuizRunPage from '../page';
 import { quizQuestions, midCheck } from '../../messages/quiz-options';
+import QuizRunPage from '../page';
 
 // 1) definește mockRouter înainte de jest.mock
 const mockRouter = {

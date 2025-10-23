@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
-import dynamic from "next/dynamic";
 import clsx from "clsx";
+import dynamic from "next/dynamic";
+import * as React from "react";
 
 // Importăm lottie-react doar pe client (evită erori SSR)
 const Lottie = dynamic(() => import("lottie-react"), { ssr: false });

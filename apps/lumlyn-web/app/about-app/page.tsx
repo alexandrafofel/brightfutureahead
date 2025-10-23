@@ -1,13 +1,15 @@
 
 "use client"
 
-import { Logo } from "@/components/Logo/Logo";
-import { app } from "../about-app/messages/en";
-import { Footer } from "@/components/Footer/Footer";
-import { AboutUsImage } from "../about-us/AboutUsImage";
 import { Button } from "@/components/Button/button";
+import { Footer } from "@/components/Footer/Footer";
+import { Logo } from "@/components/Logo/Logo";
 import {LogoCloud} from "@/components/Logo/LogoCloud";
 import MobileMenu from "@/components/MobileMenu/MobileMenu";
+
+import { app } from "../about-app/messages/en";
+import { AboutUsImage } from "../about-us/AboutUsImage";
+
 
 export default function AboutApp(): JSX.Element{
   return(

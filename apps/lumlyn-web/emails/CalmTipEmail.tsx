@@ -6,6 +6,9 @@ type CalmTipEmailProps = {
   tipText: string;
   /** Titlul din headerul emailului (opțional). */
   headline?: string;
+  topic?: string;
+  ageBand?:string;
+  userType?:string;
   /** URL pentru CTA (opțional). */
   ctaUrl?: string;
   /** Eticheta butonului (opțional). */

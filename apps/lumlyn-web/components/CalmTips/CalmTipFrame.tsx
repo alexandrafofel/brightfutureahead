@@ -1,8 +1,9 @@
 "use client";
 
 import * as React from "react";
-import CalmTipCard from "@/components/CalmTips/CalmTipCard";
+
 import SuccessTip from "@/app/quiz/tips/SuccessTips";
+import CalmTipCard from "@/components/CalmTips/CalmTipCard";
 
 export default function CalmTipFrame({
   tipText,

@@ -1,4 +1,5 @@
 ﻿import { render, screen, fireEvent } from "@testing-library/react";
+
 // Use a relative import instead of the `@` alias to avoid the need for
 // moduleNameMapper configuration in Jest.  The path climbs three levels
 // out of the test folder to reach the components directory.

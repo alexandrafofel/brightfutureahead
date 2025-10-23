@@ -1,6 +1,8 @@
 "use client";
-import { TERMS_URL, PRIVACY_URL, CONTACT_URL } from "@/lib/policy";
 import Link from "next/link";
+
+import { TERMS_URL, PRIVACY_URL, CONTACT_URL } from "@/lib/policy";
+
 import styles from "./FooterTermsPrivacy.module.css";
 
 

@@ -2,9 +2,11 @@
 
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+
 import { submitContact } from "@/app/contact/actions";
-import { SuccessToast } from "./SuccessToast";
+
 import { ErrorToast } from "./ErrorToast";
+import { SuccessToast } from "./SuccessToast";
 
 type FormValues = {
   name?: string;

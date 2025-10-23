@@ -7,8 +7,9 @@
  * - Offers a link back to restart the quiz.
  */
 
-import * as React from "react";
 import { useRouter } from "next/navigation";
+import * as React from "react";
+
 import { Button } from "@/components/Button/button";
 
 export default function TipsError({

@@ -1,25 +1,26 @@
 "use client";
 
-import * as React from "react";
 import { useRouter } from "next/navigation";
+import * as React from "react";
 
-import { Button } from "@/components/Button/button";
-import { useMediaQuery } from "@/components/Quiz/useMediaQuery";
-import MobileMenu from "@/components/MobileMenu/MobileMenu";  
-import heroDesk from "@/assets/lottie/hero-bg.json";
 import heroMob from "@/assets/lottie/hero-bg-mob.json";
+import heroDesk from "@/assets/lottie/hero-bg.json";
+import { Button } from "@/components/Button/button";
+import MobileMenu from "@/components/MobileMenu/MobileMenu";  
+import { useMediaQuery } from "@/components/Quiz/useMediaQuery";
 
 // logica quiz existentă (păstrează importurile reale din proiectul tău)
-import { quizReducer, createInitialState } from "../lib/quizReducer";
-import { quizQuestions, midCheck, labels } from "../messages/quiz-options";
-
-// ✅ persist answers helpers (nou)
 import {
   ensureAnswers,
   mergeAnswer,
   saveAnswers,
   clearAnswers,
 } from "@/functions/persistQuizAnswers";
+
+import { quizReducer, createInitialState } from "../lib/quizReducer";
+import { quizQuestions, midCheck, labels } from "../messages/quiz-options";
+
+// ✅ persist answers helpers (nou)
 
 type ResultKey = "baby" | "v1" | "v2" | "v3" | "v4";
 
